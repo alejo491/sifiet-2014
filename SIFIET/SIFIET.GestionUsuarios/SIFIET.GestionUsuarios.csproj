@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Aplicacion\FachadaRoles.cs" />
     <Compile Include="Aplicacion\FachadaUsuarios.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Datos\Modelo\GestionUsuariosEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,7 +80,9 @@
     <Folder Include="Dominio\Entidades\Parciales\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Datos\Modelo\GestionUsuariosEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GestionUsuariosEntities.Designer.cs</LastGenOutput>
