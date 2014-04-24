@@ -1,0 +1,73 @@
+﻿
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>SIFIET</title>
+	
+	<!-- Estilos -->
+	<link rel="stylesheet" href="@Url.Content("~/Content/normalize.css")">
+	<link rel="stylesheet" href="@Url.Content("~/Content/estilos.css")">
+
+	<!-- Scripts -->
+	<script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+	<script src="/Scripts/funciones.js"></script>
+
+</head>
+<body>
+	<header id="mainHeader">
+		<div class="contenedor">
+			<div class="top">
+				<div class="logo">
+					<a href="#"></a>
+				</div>
+				<div class="borde-redondo"></div>
+				<a href="#" class="titulo">SIFIET</a>
+				<div class="clear"></div>
+			</div>
+			<div class="bottom">
+				
+			</div>
+			<nav id="mainNav">
+				<!----><ul>
+					<li><span class="punta"></span>@Html.ActionLink("Inicio", "Index", "Home")</li>
+					<li><span class="punta"></span><a href="#">Item</a></li>
+				</ul>-->
+			</nav>
+		</div>
+	</header>
+
+	<section id="contenido">
+		<div class="contenedor">
+			<ul id="mainMenu">
+				<li class="first"><a href="/Home">Inicio</a></li>
+				<li><a href="/Usuarios">Gestion de Usuarios</a></li>
+			    <li><a href="/Roles">Gestion de Roles</a></li>
+			    <li><a href="/Asignaturas">Asignaturas</a></li>
+                <li><a href="/Programas">Programas</a></li>
+			</ul>
+			<p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
+            <div class="wrapper">
+                @RenderBody()
+            </div>
+            
+            <div class="clear">
+               
+            </div>
+		</div>
+	</section>
+
+	<footer id="mainFooter">
+		<div class="contenedor">
+			<div class="separador"></div>
+			<div class="pie">
+				<div class="decoracion izq"></div>
+				<div class="decoracion der"></div>
+				<div class="clear">
+
+                    
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
