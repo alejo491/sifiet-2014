@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SIFIET.Aplicacion;
+using SIFIET.GestionProgramas.Datos.Modelo;
 
 namespace SIFIET.Presentacion.Controllers
 {
@@ -16,80 +17,119 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Asignaturas/
         public ActionResult Index(string palabraBusqueda)
         {
-            return View();
+            ViewData["Mensaje"] = Session["varsession"];
+            ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
+            return View(FachadaSIFIET.ConsultarAsignaturas(palabraBusqueda));
         }
 
         //
         // GET: /Asignaturas/Details/5
-        public ActionResult VisualizarAsignatura(int id)
+        public ActionResult VisualizarAsignatura(decimal idAsignatura)
         {
-            return View();
+            return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
         }
 
         //
         // GET: /Asignaturas/Create
         public ActionResult RegistrarAsignatura()
         {
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+            var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
+            ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
             return View();
         }
 
         //
         // POST: /Asignaturas/Create
         [HttpPost]
-        public ActionResult RegistrarAsignatura(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrarAsignatura(ASIGNATURA oAsignatura)
         {
             try
             {
                 // TODO: Add insert logic here
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+                var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
+                ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
+                if (!ModelState.IsValid) return View(oAsignatura);
+                bool resultado = FachadaSIFIET.RegistrarAsignatura(oAsignatura);
+
+                if (resultado)
+                    TempData["ResultadoOperacion"] = "Asignatura Agregada con Exito";
+                else
+                    TempData["ResultadoOperacion"] = "Fallo al Agregoar la Asignatura";
+
+                ViewBag.Mensaje = "false";
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(oAsignatura);
             }
         }
 
         //
         // GET: /Asignaturas/Edit/5
-        public ActionResult ModificarAsignatura(int id)
+        public ActionResult ModificarAsignatura(decimal idAsignatura)
         {
-            return View();
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+            var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
+            ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
+            return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
         }
 
         //
         // POST: /Asignaturas/Edit/5
         [HttpPost]
-        public ActionResult ModificarAsignatura(int id, FormCollection collection)
+        public ActionResult ModificarAsignatura(ASIGNATURA oAsignatura)
         {
             try
             {
-                // TODO: Add update logic here
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+                var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
+                ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
 
+                if (!ModelState.IsValid) return View(oAsignatura);
+                var resultado = FachadaSIFIET.ModificarAsignatura(oAsignatura);
+
+                if (resultado)
+                    TempData["ResultadoOperacion"] = "Asignatura Modificada con Exito";
+                else
+                    TempData["ResultadoOperacion"] = "Fallo al Modificar la Asignatura";
+                ViewBag.Mensaje = "false";
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(oAsignatura);
             }
         }
 
         //
         // GET: /Asignaturas/Delete/5
-        public ActionResult EliminarAsignatura(int id)
+        public ActionResult EliminarAsignatura(decimal idAsignatura)
         {
-            return View();
+            return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
         }
 
         //
         // POST: /Asignaturas/Delete/5
-        [HttpPost]
-        public ActionResult EliminarAsignatura(int id, FormCollection collection)
+        [HttpPost, ActionName("EliminarAsignatura")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EliminarAsignaturaConfirmacion(decimal idAsignatura)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var resultado = FachadaSIFIET.EliminarAsignatura(idAsignatura);
+                if (resultado)
+                    TempData["ResultadoOperacion"] = "Asignatura Eliminada con Exito";
+                else
+                    TempData["ResultadoOperacion"] = "Fallo al Eliminar la Asignatura";
                 return RedirectToAction("Index");
             }
             catch

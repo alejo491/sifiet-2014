@@ -1,1 +1,116 @@
-﻿
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.ASIGNATURA
+
+@{
+    ViewBag.Title = "Editar Asignatura";
+}
+
+
+
+
+<div>
+
+    @using (Html.BeginForm("ModificarAsignatura", "Asignaturas"))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <fieldset>
+            <legend>Editar Asignatura</legend>
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.IDENTIFICADORASIGNATURA)
+            @Html.HiddenFor(model => model.EdicionOmodificacion, new { @Value = "modificacion" })
+
+            <div>
+                Codigo:
+                <div>
+                    @Html.EditorFor(model => model.CODIGOASIGNATURA)
+                    @Html.ValidationMessageFor(model => model.CODIGOASIGNATURA)
+                </div>
+            </div>
+
+            <div>
+                Plan de Estudios:
+                <div>
+                    @Html.DropDownListFor(model => model.IDENTIFICADORPLANESTUDIOS, ViewBag.ListaPlanesEstudios as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORPLANESTUDIOS)
+
+                </div>
+            </div>
+            <div>
+                Nombre :
+                <div>
+                    @Html.EditorFor(model => model.NOMBREASIGNATURA)
+                    @Html.ValidationMessageFor(model => model.NOMBREASIGNATURA)
+                </div>
+            </div>
+            Corequisitos :
+            <div>
+                @Html.ListBoxFor(model => model.ListaCorrequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.CORREQUISITOSASIGNATURA)
+
+            </div>
+            <div>
+                Prerequisitos :
+                <div>
+                    @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "true" })
+                    @Html.ValidationMessageFor(model => model.PREREQUISITOSASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Semestre :
+                <div>
+                    @Html.DropDownListFor(model => model.SEMESTREASIGNATURA, new SelectList(new short[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }))
+                    @Html.ValidationMessageFor(model => model.SEMESTREASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Creditos :
+                <div>
+                    @Html.DropDownListFor(model => model.CREDITOSASIGNATURA, new SelectList(new decimal[] { 2, 4, 6 }))
+                    @Html.ValidationMessageFor(model => model.CREDITOSASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Modalidad :
+                <div>
+                    @Html.DropDownListFor(model => model.MODALIDADASIGNATURA, new SelectList(new string[] { "Presencial", "Semi-presencial" }))
+                    @Html.ValidationMessageFor(model => model.MODALIDADASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Clasificacion :
+                <div>
+                    @Html.DropDownListFor(model => model.CLASIFICACIONASIGNATURA, new SelectList(new string[] { "1", "2", "3", "4", "6" }))
+                    @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Estado :
+                <div>
+                    Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo")
+                    Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
+                </div>
+            </div>
+            <div>
+                Descripcion :
+                <div>
+                    @Html.TextAreaFor(model => model.DESCRIPCIONASIGNATURA)
+                    @Html.ValidationMessageFor(model => model.DESCRIPCIONASIGNATURA)
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarAsignatura();" />
+                    <input type="submit" value="Cancelar" onclick="return confirmSalirAsignatura();" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

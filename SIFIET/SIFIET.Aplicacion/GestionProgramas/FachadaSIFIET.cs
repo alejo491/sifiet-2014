@@ -60,7 +60,7 @@ namespace SIFIET.Aplicacion
             return FachadaAsignaturas.ConsultarAsignaturas(palabraBusqueda);
         }
 
-        public static ASIGNATURA VisualizarAsignatura(string idAsignatura)
+        public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
         {
             return FachadaAsignaturas.VisualizarAsignatura(idAsignatura);
         }
@@ -76,7 +76,7 @@ namespace SIFIET.Aplicacion
             return FachadaAsignaturas.ModificarAsignatura(oAsignatura);
         }
 
-        public static bool EliminarAsignatura(string idAsignatura)
+        public static bool EliminarAsignatura(decimal idAsignatura)
         {
             return FachadaAsignaturas.EliminarAsignatura(idAsignatura);
         }
@@ -85,5 +85,14 @@ namespace SIFIET.Aplicacion
             return FachadaAsignaturas.CargarInformacion(archivo);
         }
         #endregion
+        //Metodos dirigidos a Fachada Plan Estudio en el dominio de Gestion de Programas
+        #region Metodos Gestion Plan Estudio
+
+        public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
+        {
+            return FachadaPlanesEstudio.ConsultarPlanesEstudios(palabraBusqueda);
+        }
+        #endregion
+
     }
 }

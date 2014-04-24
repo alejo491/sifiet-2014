@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionProgramas.Datos.Modelo;
+using SIFIET.GestionProgramas.Dominio.Servicios;
 
 namespace SIFIET.GestionProgramas.Aplicacion
 {
@@ -11,32 +12,32 @@ namespace SIFIET.GestionProgramas.Aplicacion
     {
         public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.ConsultarAsignaturas(palabraBusqueda);
         }
 
-        public static ASIGNATURA VisualizarAsignatura(string idAsignatura)
+        public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.VisualizarAsignatura(idAsignatura);
         }
 
         public static bool RegistrarAsignatura(ASIGNATURA oAsignatura)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.RegistrarAsignatura(oAsignatura);
         }
 
         public static bool ModificarAsignatura(ASIGNATURA oAsignatura)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.ModificarAsignatura(oAsignatura);
         }
 
-        public static bool EliminarAsignatura(string idAsignatura)
+        public static bool EliminarAsignatura(decimal idAsignatura)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.EliminarAsignatura(idAsignatura);
         }
 
         public static bool CargarInformacion(string archivo)
         {
-            throw new NotImplementedException();
+            return ServicioAsignaturas.CargarInformacion(archivo);
         }
     }
 }
