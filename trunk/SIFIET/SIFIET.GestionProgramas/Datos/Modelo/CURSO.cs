@@ -21,5 +21,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string ESTADOCURSO { get; set; }
     
         public virtual ASIGNATURA ASIGNATURA { get; set; }
+        public virtual DOCENTE DOCENTE { get; set; }
     }
 }

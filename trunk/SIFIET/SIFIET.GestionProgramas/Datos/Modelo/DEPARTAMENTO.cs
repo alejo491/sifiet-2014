@@ -16,6 +16,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
         public DEPARTAMENTO()
         {
+            this.DOCENTEs = new HashSet<DOCENTE>();
             this.GRUPO_INVESTIGACION = new HashSet<GRUPO_INVESTIGACION>();
             this.PROGRAMAs = new HashSet<PROGRAMA>();
         }
@@ -25,6 +26,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string ESTADODEPARTAMENTO { get; set; }
         public string CODIGODEPARTAMENTO { get; set; }
     
+        public virtual ICollection<DOCENTE> DOCENTEs { get; set; }
         public virtual ICollection<GRUPO_INVESTIGACION> GRUPO_INVESTIGACION { get; set; }
         public virtual ICollection<PROGRAMA> PROGRAMAs { get; set; }
     }
