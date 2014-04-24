@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ASIGNATURA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+          </Key>
+          <Property Name="IDENTIFICADORASIGNATURA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORPLANESTUDIOS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREASIGNATURA" Type="varchar2" MaxLength="120" />
+          <Property Name="CORREQUISITOSASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="PREREQUISITOSASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="SEMESTREASIGNATURA" Type="number" Precision="2" Scale="0" />
+          <Property Name="CREDITOSASIGNATURA" Type="number" Precision="38" Scale="0" />
+          <Property Name="MODALIDADASIGNATURA" Type="varchar2" MaxLength="50" />
+          <Property Name="CLASIFICACIONASIGNATURA" Type="varchar2" MaxLength="50" />
+          <Property Name="ESTADOASIGNATURA" Type="varchar2" MaxLength="30" />
+          <Property Name="DESCRIPCIONASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="CODIGOASIGNATURA" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="CURSO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCURSO" />
+          </Key>
+          <Property Name="IDENTIFICADORCURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORASIGNATURA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECURSO" Type="varchar2" MaxLength="120" />
+          <Property Name="ESTADOCURSO" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+          </Key>
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREDEPARTAMENTO" Type="varchar2" MaxLength="250" />
+          <Property Name="ESTADODEPARTAMENTO" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGODEPARTAMENTO" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTO_SOPORTA_PROGRAMA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+          </Key>
+          <Property Name="IDENTIFICADORPROGRAMA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FACULTAD">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFACULTAD" />
+          </Key>
+          <Property Name="IDENTIFICADORFACULTAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREFACULTAD" Type="varchar2" MaxLength="250" />
+          <Property Name="ESTADOFACULTAD" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGOFACULTAD" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="GRUPO_INVESTIGACION">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORGRUPOINVES" />
+          </Key>
+          <Property Name="IDENTIFICADORGRUPOINVES" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREGRUPOINVESTIGACION" Type="varchar2" MaxLength="250" />
+          <Property Name="ESTADOGRUPOINVESTIGACION" Type="varchar2" MaxLength="30" />
+          <Property Name="DESCRIPCIONGRUPOINVESTIGACION" Type="varchar2" MaxLength="250" />
+          <Property Name="CODIGOGRUPOINVESTIGACION" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="PLANESTUDIOS">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+          </Key>
+          <Property Name="IDENTIFICADORPLANESTUDIOS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORPROGRAMA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPLANESTUDIOS" Type="varchar2" MaxLength="120" />
+          <Property Name="DESCRIPCIONPLANESTUDIOS" Type="varchar2" MaxLength="120" />
+          <Property Name="FECHAINICIOPLANESTUDIOS" Type="varchar2" MaxLength="120" />
+          <Property Name="FECHAFINPLANESTUDIOS" Type="varchar2" MaxLength="120" />
+          <Property Name="ESTADOPLANESTUDIOS" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGOPLANESTUDIOS" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="PROGRAMA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+          </Key>
+          <Property Name="IDENTIFICADORPROGRAMA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPROGRAMA" Type="varchar2" MaxLength="120" />
+          <Property Name="DESCRIPCIONPROGRAMA" Type="varchar2" MaxLength="250" />
+          <Property Name="JORNADAPROGRAMA" Type="varchar2" MaxLength="30" />
+          <Property Name="DURACIONPROGRAMA" Type="number" Precision="38" Scale="0" />
+          <Property Name="ADMISIONPROGRAMA" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGOSNIESPROGRAMA" Type="number" Precision="38" Scale="0" />
+          <Property Name="PERIODODURACIONPROGRAMA" Type="varchar2" MaxLength="30" />
+          <Property Name="ESTADOPROGRAMA" Type="varchar2" MaxLength="30" />
+          <Property Name="MODALIDADPROGRAMA" Type="varchar2" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_ASIGNATU_ASIGNATUR_PLANESTU">
+          <End Role="PLANESTUDIOS" Type="Self.PLANESTUDIOS" Multiplicity="1" />
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANESTUDIOS">
+              <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+            </Principal>
+            <Dependent Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CURSO_CURSO_TIE_ASIGNATU">
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAM_DEPARTAME_DEPARTAM">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" Type="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTO_SOPORTA_PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAM_DEPARTAME_PROGRAMA">
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="1" />
+          <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" Type="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTO_SOPORTA_PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="GRUPO_INVESTIGACION">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLANESTU_PROGRAMA__PROGRAMA">
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="1" />
+          <End Role="PLANESTUDIOS" Type="Self.PLANESTUDIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Principal>
+            <Dependent Role="PLANESTUDIOS">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROGRAMA_FACULTAD__FACULTAD">
+          <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTAD">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Principal>
+            <Dependent Role="PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ASIGNATURA" EntityType="Self.ASIGNATURA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="CURSO" EntityType="Self.CURSO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="DEPARTAMENTO_SOPORTA_PROGRAMA" EntityType="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="FACULTAD" EntityType="Self.FACULTAD" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="GRUPO_INVESTIGACION" EntityType="Self.GRUPO_INVESTIGACION" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="PLANESTUDIOS" EntityType="Self.PLANESTUDIOS" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="PROGRAMA" EntityType="Self.PROGRAMA" Schema="GPA" store:Type="Tables" />
+          <AssociationSet Name="FK_ASIGNATU_ASIGNATUR_PLANESTU" Association="Self.FK_ASIGNATU_ASIGNATUR_PLANESTU">
+            <End Role="PLANESTUDIOS" EntitySet="PLANESTUDIOS" />
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CURSO_CURSO_TIE_ASIGNATU" Association="Self.FK_CURSO_CURSO_TIE_ASIGNATU">
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURA" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAM_DEPARTAME_DEPARTAM" Association="Self.FK_DEPARTAM_DEPARTAME_DEPARTAM">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" EntitySet="DEPARTAMENTO_SOPORTA_PROGRAMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAM_DEPARTAME_PROGRAMA" Association="Self.FK_DEPARTAM_DEPARTAME_PROGRAMA">
+            <End Role="PROGRAMA" EntitySet="PROGRAMA" />
+            <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" EntitySet="DEPARTAMENTO_SOPORTA_PROGRAMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM" Association="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANESTU_PROGRAMA__PROGRAMA" Association="Self.FK_PLANESTU_PROGRAMA__PROGRAMA">
+            <End Role="PROGRAMA" EntitySet="PROGRAMA" />
+            <End Role="PLANESTUDIOS" EntitySet="PLANESTUDIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROGRAMA_FACULTAD__FACULTAD" Association="Self.FK_PROGRAMA_FACULTAD__FACULTAD">
+            <End Role="FACULTAD" EntitySet="FACULTAD" />
+            <End Role="PROGRAMA" EntitySet="PROGRAMA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ASIGNATURA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+          </Key>
+          <Property Name="IDENTIFICADORASIGNATURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORPLANESTUDIOS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREASIGNATURA" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="CORREQUISITOSASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PREREQUISITOSASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SEMESTREASIGNATURA" Type="Int16" />
+          <Property Name="CREDITOSASIGNATURA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MODALIDADASIGNATURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLASIFICACIONASIGNATURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOASIGNATURA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOASIGNATURA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PLANESTUDIO" Relationship="Self.FK_ASIGNATU_ASIGNATUR_PLANESTU" FromRole="ASIGNATURA" ToRole="PLANESTUDIOS" />
+          <NavigationProperty Name="CURSOes" Relationship="Self.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="ASIGNATURA" ToRole="CURSO" />
+        </EntityType>
+        <EntityType Name="CURSO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCURSO" />
+          </Key>
+          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORASIGNATURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECURSO" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOCURSO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASIGNATURA" Relationship="Self.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="CURSO" ToRole="ASIGNATURA" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+          </Key>
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREDEPARTAMENTO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADODEPARTAMENTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGODEPARTAMENTO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GRUPO_INVESTIGACION" Relationship="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM" FromRole="DEPARTAMENTO" ToRole="GRUPO_INVESTIGACION" />
+          <NavigationProperty Name="PROGRAMAs" Relationship="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" FromRole="DEPARTAMENTO" ToRole="PROGRAMA" />
+        </EntityType>
+        <EntityType Name="FACULTAD">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFACULTAD" />
+          </Key>
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREFACULTAD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOFACULTAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOFACULTAD" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PROGRAMAs" Relationship="Self.FK_PROGRAMA_FACULTAD__FACULTAD" FromRole="FACULTAD" ToRole="PROGRAMA" />
+        </EntityType>
+        <EntityType Name="GRUPO_INVESTIGACION">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORGRUPOINVES" />
+          </Key>
+          <Property Name="IDENTIFICADORGRUPOINVES" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREGRUPOINVESTIGACION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOGRUPOINVESTIGACION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONGRUPOINVESTIGACION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOGRUPOINVESTIGACION" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM" FromRole="GRUPO_INVESTIGACION" ToRole="DEPARTAMENTO" />
+        </EntityType>
+        <EntityType Name="PLANESTUDIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+          </Key>
+          <Property Name="IDENTIFICADORPLANESTUDIOS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORPROGRAMA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPLANESTUDIOS" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONPLANESTUDIOS" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="FECHAINICIOPLANESTUDIOS" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="FECHAFINPLANESTUDIOS" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOPLANESTUDIOS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOPLANESTUDIOS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASIGNATURAs" Relationship="Self.FK_ASIGNATU_ASIGNATUR_PLANESTU" FromRole="PLANESTUDIOS" ToRole="ASIGNATURA" />
+          <NavigationProperty Name="PROGRAMA" Relationship="Self.FK_PLANESTU_PROGRAMA__PROGRAMA" FromRole="PLANESTUDIOS" ToRole="PROGRAMA" />
+        </EntityType>
+        <EntityType Name="PROGRAMA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+          </Key>
+          <Property Name="IDENTIFICADORPROGRAMA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPROGRAMA" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONPROGRAMA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="JORNADAPROGRAMA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DURACIONPROGRAMA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ADMISIONPROGRAMA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOSNIESPROGRAMA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PERIODODURACIONPROGRAMA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOPROGRAMA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MODALIDADPROGRAMA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACULTAD" Relationship="Self.FK_PROGRAMA_FACULTAD__FACULTAD" FromRole="PROGRAMA" ToRole="FACULTAD" />
+          <NavigationProperty Name="PLANESTUDIOS" Relationship="Self.FK_PLANESTU_PROGRAMA__PROGRAMA" FromRole="PROGRAMA" ToRole="PLANESTUDIOS" />
+          <NavigationProperty Name="DEPARTAMENTOes" Relationship="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" FromRole="PROGRAMA" ToRole="DEPARTAMENTO" />
+        </EntityType>
+        <Association Name="FK_ASIGNATU_ASIGNATUR_PLANESTU">
+          <End Role="PLANESTUDIOS" Type="Self.PLANESTUDIO" Multiplicity="1" />
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANESTUDIOS">
+              <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+            </Principal>
+            <Dependent Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORPLANESTUDIOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CURSO_CURSO_TIE_ASIGNATU">
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="GRUPO_INVESTIGACION">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROGRAMA_FACULTAD__FACULTAD">
+          <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTAD">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Principal>
+            <Dependent Role="PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLANESTU_PROGRAMA__PROGRAMA">
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="1" />
+          <End Role="PLANESTUDIOS" Type="Self.PLANESTUDIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROGRAMA">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Principal>
+            <Dependent Role="PLANESTUDIOS">
+              <PropertyRef Name="IDENTIFICADORPROGRAMA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DEPARTAMENTO_SOPORTA_PROGRAMA">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="*" />
+          <End Role="PROGRAMA" Type="Self.PROGRAMA" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GestionProgramasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ASIGNATURAs" EntityType="Self.ASIGNATURA" />
+          <EntitySet Name="CURSOes" EntityType="Self.CURSO" />
+          <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
+          <EntitySet Name="FACULTADs" EntityType="Self.FACULTAD" />
+          <EntitySet Name="GRUPO_INVESTIGACION" EntityType="Self.GRUPO_INVESTIGACION" />
+          <EntitySet Name="PLANESTUDIOS" EntityType="Self.PLANESTUDIO" />
+          <EntitySet Name="PROGRAMAs" EntityType="Self.PROGRAMA" />
+          <AssociationSet Name="FK_ASIGNATU_ASIGNATUR_PLANESTU" Association="Self.FK_ASIGNATU_ASIGNATUR_PLANESTU">
+            <End Role="PLANESTUDIOS" EntitySet="PLANESTUDIOS" />
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CURSO_CURSO_TIE_ASIGNATU" Association="Self.FK_CURSO_CURSO_TIE_ASIGNATU">
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURAs" />
+            <End Role="CURSO" EntitySet="CURSOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM" Association="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
+            <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROGRAMA_FACULTAD__FACULTAD" Association="Self.FK_PROGRAMA_FACULTAD__FACULTAD">
+            <End Role="FACULTAD" EntitySet="FACULTADs" />
+            <End Role="PROGRAMA" EntitySet="PROGRAMAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANESTU_PROGRAMA__PROGRAMA" Association="Self.FK_PLANESTU_PROGRAMA__PROGRAMA">
+            <End Role="PROGRAMA" EntitySet="PROGRAMAs" />
+            <End Role="PLANESTUDIOS" EntitySet="PLANESTUDIOS" />
+          </AssociationSet>
+          <AssociationSet Name="DEPARTAMENTO_SOPORTA_PROGRAMA" Association="Self.DEPARTAMENTO_SOPORTA_PROGRAMA">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
+            <End Role="PROGRAMA" EntitySet="PROGRAMAs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="GestionProgramasEntities">
+          <EntitySetMapping Name="ASIGNATURAs">
+            <EntityTypeMapping TypeName="Model.ASIGNATURA">
+              <MappingFragment StoreEntitySet="ASIGNATURA">
+                <ScalarProperty Name="IDENTIFICADORASIGNATURA" ColumnName="IDENTIFICADORASIGNATURA" />
+                <ScalarProperty Name="IDENTIFICADORPLANESTUDIOS" ColumnName="IDENTIFICADORPLANESTUDIOS" />
+                <ScalarProperty Name="NOMBREASIGNATURA" ColumnName="NOMBREASIGNATURA" />
+                <ScalarProperty Name="CORREQUISITOSASIGNATURA" ColumnName="CORREQUISITOSASIGNATURA" />
+                <ScalarProperty Name="PREREQUISITOSASIGNATURA" ColumnName="PREREQUISITOSASIGNATURA" />
+                <ScalarProperty Name="SEMESTREASIGNATURA" ColumnName="SEMESTREASIGNATURA" />
+                <ScalarProperty Name="CREDITOSASIGNATURA" ColumnName="CREDITOSASIGNATURA" />
+                <ScalarProperty Name="MODALIDADASIGNATURA" ColumnName="MODALIDADASIGNATURA" />
+                <ScalarProperty Name="CLASIFICACIONASIGNATURA" ColumnName="CLASIFICACIONASIGNATURA" />
+                <ScalarProperty Name="ESTADOASIGNATURA" ColumnName="ESTADOASIGNATURA" />
+                <ScalarProperty Name="DESCRIPCIONASIGNATURA" ColumnName="DESCRIPCIONASIGNATURA" />
+                <ScalarProperty Name="CODIGOASIGNATURA" ColumnName="CODIGOASIGNATURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURSOes">
+            <EntityTypeMapping TypeName="Model.CURSO">
+              <MappingFragment StoreEntitySet="CURSO">
+                <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
+                <ScalarProperty Name="IDENTIFICADORASIGNATURA" ColumnName="IDENTIFICADORASIGNATURA" />
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="NOMBRECURSO" ColumnName="NOMBRECURSO" />
+                <ScalarProperty Name="ESTADOCURSO" ColumnName="ESTADOCURSO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEPARTAMENTOes">
+            <EntityTypeMapping TypeName="Model.DEPARTAMENTO">
+              <MappingFragment StoreEntitySet="DEPARTAMENTO">
+                <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
+                <ScalarProperty Name="NOMBREDEPARTAMENTO" ColumnName="NOMBREDEPARTAMENTO" />
+                <ScalarProperty Name="ESTADODEPARTAMENTO" ColumnName="ESTADODEPARTAMENTO" />
+                <ScalarProperty Name="CODIGODEPARTAMENTO" ColumnName="CODIGODEPARTAMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACULTADs">
+            <EntityTypeMapping TypeName="Model.FACULTAD">
+              <MappingFragment StoreEntitySet="FACULTAD">
+                <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
+                <ScalarProperty Name="NOMBREFACULTAD" ColumnName="NOMBREFACULTAD" />
+                <ScalarProperty Name="ESTADOFACULTAD" ColumnName="ESTADOFACULTAD" />
+                <ScalarProperty Name="CODIGOFACULTAD" ColumnName="CODIGOFACULTAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GRUPO_INVESTIGACION">
+            <EntityTypeMapping TypeName="Model.GRUPO_INVESTIGACION">
+              <MappingFragment StoreEntitySet="GRUPO_INVESTIGACION">
+                <ScalarProperty Name="IDENTIFICADORGRUPOINVES" ColumnName="IDENTIFICADORGRUPOINVES" />
+                <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
+                <ScalarProperty Name="NOMBREGRUPOINVESTIGACION" ColumnName="NOMBREGRUPOINVESTIGACION" />
+                <ScalarProperty Name="ESTADOGRUPOINVESTIGACION" ColumnName="ESTADOGRUPOINVESTIGACION" />
+                <ScalarProperty Name="DESCRIPCIONGRUPOINVESTIGACION" ColumnName="DESCRIPCIONGRUPOINVESTIGACION" />
+                <ScalarProperty Name="CODIGOGRUPOINVESTIGACION" ColumnName="CODIGOGRUPOINVESTIGACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLANESTUDIOS">
+            <EntityTypeMapping TypeName="Model.PLANESTUDIO">
+              <MappingFragment StoreEntitySet="PLANESTUDIOS">
+                <ScalarProperty Name="IDENTIFICADORPLANESTUDIOS" ColumnName="IDENTIFICADORPLANESTUDIOS" />
+                <ScalarProperty Name="IDENTIFICADORPROGRAMA" ColumnName="IDENTIFICADORPROGRAMA" />
+                <ScalarProperty Name="NOMBREPLANESTUDIOS" ColumnName="NOMBREPLANESTUDIOS" />
+                <ScalarProperty Name="DESCRIPCIONPLANESTUDIOS" ColumnName="DESCRIPCIONPLANESTUDIOS" />
+                <ScalarProperty Name="FECHAINICIOPLANESTUDIOS" ColumnName="FECHAINICIOPLANESTUDIOS" />
+                <ScalarProperty Name="FECHAFINPLANESTUDIOS" ColumnName="FECHAFINPLANESTUDIOS" />
+                <ScalarProperty Name="ESTADOPLANESTUDIOS" ColumnName="ESTADOPLANESTUDIOS" />
+                <ScalarProperty Name="CODIGOPLANESTUDIOS" ColumnName="CODIGOPLANESTUDIOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROGRAMAs">
+            <EntityTypeMapping TypeName="Model.PROGRAMA">
+              <MappingFragment StoreEntitySet="PROGRAMA">
+                <ScalarProperty Name="IDENTIFICADORPROGRAMA" ColumnName="IDENTIFICADORPROGRAMA" />
+                <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
+                <ScalarProperty Name="NOMBREPROGRAMA" ColumnName="NOMBREPROGRAMA" />
+                <ScalarProperty Name="DESCRIPCIONPROGRAMA" ColumnName="DESCRIPCIONPROGRAMA" />
+                <ScalarProperty Name="JORNADAPROGRAMA" ColumnName="JORNADAPROGRAMA" />
+                <ScalarProperty Name="DURACIONPROGRAMA" ColumnName="DURACIONPROGRAMA" />
+                <ScalarProperty Name="ADMISIONPROGRAMA" ColumnName="ADMISIONPROGRAMA" />
+                <ScalarProperty Name="CODIGOSNIESPROGRAMA" ColumnName="CODIGOSNIESPROGRAMA" />
+                <ScalarProperty Name="PERIODODURACIONPROGRAMA" ColumnName="PERIODODURACIONPROGRAMA" />
+                <ScalarProperty Name="ESTADOPROGRAMA" ColumnName="ESTADOPROGRAMA" />
+                <ScalarProperty Name="MODALIDADPROGRAMA" ColumnName="MODALIDADPROGRAMA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DEPARTAMENTO_SOPORTA_PROGRAMA" TypeName="Model.DEPARTAMENTO_SOPORTA_PROGRAMA" StoreEntitySet="DEPARTAMENTO_SOPORTA_PROGRAMA">
+            <EndProperty Name="DEPARTAMENTO">
+              <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
+            </EndProperty>
+            <EndProperty Name="PROGRAMA">
+              <ScalarProperty Name="IDENTIFICADORPROGRAMA" ColumnName="IDENTIFICADORPROGRAMA" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PERMISOS">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPERMISO" />
+          </Key>
+          <Property Name="IDENTIFICADORPERMISO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPERMISO" Type="varchar2" MaxLength="50" />
+          <Property Name="ESTADOPERMISO" Type="varchar2" MaxLength="30" />
+          <Property Name="GESTIONARPERMISO" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORROL" />
+          </Key>
+          <Property Name="IDENTIFICADORROL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREROL" Type="char" MaxLength="15" />
+          <Property Name="DESCRIPCIONROL" Type="varchar2" MaxLength="250" />
+          <Property Name="ESTADOROL" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="ROL_TIENE_PERMISOS">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORROL" />
+            <PropertyRef Name="IDENTIFICADORPERMISO" />
+          </Key>
+          <Property Name="IDENTIFICADORROL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORPERMISO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONAUSUARIO" Type="varchar2" MaxLength="80" />
+          <Property Name="PASSWORDUSUARIO" Type="varchar2" MaxLength="15" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="varchar2" MaxLength="10" />
+          <Property Name="NOMBRESUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="APELLIDOSUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="ESTADOUSUARIO" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="USUARIO_TIENE_ROL">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORROL" />
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORROL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ROL_TIEN_ROL_TIENE_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="1" />
+          <End Role="ROL_TIENE_PERMISOS" Type="Self.ROL_TIENE_PERMISOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISOS">
+              <PropertyRef Name="IDENTIFICADORPERMISO" />
+            </Principal>
+            <Dependent Role="ROL_TIENE_PERMISOS">
+              <PropertyRef Name="IDENTIFICADORPERMISO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_TIEN_ROL_TIENE_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
+          <End Role="ROL_TIENE_PERMISOS" Type="Self.ROL_TIENE_PERMISOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="IDENTIFICADORROL" />
+            </Principal>
+            <Dependent Role="ROL_TIENE_PERMISOS">
+              <PropertyRef Name="IDENTIFICADORROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__USUARIO_T_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
+          <End Role="USUARIO_TIENE_ROL" Type="Self.USUARIO_TIENE_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="IDENTIFICADORROL" />
+            </Principal>
+            <Dependent Role="USUARIO_TIENE_ROL">
+              <PropertyRef Name="IDENTIFICADORROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO__USUARIO_T_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="USUARIO_TIENE_ROL" Type="Self.USUARIO_TIENE_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="USUARIO_TIENE_ROL">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISOS" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="ROL_TIENE_PERMISOS" EntityType="Self.ROL_TIENE_PERMISOS" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="USUARIO_TIENE_ROL" EntityType="Self.USUARIO_TIENE_ROL" Schema="GPA" store:Type="Tables" />
+          <AssociationSet Name="FK_ROL_TIEN_ROL_TIENE_PERMISOS" Association="Self.FK_ROL_TIEN_ROL_TIENE_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="ROL_TIENE_PERMISOS" EntitySet="ROL_TIENE_PERMISOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_TIEN_ROL_TIENE_ROL" Association="Self.FK_ROL_TIEN_ROL_TIENE_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="ROL_TIENE_PERMISOS" EntitySet="ROL_TIENE_PERMISOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__USUARIO_T_ROL" Association="Self.FK_USUARIO__USUARIO_T_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO_TIENE_ROL" EntitySet="USUARIO_TIENE_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO__USUARIO_T_USUARIO" Association="Self.FK_USUARIO__USUARIO_T_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="USUARIO_TIENE_ROL" EntitySet="USUARIO_TIENE_ROL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PERMISO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORPERMISO" />
+          </Key>
+          <Property Name="IDENTIFICADORPERMISO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPERMISO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOPERMISO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="GESTIONARPERMISO" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="ROLs" Relationship="Self.ROL_TIENE_PERMISOS" FromRole="PERMISOS" ToRole="ROL" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORROL" />
+          </Key>
+          <Property Name="IDENTIFICADORROL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREROL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="DESCRIPCIONROL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOROL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PERMISOS" Relationship="Self.ROL_TIENE_PERMISOS" FromRole="ROL" ToRole="PERMISOS" />
+          <NavigationProperty Name="USUARIOs" Relationship="Self.USUARIO_TIENE_ROL" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONAUSUARIO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDUSUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRESUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOSUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOUSUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLs" Relationship="Self.USUARIO_TIENE_ROL" FromRole="USUARIO" ToRole="ROL" />
+        </EntityType>
+        <Association Name="ROL_TIENE_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISO" Multiplicity="*" />
+          <End Role="ROL" Type="Self.ROL" Multiplicity="*" />
+        </Association>
+        <Association Name="USUARIO_TIENE_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="*" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GestionUsuariosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISO" />
+          <EntitySet Name="ROLs" EntityType="Self.ROL" />
+          <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
+          <AssociationSet Name="ROL_TIENE_PERMISOS" Association="Self.ROL_TIENE_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="ROL" EntitySet="ROLs" />
+          </AssociationSet>
+          <AssociationSet Name="USUARIO_TIENE_ROL" Association="Self.USUARIO_TIENE_ROL">
+            <End Role="ROL" EntitySet="ROLs" />
+            <End Role="USUARIO" EntitySet="USUARIOs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="GestionUsuariosEntities">
+          <EntitySetMapping Name="PERMISOS">
+            <EntityTypeMapping TypeName="Model.PERMISO">
+              <MappingFragment StoreEntitySet="PERMISOS">
+                <ScalarProperty Name="IDENTIFICADORPERMISO" ColumnName="IDENTIFICADORPERMISO" />
+                <ScalarProperty Name="NOMBREPERMISO" ColumnName="NOMBREPERMISO" />
+                <ScalarProperty Name="ESTADOPERMISO" ColumnName="ESTADOPERMISO" />
+                <ScalarProperty Name="GESTIONARPERMISO" ColumnName="GESTIONARPERMISO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLs">
+            <EntityTypeMapping TypeName="Model.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
+                <ScalarProperty Name="NOMBREROL" ColumnName="NOMBREROL" />
+                <ScalarProperty Name="DESCRIPCIONROL" ColumnName="DESCRIPCIONROL" />
+                <ScalarProperty Name="ESTADOROL" ColumnName="ESTADOROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOs">
+            <EntityTypeMapping TypeName="Model.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="EMAILINSTITUCIONAUSUARIO" ColumnName="EMAILINSTITUCIONAUSUARIO" />
+                <ScalarProperty Name="PASSWORDUSUARIO" ColumnName="PASSWORDUSUARIO" />
+                <ScalarProperty Name="IDENTIFICACIONUSUARIO" ColumnName="IDENTIFICACIONUSUARIO" />
+                <ScalarProperty Name="NOMBRESUSUARIO" ColumnName="NOMBRESUSUARIO" />
+                <ScalarProperty Name="APELLIDOSUSUARIO" ColumnName="APELLIDOSUSUARIO" />
+                <ScalarProperty Name="ESTADOUSUARIO" ColumnName="ESTADOUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ROL_TIENE_PERMISOS" TypeName="Model.ROL_TIENE_PERMISOS" StoreEntitySet="ROL_TIENE_PERMISOS">
+            <EndProperty Name="PERMISOS">
+              <ScalarProperty Name="IDENTIFICADORPERMISO" ColumnName="IDENTIFICADORPERMISO" />
+            </EndProperty>
+            <EndProperty Name="ROL">
+              <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="USUARIO_TIENE_ROL" TypeName="Model.USUARIO_TIENE_ROL" StoreEntitySet="USUARIO_TIENE_ROL">
+            <EndProperty Name="ROL">
+              <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
+            </EndProperty>
+            <EndProperty Name="USUARIO">
+              <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
