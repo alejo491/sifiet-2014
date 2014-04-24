@@ -1,1 +1,98 @@
-﻿
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.ASIGNATURA
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Visualizar</h2>
+
+<div>
+    <h4>Asignatura</h4>
+    <hr />
+    <dl>
+        <dt>
+            Codigo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CODIGOASIGNATURA)
+        </dd>
+
+        <dt>
+            Plan de Estudio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombrePlaneEstudio)
+        </dd>
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBREASIGNATURA)
+        </dd>
+
+        <dt>
+            Corequisitos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CORREQUISITOSASIGNATURA)
+        </dd>
+        <dt>
+            Prerequisitos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PREREQUISITOSASIGNATURA)
+        </dd>
+
+        <dt>
+            Semestre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SEMESTREASIGNATURA)
+        </dd>
+        <dt>
+            Creditos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CREDITOSASIGNATURA)
+        </dd>
+
+        <dt>
+            Modalidad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MODALIDADASIGNATURA)
+        </dd>
+        <dt>
+            Clasificacion
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CLASIFICACIONASIGNATURA)
+        </dd>
+        <dt>
+            Estado
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ESTADOASIGNATURA)
+        </dd>
+        <dt>
+            Descripcion
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCIONASIGNATURA)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = Model.IDENTIFICADORASIGNATURA }) |
+    @Html.ActionLink("Volver a la Lista", "Index")
+</p>
