@@ -12,17 +12,26 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     using System;
     using System.Collections.Generic;
     
-    public partial class GRUPO_INVESTIGACION
+    public partial class DOCENTE
     {
-        public decimal IDENTIFICADORGRUPOINVES { get; set; }
+        public DOCENTE()
+        {
+            this.CURSOes = new HashSet<CURSO>();
+            this.GRUPO_INVESTIGACION = new HashSet<GRUPO_INVESTIGACION>();
+        }
+    
         public decimal IDENTIFICADORUSUARIO { get; set; }
         public decimal IDENTIFICADORDEPARTAMENTO { get; set; }
-        public string NOMBREGRUPOINVESTIGACION { get; set; }
-        public string ESTADOGRUPOINVESTIGACION { get; set; }
-        public string DESCRIPCIONGRUPOINVESTIGACION { get; set; }
-        public string CODIGOGRUPOINVESTIGACION { get; set; }
+        public string EMAILINSTITUCIONALUSUARIO { get; set; }
+        public string PASSWORDUSUARIO { get; set; }
+        public string IDENTIFICACIONUSUARIO { get; set; }
+        public string NOMBRESUSUARIO { get; set; }
+        public string APELLIDOSUSUARIO { get; set; }
+        public string ESTADOUSUARIO { get; set; }
+        public string CODIGODOCENTE { get; set; }
     
+        public virtual ICollection<CURSO> CURSOes { get; set; }
         public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
-        public virtual DOCENTE DOCENTE { get; set; }
+        public virtual ICollection<GRUPO_INVESTIGACION> GRUPO_INVESTIGACION { get; set; }
     }
 }

@@ -60,6 +60,9 @@
     <Compile Include="Datos\Modelo\DEPARTAMENTO.cs">
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Datos\Modelo\DOCENTE.cs">
+      <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\Modelo\FACULTAD.cs">
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>
@@ -98,13 +101,11 @@
     <Folder Include="Dominio\Entidades\Parciales\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Datos\Modelo\GestionProgramasEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GestionProgramasEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Datos\Modelo\GestionProgramasEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GestionProgramasEntities.edmx</DependentUpon>

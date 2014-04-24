@@ -49,6 +49,20 @@
           <Property Name="IDENTIFICADORPROGRAMA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="DOCENTE">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="varchar2" MaxLength="80" />
+          <Property Name="PASSWORDUSUARIO" Type="varchar2" MaxLength="15" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="varchar2" MaxLength="10" />
+          <Property Name="NOMBRESUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="APELLIDOSUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="ESTADOUSUARIO" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGODOCENTE" Type="varchar2" MaxLength="10" />
+        </EntityType>
         <EntityType Name="FACULTAD">
           <Key>
             <PropertyRef Name="IDENTIFICADORFACULTAD" />
@@ -63,6 +77,7 @@
             <PropertyRef Name="IDENTIFICADORGRUPOINVES" />
           </Key>
           <Property Name="IDENTIFICADORGRUPOINVES" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORDEPARTAMENTO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBREGRUPOINVESTIGACION" Type="varchar2" MaxLength="250" />
           <Property Name="ESTADOGRUPOINVESTIGACION" Type="varchar2" MaxLength="30" />
@@ -122,6 +137,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CURSO_DOCENTE_D_DOCENTE">
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DEPARTAM_DEPARTAME_DEPARTAM">
           <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
           <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" Type="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Multiplicity="*" />
@@ -146,6 +173,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DOCENTE_DOCENTE_P_DEPARTAM">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM">
           <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
           <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
@@ -155,6 +194,18 @@
             </Principal>
             <Dependent Role="GRUPO_INVESTIGACION">
               <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPO_IN_DOCENTE">
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="1" />
+          <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="GRUPO_INVESTIGACION">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -187,6 +238,7 @@
           <EntitySet Name="CURSO" EntityType="Self.CURSO" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="DEPARTAMENTO_SOPORTA_PROGRAMA" EntityType="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="DOCENTE" EntityType="Self.DOCENTE" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="FACULTAD" EntityType="Self.FACULTAD" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="GRUPO_INVESTIGACION" EntityType="Self.GRUPO_INVESTIGACION" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="PLANESTUDIOS" EntityType="Self.PLANESTUDIOS" Schema="GPA" store:Type="Tables" />
@@ -199,6 +251,10 @@
             <End Role="ASIGNATURA" EntitySet="ASIGNATURA" />
             <End Role="CURSO" EntitySet="CURSO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CURSO_DOCENTE_D_DOCENTE" Association="Self.FK_CURSO_DOCENTE_D_DOCENTE">
+            <End Role="DOCENTE" EntitySet="DOCENTE" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
           <AssociationSet Name="FK_DEPARTAM_DEPARTAME_DEPARTAM" Association="Self.FK_DEPARTAM_DEPARTAME_DEPARTAM">
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
             <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" EntitySet="DEPARTAMENTO_SOPORTA_PROGRAMA" />
@@ -207,8 +263,16 @@
             <End Role="PROGRAMA" EntitySet="PROGRAMA" />
             <End Role="DEPARTAMENTO_SOPORTA_PROGRAMA" EntitySet="DEPARTAMENTO_SOPORTA_PROGRAMA" />
           </AssociationSet>
+          <AssociationSet Name="FK_DOCENTE_DOCENTE_P_DEPARTAM" Association="Self.FK_DOCENTE_DOCENTE_P_DEPARTAM">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="DOCENTE" EntitySet="DOCENTE" />
+          </AssociationSet>
           <AssociationSet Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM" Association="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM">
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPO_IN_DOCENTE" Association="Self.FK_GRUPO_IN_DOCENTE">
+            <End Role="DOCENTE" EntitySet="DOCENTE" />
             <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
           </AssociationSet>
           <AssociationSet Name="FK_PLANESTU_PROGRAMA__PROGRAMA" Association="Self.FK_PLANESTU_PROGRAMA__PROGRAMA">
@@ -254,6 +318,7 @@
           <Property Name="NOMBRECURSO" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOCURSO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASIGNATURA" Relationship="Self.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="CURSO" ToRole="ASIGNATURA" />
+          <NavigationProperty Name="DOCENTE" Relationship="Self.FK_CURSO_DOCENTE_D_DOCENTE" FromRole="CURSO" ToRole="DOCENTE" />
         </EntityType>
         <EntityType Name="DEPARTAMENTO">
           <Key>
@@ -263,8 +328,26 @@
           <Property Name="NOMBREDEPARTAMENTO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ESTADODEPARTAMENTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CODIGODEPARTAMENTO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOCENTEs" Relationship="Self.FK_DOCENTE_DOCENTE_P_DEPARTAM" FromRole="DEPARTAMENTO" ToRole="DOCENTE" />
           <NavigationProperty Name="GRUPO_INVESTIGACION" Relationship="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM" FromRole="DEPARTAMENTO" ToRole="GRUPO_INVESTIGACION" />
           <NavigationProperty Name="PROGRAMAs" Relationship="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" FromRole="DEPARTAMENTO" ToRole="PROGRAMA" />
+        </EntityType>
+        <EntityType Name="DOCENTE">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORDEPARTAMENTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDUSUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRESUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOSUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOUSUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGODOCENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CURSOes" Relationship="Self.FK_CURSO_DOCENTE_D_DOCENTE" FromRole="DOCENTE" ToRole="CURSO" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_DOCENTE_DOCENTE_P_DEPARTAM" FromRole="DOCENTE" ToRole="DEPARTAMENTO" />
+          <NavigationProperty Name="GRUPO_INVESTIGACION" Relationship="Self.FK_GRUPO_IN_DOCENTE" FromRole="DOCENTE" ToRole="GRUPO_INVESTIGACION" />
         </EntityType>
         <EntityType Name="FACULTAD">
           <Key>
@@ -281,12 +364,14 @@
             <PropertyRef Name="IDENTIFICADORGRUPOINVES" />
           </Key>
           <Property Name="IDENTIFICADORGRUPOINVES" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORDEPARTAMENTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBREGRUPOINVESTIGACION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOGRUPOINVESTIGACION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCIONGRUPOINVESTIGACION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CODIGOGRUPOINVESTIGACION" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM" FromRole="GRUPO_INVESTIGACION" ToRole="DEPARTAMENTO" />
+          <NavigationProperty Name="DOCENTE" Relationship="Self.FK_GRUPO_IN_DOCENTE" FromRole="GRUPO_INVESTIGACION" ToRole="DOCENTE" />
         </EntityType>
         <EntityType Name="PLANESTUDIO">
           <Key>
@@ -346,6 +431,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CURSO_DOCENTE_D_DOCENTE">
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCENTE_DOCENTE_P_DEPARTAM">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Principal>
+            <Dependent Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM">
           <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
           <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
@@ -355,6 +464,18 @@
             </Principal>
             <Dependent Role="GRUPO_INVESTIGACION">
               <PropertyRef Name="IDENTIFICADORDEPARTAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPO_IN_DOCENTE">
+          <End Role="DOCENTE" Type="Self.DOCENTE" Multiplicity="1" />
+          <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCENTE">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="GRUPO_INVESTIGACION">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -390,6 +511,7 @@
           <EntitySet Name="ASIGNATURAs" EntityType="Self.ASIGNATURA" />
           <EntitySet Name="CURSOes" EntityType="Self.CURSO" />
           <EntitySet Name="DEPARTAMENTOes" EntityType="Self.DEPARTAMENTO" />
+          <EntitySet Name="DOCENTEs" EntityType="Self.DOCENTE" />
           <EntitySet Name="FACULTADs" EntityType="Self.FACULTAD" />
           <EntitySet Name="GRUPO_INVESTIGACION" EntityType="Self.GRUPO_INVESTIGACION" />
           <EntitySet Name="PLANESTUDIOS" EntityType="Self.PLANESTUDIO" />
@@ -402,8 +524,20 @@
             <End Role="ASIGNATURA" EntitySet="ASIGNATURAs" />
             <End Role="CURSO" EntitySet="CURSOes" />
           </AssociationSet>
+          <AssociationSet Name="FK_CURSO_DOCENTE_D_DOCENTE" Association="Self.FK_CURSO_DOCENTE_D_DOCENTE">
+            <End Role="DOCENTE" EntitySet="DOCENTEs" />
+            <End Role="CURSO" EntitySet="CURSOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCENTE_DOCENTE_P_DEPARTAM" Association="Self.FK_DOCENTE_DOCENTE_P_DEPARTAM">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
+            <End Role="DOCENTE" EntitySet="DOCENTEs" />
+          </AssociationSet>
           <AssociationSet Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM" Association="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM">
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
+            <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPO_IN_DOCENTE" Association="Self.FK_GRUPO_IN_DOCENTE">
+            <End Role="DOCENTE" EntitySet="DOCENTEs" />
             <End Role="GRUPO_INVESTIGACION" EntitySet="GRUPO_INVESTIGACION" />
           </AssociationSet>
           <AssociationSet Name="FK_PROGRAMA_FACULTAD__FACULTAD" Association="Self.FK_PROGRAMA_FACULTAD__FACULTAD">
@@ -464,6 +598,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DOCENTEs">
+            <EntityTypeMapping TypeName="Model.DOCENTE">
+              <MappingFragment StoreEntitySet="DOCENTE">
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
+                <ScalarProperty Name="EMAILINSTITUCIONALUSUARIO" ColumnName="EMAILINSTITUCIONALUSUARIO" />
+                <ScalarProperty Name="PASSWORDUSUARIO" ColumnName="PASSWORDUSUARIO" />
+                <ScalarProperty Name="IDENTIFICACIONUSUARIO" ColumnName="IDENTIFICACIONUSUARIO" />
+                <ScalarProperty Name="NOMBRESUSUARIO" ColumnName="NOMBRESUSUARIO" />
+                <ScalarProperty Name="APELLIDOSUSUARIO" ColumnName="APELLIDOSUSUARIO" />
+                <ScalarProperty Name="ESTADOUSUARIO" ColumnName="ESTADOUSUARIO" />
+                <ScalarProperty Name="CODIGODOCENTE" ColumnName="CODIGODOCENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FACULTADs">
             <EntityTypeMapping TypeName="Model.FACULTAD">
               <MappingFragment StoreEntitySet="FACULTAD">
@@ -478,6 +627,7 @@
             <EntityTypeMapping TypeName="Model.GRUPO_INVESTIGACION">
               <MappingFragment StoreEntitySet="GRUPO_INVESTIGACION">
                 <ScalarProperty Name="IDENTIFICADORGRUPOINVES" ColumnName="IDENTIFICADORGRUPOINVES" />
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
                 <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
                 <ScalarProperty Name="NOMBREGRUPOINVESTIGACION" ColumnName="NOMBREGRUPOINVESTIGACION" />
                 <ScalarProperty Name="ESTADOGRUPOINVESTIGACION" ColumnName="ESTADOGRUPOINVESTIGACION" />

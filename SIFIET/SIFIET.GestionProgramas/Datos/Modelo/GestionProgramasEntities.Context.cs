@@ -28,6 +28,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public DbSet<ASIGNATURA> ASIGNATURAs { get; set; }
         public DbSet<CURSO> CURSOes { get; set; }
         public DbSet<DEPARTAMENTO> DEPARTAMENTOes { get; set; }
+        public DbSet<DOCENTE> DOCENTEs { get; set; }
         public DbSet<FACULTAD> FACULTADs { get; set; }
         public DbSet<GRUPO_INVESTIGACION> GRUPO_INVESTIGACION { get; set; }
         public DbSet<PLANESTUDIO> PLANESTUDIOS { get; set; }

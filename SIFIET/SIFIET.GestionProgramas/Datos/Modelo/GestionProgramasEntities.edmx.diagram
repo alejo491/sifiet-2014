@@ -4,17 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44dfc1b3c55d4a52bcd4ab7bee6b49e1" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.ASIGNATURA" Width="1.5" PointX="10.5" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CURSO" Width="1.5" PointX="12.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DEPARTAMENTO" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.FACULTAD" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.GRUPO_INVESTIGACION" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PLANESTUDIO" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PROGRAMA" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+      <Diagram DiagramId="c006fd35cb9d49f2b0d9ff635061bd7b" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ASIGNATURA" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CURSO" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DEPARTAMENTO" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DOCENTE" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FACULTAD" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GRUPO_INVESTIGACION" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PLANESTUDIO" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PROGRAMA" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_ASIGNATU_ASIGNATUR_PLANESTU" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CURSO_CURSO_TIE_ASIGNATU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CURSO_DOCENTE_D_DOCENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_DOCENTE_DOCENTE_P_DEPARTAM" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_GRUPO_IN_DEPARTAME_DEPARTAM" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_GRUPO_IN_DOCENTE" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_PROGRAMA_FACULTAD__FACULTAD" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_PLANESTU_PROGRAMA__PROGRAMA" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DEPARTAMENTO_SOPORTA_PROGRAMA" ManuallyRouted="false" />
