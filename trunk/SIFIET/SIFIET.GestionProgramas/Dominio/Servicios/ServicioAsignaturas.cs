@@ -12,8 +12,10 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
     {
         public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
+
           try
           {
+
                 var db = new GestionProgramasEntities();
                 List<ASIGNATURA> lista = new List<ASIGNATURA>();
                 if (String.IsNullOrEmpty(palabraBusqueda))
@@ -31,11 +33,13 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                 }
 
+
            }
            catch (Exception)
            {
                return new List<ASIGNATURA>();
            }
+
 
         }
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
