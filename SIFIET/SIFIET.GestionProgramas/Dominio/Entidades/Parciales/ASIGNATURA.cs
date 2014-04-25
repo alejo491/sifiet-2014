@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(CORREQUISITOSASIGNATURA))
                 {
-                    var corre = CORREQUISITOSASIGNATURA.Split('|');
+                    var corre = CORREQUISITOSASIGNATURA.Split(',');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -36,7 +36,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "|" + idAsignatura;
+                    CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "," + idAsignatura;
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(PREREQUISITOSASIGNATURA))
                 {
-                    var corre = PREREQUISITOSASIGNATURA.Split('|');
+                    var corre = PREREQUISITOSASIGNATURA.Split(',');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -59,7 +59,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "|" + idAsignatura;
+                    PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "," + idAsignatura;
                 }
             }
         }
@@ -78,8 +78,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
         public string CODIGOASIGNATURA { get; set; }
         [Required]
-        [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
-        public string IDENTIFICADORPLANESTUDIOS { get; set; }
+        public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
         [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]

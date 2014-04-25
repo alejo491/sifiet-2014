@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{89C40748-98A5-4C2E-90BD-76872A3AEE02}</ProjectGuid>
+    <ProjectGuid>{B573AE4B-A0DB-4B4C-AEA1-53DCAFC05C4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SIFIET.Presentacion.Tests</RootNamespace>
@@ -48,12 +48,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SIFIET.Presentacion\SIFIET.Presentacion.csproj">
-      <Project>{BF49D2E8-413F-4F26-BD8A-808CE37C01DE}</Project>
+      <Project>{8CC17CCA-9B5D-4324-867C-5B489F1D01FB}</Project>
       <Name>SIFIET.Presentacion</Name>
     </ProjectReference>
   </ItemGroup>

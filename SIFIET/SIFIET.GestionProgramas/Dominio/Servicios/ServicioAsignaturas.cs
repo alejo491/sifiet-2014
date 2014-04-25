@@ -12,8 +12,8 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
     {
         public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
-            try
-            {
+          try
+          {
                 var db = new GestionProgramasEntities();
                 List<ASIGNATURA> lista = new List<ASIGNATURA>();
                 if (String.IsNullOrEmpty(palabraBusqueda))
@@ -31,11 +31,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                 }
 
-            }
-            catch (Exception)
-            {
-                return new List<ASIGNATURA>();
-            }
+           }
+           catch (Exception)
+           {
+               return new List<ASIGNATURA>();
+           }
 
         }
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
@@ -89,7 +89,17 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var asignatura = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == asignaturaModificada.IDENTIFICADORASIGNATURA select asig).First();
                 {
                     asignatura.EdicionOmodificacion = "modificacion";
-                    asignatura = asignaturaModificada;
+                    asignatura.CODIGOASIGNATURA = asignaturaModificada.CODIGOASIGNATURA;
+                    asignatura.IDENTIFICADORPLANESTUDIOS = asignaturaModificada.IDENTIFICADORPLANESTUDIOS;
+                    asignatura.NOMBREASIGNATURA = asignaturaModificada.NOMBREASIGNATURA;
+                    asignatura.CORREQUISITOSASIGNATURA = asignaturaModificada.CORREQUISITOSASIGNATURA;
+                    asignatura.PREREQUISITOSASIGNATURA = asignaturaModificada.PREREQUISITOSASIGNATURA;
+                    asignatura.SEMESTREASIGNATURA = asignaturaModificada.SEMESTREASIGNATURA;
+                    asignatura.CREDITOSASIGNATURA = asignaturaModificada.CREDITOSASIGNATURA;
+                    asignatura.MODALIDADASIGNATURA = asignaturaModificada.MODALIDADASIGNATURA;
+                    asignatura.CLASIFICACIONASIGNATURA = asignaturaModificada.CLASIFICACIONASIGNATURA;
+                    asignatura.ESTADOASIGNATURA = asignaturaModificada.ESTADOASIGNATURA;
+                    asignatura.DESCRIPCIONASIGNATURA = asignaturaModificada.DESCRIPCIONASIGNATURA;
                     db.SaveChanges();
                 }
                 return true;
