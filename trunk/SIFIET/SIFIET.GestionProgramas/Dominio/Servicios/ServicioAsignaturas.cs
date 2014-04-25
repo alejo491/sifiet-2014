@@ -98,9 +98,19 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var asignatura = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == asignaturaModificada.IDENTIFICADORASIGNATURA select asig).First();
                 {
                     asignatura.EdicionOmodificacion = "modificacion";
-                    asignatura = asignaturaModificada;
-                    db.SaveChanges();
+                    asignatura.CODIGOASIGNATURA = asignaturaModificada.CODIGOASIGNATURA;
+                    asignatura.IDENTIFICADORPLANESTUDIOS = asignaturaModificada.IDENTIFICADORPLANESTUDIOS;
+                    asignatura.NOMBREASIGNATURA = asignaturaModificada.NOMBREASIGNATURA;
+                    asignatura.CORREQUISITOSASIGNATURA = asignaturaModificada.CORREQUISITOSASIGNATURA;
+                    asignatura.PREREQUISITOSASIGNATURA = asignaturaModificada.PREREQUISITOSASIGNATURA;
+                    asignatura.SEMESTREASIGNATURA = asignaturaModificada.SEMESTREASIGNATURA;
+                    asignatura.CREDITOSASIGNATURA = asignaturaModificada.CREDITOSASIGNATURA;
+                    asignatura.MODALIDADASIGNATURA = asignaturaModificada.MODALIDADASIGNATURA;
+                    asignatura.CLASIFICACIONASIGNATURA = asignaturaModificada.CLASIFICACIONASIGNATURA;
+                    asignatura.ESTADOASIGNATURA = asignaturaModificada.ESTADOASIGNATURA;
+                    asignatura.DESCRIPCIONASIGNATURA = asignaturaModificada.DESCRIPCIONASIGNATURA;
                 }
+                db.SaveChanges();
                 return true;
 
             }

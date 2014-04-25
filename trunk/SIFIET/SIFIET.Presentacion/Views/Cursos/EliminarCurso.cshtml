@@ -1,0 +1,55 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.CURSO
+
+@{
+    ViewBag.Title = "Eliminar Curso";
+
+}
+
+<h2>Eliminar Curso</h2>
+
+<div>
+    <h4>Curso</h4>
+    <hr />
+    <dl>
+        <dt>
+            Identificador Curso
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICADORCURSO)
+        </dd>
+
+        <dt>
+            Nombre Curso
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRECURSO)
+        </dd>
+        <dt>
+            Asignatura
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreAsignatura)
+        </dd>
+
+        <dt>
+            Docente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreDocente)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <input type="submit" value="Eliminar" onclick="return confirmarEliminarCurso();" /> |
+            <input type="submit" value="Cancelar" onclick="return confirmSalirCurso();" />
+        </div>
+    }
+</div>
+

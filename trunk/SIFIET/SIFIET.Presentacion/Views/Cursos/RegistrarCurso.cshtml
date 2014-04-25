@@ -1,0 +1,67 @@
+﻿@using System.Web.UI.WebControls
+@model SIFIET.GestionProgramas.Datos.Modelo.CURSO
+
+@{
+    ViewBag.Title = "Nuevo Curso";
+}
+
+
+<div>
+
+    @using (Html.BeginForm("RegistrarCurso", "Cursos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        Html.EnableClientValidation();
+
+
+        <fieldset>
+            <legend>Nueva Curso</legend>
+
+            @Html.ValidationSummary(true)
+            
+            <div>
+                Nombre :
+                <div>
+                    @Html.EditorFor(model => model.NOMBRECURSO)
+                    @Html.ValidationMessageFor(model => model.NOMBRECURSO)
+                </div>
+            </div>
+           
+            <div>
+                Asignatura :
+                <div>
+                    @Html.DropDownListFor(model => model.IDENTIFICADORASIGNATURA, ViewBag.ListaAsignaturas as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORASIGNATURA)
+
+                </div>
+            </div>
+            <div>
+                Docente :
+                <div>
+                    @Html.EditorFor(model => model.IDENTIFICADORUSUARIO)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORUSUARIO)
+
+                </div>
+            </div>
+            <div>
+                Estado :
+                <div>
+                    Activo @Html.RadioButtonFor(model => model.ESTADOCURSO, "Activo")
+                    Inactivo @Html.RadioButtonFor(model => model.ESTADOCURSO, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOCURSO)
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarCurso();" />
+                    <input type="submit" value="Cancelar" onclick="return confirmSalirCurso();" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
