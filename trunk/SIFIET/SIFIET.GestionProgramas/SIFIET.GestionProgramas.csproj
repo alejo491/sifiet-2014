@@ -90,6 +90,7 @@
     <Compile Include="Datos\Modelo\PROGRAMA.cs">
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\ASIGNATURA.cs" />
     <Compile Include="Dominio\Servicios\ServicioAsignaturas.cs" />
     <Compile Include="Dominio\Servicios\ServicioCursos.cs" />
     <Compile Include="Dominio\Servicios\ServicioGInvestigacion.cs" />
@@ -97,9 +98,7 @@
     <Compile Include="Dominio\Servicios\ServicioProgramas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dominio\Entidades\Parciales\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.Config" />
     <EntityDeploy Include="Datos\Modelo\GestionProgramasEntities.edmx">

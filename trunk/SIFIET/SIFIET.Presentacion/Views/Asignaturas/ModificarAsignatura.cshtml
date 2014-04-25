@@ -33,7 +33,7 @@
             <div>
                 Plan de Estudios:
                 <div>
-                    @Html.DropDownListFor(model => model.IDENTIFICADORPLANESTUDIOS, ViewBag.ListaPlanesEstudios as SelectList)
+                    @Html.DropDownListFor(model => model.IDENTIFICADORPLANESTUDIOS, ViewBag.ListaPlanesEstudios as SelectList,Model.IDENTIFICADORPLANESTUDIOS)
                     @Html.ValidationMessageFor(model => model.IDENTIFICADORPLANESTUDIOS)
 
                 </div>
@@ -47,50 +47,50 @@
             </div>
             Corequisitos :
             <div>
-                @Html.ListBoxFor(model => model.ListaCorrequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "multiple" })
+                @Html.ListBoxFor(model => model.ListaCorrequisitos, ViewBag.ListaAsignaturasCorrequisitos as MultiSelectList, new { multiple = "multiple" })
                 @Html.ValidationMessageFor(model => model.CORREQUISITOSASIGNATURA)
 
             </div>
             <div>
                 Prerequisitos :
                 <div>
-                    @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "true" })
+                    @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturasPrerequisitos as MultiSelectList, new { multiple = "true" })
                     @Html.ValidationMessageFor(model => model.PREREQUISITOSASIGNATURA)
                 </div>
             </div>
             <div>
                 Semestre :
                 <div>
-                    @Html.DropDownListFor(model => model.SEMESTREASIGNATURA, new SelectList(new short[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }))
+                    @Html.DropDownListFor(model => model.SEMESTREASIGNATURA, new SelectList(new short[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }),Model.SEMESTREASIGNATURA)
                     @Html.ValidationMessageFor(model => model.SEMESTREASIGNATURA)
                 </div>
             </div>
             <div>
                 Creditos :
                 <div>
-                    @Html.DropDownListFor(model => model.CREDITOSASIGNATURA, new SelectList(new decimal[] { 2, 4, 6 }))
+                    @Html.DropDownListFor(model => model.CREDITOSASIGNATURA, new SelectList(new decimal[] { 2, 4, 6 }),Model.CREDITOSASIGNATURA)
                     @Html.ValidationMessageFor(model => model.CREDITOSASIGNATURA)
                 </div>
             </div>
             <div>
                 Modalidad :
                 <div>
-                    @Html.DropDownListFor(model => model.MODALIDADASIGNATURA, new SelectList(new string[] { "Presencial", "Semi-presencial" }))
+                    @Html.DropDownListFor(model => model.MODALIDADASIGNATURA, new SelectList(new string[] { "Presencial", "Semi-presencial" }),Model.MODALIDADASIGNATURA)
                     @Html.ValidationMessageFor(model => model.MODALIDADASIGNATURA)
                 </div>
             </div>
             <div>
                 Clasificacion :
                 <div>
-                    @Html.DropDownListFor(model => model.CLASIFICACIONASIGNATURA, new SelectList(new string[] { "1", "2", "3", "4", "6" }))
+                    @Html.DropDownListFor(model => model.CLASIFICACIONASIGNATURA, new SelectList(new string[] { "1", "2", "3", "4", "6" }),Model.CLASIFICACIONASIGNATURA)
                     @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
                 </div>
             </div>
             <div>
                 Estado :
                 <div>
-                    Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo")
-                    Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo")
+                    Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo",Model.ESTADOASIGNATURA)
+                    Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo",Model.ESTADOASIGNATURA)
                     @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
                 </div>
             </div>

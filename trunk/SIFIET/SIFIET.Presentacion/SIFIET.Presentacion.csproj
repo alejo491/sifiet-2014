@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BF49D2E8-413F-4F26-BD8A-808CE37C01DE}</ProjectGuid>
+    <ProjectGuid>{8CC17CCA-9B5D-4324-867C-5B489F1D01FB}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -38,10 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -120,37 +116,7 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\funciones.js" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Scripts\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.5.1.js" />
-    <Content Include="Scripts\jquery-1.5.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\modernizr-1.7.js" />
-    <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -166,35 +132,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="packages.config" />
     <Content Include="Content\fonts\voegur\vegur-regular-webfont.eot" />
     <Content Include="Content\fonts\voegur\vegur-regular-webfont.ttf" />
     <Content Include="Content\fonts\voegur\vegur-regular-webfont.woff" />
-    <Content Include="Views\Programas\RegistrarPrograma.cshtml" />
-    <Content Include="Views\Programas\CargarDatos.cshtml" />
-    <Content Include="Views\Programas\ModificarPrograma.cshtml" />
-    <Content Include="Views\Programas\EliminarPrograma.cshtml" />
-    <Content Include="Views\Programas\Index.cshtml" />
-    <Content Include="Views\Programas\VisualizarPrograma.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Asignaturas\CargarArchivo.cshtml" />
     <Content Include="Views\Asignaturas\CargarInformacion.cshtml" />
-    <Content Include="Views\Asignaturas\Index.cshtml" />
     <Content Include="Views\Asignaturas\EliminarAsignatura.cshtml" />
+    <Content Include="Views\Asignaturas\Index.cshtml" />
     <Content Include="Views\Asignaturas\ModificarAsignatura.cshtml" />
     <Content Include="Views\Asignaturas\RegistrarAsignatura.cshtml" />
     <Content Include="Views\Asignaturas\VisualizarAsignatura.cshtml" />
-    <Content Include="Views\Usuarios\RegistrarUsuario.cshtml" />
-    <Content Include="Views\Usuarios\EliminarUsuario.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Usuarios\ModificarUsuario.cshtml" />
-    <Content Include="Views\Usuarios\VisualizarUsuario.cshtml" />
-    <Content Include="Views\Roles\RegistrarRol.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Programas\CargarDatos.cshtml" />
+    <Content Include="Views\Programas\EliminarPrograma.cshtml" />
+    <Content Include="Views\Programas\Index.cshtml" />
+    <Content Include="Views\Programas\ModificarPrograma.cshtml" />
+    <Content Include="Views\Programas\RegistrarPrograma.cshtml" />
+    <Content Include="Views\Programas\VisualizarPrograma.cshtml" />
     <Content Include="Views\Roles\EliminarRol.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\ModificarRol.cshtml" />
+    <Content Include="Views\Roles\RegistrarRol.cshtml" />
     <Content Include="Views\Roles\VisualizarRol.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Usuarios\EliminarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\ModificarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\RegistrarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\VisualizarUsuario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -205,20 +174,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SIFIET.Aplicacion\SIFIET.Aplicacion.csproj">
       <Project>{fec384d8-b151-41f1-9533-4a56962ae088}</Project>
       <Name>SIFIET.Aplicacion</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SIFIET.GestionContenidos\SIFIET.GestionContenidos.csproj">
-      <Project>{d03702ee-d6c8-4932-9c5c-bd88fa8b9274}</Project>
-      <Name>SIFIET.GestionContenidos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj">
-      <Project>{2af67ccc-9866-4419-9963-cde1f6f802ad}</Project>
-      <Name>SIFIET.GestionInfraestructura</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIFIET.GestionProgramas\SIFIET.GestionProgramas.csproj">
       <Project>{5c3adde4-0584-4faa-9cf7-f0a81caa336d}</Project>
@@ -227,10 +189,6 @@
     <ProjectReference Include="..\SIFIET.GestionUsuarios\SIFIET.GestionUsuarios.csproj">
       <Project>{190738e6-52f0-46be-912d-6c226b416002}</Project>
       <Name>SIFIET.GestionUsuarios</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SIFIET.Infraestructura\SIFIET.Infraestructura.csproj">
-      <Project>{004afba2-b1be-4bb7-9340-f281334986a8}</Project>
-      <Name>SIFIET.Infraestructura</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -246,7 +204,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54860</DevelopmentServerPort>
+          <DevelopmentServerPort>49962</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:54860/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -52,7 +52,7 @@
             <div>
                 Prerequisitos :
                 <div>
-                    @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "true" })
+                    @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturas as MultiSelectList, new { multiple = "multiple" })
                     @Html.ValidationMessageFor(model => model.PREREQUISITOSASIGNATURA)
                 </div>
             </div>
