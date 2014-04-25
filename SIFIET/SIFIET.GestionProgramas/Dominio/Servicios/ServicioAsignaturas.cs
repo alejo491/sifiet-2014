@@ -12,10 +12,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
     {
         public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
+          //  try
+          //  {
 
           try
           {
-
                 var db = new GestionProgramasEntities();
                 List<ASIGNATURA> lista = new List<ASIGNATURA>();
                 if (String.IsNullOrEmpty(palabraBusqueda))
@@ -32,7 +33,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                     return lista;
 
                 }
-
+           // }
+           // catch (Exception)
+           // {
+            //    return new List<ASIGNATURA>();
+           // }
 
            }
            catch (Exception)
@@ -93,17 +98,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var asignatura = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == asignaturaModificada.IDENTIFICADORASIGNATURA select asig).First();
                 {
                     asignatura.EdicionOmodificacion = "modificacion";
-                    asignatura.CODIGOASIGNATURA = asignaturaModificada.CODIGOASIGNATURA;
-                    asignatura.IDENTIFICADORPLANESTUDIOS = asignaturaModificada.IDENTIFICADORPLANESTUDIOS;
-                    asignatura.NOMBREASIGNATURA = asignaturaModificada.NOMBREASIGNATURA;
-                    asignatura.CORREQUISITOSASIGNATURA = asignaturaModificada.CORREQUISITOSASIGNATURA;
-                    asignatura.PREREQUISITOSASIGNATURA = asignaturaModificada.PREREQUISITOSASIGNATURA;
-                    asignatura.SEMESTREASIGNATURA = asignaturaModificada.SEMESTREASIGNATURA;
-                    asignatura.CREDITOSASIGNATURA = asignaturaModificada.CREDITOSASIGNATURA;
-                    asignatura.MODALIDADASIGNATURA = asignaturaModificada.MODALIDADASIGNATURA;
-                    asignatura.CLASIFICACIONASIGNATURA = asignaturaModificada.CLASIFICACIONASIGNATURA;
-                    asignatura.ESTADOASIGNATURA = asignaturaModificada.ESTADOASIGNATURA;
-                    asignatura.DESCRIPCIONASIGNATURA = asignaturaModificada.DESCRIPCIONASIGNATURA;
+                    asignatura = asignaturaModificada;
                     db.SaveChanges();
                 }
                 return true;
@@ -146,19 +141,23 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                     string[] campos = linea.Split(',');
                     var db = new GestionProgramasEntities();
 
-                    var asg = new ASIGNATURA();
+                    var asg = new ASIGNATURA()
                     {
-                        asg.IDENTIFICADORASIGNATURA = decimal.Parse(campos[0]);
-                        asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[1]);
-                        asg.NOMBREASIGNATURA = campos[2];
-                        asg.CORREQUISITOSASIGNATURA = campos[3];
-                        asg.PREREQUISITOSASIGNATURA = campos[4];
-                        asg.SEMESTREASIGNATURA = short.Parse(campos[5]);
-                        asg.CREDITOSASIGNATURA = decimal.Parse(campos[6]);
-                        asg.MODALIDADASIGNATURA = campos[7];
-                        asg.CLASIFICACIONASIGNATURA = campos[8];
-                        asg.ESTADOASIGNATURA = campos[9];
-                    }
+                        IDENTIFICADORASIGNATURA = decimal.Parse(campos[0]),
+                        IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[1]),
+                        NOMBREASIGNATURA = campos[2],
+                        CORREQUISITOSASIGNATURA = campos[3],
+                        PREREQUISITOSASIGNATURA = campos[4],
+                        SEMESTREASIGNATURA = short.Parse(campos[5]),
+                        CREDITOSASIGNATURA = decimal.Parse(campos[6]),
+                        MODALIDADASIGNATURA = campos[7],
+                        CLASIFICACIONASIGNATURA = campos[8],
+                        ESTADOASIGNATURA = campos[9],
+                        DESCRIPCIONASIGNATURA = campos[10],
+                        CODIGOASIGNATURA = campos[11],
+                        EdicionOmodificacion = "registrar"
+                    };
+                    //RegistrarAsignatura(asg);
                     db.ASIGNATURAs.Add(asg);
                     db.SaveChanges();
                 }
@@ -166,6 +165,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             }
             catch (Exception)
             {
+
                 return false;
             }
         }

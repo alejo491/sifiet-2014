@@ -2,7 +2,7 @@
     ViewBag.Title = "CargarArchivo";
 }
 
-@using (Html.BeginForm("CargarArchivo", "Asignatura", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("CargarArchivo", "Asignaturas", FormMethod.Post, new {enctype = "multipart/form-data"}))
    {
    <fieldset>
        
@@ -11,7 +11,7 @@
             <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
             <input type="submit" value="Abrir"/>
 <div>
-    @Html.ActionLink("Ir a inicio", "ConsultarAsignaturas")
+    @Html.ActionLink("Ir a inicio", "Index")
 </div>  
 
     </fieldset>
