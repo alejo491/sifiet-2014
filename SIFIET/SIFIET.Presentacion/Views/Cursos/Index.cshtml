@@ -1,0 +1,46 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<SIFIET.GestionProgramas.Datos.Modelo.CURSO>
+@{
+
+    ViewBag.Title = "Cursos";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Cursos</h2>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Campo: @Html.DropDownList("idCurso", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreCurso")
+            <input type="submit" value="Buscar" />
+
+        </p>
+    }
+
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+
+            grid.Column("NOMBRECURSO",header:"Nombre"),
+            grid.Column("NombreAsignatura",header:"Asignatura"),
+            grid.Column("NombreDocente",header:"Docente"),
+            grid.Column("ESTADOCURSO",header:"Estado"),
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) |
+                @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso= item.IDENTIFICADORCURSO }) |
+                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO })
+                </text>
+                )
+        })
+    <p>
+        @Html.ActionLink("Agregar", "RegistrarCurso")
+        @Html.Encode(ViewData["UpSession"])
+        <h3> @ViewBag.Resultado </h3>
+    </p>
+</div>
+
+
+

@@ -93,6 +93,32 @@ namespace SIFIET.Aplicacion
             return FachadaPlanesEstudio.ConsultarPlanesEstudios(palabraBusqueda);
         }
         #endregion
+        //Metodos dirigidos a Fachada Gestion Cursos en el dominio de Gestion de Programas
+        #region Metodos Gestion Cursos
+        public static List<CURSO> ConsultarCursos(decimal idCurso, string nombreCurso)
+        {
+            return FachadaCursos.ConsultarCursos(idCurso, nombreCurso);
+        }
 
+        public static CURSO VisualizarCurso(decimal idCurso)
+        {
+            return FachadaCursos.VisualizarCurso(idCurso);
+        }
+
+        public static bool RegistrarCurso(CURSO oCurso)
+        {
+            return FachadaCursos.RegistrarCurso(oCurso);
+        }
+
+        public static bool ModificarCurso(CURSO oCurso)
+        {
+            return FachadaCursos.ModificarCurso(oCurso);
+        }
+
+        public static bool EliminarCurso(decimal idCurso)
+        {
+            return FachadaCursos.EliminarCurso(idCurso);
+        }
+        #endregion
     }
 }

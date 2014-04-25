@@ -89,34 +89,15 @@ function getSelectValues(select) {
     return result;
 }
 function confirmacionAgregarAsignatura() {
-    /*
-    var idAsignatura = document.getElementById("IDASIGNATURA").value;
-    var idPlanEstudio = document.getElementById("IDPLANESTUDIOS").value;
-    var nombreAsignatura = document.getElementById("NOMADIGNATURA").value;
-    //var correquisitos = document.getElementById("CORREQUISITOSASIGNATURA").value;
-    //var prerequisitos = document.getElementById("PREREQUISITOSASIGNATURA").value;
-    var semestre = document.getElementById("SEMESTREASIGNATURA").value;
-    var intensidadhoraria = document.getElementById("INTENSIDADHORARIA").value;
-    var modalidad = document.getElementById("MODALIDAD").value;
-    var clasificacion = document.getElementById("CLASIFICACION").value;
-    var estado = document.getElementById("ESTADOASIGNATURA").value;
-    */
-
-    //if (idAsignatura != "" && idPlanEstudio != "" && nombreAsignatura != "" && semestre != "" && intensidadhoraria != "" && modalidad != "" && clasificacion != "" && estado != "") {
-        //var mensaje = "¿Desea registrar la Asignatura con la siguiente información? \n\n Codigo: " + idAsignatura + "\n\n Plan Estudio: " + idPlanEstudio + "\n\n Nombre: " + nombreAsignatura + "\n\n Correquisitos: " + correquisitos + "\n\n Prerequisitos: " + prerequisitos + "\n\n Semestre: " + semestre + "\n\n Intensidad Horaria: " + intensidadhoraria + "\n\n Modalidad: " + modalidad + "\n\n Clasificacion: " + clasificacion + "\n\n Estado: " + estado;
-        var mensaje = "¿Desea guardar la Asignatura con la siguiente información?";
+   var mensaje = "¿Desea guardar la Asignatura con la siguiente información?";
         return confirm(mensaje);
-    //}
-    //else {
-      //  return false;
-    //}
 }
 function confirmSalirAsignatura() {
     var r = confirm('¿Confirma que desea cancelar la accion?');
     var url = window.location.pathname;
     var pathArray = url.split('/');        // <-- no need in "string()"
     var host = pathArray[0];
-    var newHost = '/Asignatura/ConsultarAsignaturas';
+    var newHost = '/Asignaturas/Index';
     if (r == true) {
         window.location = host + newHost;
     }
@@ -126,3 +107,23 @@ function confirmarEliminarAsignatura() {
     var mensaje = "Esta asignatura tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar la Asignatura?";
     return confirm(mensaje);
 }
+function confirmacionAgregarCurso() {
+    var mensaje = "¿Desea guardar el Curso con la informacion proporcionada?";
+    return confirm(mensaje);
+}
+function confirmSalirCurso() {
+    var r = confirm('¿Confirma que desea cancelar la accion?');
+    var url = window.location.pathname;
+    var pathArray = url.split('/');        // <-- no need in "string()"
+    var host = pathArray[0];
+    var newHost = '/Cursos/Index';
+    if (r == true) {
+        window.location = host + newHost;
+    }
+    return false;
+}
+function confirmarEliminarCurso() {
+    var mensaje = "Este curso tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el curso?";
+    return confirm(mensaje);
+}
+
