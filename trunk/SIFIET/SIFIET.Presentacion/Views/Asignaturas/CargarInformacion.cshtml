@@ -4,7 +4,7 @@
 @using System.Data
 @model System.Data.DataSet
 
-@using (Html.BeginForm("CargarArchivo", "Asignatura", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("CargarArchivo", "Asignaturas", FormMethod.Post, new {enctype = "multipart/form-data"}))
    {
    <fieldset>
        
@@ -50,7 +50,7 @@
 
 <div>
     
-    @Html.ActionLink("Ir a inicio", "ConsultarAsignaturas")
+    @Html.ActionLink("Ir a inicio", "Index")
     @Html.ActionLink("Cargar", "EnviarDatos")
 </div>  
 

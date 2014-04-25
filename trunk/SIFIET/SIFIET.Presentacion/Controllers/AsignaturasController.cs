@@ -34,7 +34,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarAsignatura()
         {
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
-            ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA");
+            ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
             ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
             return View();
@@ -50,7 +50,7 @@ namespace SIFIET.Presentacion.Controllers
             {
                 // TODO: Add insert logic here
                 var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
-                ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA");
+                ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
                 var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
                 ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
                 if (!ModelState.IsValid) return View(oAsignatura);
@@ -75,16 +75,11 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Asignaturas/Edit/5
         public ActionResult ModificarAsignatura(decimal idAsignatura)
         {
-            var oAsignatura = FachadaSIFIET.VisualizarAsignatura(idAsignatura) as ASIGNATURA;
-            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");/*
-            ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
-            ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);*/
-
-            ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas,"NOMBREASIGNATURA","NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
-            ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
             ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
-            return View(oAsignatura);
+            return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
         }
 
         //
@@ -95,8 +90,7 @@ namespace SIFIET.Presentacion.Controllers
             try
             {
                 var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
-                ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
-                ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);
+                ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
                 var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
                 ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
 
@@ -142,6 +136,11 @@ namespace SIFIET.Presentacion.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CargarArchivo()
+        {
+            return View();
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -273,7 +272,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4] +
                                  "," + row[5] + "," + row[6] + "," + row[7] + "," + row[8] + "," +
-                                 row[9]);
+                                 row[9] + "," + row[10] + "," + row[11]);
                 }
             }
             Session.Remove("DatosSession");

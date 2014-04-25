@@ -22,11 +22,11 @@
         columns: new[]
         {
 
-            grid.Column("CODIGOASIGNATURA",header:"Codigo"),
+            grid.Column("IDENTIFICADORASIGNATURA",header:"Codigo"),
             grid.Column("NOMBREASIGNATURA",header:"Nombre"),
             grid.Column("NombrePlaneEstudio",header:"Plan Estudio"),
-            grid.Column("SEMESTREASIGNATURA",header:"Semestre"),
-            grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
+            grid.Column("CORREQUISITOSASIGNATURA",header:"Prerequisitos"),
+            grid.Column("PREREQUISITOSASIGNATURA",header:"Correquisitos"),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) |
