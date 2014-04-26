@@ -20,7 +20,7 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
         }
     
         public decimal IDENTIFICADORUSUARIO { get; set; }
-        public string EMAILINSTITUCIONAUSUARIO { get; set; }
+        public string EMAILINSTITUCIONALUSUARIO { get; set; }
         public string PASSWORDUSUARIO { get; set; }
         public string IDENTIFICACIONUSUARIO { get; set; }
         public string NOMBRESUSUARIO { get; set; }

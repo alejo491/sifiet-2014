@@ -7,9 +7,9 @@
       <Diagram DiagramId="6417741eb3704d54bee9a2d5920bf605" Name="Diagram1">
         <EntityTypeShape EntityType="Model.PERMISO" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.ROL" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="Model.ROL_TIENE_PERMISOS" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.USUARIO_TIENE_ROL" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="5.25" PointY="0.875" />
+        <AssociationConnector Association="Model.USUARIO_TIENE_ROL" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
