@@ -1,0 +1,45 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<SIFIET.GestionInfraestructura.Datos.Modelo.SALON>
+@{
+
+    ViewBag.Title = "Salones";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Salones</h2>
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Campo: @Html.DropDownList("idSalon", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreSalon")
+            <input type="submit" value="Buscar" />
+
+        </p>
+    }
+
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+
+            grid.Column("NOMBRESALON",header:"Nombre"),
+            grid.Column("NombreFacultad",header:"Facultad"),
+            grid.Column("ESTADOSALON",header:"Estado"),
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
+                @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
+                @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON })
+                </text>
+                )
+        })
+    <p>
+        @Html.ActionLink("Agregar", "RegistrarSalon")
+        @Html.Encode(ViewData["UpSession"])
+        <h3> @ViewBag.Resultado </h3>
+    </p>
+</div>
+
+
+
