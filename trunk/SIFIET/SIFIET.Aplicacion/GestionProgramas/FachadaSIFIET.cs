@@ -80,7 +80,7 @@ namespace SIFIET.Aplicacion
         {
             return FachadaAsignaturas.EliminarAsignatura(idAsignatura);
         }
-        public static bool CargarInformacion(string archivo)
+        public static bool CargarInformacionAsignatura(string archivo)
         {
             return FachadaAsignaturas.CargarInformacion(archivo);
         }
@@ -118,6 +118,11 @@ namespace SIFIET.Aplicacion
         public static bool EliminarCurso(decimal idCurso)
         {
             return FachadaCursos.EliminarCurso(idCurso);
+        }
+
+        public static bool CargarInformacionCurso(string archivo)
+        {
+            return FachadaCursos.CargarInformacion(archivo);
         }
         #endregion
     }
