@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionUsuarios.Datos.Modelo;
+using SIFIET.GestionUsuarios.Dominio.Servicios;
 
 namespace SIFIET.GestionUsuarios.Aplicacion
 {
@@ -11,42 +12,43 @@ namespace SIFIET.GestionUsuarios.Aplicacion
     {
         public static List<USUARIO> ConsultarUsuarios()
         {
-            throw new NotImplementedException();
+            return ServicioUsuarios.ConsultarUsuarios();
         }
 
-        public static bool RegistrarUsuario(USUARIO usuario, string[] roles)
+        public static void RegistrarUsuario(USUARIO usuario, string[] roles)
         {
-            throw new NotImplementedException();
+            ServicioUsuarios.RegistrarUsuario(usuario, roles);
         }
 
-        public static USUARIO ConsultarUsuario(string idUsuario)
+        public static USUARIO ConsultarUsuario(int idUsuario)
         {
-            throw new NotImplementedException();
+            return ServicioUsuarios.ConsultarUsuario(idUsuario);
         }
 
-        public static bool ModificarUsuario(USUARIO oUsuario, string[] roles)
+        public static void ModificarUsuario(USUARIO oUsuario, string[] roles)
         {
-            throw new NotImplementedException();
+            ServicioUsuarios.ModificarUsuario(oUsuario, roles);
         }
 
-        public static bool EliminarUsuario(string idUsuario)
+        public static void EliminarUsuario(int idUsuario)
         {
-            throw new NotImplementedException();
+            ServicioUsuarios.EliminarUsuario(idUsuario);
         }
 
         public static List<USUARIO> BuscarUsuarioPorNombre(string nombre)
         {
-            throw new NotImplementedException();
+            return ServicioUsuarios.BuscarUsuarioPorNombre(nombre);
         }
 
         public static List<USUARIO> BuscarUsuarioPorApellido(string apellido)
         {
-            throw new NotImplementedException();
+            return ServicioUsuarios.BuscarUsuarioPorApellido(apellido);
         }
 
         public static List<USUARIO> BuscarUsuarioPorIdentificacion(int id)
         {
-            throw new NotImplementedException();
+             return ServicioUsuarios.BuscarUsuarioPorIdentificacion(id);
+       }
         }
     }
-}
+

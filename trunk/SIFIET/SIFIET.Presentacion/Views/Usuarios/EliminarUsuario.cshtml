@@ -1,1 +1,72 @@
-﻿
+﻿@model SIFIET.GestionUsuarios.Datos.Modelo.USUARIO
+
+@{
+    ViewBag.Title = "Eliminar Usuario";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Está seguro de eliminar este usuario?</h3>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl>
+        <dt>
+            Código
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICADORUSUARIO)
+        </dd>
+
+        <dt>
+            Nombres
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRESUSUARIO)
+        </dd>
+        <dt>
+            Apellidos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.APELLIDOSUSUARIO)
+        </dd>
+
+        <dt>
+            Identificación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICACIONUSUARIO)
+        </dd>
+        <dt>
+            Contraseña
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PASSWORDUSUARIO)
+        </dd>
+
+        <dt>
+            E-mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMAILINSTITUCIONALUSUARIO)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <input type="submit" value="Eliminar" /> |
+            @Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
+

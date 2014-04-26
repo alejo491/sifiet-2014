@@ -1,1 +1,56 @@
-﻿
+﻿@model IEnumerable<SIFIET.GestionUsuarios.Datos.Modelo.USUARIO>
+
+@{
+
+    ViewBag.Title = "Usuarios";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Usuarios</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
+
+    @using (Html.BeginForm("Index", "Usuarios"))
+    {
+        <div>
+            <label>Buscar Por:</label><select name="criterio">
+                <option value="nombre">Nombre</option>
+                
+                <option value="identificacion">Identificacion</option>
+            </select>
+            <input name="valorbusqueda" type="text" value="" />
+            <input type="submit" value="Buscar" />
+
+        </div>
+    }
+
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+
+            grid.Column("IDENTIFICADORUSUARIO",header:"Codigo"),
+            grid.Column("NOMBRESUSUARIO",header:"Nombres"),
+            grid.Column("APELLIDOSUSUARIO",header:"Apellidos"),
+            grid.Column("IDENTIFICACIONUSUARIO",header:"Identificacion"),
+            grid.Column("EMAILINSTITUCIONALUSUARIO",header:"Email"),
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
+                @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
+                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
+                </text>
+            )
+        })
+
+
+
+
+    <p>
+        @Html.ActionLink("Registrar Usuario", "RegistrarUsuario")
+    </p>
+</div>

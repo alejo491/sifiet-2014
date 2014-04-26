@@ -17,24 +17,24 @@ namespace SIFIET.Aplicacion
             return FachadaUsuarios.ConsultarUsuarios();
         }
 
-        public static bool RegistrarUsuario(USUARIO oUsuario, string[] roles)
+        public static void RegistrarUsuario(USUARIO oUsuario, string[] roles)
         {
-            return FachadaUsuarios.RegistrarUsuario(oUsuario, roles);
+             FachadaUsuarios.RegistrarUsuario(oUsuario, roles);
         }
 
-        public static USUARIO ConsultarUsuario(string idUsuario)
+        public static USUARIO ConsultarUsuario(int idUsuario)
         {
             return FachadaUsuarios.ConsultarUsuario(idUsuario);
         }
 
-        public static bool ModificarUsuario(USUARIO oUsuario, string[] roles)
+        public static void ModificarUsuario(USUARIO oUsuario, string[] roles)
         {
-            return FachadaUsuarios.ModificarUsuario(oUsuario, roles);
+             FachadaUsuarios.ModificarUsuario(oUsuario, roles);
         }
 
-        public static bool EliminarUsuario(string idUsuario)
+        public static void EliminarUsuario(int idUsuario)
         {
-            return FachadaUsuarios.EliminarUsuario(idUsuario);
+            FachadaUsuarios.EliminarUsuario(idUsuario);
         }
 
         public static List<USUARIO> ConsultarUsuarioPorNombre(string nombre)

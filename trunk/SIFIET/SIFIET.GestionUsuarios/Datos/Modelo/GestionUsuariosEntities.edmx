@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="PERMISOS">
           <Key>
             <PropertyRef Name="IDENTIFICADORPERMISO" />
@@ -19,7 +19,7 @@
             <PropertyRef Name="IDENTIFICADORROL" />
           </Key>
           <Property Name="IDENTIFICADORROL" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="NOMBREROL" Type="char" MaxLength="15" />
+          <Property Name="NOMBREROL" Type="char" MaxLength="50" />
           <Property Name="DESCRIPCIONROL" Type="varchar2" MaxLength="250" />
           <Property Name="ESTADOROL" Type="varchar2" MaxLength="30" />
         </EntityType>
@@ -36,7 +36,7 @@
             <PropertyRef Name="IDENTIFICADORUSUARIO" />
           </Key>
           <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="EMAILINSTITUCIONAUSUARIO" Type="varchar2" MaxLength="80" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="varchar2" MaxLength="80" />
           <Property Name="PASSWORDUSUARIO" Type="varchar2" MaxLength="15" />
           <Property Name="IDENTIFICACIONUSUARIO" Type="varchar2" MaxLength="10" />
           <Property Name="NOMBRESUSUARIO" Type="varchar2" MaxLength="180" />
@@ -122,8 +122,7 @@
             <End Role="USUARIO_TIENE_ROL" EntitySet="USUARIO_TIENE_ROL" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -146,42 +145,42 @@
           <Property Name="DESCRIPCIONROL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOROL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PERMISOS" Relationship="Self.ROL_TIENE_PERMISOS" FromRole="ROL" ToRole="PERMISOS" />
-          <NavigationProperty Name="USUARIOs" Relationship="Self.USUARIO_TIENE_ROL" FromRole="ROL" ToRole="USUARIO" />
-        </EntityType>
-        <EntityType Name="USUARIO">
-          <Key>
-            <PropertyRef Name="IDENTIFICADORUSUARIO" />
-          </Key>
-          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="EMAILINSTITUCIONAUSUARIO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="PASSWORDUSUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="IDENTIFICACIONUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRESUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
-          <Property Name="APELLIDOSUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADOUSUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ROLs" Relationship="Self.USUARIO_TIENE_ROL" FromRole="USUARIO" ToRole="ROL" />
+          <NavigationProperty Name="USUARIOs" Relationship="Model.USUARIO_TIENE_ROL" FromRole="ROL" ToRole="USUARIO" />
         </EntityType>
         <Association Name="ROL_TIENE_PERMISOS">
           <End Role="PERMISOS" Type="Self.PERMISO" Multiplicity="*" />
           <End Role="ROL" Type="Self.ROL" Multiplicity="*" />
         </Association>
-        <Association Name="USUARIO_TIENE_ROL">
-          <End Role="ROL" Type="Self.ROL" Multiplicity="*" />
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="GestionUsuariosEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PERMISOS" EntityType="Self.PERMISO" />
           <EntitySet Name="ROLs" EntityType="Self.ROL" />
-          <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
           <AssociationSet Name="ROL_TIENE_PERMISOS" Association="Self.ROL_TIENE_PERMISOS">
             <End Role="PERMISOS" EntitySet="PERMISOS" />
             <End Role="ROL" EntitySet="ROLs" />
           </AssociationSet>
-          <AssociationSet Name="USUARIO_TIENE_ROL" Association="Self.USUARIO_TIENE_ROL">
+          <EntitySet Name="USUARIOs" EntityType="Model.USUARIO" />
+          <AssociationSet Name="USUARIO_TIENE_ROL" Association="Model.USUARIO_TIENE_ROL">
             <End Role="ROL" EntitySet="ROLs" />
             <End Role="USUARIO" EntitySet="USUARIOs" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDUSUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRESUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOSUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOUSUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLs" Relationship="Model.USUARIO_TIENE_ROL" FromRole="USUARIO" ToRole="ROL" />
+        </EntityType>
+        <Association Name="USUARIO_TIENE_ROL">
+          <End Type="Model.ROL" Role="ROL" Multiplicity="*" />
+          <End Type="Model.USUARIO" Role="USUARIO" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -208,19 +207,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="USUARIOs">
-            <EntityTypeMapping TypeName="Model.USUARIO">
-              <MappingFragment StoreEntitySet="USUARIO">
-                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
-                <ScalarProperty Name="EMAILINSTITUCIONAUSUARIO" ColumnName="EMAILINSTITUCIONAUSUARIO" />
-                <ScalarProperty Name="PASSWORDUSUARIO" ColumnName="PASSWORDUSUARIO" />
-                <ScalarProperty Name="IDENTIFICACIONUSUARIO" ColumnName="IDENTIFICACIONUSUARIO" />
-                <ScalarProperty Name="NOMBRESUSUARIO" ColumnName="NOMBRESUSUARIO" />
-                <ScalarProperty Name="APELLIDOSUSUARIO" ColumnName="APELLIDOSUSUARIO" />
-                <ScalarProperty Name="ESTADOUSUARIO" ColumnName="ESTADOUSUARIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="ROL_TIENE_PERMISOS" TypeName="Model.ROL_TIENE_PERMISOS" StoreEntitySet="ROL_TIENE_PERMISOS">
             <EndProperty Name="PERMISOS">
               <ScalarProperty Name="IDENTIFICADORPERMISO" ColumnName="IDENTIFICADORPERMISO" />
@@ -229,12 +215,25 @@
               <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="USUARIOs">
+            <EntityTypeMapping TypeName="Model.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="ESTADOUSUARIO" ColumnName="ESTADOUSUARIO" />
+                <ScalarProperty Name="APELLIDOSUSUARIO" ColumnName="APELLIDOSUSUARIO" />
+                <ScalarProperty Name="NOMBRESUSUARIO" ColumnName="NOMBRESUSUARIO" />
+                <ScalarProperty Name="IDENTIFICACIONUSUARIO" ColumnName="IDENTIFICACIONUSUARIO" />
+                <ScalarProperty Name="PASSWORDUSUARIO" ColumnName="PASSWORDUSUARIO" />
+                <ScalarProperty Name="EMAILINSTITUCIONALUSUARIO" ColumnName="EMAILINSTITUCIONALUSUARIO" />
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="USUARIO_TIENE_ROL" TypeName="Model.USUARIO_TIENE_ROL" StoreEntitySet="USUARIO_TIENE_ROL">
-            <EndProperty Name="ROL">
-              <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
-            </EndProperty>
             <EndProperty Name="USUARIO">
               <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+            </EndProperty>
+            <EndProperty Name="ROL">
+              <ScalarProperty Name="IDENTIFICADORROL" ColumnName="IDENTIFICADORROL" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

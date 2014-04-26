@@ -1,1 +1,66 @@
-﻿
+﻿@model SIFIET.GestionUsuarios.Datos.Modelo.USUARIO
+
+@{
+    ViewBag.Title = "Visualizar Usuario";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>USUARIO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Codigo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICADORUSUARIO)
+        </dd>
+
+        <dt>
+            Nombres
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRESUSUARIO)
+        </dd>
+
+        <dt>
+            Apellidos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.APELLIDOSUSUARIO)
+        </dd>
+
+        <dt>
+            Identificacion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICACIONUSUARIO)
+        </dd>
+
+        <dt>
+            Password
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PASSWORDUSUARIO)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMAILINSTITUCIONALUSUARIO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = Model.IDENTIFICADORUSUARIO }) |
+    @Html.ActionLink("Volver", "Index")
+</p>
