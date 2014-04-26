@@ -1,0 +1,58 @@
+﻿@model SIFIET.GestionInfraestructura.Datos.Modelo.SALON
+
+@{
+    ViewBag.Title = "Eliminar Salon";
+
+}
+
+<h2>Eliminar Salon</h2>
+
+<div>
+    <div>
+        <h4>Salon</h4>
+        <hr />
+        <dl>
+            <dt>
+                Identificador
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IDENTIFICADORSALON)
+            </dd>
+
+            <dt>
+                Nombre
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NOMBRESALON)
+            </dd>
+            <dt>
+                Faculdad
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreFacultad)
+            </dd>
+            <dt>
+                Estado
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ESTADOSALON)
+            </dd>
+
+        </dl>
+    </div>
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <input type="submit" value="Eliminar" onclick="return confirmarEliminarSalon();" /> |
+            <input type="submit" value="Cancelar" onclick="return confirmSalirSalon();" />
+        </div>
+    }
+</div>
+

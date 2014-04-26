@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GestionInfraestructuraEntitiesModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FACULTAD">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFACULTAD" />
+          </Key>
+          <Property Name="IDENTIFICADORFACULTAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREFACULTAD" Type="varchar2" MaxLength="250" />
+          <Property Name="ESTADOFACULTAD" Type="varchar2" MaxLength="30" />
+          <Property Name="CODIGOFACULTAD" Type="varchar2" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="FRANJA_HORARIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFRANJA" />
+          </Key>
+          <Property Name="IDENTIFICADORFRANJA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="HORAINICIOFRANJA" Type="varchar2" MaxLength="10" />
+          <Property Name="HORAFINFRANJA" Type="varchar2" MaxLength="10" />
+          <Property Name="DIAFRANJA" Type="varchar2" MaxLength="10" />
+          <Property Name="ESTADOFRANJA" Type="varchar2" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SALON">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORSALON" />
+          </Key>
+          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRESALON" Type="varchar2" MaxLength="120" />
+          <Property Name="ESTADOSALON" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SALON_DICTA_CURSO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORSALON" />
+            <PropertyRef Name="IDENTIFICADORCURSO" />
+          </Key>
+          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FRANJA_H_SALON_TIE_SALON">
+          <End Role="SALON" Type="Self.SALON" Multiplicity="1" />
+          <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALON">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Principal>
+            <Dependent Role="FRANJA_HORARIA">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALON_DI_SALON_DIC_SALON">
+          <End Role="SALON" Type="Self.SALON" Multiplicity="1" />
+          <End Role="SALON_DICTA_CURSO" Type="Self.SALON_DICTA_CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALON">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Principal>
+            <Dependent Role="SALON_DICTA_CURSO">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALON_FACULTAD__FACULTAD">
+          <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
+          <End Role="SALON" Type="Self.SALON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTAD">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Principal>
+            <Dependent Role="SALON">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionInfraestructuraEntitiesModelStoreContainer">
+          <EntitySet Name="FACULTAD" EntityType="Self.FACULTAD" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="FRANJA_HORARIA" EntityType="Self.FRANJA_HORARIA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="SALON" EntityType="Self.SALON" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="SALON_DICTA_CURSO" EntityType="Self.SALON_DICTA_CURSO" Schema="GPA" store:Type="Tables" />
+          <AssociationSet Name="FK_FRANJA_H_SALON_TIE_SALON" Association="Self.FK_FRANJA_H_SALON_TIE_SALON">
+            <End Role="SALON" EntitySet="SALON" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALON_DI_SALON_DIC_SALON" Association="Self.FK_SALON_DI_SALON_DIC_SALON">
+            <End Role="SALON" EntitySet="SALON" />
+            <End Role="SALON_DICTA_CURSO" EntitySet="SALON_DICTA_CURSO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALON_FACULTAD__FACULTAD" Association="Self.FK_SALON_FACULTAD__FACULTAD">
+            <End Role="FACULTAD" EntitySet="FACULTAD" />
+            <End Role="SALON" EntitySet="SALON" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestionInfraestructuraEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FACULTAD">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFACULTAD" />
+          </Key>
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREFACULTAD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOFACULTAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOFACULTAD" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SALONs" Relationship="Self.FK_SALON_FACULTAD__FACULTAD" FromRole="FACULTAD" ToRole="SALON" />
+        </EntityType>
+        <EntityType Name="FRANJA_HORARIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFRANJA" />
+          </Key>
+          <Property Name="IDENTIFICADORFRANJA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORSALON" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="HORAINICIOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HORAFINFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DIAFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SALON" Relationship="Self.FK_FRANJA_H_SALON_TIE_SALON" FromRole="FRANJA_HORARIA" ToRole="SALON" />
+        </EntityType>
+        <EntityType Name="SALON">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORSALON" />
+          </Key>
+          <Property Name="IDENTIFICADORSALON" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRESALON" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOSALON" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACULTAD" Relationship="Self.FK_SALON_FACULTAD__FACULTAD" FromRole="SALON" ToRole="FACULTAD" />
+          <NavigationProperty Name="FRANJA_HORARIA" Relationship="Self.FK_FRANJA_H_SALON_TIE_SALON" FromRole="SALON" ToRole="FRANJA_HORARIA" />
+          <NavigationProperty Name="SALON_DICTA_CURSO" Relationship="Self.FK_SALON_DI_SALON_DIC_SALON" FromRole="SALON" ToRole="SALON_DICTA_CURSO" />
+        </EntityType>
+        <EntityType Name="SALON_DICTA_CURSO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORSALON" />
+            <PropertyRef Name="IDENTIFICADORCURSO" />
+          </Key>
+          <Property Name="IDENTIFICADORSALON" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="SALON" Relationship="Self.FK_SALON_DI_SALON_DIC_SALON" FromRole="SALON_DICTA_CURSO" ToRole="SALON" />
+        </EntityType>
+        <Association Name="FK_SALON_FACULTAD__FACULTAD">
+          <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
+          <End Role="SALON" Type="Self.SALON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACULTAD">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Principal>
+            <Dependent Role="SALON">
+              <PropertyRef Name="IDENTIFICADORFACULTAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FRANJA_H_SALON_TIE_SALON">
+          <End Role="SALON" Type="Self.SALON" Multiplicity="1" />
+          <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALON">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Principal>
+            <Dependent Role="FRANJA_HORARIA">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SALON_DI_SALON_DIC_SALON">
+          <End Role="SALON" Type="Self.SALON" Multiplicity="1" />
+          <End Role="SALON_DICTA_CURSO" Type="Self.SALON_DICTA_CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALON">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Principal>
+            <Dependent Role="SALON_DICTA_CURSO">
+              <PropertyRef Name="IDENTIFICADORSALON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionInfraestructuraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FACULTADs" EntityType="Self.FACULTAD" />
+          <EntitySet Name="FRANJA_HORARIA" EntityType="Self.FRANJA_HORARIA" />
+          <EntitySet Name="SALONs" EntityType="Self.SALON" />
+          <EntitySet Name="SALON_DICTA_CURSO" EntityType="Self.SALON_DICTA_CURSO" />
+          <AssociationSet Name="FK_SALON_FACULTAD__FACULTAD" Association="Self.FK_SALON_FACULTAD__FACULTAD">
+            <End Role="FACULTAD" EntitySet="FACULTADs" />
+            <End Role="SALON" EntitySet="SALONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRANJA_H_SALON_TIE_SALON" Association="Self.FK_FRANJA_H_SALON_TIE_SALON">
+            <End Role="SALON" EntitySet="SALONs" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SALON_DI_SALON_DIC_SALON" Association="Self.FK_SALON_DI_SALON_DIC_SALON">
+            <End Role="SALON" EntitySet="SALONs" />
+            <End Role="SALON_DICTA_CURSO" EntitySet="SALON_DICTA_CURSO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestionInfraestructuraEntitiesModelStoreContainer" CdmEntityContainer="GestionInfraestructuraEntities">
+          <EntitySetMapping Name="FACULTADs">
+            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.FACULTAD">
+              <MappingFragment StoreEntitySet="FACULTAD">
+                <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
+                <ScalarProperty Name="NOMBREFACULTAD" ColumnName="NOMBREFACULTAD" />
+                <ScalarProperty Name="ESTADOFACULTAD" ColumnName="ESTADOFACULTAD" />
+                <ScalarProperty Name="CODIGOFACULTAD" ColumnName="CODIGOFACULTAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FRANJA_HORARIA">
+            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA">
+              <MappingFragment StoreEntitySet="FRANJA_HORARIA">
+                <ScalarProperty Name="IDENTIFICADORFRANJA" ColumnName="IDENTIFICADORFRANJA" />
+                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="HORAINICIOFRANJA" ColumnName="HORAINICIOFRANJA" />
+                <ScalarProperty Name="HORAFINFRANJA" ColumnName="HORAFINFRANJA" />
+                <ScalarProperty Name="DIAFRANJA" ColumnName="DIAFRANJA" />
+                <ScalarProperty Name="ESTADOFRANJA" ColumnName="ESTADOFRANJA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SALONs">
+            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.SALON">
+              <MappingFragment StoreEntitySet="SALON">
+                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
+                <ScalarProperty Name="NOMBRESALON" ColumnName="NOMBRESALON" />
+                <ScalarProperty Name="ESTADOSALON" ColumnName="ESTADOSALON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SALON_DICTA_CURSO">
+            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.SALON_DICTA_CURSO">
+              <MappingFragment StoreEntitySet="SALON_DICTA_CURSO">
+                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

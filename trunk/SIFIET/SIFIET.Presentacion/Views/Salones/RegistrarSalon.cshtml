@@ -1,0 +1,59 @@
+﻿@using System.Web.UI.WebControls
+@model SIFIET.GestionInfraestructura.Datos.Modelo.SALON
+
+@{
+    ViewBag.Title = "Nuevo Salon";
+}
+
+
+<div>
+
+    @using (Html.BeginForm("RegistrarSalon", "Salones", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        Html.EnableClientValidation();
+
+
+        <fieldset>
+            <legend>Nuevo Salon</legend>
+
+            @Html.ValidationSummary(true)
+
+            <div>
+                Nombre :
+                <div>
+                    @Html.EditorFor(model => model.NOMBRESALON)
+                    @Html.ValidationMessageFor(model => model.NOMBRESALON)
+                </div>
+            </div>
+
+            <div>
+                Facultad :
+                <div>
+                    @Html.DropDownListFor(model => model.IDENTIFICADORFACULTAD, ViewBag.ListaFacultades as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORFACULTAD)
+
+                </div>
+            </div>
+            <div>
+                Estado :
+                <div>
+                    Disponible @Html.RadioButtonFor(model => model.ESTADOSALON, "Disponible")
+                    Cerrado @Html.RadioButtonFor(model => model.ESTADOSALON, "Cerrado")
+                    @Html.ValidationMessageFor(model => model.ESTADOSALON)
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarSalon();" />
+                    <input type="submit" value="Cancelar" onclick="return confirmSalirSalon();" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
