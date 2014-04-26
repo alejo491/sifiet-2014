@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "CargarInformacion";
+}
+@using System.Data
+@model System.Data.DataSet
+
+@using (Html.BeginForm("CargarArchivo", "Cursos", FormMethod.Post, new {enctype = "multipart/form-data"}))
+   {
+   <fieldset>
+       
+       <legend>Cargar Informacion</legend>
+
+            <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+            <input type="submit" value="Abrir"/>
+
+@if (Model != null)
+{
+    <p>A continuacion se muestran los datos que se desean agregar: </p>
+    <table>
+        <tr>
+            <th>Codigo</th>
+            <th>Codigo Asignatura</th>
+            <th>Codigo Usuario</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+        </tr>
+        @foreach(DataRow dr in Model.Tables[0].Rows)
+     {
+         <tr>
+            <td>
+                @dr[0].ToString()
+            </td>
+            <td>
+                @dr[1].ToString()
+            </td>
+            <td>
+                @dr[2].ToString()
+            </td>
+            <td>
+                @dr[3].ToString()
+            </td>     
+             <td>
+                @dr[4].ToString()
+            </td>     
+         </tr>  
+    }
+        
+    </table> 
+}
+
+<div>
+    
+    @Html.ActionLink("Ir a inicio", "Index")
+    @Html.ActionLink("Cargar", "EnviarDatos")
+</div>  
+
+    </fieldset>
+   }  

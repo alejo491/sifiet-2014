@@ -35,5 +35,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioCursos.EliminarCurso(idCurso);
         }
 
+        public static bool CargarInformacion(string archivo)
+        {
+            return ServicioCursos.CargarInformacion(archivo);
+        }
     }
 }

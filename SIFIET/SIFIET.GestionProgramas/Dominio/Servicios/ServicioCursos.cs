@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -126,6 +127,37 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 return false;
             }
 
+        }
+
+        public static bool CargarInformacion(string archivo)
+        {
+            String linea;
+            StreamReader f = new StreamReader(archivo);
+            try
+            {
+                while ((linea = f.ReadLine()) != null)
+                {
+                    string[] campos = linea.Split(',');
+                    var db = new GestionProgramasEntities();
+
+                    var curso = new CURSO()
+                    {
+                        IDENTIFICADORCURSO = decimal.Parse(campos[0]),
+                        IDENTIFICADORASIGNATURA = decimal.Parse(campos[1]),
+                        IDENTIFICADORUSUARIO = decimal.Parse(campos[2]),
+                        NOMBRECURSO = campos[3],
+                        ESTADOCURSO = campos[4]
+                    };
+                    db.CURSOes.Add(curso);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
     
