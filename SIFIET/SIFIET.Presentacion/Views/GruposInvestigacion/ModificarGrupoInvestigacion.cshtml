@@ -1,0 +1,89 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.GRUPO_INVESTIGACION
+
+@{
+    ViewBag.Title = "Modificar Grupo Investigacion";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <div>
+
+        @ViewBag.Mensaje
+    </div>
+}
+
+
+
+<div>
+
+    @using (Html.BeginForm("ModificarGrupoInvestigacion", "GruposInvestigacion", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <fieldset>
+            <legend>Modificar Grupo de Investigacion</legend>
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.IDENTIFICADORGRUPOINVES)
+            @Html.HiddenFor(model => model.ESTADOGRUPOINVESTIGACION)
+
+            <div>
+                Codigo:
+                <div>
+                    @Html.EditorFor(model => model.CODIGOGRUPOINVESTIGACION)
+                    @Html.ValidationMessageFor(model => model.NOMBREGRUPOINVESTIGACION)
+                </div>
+
+            </div>
+            <div>
+                Nombre:
+                <div>
+                    @Html.EditorFor(model => model.NOMBREGRUPOINVESTIGACION)
+                    @Html.ValidationMessageFor(model => model.NOMBREGRUPOINVESTIGACION)
+                </div>
+
+            </div>
+            <div>
+                Descripcion:
+                <div>
+                    @Html.TextArea("DESCRIPCIONGRUPOINVESTIGACION")
+                    @Html.ValidationMessageFor(model => model.DESCRIPCIONGRUPOINVESTIGACION)
+                </div>
+
+            </div>
+
+            <div>
+                Departamento:
+                <div>
+                    @Html.DropDownListFor(model => model.IDENTIFICADORDEPARTAMENTO, ViewBag.ListaDepartamentos as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORDEPARTAMENTO)
+                </div>
+
+            </div>
+            <div>
+                Director:
+                <div>
+                    @Html.DropDownListFor(model => model.IDENTIFICADORUSUARIO, ViewBag.ListaDocentes as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORUSUARIO)
+                </div>
+
+            </div>
+
+
+            <div>
+                <div>
+                    <input type="submit" value="Editar" onclick="return confirmacionAgregarGrupo();" />
+                </div>
+                <div>
+                    @Html.ActionLink("Volver a la lista", "Index")
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

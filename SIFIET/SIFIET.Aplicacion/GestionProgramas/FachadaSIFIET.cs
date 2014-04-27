@@ -161,6 +161,15 @@ namespace SIFIET.Aplicacion
             return FachadaGInvestigacion.ConsultarDocentes();
         }
 
+        public static void ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
+        {
+            FachadaGInvestigacion.ModificarGrupoInvestigacion(grupo);
+        }
+
+        public static void EliminarGrupoInvestigacion(int idGinvestigacion)
+        {
+            FachadaGInvestigacion.EliminarGrupoInvestigacion(idGinvestigacion);
+        }
 
         #endregion
     }
