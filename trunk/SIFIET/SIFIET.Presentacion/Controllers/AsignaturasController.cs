@@ -282,7 +282,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             Session.Remove("DatosSession");
             bool retorno =
-                FachadaSIFIET.CargarInformacion(@"~\Uploads\file.txt");
+                FachadaSIFIET.CargarInformacionAsignatura(@"~\Uploads\file.txt");
             if (retorno)
             {
                 Session["UpSession"] = "El archivo se cargo correctamente.";
