@@ -280,15 +280,14 @@ namespace SIFIET.Presentacion.Controllers
                                  row[9] + "," + row[10] + "," + row[11]);
                 }
             }
+
             Session.Remove("DatosSession");
             bool retorno =
                 FachadaSIFIET.CargarInformacionAsignatura(@"~\Uploads\file.txt");
             if (retorno)
             {
-                Session["UpSession"] = "El archivo se cargo correctamente.";
                 return RedirectToAction("Index");
             }
-            Session["UpSession"] = "El archivo no se cargo correctamente.";
             return RedirectToAction("Index");
 
         }
