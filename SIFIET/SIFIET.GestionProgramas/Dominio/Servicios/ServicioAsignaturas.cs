@@ -171,6 +171,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                     db.ASIGNATURAs.Add(asg);
                     db.SaveChanges();
                 }
+                f.Dispose();
                 return true;
             }
             catch (Exception)

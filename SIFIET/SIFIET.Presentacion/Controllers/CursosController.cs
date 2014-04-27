@@ -77,7 +77,6 @@ namespace SIFIET.Presentacion.Controllers
                     TempData["ResultadoOperacion"] = "Fallo al Agregar el Curso";
 
                 ViewBag.Mensaje = "false";
-
                 return RedirectToAction("Index");
             }
             catch
@@ -249,6 +248,7 @@ namespace SIFIET.Presentacion.Controllers
                         }
                     }
                     cn.Close();
+                    System.IO.File.Delete(filePath);
                 }
             }
             DataSet ds = new DataSet();
@@ -268,25 +268,24 @@ namespace SIFIET.Presentacion.Controllers
         {
             DataSet ds = new DataSet();
             ds = (DataSet)Session["DatosSession"];
-            using (
-                   StreamWriter wr = new StreamWriter(
-                        @"~\Uploads\file.txt")
-                                    )
-            {
+            StreamWriter wr =
+                new StreamWriter(
+                    @"~\Uploads\file.txt");
+                                    
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4]);
                 }
-            }
+
+            wr.Dispose();
+
             Session.Remove("DatosSession");
             bool retorno =
                 FachadaSIFIET.CargarInformacionCurso(@"~\Uploads\file.txt");
             if (retorno)
             {
-                Session["UpSession"] = "El archivo se cargo correctamente.";
                 return RedirectToAction("Index");
             }
-            Session["UpSession"] = "El archivo no se cargo correctamente.";
             return RedirectToAction("Index");
 
         }

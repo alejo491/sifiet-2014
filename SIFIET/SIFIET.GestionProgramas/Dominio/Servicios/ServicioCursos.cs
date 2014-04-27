@@ -151,6 +151,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                     db.CURSOes.Add(curso);
                     db.SaveChanges();
                 }
+                f.Dispose();
                 return true;
             }
             catch (Exception)
