@@ -129,19 +129,12 @@ namespace SIFIET.Presentacion.Controllers
             if (datos["roles"] == null)
             {
                 ViewBag.ErrorRol = "Este campo es obligatorio";
-                error = true;
+                
 
             }
 
-
-            if (error)
-            {
-                ViewBag.Mensaje = "* estos campos son obligatorios";
-            }
-            else
-            {
-
-                try
+            if (!ModelState.IsValid)return View(usuario);
+            try
                 {
 
 
@@ -155,8 +148,8 @@ namespace SIFIET.Presentacion.Controllers
                     ViewBag.Mensaje = "Error" + e.Message;
                     return View();
                 }
-            }
-            return View();
+            
+            
         }
 
         //

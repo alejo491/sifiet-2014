@@ -1,0 +1,60 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.GRUPO_INVESTIGACION
+
+@{
+    ViewBag.Title = "Visualizar Grupo  De Investigacion";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>GRUPO DE INVESTIGACION</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Codigo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CODIGOGRUPOINVESTIGACION)
+        </dd>
+
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBREGRUPOINVESTIGACION)
+        </dd>
+
+        <dt>
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCIONGRUPOINVESTIGACION)
+        </dd>
+
+        <dt>
+            Departamento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DEPARTAMENTO.NOMBREDEPARTAMENTO)
+        </dd>
+
+        <dt>
+            Director
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOCENTE.NombreCompletoDocente)
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = Model.IDENTIFICADORGRUPOINVES }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

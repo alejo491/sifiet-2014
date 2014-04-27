@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SIFIET.GestionProgramas.Datos.Modelo.GRUPO_INVESTIGACION>
+
+@{
+
+    ViewBag.Title = "Grupos de Investigacion";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Grupos de Investigacion</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
+
+    @using (Html.BeginForm("Index", "GruposInvestigacion"))
+    {
+        <div>
+            <label>Buscar:</label>
+            <input name="valorbusqueda" type="text" value="" />
+            <input type="submit" value="Buscar" />
+
+        </div>
+    }
+
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+            grid.Column("CODIGOGRUPOINVESTIGACION",header:"Codigo"),
+            grid.Column("NOMBREGRUPOINVESTIGACION",header:"Nombre"),
+            grid.Column("DESCRIPCIONGRUPOINVESTIGACION",header:"Descripcion"),
+            
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
+                @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
+                @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES })
+                </text>
+            )
+        })
+
+
+
+
+    <p>
+        @Html.ActionLink("Registrar Grupo de Investigacion", "RegistrarGrupoInvestigacion")
+    </p>
+</div>

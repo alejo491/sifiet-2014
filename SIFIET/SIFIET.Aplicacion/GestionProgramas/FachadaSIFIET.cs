@@ -125,5 +125,43 @@ namespace SIFIET.Aplicacion
             return FachadaCursos.CargarInformacion(archivo);
         }
         #endregion
+        //Metodos dirigidos a Fachada Gestion de Grupos de Investigacion en el dominio de Gestion de Programas
+        #region Metodos Gestion Grupos de Investigacion
+
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacion()
+        {
+            return FachadaGInvestigacion.ConsultarGruposInvestigacion();
+        }
+
+        public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacion(int idGinvestigacion )
+        {
+            return FachadaGInvestigacion.ConsultarGrupoInvestigacion(idGinvestigacion);
+        }
+
+        public static List<DEPARTAMENTO> ConsultarDepartamentos()
+        {
+            return FachadaGInvestigacion.ConsultarDepartamentos();
+        
+        }
+
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda)
+        {
+
+            return FachadaGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda);
+        }
+
+        public static void RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
+        {
+            FachadaGInvestigacion.RegistrarGrupoInvestigacion(grupo);
+        }
+
+        public static List<DOCENTE> ConsultarDocentes()
+        {
+
+            return FachadaGInvestigacion.ConsultarDocentes();
+        }
+
+
+        #endregion
     }
 }
