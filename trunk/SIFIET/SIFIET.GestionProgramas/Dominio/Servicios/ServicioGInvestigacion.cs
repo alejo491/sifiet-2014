@@ -1,6 +1,7 @@
 ﻿using SIFIET.GestionProgramas.Datos.Modelo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,21 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             List<DOCENTE> lista = (from e in db.DOCENTEs
                                                select e).ToList();
             return lista;
+        }
+
+        internal static void ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
+        {
+            var db = new GestionProgramasEntities();            
+            db.Entry(grupo).State = EntityState.Modified;            
+            db.SaveChanges();
+        }
+
+        public static void EliminarGrupoInvestigacion(int idGinvestigacion)
+        {
+            var db = new GestionProgramasEntities();
+            var grupoInvestigacion = db.GRUPO_INVESTIGACION.Find(idGinvestigacion);
+            db.GRUPO_INVESTIGACION.Remove(grupoInvestigacion);
+            db.SaveChanges();
         }
     }
 }

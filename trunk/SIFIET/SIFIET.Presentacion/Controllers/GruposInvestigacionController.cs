@@ -93,70 +93,70 @@ namespace SIFIET.Presentacion.Controllers
             return View();
 
         }
-        /*
+        
         //
         // GET: /Usuarios/Edit/5
-        public ActionResult ModificarUsuario(int idUsuario)
+        public ActionResult ModificarGrupoInvestigacion(int idGinvestigacion)
         {
-            ViewBag.roles = FachadaSIFIET.ConsultarRoles();
+            var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
+            ViewBag.ListaDepartamentos = new SelectList(listaDepartamentos, "IDENTIFICADORDEPARTAMENTO", "NOMBREDEPARTAMENTO");
+            var listaDocentes = FachadaSIFIET.ConsultarDocentes();
+            ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NombreCompletoDocente");
 
-            return View(FachadaSIFIET.ConsultarUsuario(idUsuario));
+            return View(FachadaSIFIET.ConsultarGrupoInvestigacion(idGinvestigacion));
         }
 
         //
         // POST: /Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ModificarUsuario(
-            [Bind(
+        public ActionResult ModificarGrupoInvestigacion([Bind(
                 Include =
-                    "IDENTIFICADORUSUARIO,EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADO"
-                )] USUARIO usuario, FormCollection datos)
+                    "IDENTIFICADORUSUARIO,IDENTIFICADORDEPARTAMENTO,NOMBREGRUPOINVESTIGACION,DESCRIPCIONGRUPOINVESTIGACION,ESTADOGRUPOINVESTIGACION,CODIGOGRUPOINVESTIGACION,IDENTIFICADORGRUPOINVES"
+                )] GRUPO_INVESTIGACION grupo, FormCollection datos)
         {
-            ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-
-            if (datos["roles"] == null)
-            {
-                ViewBag.ErrorRol = "Este campo es obligatorio";
-            }
-            if (!ModelState.IsValid) return View(usuario);
+            var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
+            ViewBag.ListaDepartamentos = new SelectList(listaDepartamentos, "IDENTIFICADORDEPARTAMENTO", "NOMBREDEPARTAMENTO");
+            var listaDocentes = FachadaSIFIET.ConsultarDocentes();
+            ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NombreCompletoDocente");
+            if (!ModelState.IsValid) return View(grupo);
             try
-            {
-                var roles = datos["roles"].Split(',');
-                FachadaSIFIET.ModificarUsuario(usuario, roles);
+            {                
+                FachadaSIFIET.ModificarGrupoInvestigacion(grupo);
+                ViewBag.Mensaje = "Modificacion Exitosa";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
 
                 ViewBag.Mensaje = "Error" + e.Message;
-                return View();
-            }
-
-
+                return View(grupo);
+            }            
         }
 
+        
+        
         //
         // GET: /Usuarios/Delete/5
-        public ActionResult EliminarUsuario(int idUsuario)
+        public ActionResult EliminarGrupoInvestigacion(int idGinvestigacion)
         {
-            return View(FachadaSIFIET.ConsultarUsuario(idUsuario));
+            return View(FachadaSIFIET.ConsultarGrupoInvestigacion(idGinvestigacion));
         }
 
         //
         // POST: /Usuarios/Delete/5
         [HttpPost]
-        public ActionResult EliminarUsuario(int id, FormCollection collection)
+        public ActionResult EliminarGrupoInvestigacion(int idGinvestigacion, FormCollection collection)
         {
             try
             {
-                FachadaSIFIET.EliminarUsuario(id);
+                FachadaSIFIET.EliminarGrupoInvestigacion(idGinvestigacion);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
-        }*/
+        }
 	}
 }

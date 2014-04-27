@@ -42,5 +42,15 @@ namespace SIFIET.GestionProgramas.Aplicacion
 
             return ServicioGInvestigacion.ConsultarDocentes();
         }
+
+        public static void ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
+        {
+            ServicioGInvestigacion.ModificarGrupoInvestigacion(grupo);
+        }
+
+        public static void EliminarGrupoInvestigacion(int idGinvestigacion)
+        {
+            ServicioGInvestigacion.EliminarGrupoInvestigacion(idGinvestigacion);
+        }
     }
 }
