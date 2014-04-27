@@ -126,24 +126,9 @@ function confirmarEliminarCurso() {
     var mensaje = "Este curso tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el curso?";
     return confirm(mensaje);
 }
-function confirmacionAgregarSalon() {
-    var mensaje = "¿Desea guardar el Salon con la informacion proporcionada?";
-    return confirm(mensaje);
-}
-function confirmSalirSalon() {
-    var r = confirm('¿Confirma que desea cancelar la accion?');
-    var url = window.location.pathname;
-    var pathArray = url.split('/');        // <-- no need in "string()"
-    var host = pathArray[0];
-    var newHost = '/Salones/Index';
-    if (r == true) {
-        window.location = host + newHost;
-    }
-    return false;
-}
-function confirmarEliminarSalon() {
-    var mensaje = "Este Salon tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el Salon?";
-    return confirm(mensaje);
-}
 
+function confirmacionAgregarGrupo() {
+    var mensaje = "¿Desea guardar el Grupo de Investigacion con la informacion proporcionada?";
+    return confirm(mensaje);
+}
 
