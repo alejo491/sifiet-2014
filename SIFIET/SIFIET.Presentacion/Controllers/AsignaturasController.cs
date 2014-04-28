@@ -254,6 +254,11 @@ namespace SIFIET.Presentacion.Controllers
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);
             Session["DatosSession"] = ds;
+            int Ncol = 12;
+            if (Ncol != ds.Tables[0].Columns.Count)
+            {
+                return RedirectToAction("CargarArchivo");
+            }
             return RedirectToAction("CargarInformacion");
         }
 
@@ -266,30 +271,36 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult EnviarDatos()
         {
-            DataSet ds = new DataSet();
-            ds = (DataSet)Session["DatosSession"];
-            using (
-                   StreamWriter wr = new StreamWriter(
-                        @"~\Uploads\file.txt")
-                                    )
+            try
             {
+                DataSet ds = new DataSet();
+                ds = (DataSet) Session["DatosSession"];
+                StreamWriter wr = new StreamWriter(
+                    @"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
+
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4] +
                                  "," + row[5] + "," + row[6] + "," + row[7] + "," + row[8] + "," +
                                  row[9] + "," + row[10] + "," + row[11]);
                 }
-            }
+                wr.Dispose();
 
-            Session.Remove("DatosSession");
-            bool retorno =
-                FachadaSIFIET.CargarInformacionAsignatura(@"~\Uploads\file.txt");
-            if (retorno)
-            {
+                Session.Remove("DatosSession");
+                bool retorno =
+                    FachadaSIFIET.CargarInformacionAsignatura(
+                        @"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
+                if (retorno)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
-
+            catch (Exception)
+            {
+                Dispose();
+                return RedirectToAction("Index");
+            }
         }
     }
 }
