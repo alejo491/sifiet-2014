@@ -3,20 +3,15 @@
 });*/
 
 function comfirmarAgregarRol() {
-    var nombre = document.getElementById("NOMROL").value;
-    var descripcion = document.getElementById("DESCROL").value;
+    var nombre = document.getElementById("NOMBREROL").value;
+    var descripcion = document.getElementById("DESCRIPCIONROL").value;
     var mensaje;
     if (nombre.trim() == "" || descripcion.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
         return true;
     } else {
-        mensaje = 'Nombre: ' + nombre + '\n'
-            + 'Descripcion:' + descripcion + '\n\n'
-            + 'El Rol Puede: \n'
-            + document.getElementById("Plan de Estudios").value + " Plan de Estudios |\t" + document.getElementById("Usuarios").value + ' Usuarios\n'
-            + document.getElementById("Programas").value + " Programas |\t" + document.getElementById("Infraestructura").value + ' Infraestructura\n'
-            + document.getElementById("Asignaturas").value + " Asignaturas |\t" + document.getElementById("Salones").value + ' Salones\n';
+        mensaje = "¿Desea Registrar los datos Ingresados?";
         return confirm(mensaje);
     }
 }
@@ -33,28 +28,13 @@ function confirmacionAgregarUsuario() {
     var identificacionUsuario = document.getElementById("IDENTIFICACIONUSUARIO").value;
     var passwordUsuario = document.getElementById("PASSWORDUSUARIO").value;
     var emailInstitucionalUsuario = document.getElementById("EMAILINSTITUCIONALUSUARIO").value;
-    var roles = document.getElementsByName("roles");
-
-    /*var result = "";
-    var opciones = roles.options;
-    var opt;
-
-    for (var i = 0, iLen = opciones.length; i < iLen; i++) {
-        opt = opciones[i];
-
-        if (opt.selected) {
-            result = result + "\n" + opt.text;
-        }
-    }*/
-
-  
-
     if (nombresUsuario != "" && apellidosUsuario != "" && identificacionUsuario != "" && passwordUsuario != "" && emailInstitucionalUsuario != "" ) {
-        var mensaje = "¿Desea registrar el usuario con la siguiente información? \n\n Nombres: " + nombresUsuario + "\n\n Apellidos: " + apellidosUsuario + "\n\n Identificación: " + identificacionUsuario + "\n\n Password: " + passwordUsuario + "\n\n Email: " + emailInstitucionalUsuario + "\n\n Roles: ";
+        var mensaje = "¿Desea Registrar los datos Ingresados?";
         return confirm(mensaje);
     }
     else {
-        return false;
+        alert("Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos");
+        return true;
     }
 }
 
@@ -63,7 +43,7 @@ function confirmSalirRol() {
     var url = window.location.pathname;
     var pathArray = url.split('/');        // <-- no need in "string()"
     var host = pathArray[0];
-    var newHost = '/rol';
+    var newHost = '/roles';
     if (r == true) {
         window.location = host + newHost;
     }

@@ -1,0 +1,51 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.PLANESTUDIO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Visualizar Plan de Estudios</legend>
+
+    <div class="display-label">@Html.LabelFor(model => model.NOMBREPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOMBREPLANESTUDIOS)
+    </div>
+    
+    <div class="display-label">@Html.LabelFor(model => model.CODIGOPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CODIGOPLANESTUDIOS)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.DESCRIPCIONPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPCIONPLANESTUDIOS)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.FECHAINICIOPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FECHAINICIOPLANESTUDIOS)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.FECHAFINPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FECHAFINPLANESTUDIOS)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.ESTADOPLANESTUDIOS)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESTADOPLANESTUDIOS)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.PROGRAMA.NOMBREPROGRAMA)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PROGRAMA.NOMBREPROGRAMA)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio=Model.IDENTIFICADORPLANESTUDIOS }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

@@ -1,0 +1,86 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.PLANESTUDIO
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Editar Plan de Estudios</legend>
+
+            @Html.HiddenFor(model => model.IDENTIFICADORPLANESTUDIOS, new { @Value = Model.IDENTIFICADORPLANESTUDIOS })
+           
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NOMBREPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NOMBREPLANESTUDIOS)
+                @Html.ValidationMessageFor(model => model.NOMBREPLANESTUDIOS)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CODIGOPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CODIGOPLANESTUDIOS)
+                @Html.ValidationMessageFor(model => model.CODIGOPLANESTUDIOS)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DESCRIPCIONPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.DESCRIPCIONPLANESTUDIOS)
+                @Html.ValidationMessageFor(model => model.DESCRIPCIONPLANESTUDIOS)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FECHAINICIOPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.FECHAINICIOPLANESTUDIOS, new { type = "date" })           
+                @Html.ValidationMessageFor(model => model.FECHAINICIOPLANESTUDIOS)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FECHAFINPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.FECHAFINPLANESTUDIOS, new { type = "date" })
+                @Html.ValidationMessageFor(model => model.FECHAFINPLANESTUDIOS)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IDENTIFICADORPROGRAMA, "Programa :")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("IDENTIFICADORPROGRAMA", String.Empty)
+                @Html.ValidationMessageFor(model => model.IDENTIFICADORPROGRAMA)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ESTADOPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                Activo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS,"Activo")
+                Inactivo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS, "Inactivo")
+                @Html.ValidationMessageFor(model => model.ESTADOPLANESTUDIOS)
+           
+            </div>  
+            <div>
+            <p>
+                <input type="submit" value="Guardar" onclick="return confirm('¿Confirma que los datos del Plan de Estudios son correctos?')" />
+                <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
+            </p>
+        </div>
+    </fieldset>
+}
+
+<h3> @ViewBag.ResultadoOperacion </h3>
+

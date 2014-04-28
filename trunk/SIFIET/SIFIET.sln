@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.Aplicacion", "SIFIET
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.GestionContenidos", "SIFIET.GestionContenidos\SIFIET.GestionContenidos.csproj", "{D03702EE-D6C8-4932-9C5C-BD88FA8B9274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.GestionInfraestructura", "SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj", "{2AF67CCC-9866-4419-9963-CDE1F6F802AD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.GestionProgramas", "SIFIET.GestionProgramas\SIFIET.GestionProgramas.csproj", "{5C3ADDE4-0584-4FAA-9CF7-F0A81CAA336D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.GestionUsuarios", "SIFIET.GestionUsuarios\SIFIET.GestionUsuarios.csproj", "{190738E6-52F0-46BE-912D-6C226B416002}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.Presentacion", "SIFIET.Presentacion\SIFIET.Presentacion.csproj", "{8CC17CCA-9B5D-4324-867C-5B489F1D01FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.Presentacion.Tests", "SIFIET.Presentacion.Tests\SIFIET.Presentacion.Tests.csproj", "{B573AE4B-A0DB-4B4C-AEA1-53DCAFC05C4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIFIET.GestionInfraestructura", "SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj", "{2AF67CCC-9866-4419-9963-CDE1F6F802AD}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -37,10 +37,6 @@ Global
 		{D03702EE-D6C8-4932-9C5C-BD88FA8B9274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03702EE-D6C8-4932-9C5C-BD88FA8B9274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03702EE-D6C8-4932-9C5C-BD88FA8B9274}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C3ADDE4-0584-4FAA-9CF7-F0A81CAA336D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C3ADDE4-0584-4FAA-9CF7-F0A81CAA336D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3ADDE4-0584-4FAA-9CF7-F0A81CAA336D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +57,10 @@ Global
 		{B573AE4B-A0DB-4B4C-AEA1-53DCAFC05C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B573AE4B-A0DB-4B4C-AEA1-53DCAFC05C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B573AE4B-A0DB-4B4C-AEA1-53DCAFC05C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF67CCC-9866-4419-9963-CDE1F6F802AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

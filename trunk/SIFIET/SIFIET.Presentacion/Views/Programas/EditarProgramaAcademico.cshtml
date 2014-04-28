@@ -1,0 +1,99 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.PROGRAMA
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Editar Programa</legend>                
+
+        @Html.HiddenFor(model => model.IDENTIFICADORPROGRAMA, new { @Value = Model.IDENTIFICADORPROGRAMA })
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CODIGOSNIESPROGRAMA)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CODIGOSNIESPROGRAMA)
+            @Html.ValidationMessageFor(model => model.CODIGOSNIESPROGRAMA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NOMBREPROGRAMA)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NOMBREPROGRAMA)
+            @Html.ValidationMessageFor(model => model.NOMBREPROGRAMA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DESCRIPCIONPROGRAMA)
+        </div>
+        <div class="editor-field">           
+            @Html.TextAreaFor(model => model.DESCRIPCIONPROGRAMA)
+            @Html.ValidationMessageFor(model => model.DESCRIPCIONPROGRAMA)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FACULTAD.NOMBREFACULTAD)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IDENTIFICADORFACULTAD", "Seleccione la facultad")
+            @Html.ValidationMessageFor(model => model.IDENTIFICADORFACULTAD)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DURACIONPROGRAMA)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DURACIONPROGRAMA, new SelectList(new short[] { 6, 7, 8, 9, 10, 11, 12 }) ,"Seleccione la Duración")            
+            @Html.ValidationMessageFor(model => model.DURACIONPROGRAMA)
+        </div>
+       
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MODALIDADPROGRAMA)
+        </div>
+        <div class="editor-field">
+            Presencial @Html.RadioButtonFor(model => model.MODALIDADPROGRAMA,"Presencial")
+            Semipresencial @Html.RadioButtonFor(model => model.MODALIDADPROGRAMA, "Semipresencial")
+            @Html.ValidationMessageFor(model => model.MODALIDADPROGRAMA)
+           
+        </div>       
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JORNADAPROGRAMA)
+
+        </div>
+        <div class="editor-field">
+            Diurna @Html.RadioButtonFor(model => model.JORNADAPROGRAMA,"Diurna")
+            Nocturna @Html.RadioButtonFor(model => model.JORNADAPROGRAMA, "Nocturna")
+            @Html.ValidationMessageFor(model => model.JORNADAPROGRAMA)
+        </div>
+
+        
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ADMISIONPROGRAMA)
+        </div>
+        <div class="editor-field">
+            Anual @Html.RadioButtonFor(model => model.ADMISIONPROGRAMA,"Anual")
+            Semestral @Html.RadioButtonFor(model => model.ADMISIONPROGRAMA, "Semestral")
+            @Html.ValidationMessageFor(model => model.ADMISIONPROGRAMA)
+        </div>
+
+       <div>
+            <p>
+                <input type="submit" value="Guardar" onclick="return confirm('¿Confirma que los datos del programa son correctos?')" />
+                <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
+            </p>
+        </div>
+    </fieldset>
+}
+
+<h3> @ViewBag.ResultadoOperacion </h3>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SIFIET.Aplicacion;
 using SIFIET.GestionUsuarios.Datos.Modelo;
 
 namespace SIFIET.Presentacion.Controllers
@@ -13,132 +14,147 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Roles/
         public ActionResult Index()
         {
-            return View();
+            return View(FachadaSIFIET.ConsultarRoles());
         }
 
         [HttpPost]
         public ActionResult Index(FormCollection datos)
         {
-            return View();
+            var oRoles = new List<ROL>();
+            if (datos["criterio"].Equals("nombre"))
+            {
+                oRoles = FachadaSIFIET.ConsultarRolPorNombre((datos["valorbusqueda"]));
+            }
+            if (datos["criterio"].Equals("estado"))
+            {
+                oRoles = FachadaSIFIET.ConsultarRolPorEstado((datos["valorbusqueda"]));
+            }
+            if (!oRoles.Any())
+            {
+                ViewBag.Mensaje = "Ningun Rol Encontrado";
+                oRoles = FachadaSIFIET.ConsultarRoles();
+            }
+            return View(oRoles);
         }
 
         //
         // GET: /Roles/Details/5
-        public ActionResult VisualizarRol(int id)
+        public ActionResult VisualizarRol(int idRol)
         {
-            return View();
+            return View(FachadaSIFIET.ConsultarRol(idRol.ToString()));
         }
 
         //
         // GET: /Roles/Create
         public ActionResult RegistrarRol()
         {
+            ViewBag.lstNombresPermisos = FachadaSIFIET.ConsultarNombresPermisos();
             return View();
         }
 
         //
         // POST: /Roles/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult RegistrarRol(FormCollection collection)
         {
-            try
+                var permisos = CrearPermisos(collection);
+                var oRol = new ROL()
+                {
+                    DESCRIPCIONROL = collection["DESCRIPCIONROL"].Trim(),
+                    NOMBREROL = collection["NOMBREROL"].Trim(),
+                    ESTADOROL = "Activado"         
+                };
+            if (!ModelState.IsValid) return View(oRol);
+            if (FachadaSIFIET.RegistrarRoles(oRol, permisos))
             {
-                // TODO: Add insert logic here
-
+                TempData["Mensaje"] = "Rol Creado con Exito";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.Mensaje = "Error: No se ha podido registrar el Rol";
+            return View(oRol);
         }
 
         //
         // GET: /Roles/Edit/5
-        public ActionResult ModificarRol(int id)
+        public ActionResult ModificarRol(int idRol)
         {
-            return View();
+            var oRol = FachadaSIFIET.ConsultarRol(idRol.ToString().Trim());
+            TempData["PermisosActuales"] = oRol.PERMISOS;
+            return View(oRol);
         }
 
         //
         // POST: /Roles/Edit/5
         [HttpPost]
-        public ActionResult ModificarRol(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult ModificarRol(FormCollection collection)
         {
-            try
+            var permisos = CrearPermisos(collection,(IEnumerable<PERMISO>) TempData["PermisosActuales"]);
+            var oRol = new ROL()
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
+                IDENTIFICADORROL = decimal.Parse(collection["IDENTIFICADORROL"]),
+                DESCRIPCIONROL = collection["DESCRIPCIONROL"].Trim(),
+                NOMBREROL = collection["NOMBREROL"].Trim(),
+                ESTADOROL = "Activado"
+            };
+            if (ModelState.IsValid)
             {
-                return View();
+                if (FachadaSIFIET.ModificarRol(oRol, permisos))
+                {
+                    TempData["Mensaje"] = "Rol Creado con Exito";
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Mensaje = "Error: No se ha podido registrar el Rol";
             }
+            return View(oRol);
         }
 
         //
         // GET: /Roles/Delete/5
-        public ActionResult EliminarRol(int id)
+        public ActionResult EliminarRol(int idRol)
         {
-            return View();
+            return View(FachadaSIFIET.ConsultarRol(idRol.ToString()));
         }
 
         //
         // POST: /Roles/Delete/5
-        [HttpPost]
-        public ActionResult EliminarRol(int id, FormCollection collection)
+        [HttpPost, ActionName("EliminarRol")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmarEliminarRol(int idRol)
         {
-            try
+            if (FachadaSIFIET.EliminarRol(idRol.ToString()))
             {
-                // TODO: Add delete logic here
+                TempData["Mensaje"] = "Rol Eliminado con Exito";
+            }
+            else {
+                TempData["Mensaje"] = "Error al Eliminar el Rol";
+            }
+            return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
-        private static List<PERMISO> CrearPermisos(FormCollection datos)
+        private static List<PERMISO> CrearPermisos(FormCollection datos, IEnumerable<PERMISO> permisosActuales=null)
         {
             var permisos = new List<PERMISO>();
-            var permiso = new PERMISO
+            var nombresPermiso = new List<string>();
+            if (permisosActuales == null)
             {
-                NOMBREPERMISO = "Plan de Estudios",
-                GESTIONARPERMISO = datos["Plan de Estudios"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
-            permiso = new PERMISO
+                nombresPermiso = FachadaSIFIET.ConsultarNombresPermisos();
+            }
+            else
             {
-                NOMBREPERMISO = "Usuarios",
-                GESTIONARPERMISO = datos["Usuarios"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
-            permiso = new PERMISO
+                nombresPermiso.AddRange(permisosActuales.Select(permiso => permiso.NOMBREPERMISO.Trim()));
+            }
+            foreach (var item in nombresPermiso)
             {
-                NOMBREPERMISO = "Programas",
-                GESTIONARPERMISO = datos["Programas"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
-            permiso = new PERMISO
-            {
-                NOMBREPERMISO = "Infraestructura",
-                GESTIONARPERMISO = datos["Infraestructura"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
-            permiso = new PERMISO
-            {
-                NOMBREPERMISO = "Asignaturas",
-                GESTIONARPERMISO = datos["Asignaturas"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
-            permiso = new PERMISO
-            {
-                NOMBREPERMISO = "Salones",
-                GESTIONARPERMISO = datos["Salones"].Trim().Equals("Gestionar") ? 1 : 0
-            };
-            permisos.Add(permiso);
+                var permiso = new PERMISO()
+                {
+                    ESTADOPERMISO = "Activo",
+                    NOMBREPERMISO = item.Trim(),
+                    GESTIONARPERMISO = int.Parse(datos[item.Trim()]),
+                };
+                permisos.Add(permiso);
+            }
             return permisos;
         }
     }

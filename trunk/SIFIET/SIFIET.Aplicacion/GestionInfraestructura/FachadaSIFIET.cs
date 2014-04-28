@@ -14,7 +14,7 @@ namespace SIFIET.Aplicacion
         #region Metodos Gestion Infraestructura Fachada Facultades
         public static List<FACULTAD> ConsultarFacultades(decimal idFacultad, string nombreFacultad)
         {
-            return FachadaFacultades.ConsultarFacultades(idFacultad, nombreFacultad);
+            return GestionInfraestructura.Aplicacion.FachadaFacultades.ConsultarFacultades(idFacultad, nombreFacultad);
         }
         #endregion 
 
@@ -42,6 +42,18 @@ namespace SIFIET.Aplicacion
         public static bool EliminarSalon(decimal idSalon)
         {
             return FachadaSalones.EliminarSalon(idSalon);
+        }
+        #endregion
+
+        #region Metodos Gestion de Infraestructura Fachada FranjaHorarias
+        public static List<FRANJA_HORARIA> ConsultarFranjaHoraria(decimal idSalon = 0, string dia = "",
+            string horaInicio = "", string horaFin = "")
+        {
+            return FachadaFranjasHorarias.ConsultarFranjaHoraria(idSalon, dia, horaInicio, horaFin);
+        }
+        public static List<FRANJA_HORARIA> ObtenarHorarioCurso(decimal idCurso)
+        {
+            return FachadaSalones.ObtenarHorarioCurso(idCurso);
         }
         #endregion
     }

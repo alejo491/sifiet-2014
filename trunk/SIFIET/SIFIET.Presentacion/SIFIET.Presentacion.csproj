@@ -39,6 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -78,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\estilos.css" />
-    <Content Include="Content\fonts\voegur\vegur-regular-webfont.svg" />
+    <Content Include="Content\fonts\vegur\vegur-regular-webfont.svg" />
     <Content Include="Content\img\bkg-cabecera-rojo.png" />
     <Content Include="Content\img\bkg-footer.jpg" />
     <Content Include="Content\img\body-bkg.png" />
@@ -87,6 +95,7 @@
     <Content Include="Content\img\foot-bkg.gif" />
     <Content Include="Content\img\logo-unicauca.png" />
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -116,14 +125,43 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\funciones.js" />
+    <None Include="Properties\PublishProfiles\Admin.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsignaturasController.cs" />
+    <Compile Include="Controllers\CursosController.cs" />
+    <Compile Include="Controllers\GruposInvestigacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlanesEstudioController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SalonesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,9 +171,9 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Content\fonts\voegur\vegur-regular-webfont.eot" />
-    <Content Include="Content\fonts\voegur\vegur-regular-webfont.ttf" />
-    <Content Include="Content\fonts\voegur\vegur-regular-webfont.woff" />
+    <Content Include="Content\fonts\vegur\vegur-regular-webfont.eot" />
+    <Content Include="Content\fonts\vegur\vegur-regular-webfont.ttf" />
+    <Content Include="Content\fonts\vegur\vegur-regular-webfont.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Asignaturas\CargarArchivo.cshtml" />
     <Content Include="Views\Asignaturas\CargarInformacion.cshtml" />
@@ -145,12 +183,7 @@
     <Content Include="Views\Asignaturas\RegistrarAsignatura.cshtml" />
     <Content Include="Views\Asignaturas\VisualizarAsignatura.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Programas\CargarDatos.cshtml" />
-    <Content Include="Views\Programas\EliminarPrograma.cshtml" />
     <Content Include="Views\Programas\Index.cshtml" />
-    <Content Include="Views\Programas\ModificarPrograma.cshtml" />
-    <Content Include="Views\Programas\RegistrarPrograma.cshtml" />
-    <Content Include="Views\Programas\VisualizarPrograma.cshtml" />
     <Content Include="Views\Roles\EliminarRol.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\ModificarRol.cshtml" />
@@ -164,6 +197,34 @@
     <Content Include="Views\Usuarios\ModificarUsuario.cshtml" />
     <Content Include="Views\Usuarios\RegistrarUsuario.cshtml" />
     <Content Include="Views\Usuarios\VisualizarUsuario.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Cursos\CargarArchivo.cshtml" />
+    <Content Include="Views\Cursos\CargarInformacion.cshtml" />
+    <Content Include="Views\Cursos\EliminarCurso.cshtml" />
+    <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Cursos\ModificarCurso.cshtml" />
+    <Content Include="Views\Cursos\RegistrarCurso.cshtml" />
+    <Content Include="Views\Cursos\VisualizarCurso.cshtml" />
+    <Content Include="Views\GruposInvestigacion\EliminarGrupoInvestigacion.cshtml" />
+    <Content Include="Views\GruposInvestigacion\Index.cshtml" />
+    <Content Include="Views\GruposInvestigacion\ModificarGrupoInvestigacion.cshtml" />
+    <Content Include="Views\GruposInvestigacion\RegistrarGrupoInvestigacion.cshtml" />
+    <Content Include="Views\GruposInvestigacion\VisualizarGrupoInvestigacion.cshtml" />
+    <Content Include="Views\Salones\EliminarSalon.cshtml" />
+    <Content Include="Views\Salones\Index.cshtml" />
+    <Content Include="Views\Salones\ModificarSalon.cshtml" />
+    <Content Include="Views\Salones\RegistrarSalon.cshtml" />
+    <Content Include="Views\Salones\VisualizarSalon.cshtml" />
+    <Content Include="Views\Cursos\RegistrarHorario.cshtml" />
+    <Content Include="Views\Cursos\AgregarFranjaHoraria.cshtml" />
+    <Content Include="Views\Programas\CargarInformacion.cshtml" />
+    <Content Include="Views\Programas\EditarProgramaAcademico.cshtml" />
+    <Content Include="Views\Programas\RegistrarProgramaAcademico.cshtml" />
+    <Content Include="Views\Programas\VisualizarProgramaAcademico.cshtml" />
+    <Content Include="Views\PlanesEstudio\EditarPlanEstudio.cshtml" />
+    <Content Include="Views\PlanesEstudio\Index.cshtml" />
+    <Content Include="Views\PlanesEstudio\RegistrarPlanEstudio.cshtml" />
+    <Content Include="Views\PlanesEstudio\VisualizarPlanEstudio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,13 +235,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SIFIET.Aplicacion\SIFIET.Aplicacion.csproj">
       <Project>{fec384d8-b151-41f1-9533-4a56962ae088}</Project>
       <Name>SIFIET.Aplicacion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj">
+      <Project>{2af67ccc-9866-4419-9963-cde1f6f802ad}</Project>
+      <Name>SIFIET.GestionInfraestructura</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIFIET.GestionProgramas\SIFIET.GestionProgramas.csproj">
       <Project>{5c3adde4-0584-4faa-9cf7-f0a81caa336d}</Project>

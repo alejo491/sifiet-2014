@@ -1,1 +1,69 @@
-﻿
+﻿@using System.EnterpriseServices
+@using System.Web.Mvc.Html
+@model SIFIET.GestionUsuarios.Datos.Modelo.ROL
+@{
+    ViewBag.Title = "Nuevo Rol";
+}
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <div>
+        @ViewBag.Mensaje
+    </div>
+}
+<div>
+
+    @using (Html.BeginForm("RegistrarRol", "Roles"))
+    {
+        @Html.AntiForgeryToken()
+        Html.EnableClientValidation();
+        <fieldset>
+            <legend>Nuevo Rol</legend>
+            @Html.ValidationSummary(true)
+            <div>
+                Nombre:
+                <div>
+                    @Html.EditorFor(model => model.NOMBREROL)
+                    @Html.ValidationMessageFor(model => model.NOMBREROL)
+                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorNombreRol))
+                {
+                    <div>
+                        @ViewBag.ErrorNombreRol
+                    </div>
+                }
+            </div>
+            <div>
+                Descripcion:
+                <div>
+                    @Html.TextAreaFor(model => model.DESCRIPCIONROL)
+                    @Html.ValidationMessageFor(model => model.DESCRIPCIONROL)
+                </div>
+            </div>
+            <div>
+                <h3>Permisos</h3>
+                <div>
+                    @foreach (var item in ViewBag.lstNombresPermisos)
+                    {
+                        <label>@item</label>
+                        <select name="@item" id="@item">
+                        <option value=0>Visualizar</option>
+                        <option value=1>Gestionar</option>
+                        </select>
+                    }
+                </div>
+            </div>
+        </fieldset>
+        <div>
+            <div>
+                <input type="submit" value="Guardar" onclick="return comfirmarAgregarRol()" />
+            </div>
+            <div>
+                <input type="button" value="Cancelar" onclick="return confirmSalirRol()" />
+            </div>
+        </div>
+
+    }
+</div>
+<script src="/Scripts/funciones.js"></script>
+<script src="/Scripts/jquery.validate.min.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>

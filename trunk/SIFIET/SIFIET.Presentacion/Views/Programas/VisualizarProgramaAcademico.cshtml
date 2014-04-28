@@ -1,0 +1,86 @@
+﻿@model SIFIET.GestionProgramas.Datos.Modelo.PROGRAMA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Visualizar Programa</legend>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.CODIGOSNIESPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CODIGOSNIESPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.NOMBREPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOMBREPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.DESCRIPCIONPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPCIONPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ESTADOPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ESTADOPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.FACULTAD.NOMBREFACULTAD)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FACULTAD.NOMBREFACULTAD)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.DURACIONPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DURACIONPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.PERIODODURACIONPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PERIODODURACIONPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.MODALIDADPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MODALIDADPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.JORNADAPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JORNADAPROGRAMA)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ADMISIONPROGRAMA)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ADMISIONPROGRAMA)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma=Model.IDENTIFICADORPROGRAMA }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

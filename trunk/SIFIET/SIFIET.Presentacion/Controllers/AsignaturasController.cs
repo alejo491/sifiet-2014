@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -274,7 +274,7 @@ namespace SIFIET.Presentacion.Controllers
             try
             {
                 DataSet ds = new DataSet();
-                ds = (DataSet) Session["DatosSession"];
+                ds = (DataSet)Session["DatosSession"];
                 StreamWriter wr = new StreamWriter(
                     @"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
 
