@@ -17,15 +17,19 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
         
         public decimal IDENTIFICADORUSUARIO { get; set; }
+
         [Required]
         public decimal IDENTIFICADORDEPARTAMENTO { get; set; }
+
         [Required]
         [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya esta en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
        
         public string ESTADOGRUPOINVESTIGACION { get; set; }
+
         [Required]
         public string DESCRIPCIONGRUPOINVESTIGACION { get; set; }
+
         [Required]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
         public string CODIGOGRUPOINVESTIGACION { get; set; }
@@ -37,22 +41,22 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             bool valid = false;
-            var grupoValidacion = validationContext.ObjectInstance as GRUPO_INVESTIGACION;
+            var asignaturaValidacion = validationContext.ObjectInstance as GRUPO_INVESTIGACION;
             if (value != null)
             {
                 var nombre = value as string;
                 var db = new GestionProgramasEntities();
-                var grupo = (from e in db.GRUPO_INVESTIGACION where grupoValidacion.NOMBREGRUPOINVESTIGACION == e.NOMBREGRUPOINVESTIGACION select e).FirstOrDefault();
-                if (grupo != null)
+                var asignatura = (from e in db.GRUPO_INVESTIGACION where asignaturaValidacion.NOMBREGRUPOINVESTIGACION == e.NOMBREGRUPOINVESTIGACION select e).FirstOrDefault();
+                if (asignatura != null)
                 {
-                    if (value.Equals(grupo.NOMBREGRUPOINVESTIGACION))
+                    if (value.Equals(asignatura.NOMBREGRUPOINVESTIGACION))
                         valid = true;
                 }
                 if (valid != true)
                 {
-                    var nombregrupo = (from e in db.GRUPO_INVESTIGACION where nombre == e.NOMBREGRUPOINVESTIGACION select e.NOMBREGRUPOINVESTIGACION).FirstOrDefault
+                    var nombreAsignatura = (from e in db.GRUPO_INVESTIGACION where nombre == e.NOMBREGRUPOINVESTIGACION select e.NOMBREGRUPOINVESTIGACION).FirstOrDefault
                             ();
-                    if (String.IsNullOrEmpty(nombregrupo))
+                    if (String.IsNullOrEmpty(nombreAsignatura))
                         valid = true;
                 }
             }

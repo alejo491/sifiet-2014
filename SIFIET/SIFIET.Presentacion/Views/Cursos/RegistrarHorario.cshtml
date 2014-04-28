@@ -1,0 +1,153 @@
+﻿@using System.Activities.Expressions
+@using System.Web.UI.WebControls
+@model SIFIET.GestionProgramas.Datos.Modelo.CURSO
+
+
+@{
+    ViewBag.Title = "Gestionar Horario";
+    var grid = new WebGrid(ViewBag.Horario);
+}
+
+<div>
+    <fieldset>
+        <legend>Asignatura</legend>
+        <div>
+            <dl>
+                <dt>
+                    Identificador Curso
+                </dt>
+
+                <dd>
+                    @ViewBag.oCurso.IDENTIFICADORCURSO
+                </dd>
+
+                <dt>
+                    Nombre Curso
+                </dt>
+
+                <dd>
+                    @ViewBag.oCurso.NOMBRECURSO
+                </dd>
+                <dt>
+                    Asignatura
+                </dt>
+
+                <dd>
+                    @ViewBag.oCurso.NombreAsignatura
+                </dd>
+
+                <dt>
+                    Docente
+                </dt>
+
+                <dd>
+                    @ViewBag.oCurso.NombreDocente
+                </dd>
+            </dl>
+        </div>
+    </fieldset>
+
+    @using (Html.BeginForm("RegistrarHorario", "Cursos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        Html.EnableClientValidation();
+
+
+        <fieldset>
+            <legend>Registrar Horario</legend>
+
+            @Html.ValidationSummary(true)
+            <div>
+                <table>
+                    <tr>
+                        <td>Salon</td>
+                        <td> :</td>
+                        <td>
+                            <select id="IDENTIFICADORSALON" name="IDENTIFICADORSALON">
+                                @foreach (var item in ViewBag.Salones)
+                                {
+                                    <option value="@item.IDENTIFICADORSALON">@item.NOMBRESALON</option>
+                                }
+
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dia </td>
+                        <td> :</td>
+                        <td><div id="SeleccionarDia">
+                                <select id="DIAFRANJA" name="DIAFRANJA">
+                                    @foreach (var item in ViewBag.Salones)
+                                    {
+                                        <option value="@item.IDENTIFICADORSALON">@item.NOMBRESALON</option>
+                                    }
+
+                                </select>
+
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td>Hora Inicio </td>
+                        <td> :</td>
+                        <td><div id="SeleccionarDia">
+                                <select id="HORAINICIOFRANJA" name="HORAINICIOFRANJA">
+                                    @foreach (var item in ViewBag.Salones)
+                                    {
+                                        <option value="@item.IDENTIFICADORSALON">@item.NOMBRESALON</option>
+                                    }
+
+                                </select>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td>Hora Fin </td>
+                        <td> :</td>
+                        <td><div id="SeleccionarDia">
+                                <select id="HORAFINFRANJA" name="HORAFINFRANJA">
+                                    @foreach (var item in ViewBag.Salones)
+                                    {
+                                        <option value="@item.IDENTIFICADORSALON">@item.NOMBRESALON</option>
+                                    }
+
+                                </select>
+                            </div></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+                <div>
+                    <input type="button" value="Agregar Horario" onclick="" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+    
+
+</div>
+
+<div>
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+
+            grid.Column("DIAFRANJA",header:"Dia"),
+            grid.Column("HORAINICIOFRANJA",header:"Hora Inicio"),
+            grid.Column("HORAFINFRANJA",header:"Hora Fin"),
+            grid.Column("IDENTIFICADORSALON",header:"Salon"),
+            
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                
+                @Html.ActionLink("Eliminar", "EliminarHorario", new { idUsuario = item.IDENTIFICADORFRANJA })
+                </text>
+            )
+        })
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
