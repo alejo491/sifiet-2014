@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
     public class GRUPO_INVESTIGACIONMETADATA
     {
-        
+
         public decimal IDENTIFICADORUSUARIO { get; set; }
 
         [Required]
@@ -24,7 +24,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya esta en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
-       
+
         public string ESTADOGRUPOINVESTIGACION { get; set; }
 
         [Required]
