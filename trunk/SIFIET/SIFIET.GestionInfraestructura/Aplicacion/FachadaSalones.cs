@@ -35,6 +35,11 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
             return ServicioSalones.EliminarSalon(idSalon);
         }
 
+        public static List<FRANJA_HORARIA> ObtenarHorarioCurso(decimal idCurso)
+        {
+            return ServicioSalones.ObtenarHorarioCurso(idCurso);
+        }
+
     }
 }
 

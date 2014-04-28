@@ -289,5 +289,33 @@ namespace SIFIET.Presentacion.Controllers
             return RedirectToAction("Index");
 
         }
+
+        public ActionResult RegistrarHorario(decimal idCurso)
+        {
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "");
+            ViewBag.ListaDias = FachadaSIFIET.ConsultarSalones(0, "");
+            ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "");
+            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, ""); 
+            return View(FachadaSIFIET.VisualizarCurso(idCurso));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrarHorario(FormCollection datos)
+        {
+        //AQUI VA LA LOGICA DE EDITAR LA FRANJA HORARIA
+            ViewBag.Horario = FachadaSIFIET.ObtenarHorarioCurso(decimal.Parse(datos["idCurso"]));
+            return View(FachadaSIFIET.VisualizarCurso(decimal.Parse(datos["idCurso"])));
+
+        
+        }
+
+        public ActionResult EliminarHorario(FormCollection datos)
+        {
+            //AQUI VA LA LOGICA DE Eliminar LA FRANJA HORARIA
+            return View();
+
+
+        }
     }
 }

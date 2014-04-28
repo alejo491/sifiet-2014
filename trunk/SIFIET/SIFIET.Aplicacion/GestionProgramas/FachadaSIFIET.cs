@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SIFIET.GestionInfraestructura.Aplicacion;
+using SIFIET.GestionInfraestructura.Datos.Modelo;
 using SIFIET.GestionProgramas.Aplicacion;
 using SIFIET.GestionProgramas.Datos.Modelo;
 
@@ -172,5 +174,11 @@ namespace SIFIET.Aplicacion
         }
 
         #endregion
+
+
+        public static List<FRANJA_HORARIA> ObtenarHorarioCurso(decimal idCurso)
+        {
+            return FachadaSalones.ObtenarHorarioCurso(idCurso);
+        }
     }
 }
