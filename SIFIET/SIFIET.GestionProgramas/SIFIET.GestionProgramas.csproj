@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Aplicacion\FachadaAsignaturas.cs" />
     <Compile Include="Aplicacion\FachadaCursos.cs" />
+    <Compile Include="Aplicacion\FachadaFacultades.cs" />
     <Compile Include="Aplicacion\FachadaGInvestigacion.cs" />
     <Compile Include="Aplicacion\FachadaPlanesEstudio.cs" />
     <Compile Include="Aplicacion\FachadaProgramas.cs" />
@@ -91,8 +92,15 @@
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Entidades\Parciales\ASIGNATURA.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\CURSO.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\DOCENTE.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\FACULTAD.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\GRUPO_INVESTIGACION.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\PLANESTUDIO.cs" />
+    <Compile Include="Dominio\Entidades\Parciales\PROGRAMA.cs" />
     <Compile Include="Dominio\Servicios\ServicioAsignaturas.cs" />
     <Compile Include="Dominio\Servicios\ServicioCursos.cs" />
+    <Compile Include="Dominio\Servicios\ServicioFacultades.cs" />
     <Compile Include="Dominio\Servicios\ServicioGInvestigacion.cs" />
     <Compile Include="Dominio\Servicios\ServicioPlanesEstudio.cs" />
     <Compile Include="Dominio\Servicios\ServicioProgramas.cs" />

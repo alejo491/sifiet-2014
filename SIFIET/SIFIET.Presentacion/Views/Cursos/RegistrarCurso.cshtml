@@ -18,7 +18,7 @@
             <legend>Nueva Curso</legend>
 
             @Html.ValidationSummary(true)
-            
+
             <div>
                 Nombre :
                 <div>
@@ -26,7 +26,7 @@
                     @Html.ValidationMessageFor(model => model.NOMBRECURSO)
                 </div>
             </div>
-           
+
             <div>
                 Asignatura :
                 <div>
@@ -38,7 +38,7 @@
             <div>
                 Docente :
                 <div>
-                    @Html.EditorFor(model => model.IDENTIFICADORUSUARIO)
+                    @Html.DropDownListFor(model => model.IDENTIFICADORUSUARIO, ViewBag.ListaDocentes as SelectList)
                     @Html.ValidationMessageFor(model => model.IDENTIFICADORUSUARIO)
 
                 </div>

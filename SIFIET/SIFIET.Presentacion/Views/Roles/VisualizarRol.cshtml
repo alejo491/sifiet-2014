@@ -1,1 +1,64 @@
-﻿
+﻿@model SIFIET.GestionUsuarios.Datos.Modelo.ROL
+
+@{
+    ViewBag.Title = "Visualizar Rol";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Rol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Identificador:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDENTIFICADORROL)
+        </dd>
+
+        <dt>
+            Nobre:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBREROL)
+        </dd>
+
+        <dt>
+            Descripcion:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCIONROL)
+        </dd>
+        <dt>
+            Estado:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADOROL)
+        </dd>
+        <h3>Permisos</h3>
+        @foreach (var item in Model.PERMISOS)
+        {
+            <dd>
+                <h4>@Html.DisplayFor(modelItem => item.NOMBREPERMISO):</h4>
+                @if (item.GESTIONARPERMISO == 1)
+                {
+                    <p>Gestionar</p>
+                }
+                else
+                {
+                    <p>Visualizar</p>
+                }
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "ModificarRol", new { idRol = Model.IDENTIFICADORROL }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

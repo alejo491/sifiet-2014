@@ -1,48 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionProgramas.Datos.Modelo;
+using System.Data;
+using SIFIET.GestionProgramas.Dominio.Servicios;
+
 
 namespace SIFIET.GestionProgramas.Aplicacion
 {
     public static class FachadaProgramas
     {
-        public static List<PROGRAMA> ConsultarProgramas()
-        {
-            throw new NotImplementedException();
+        public static PROGRAMA ConsultarProgramaAcademico(decimal idPrograma) {
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramaAcademico(idPrograma);
         }
 
-        public static PROGRAMA ConsultarPrograma(string id)
+        public static List<PROGRAMA> ConsultarProgramasAcademicos(string campo, string busqueda)
         {
-            throw new NotImplementedException();
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramasAcademicos(campo, busqueda);
         }
 
-        public static List<PROGRAMA> ConsultarProgramaPorNombre(string busqueda)
+        public static List<PROGRAMA> ConsultarProgramasAcademicos()
         {
-            throw new NotImplementedException();
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramasAcademicos();
         }
 
-        public static bool RegistrarPrograma(PROGRAMA programa)
+        public static bool RegistrarProgramaAcademico(PROGRAMA objPrograma)
         {
-            throw new NotImplementedException();
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.RegistrarProgramaAcademico(objPrograma);
         }
 
-        public static bool ModificarPrograma(PROGRAMA programa)
+        public static bool EditarProgramaAcademico(PROGRAMA objPrograma) 
         {
-            throw new NotImplementedException();
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.EditarProgramaAcademico(objPrograma);
         }
 
-        public static bool EliminarPrograma(PROGRAMA programa)
+        public static bool EliminarProgramaAcademico(decimal idPrograma)
         {
-            throw new NotImplementedException();
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.EliminarProgramaAcademico(idPrograma);
         }
 
-        public static bool CargarDatos(DataSet datosExcel)
+        public static bool CargarInformacion(DataSet datosExcel)
         {
-            throw new NotImplementedException();
+           return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.CargarInformacion(datosExcel);
         }
     }
 }

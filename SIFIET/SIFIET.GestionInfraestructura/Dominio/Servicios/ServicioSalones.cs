@@ -74,7 +74,12 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 var db = new GestionInfraestructuraEntities();
                 db.SALONs.Add(nuevoSalon);
                 db.SaveChanges();
-                return true;
+                var oSalon = (from salon in db.SALONs
+                    where
+                        nuevoSalon.NOMBRESALON == salon.NOMBRESALON &&
+                        nuevoSalon.IDENTIFICADORFACULTAD == salon.IDENTIFICADORFACULTAD
+                    select salon).FirstOrDefault();
+                return CrearFranjasHorarias(oSalon);
 
             }
             catch (Exception)
@@ -82,6 +87,38 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 
                 return false;
             }
+
+        }
+
+        internal static bool CrearFranjasHorarias(SALON oSalon)
+        {
+            try
+            {
+                var db = new GestionInfraestructuraEntities();
+                for (int d = 1; d <= 2; d++)
+                {
+                    for (int i = 6; i <= 8; i++)
+                    {
+                        var oFranjaHoraria = new FRANJA_HORARIA
+                        {
+                            ESTADOFRANJA = "Disponible",
+                            HORAINICIOFRANJA = i.ToString().Trim(),
+                            HORAFINFRANJA = (i + 1).ToString().Trim(),
+                            IDENTIFICADORSALON = oSalon.IDENTIFICADORSALON,
+                            DIAFRANJA = d.ToString().Trim(),
+                        };
+                        db.FRANJA_HORARIA.Add(oFranjaHoraria);
+                    }
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
 
         }
 

@@ -1,1 +1,71 @@
-﻿
+﻿@using SIFIET.GestionUsuarios.Datos.Modelo
+@model SIFIET.GestionUsuarios.Datos.Modelo.ROL
+
+@{
+    ViewBag.Title = "Editar Rol";
+}
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <div>
+        @ViewBag.Mensaje
+    </div>
+}
+<div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend>Editar Rol</legend>
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.IDENTIFICADORROL)
+            <div>
+                Nombre:
+                <div>
+                    @Html.EditorFor(model => model.NOMBREROL)
+                    @Html.ValidationMessageFor(model => model.NOMBREROL)
+                </div>
+            </div>
+
+            <div>
+                Descripcion:
+                <div>
+                    @Html.TextAreaFor(model => model.DESCRIPCIONROL)
+                    @Html.ValidationMessageFor(model => model.DESCRIPCIONROL)
+                </div>
+            </div>
+            @foreach (var item in Model.PERMISOS)
+            {
+                <div>
+                    <h4>@Html.DisplayFor(modelItem => item.NOMBREPERMISO):</h4>
+                    <select name="@item.NOMBREPERMISO.Trim()" id="@item.NOMBREPERMISO.Trim()">
+                        @if (item.GESTIONARPERMISO == 0)
+                        {
+                            <option value=0 selected>Visualizar</option>
+                            <option value=1>Gestionar</option>
+                        }
+                        else
+                        {
+                            <option value=0>Visualizar</option>
+                            <option value=1 selected>Gestionar</option>
+                        }
+                    </select>
+                </div>
+            }
+            <div>
+                <div>
+                    <input type="submit" value="Editar" onclick="return comfirmarAgregarRol()" />
+                </div>
+                <div>
+                    <input type="button" value="Cancelar" onclick="return confirmSalirRol()" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="/Scripts/funciones.js"></script>
+<script src="/Scripts/jquery.validate.min.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>

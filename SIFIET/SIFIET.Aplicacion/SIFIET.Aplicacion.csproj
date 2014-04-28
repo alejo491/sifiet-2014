@@ -51,7 +51,7 @@
       <Name>SIFIET.GestionContenidos</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj">
-      <Project>{2af67ccc-9866-4419-9963-cde1f6f802ad}</Project>
+      <Project>{2AF67CCC-9866-4419-9963-CDE1F6F802AD}</Project>
       <Name>SIFIET.GestionInfraestructura</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIFIET.GestionProgramas\SIFIET.GestionProgramas.csproj">

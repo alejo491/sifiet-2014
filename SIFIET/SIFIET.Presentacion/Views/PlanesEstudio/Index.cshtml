@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<SIFIET.GestionProgramas.Datos.Modelo.PLANESTUDIO>
+@using PagedList.Mvc;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{    
+    <fieldset>
+        <legend>Buscar Plan de Estudio</legend>
+        Campo a buscar:
+        <select id="campo" name="campo">
+            <option>Nombre</option>      
+            <option>Programa</option>
+        </select>
+        Ingrese el dato a buscar @Html.TextBox("busqueda")  
+        <input type="submit" value="Buscar" />
+    </fieldset>
+}
+<br />
+<p>
+    @Html.ActionLink("Agregar", "RegistrarPlanEstudio")
+</p>
+<table>
+    <tr>
+        <th>
+            Nombre
+        </th>
+         <th>
+            Descripción
+        </th>
+        <th>
+            Fecha Inicio
+        </th>
+        <th>
+            Fecha Fin
+        </th>
+        <th>
+            Programa Academico
+        </th>
+        <th>
+            Opciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBREPLANESTUDIOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCIONPLANESTUDIOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHAINICIOPLANESTUDIOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHAFINPLANESTUDIOS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROGRAMA.NOMBREPROGRAMA)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |
+            @Html.ActionLink("Visualizar", "VisualizarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |
+            @Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirm('¿Este programa tiene relacion con registros de la base de datos, confirma que desea eliminar el Plan de Estudios?')"})
+        </td>
+    </tr>
+}
+
+</table>
+
+<h3> @ViewBag.Resultado </h3>
+
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

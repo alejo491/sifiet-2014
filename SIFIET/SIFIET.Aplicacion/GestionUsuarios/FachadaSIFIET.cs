@@ -63,7 +63,7 @@ namespace SIFIET.Aplicacion
         }
         public static bool RegistrarRoles(ROL oRol, List<PERMISO> lstPermisos)
         {
-            return FachadaRoles.RegistrarRoles(oRol,lstPermisos);
+            return FachadaRoles.RegistrarRol(oRol,lstPermisos);
         }
 
         public static ROL ConsultarRol(string idRol)
@@ -80,9 +80,9 @@ namespace SIFIET.Aplicacion
         {
             return FachadaRoles.EliminarRol(idRol);
         }
-        public static List<ROL> BuscarRolPorNombre(string nombre)
+        public static List<ROL> ConsultarRolPorNombre(string nombre)
         {
-            return FachadaRoles.BuscarRolPorNombre(nombre);
+            return FachadaRoles.ConsultarRolPorNombre(nombre);
         }
 
         public static bool ExisteNombre(string nombre)
@@ -90,10 +90,15 @@ namespace SIFIET.Aplicacion
             return FachadaRoles.ExisteNombre(nombre);
         }
 
-        public static List<ROL> BuscarRolPorEstado(string estado)
+        public static List<ROL> ConsultarRolPorEstado(string estado)
         {
-            return FachadaRoles.BuscarRolPorEstado(estado);
+            return FachadaRoles.ConsultarRolPorEstado(estado);
         }
+
+        public static List<string> ConsultarNombresPermisos()
+        {
+            return FachadaRoles.ConsultarNombresPermisos();
+        } 
         #endregion
     }
 }

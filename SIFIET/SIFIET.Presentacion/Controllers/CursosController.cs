@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
@@ -18,12 +18,12 @@ namespace SIFIET.Presentacion.Controllers
             ViewData["Mensaje"] = Session["varsession"];
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
             //var selectItems = new Dictionary<decimal, string> {{1, "Idenfificador"}, {2, "Nombre Curso"}};
-            var one = new SelectListItem() {Value = "1", Text = "Identificador"};
-            var two = new SelectListItem() {Value = "2", Text = "Nombre"};
+            var one = new SelectListItem() { Value = "1", Text = "Identificador" };
+            var two = new SelectListItem() { Value = "2", Text = "Nombre" };
             List<SelectListItem> lista = new List<SelectListItem>();
             lista.Add(one);
             lista.Add(two);
-            ViewBag.campoBusqueda = new SelectList(lista,"value","text");
+            ViewBag.campoBusqueda = new SelectList(lista, "value", "text");
             try
             {
                 if (idCurso == null | String.IsNullOrEmpty(nombreCurso))
@@ -44,7 +44,7 @@ namespace SIFIET.Presentacion.Controllers
 
                 return View(FachadaSIFIET.ConsultarCursos(0, ""));
             }
-            
+
         }
 
         public ActionResult VisualizarCurso(decimal idCurso)
@@ -55,6 +55,9 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarCurso()
         {
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            var listaDocentes = FachadaSIFIET.ConsultarDocentes();
+            ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+            ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
             ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             return View();
         }
@@ -65,9 +68,10 @@ namespace SIFIET.Presentacion.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
                 var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaDocentes = FachadaSIFIET.ConsultarDocentes();
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+                ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
                 if (!ModelState.IsValid) return View(oCurso);
                 bool resultado = FachadaSIFIET.RegistrarCurso(oCurso);
 
@@ -89,7 +93,9 @@ namespace SIFIET.Presentacion.Controllers
         {
             var oCurso = FachadaSIFIET.VisualizarCurso(idCurso) as CURSO;
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            var listaDocentes = FachadaSIFIET.ConsultarDocentes();
             ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+            ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
             return View(oCurso);
         }
 
@@ -99,7 +105,9 @@ namespace SIFIET.Presentacion.Controllers
             try
             {
                 var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaDocentes = FachadaSIFIET.ConsultarDocentes();
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+                ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
                 
                 if (!ModelState.IsValid) return View(oCurso);
                 var resultado = FachadaSIFIET.ModificarCurso(oCurso);
@@ -116,13 +124,13 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oCurso);
             }
         }
-        
+
         public ActionResult EliminarCurso(decimal idCurso)
         {
             return View(FachadaSIFIET.VisualizarCurso(idCurso));
         }
 
-        
+
         [HttpPost, ActionName("EliminarCurso")]
         [ValidateAntiForgeryToken]
         public ActionResult EliminarCursoConfirmacion(decimal idCurso)
@@ -278,11 +286,11 @@ namespace SIFIET.Presentacion.Controllers
                 StreamWriter wr =
                     new StreamWriter(
                         @"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
-                                    
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4]);
-                    }
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4]);
+                }
 
                 wr.Dispose();
 
@@ -307,7 +315,7 @@ namespace SIFIET.Presentacion.Controllers
             ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "");
             ViewBag.ListaDias = FachadaSIFIET.ConsultarSalones(0, "");
             ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "");
-            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, ""); 
+            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "");
             return View(FachadaSIFIET.VisualizarCurso(idCurso));
         }
 
@@ -315,19 +323,15 @@ namespace SIFIET.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RegistrarHorario(FormCollection datos)
         {
-        //AQUI VA LA LOGICA DE EDITAR LA FRANJA HORARIA
+            //AQUI VA LA LOGICA DE EDITAR LA FRANJA HORARIA
             ViewBag.Horario = FachadaSIFIET.ObtenarHorarioCurso(decimal.Parse(datos["idCurso"]));
             return View(FachadaSIFIET.VisualizarCurso(decimal.Parse(datos["idCurso"])));
-
-        
         }
 
         public ActionResult EliminarHorario(FormCollection datos)
         {
             //AQUI VA LA LOGICA DE Eliminar LA FRANJA HORARIA
             return View();
-
-
         }
     }
 }

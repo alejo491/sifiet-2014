@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionUsuarios.Datos.Modelo;
+using SIFIET.GestionUsuarios.Dominio.Servicios;
 
 namespace SIFIET.GestionUsuarios.Aplicacion
 {
@@ -11,42 +12,46 @@ namespace SIFIET.GestionUsuarios.Aplicacion
     {
         public static List<ROL> ConsultarRoles()
         {
-            throw new NotImplementedException();
+            return ServicioRoles.ConsultarRoles();
         }
 
-        public static bool RegistrarRoles(ROL oRol, List<PERMISO> lstPermisos)
+        public static bool RegistrarRol(ROL oRol, List<PERMISO> lstPermisos)
         {
-            throw new NotImplementedException();
+            return ServicioRoles.RegistrarRol(oRol, lstPermisos);
         }
 
         public static ROL ConsultarRol(string idRol)
         {
-            throw new NotImplementedException();
+            return ServicioRoles.ConsultarRol(idRol);
         }
 
         public static bool ModificarRol(ROL oRol, List<PERMISO> lstPermisos)
         {
-            throw new NotImplementedException();
+            return ServicioRoles.ModificarRol(oRol, lstPermisos);
         }
 
         public static bool EliminarRol(string idRol)
         {
-            throw new NotImplementedException();
-        }
-
-        public static List<ROL> BuscarRolPorNombre(string nombre)
-        {
-            throw new NotImplementedException();
+            return ServicioRoles.EliminarRol(idRol);
         }
 
         public static bool ExisteNombre(string nombre)
         {
-            throw new NotImplementedException();
+            return ServicioRoles.ExisteNombre(nombre);
         }
 
-        public static List<ROL> BuscarRolPorEstado(string estado)
+        public static List<ROL> ConsultarRolPorNombre(string nombre)
         {
-            throw new NotImplementedException();
+            return ServicioRoles.ConsultarRolPorNombre(nombre);
         }
+        public static List<ROL> ConsultarRolPorEstado(string estado)
+        {
+            return ServicioRoles.ConsultarRolPorEstado(estado);
+        }
+
+        public static List<string> ConsultarNombresPermisos()
+        {
+            return ServicioRoles.ConsultarNombresPermisos();
+        } 
     }
 }

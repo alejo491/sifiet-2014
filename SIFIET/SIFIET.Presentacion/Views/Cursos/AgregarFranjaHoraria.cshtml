@@ -1,0 +1,60 @@
+﻿<script type="text/javascript">
+    $(document).ready(function() {
+        $('#IDENTIFICADORSALON').change(function() {
+            var idSalon = $(this).val();
+            $.getJSON("ObtenerListaDias", { id: idSalon },
+                function(myData) {
+                    var select = $('#DIAFRANJA');
+                    select.empty();
+                    $.each(myData, function (index, itemData) {
+
+                        alert("itemValue:"+itemData.Value+"itemText"+itemData.Text);
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text,
+                        }));
+                    });
+                });
+        });
+    });
+    $(document).ready(function () {
+        $('#DIAFRANJA').change(function () {
+            var idDia = $(this).val();
+            $.getJSON("ObtenerListaHoraInicio", { id: idDia },
+                function (myData) {
+                    var select = $('#HORAINICIOFRANJA');
+                    select.empty();
+                    $.each(myData, function (index, itemData) {
+
+                        alert("itemValue:" + itemData.Value + "itemText" + itemData.Text);
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text,
+                        }));
+                    });
+                });
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div>
+        <label>Seleccionar Salon: </label>
+    </div>
+    <div>
+        @Html.DropDownList("IDENTIFICADORSALON", new SelectList(ViewBag.ListaSalones as System.Collections.IEnumerable, "IDENTIFICADORSALON", "NOMBRESALON"), "---seleccionar salon--", new { id = "IDENTIFICADORSALON" })
+    </div>
+    <div>
+        <label>Seleccionar Dia:</label>
+    </div>
+    <div>
+        @Html.DropDownList("DIAFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "DIAFRANJA"), "---Dia---", new { id = "DIAFRANJA" })
+    </div>
+    <div>
+        <label>Seleccionar Hora Inicio:</label>
+    </div>
+    <div>
+        @Html.DropDownList("HORAINICIOFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Inicio---", new { id = "HORAINICIOFRANJA" })
+    </div>
+}

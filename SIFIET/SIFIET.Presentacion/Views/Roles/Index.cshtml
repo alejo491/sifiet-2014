@@ -1,1 +1,53 @@
-﻿
+﻿@using SIFIET.GestionUsuarios.Datos.Modelo
+@model IEnumerable<SIFIET.GestionUsuarios.Datos.Modelo.ROL>
+
+@{
+
+    ViewBag.Title = "Roles";
+    var grid = new WebGrid(Model);
+}
+<h2>Roles</h2>
+<div>
+    @using (Html.BeginForm("Index", "Roles"))
+    {
+        <div>
+            <label>Buscar Por:</label><select name="criterio">
+                <option value="nombre">Nombre</option>
+                <option value="estado">Estado</option>
+            </select>
+            <input name="valorbusqueda" type="text" value="" />
+            <input type="submit" value="Buscar" />
+
+        </div>
+    }
+    @grid.GetHtml(
+            fillEmptyRows: true,
+            mode: WebGridPagerModes.All,
+            columns: new[]
+            {
+
+                grid.Column("NOMBREROL", header: "Nombre"),
+                grid.Column("DESCRIPCIONROL", header: "Descipcion"),
+                grid.Column("ESTADOROL", header: "Estado"),
+                grid.Column("", header: "Opciones",
+                    format: @<text>
+                    @Html.ActionLink("Editar", "ModificarRol", new { idRol = item.IDENTIFICADORROL }) |
+                    @Html.ActionLink("Detalles", "VisualizarRol", new { idRol = item.IDENTIFICADORROL }) |
+                    @Html.ActionLink("Eliminar", "EliminarRol", new { idRol = item.IDENTIFICADORROL })
+                    </text>
+                    )
+            })
+    @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("Ningun Rol Encontrado"))
+    {
+        <script> mensajeNoRoles(); </script>
+    }
+    <p>
+        @TempData["Mensaje"]
+    </p>
+    <div>
+        <h3>
+            @Html.ActionLink("Registrar", "RegistrarRol")
+        </h3>
+    </div>
+
+</div>

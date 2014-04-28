@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -83,26 +83,31 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarUsuario([Bind(
                 Include =
                     "EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADO"
-                )] USUARIO usuario,FormCollection datos)
+                )] USUARIO usuario, FormCollection datos)
         {
-            
+            bool ban = true;
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-            if (!ModelState.IsValid)return View(usuario);
-            try
+            if (datos["roles"]==null)
             {
-                  var roles = datos["roles"].Split(',');
-                  FachadaSIFIET.RegistrarUsuario(usuario, roles);
-                  ViewBag.Mensaje = "Registro Exitoso";
+                ViewBag.Mensaje = "No se han seleccionado Roles";
+                ban = false;
             }
-            catch (Exception e)
-            {
+            if (!ModelState.IsValid || !ban) return View(usuario);
+           // try
+           // {
+                var roles = datos["roles"].Split(',');
+                FachadaSIFIET.RegistrarUsuario(usuario, roles);
+                ViewBag.Mensaje = "Registro Exitoso";
+            //}
+           // catch (Exception e)
+           // {
 
-                    ViewBag.Mensaje = "Error" + e.Message;
-                      return View(usuario);
-            }
+                //ViewBag.Mensaje = "Error" + e.Message;
+                //return View(usuario);
+            //}
 
             return View(usuario);
-            
+
         }
 
         //
@@ -125,31 +130,31 @@ namespace SIFIET.Presentacion.Controllers
                 )] USUARIO usuario, FormCollection datos)
         {
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-            
+
             if (datos["roles"] == null)
             {
                 ViewBag.ErrorRol = "Este campo es obligatorio";
-                
+
 
             }
 
-            if (!ModelState.IsValid)return View(usuario);
+            if (!ModelState.IsValid) return View(usuario);
             try
-                {
+            {
 
 
-                    var roles = datos["roles"].Split(',');
-                    FachadaSIFIET.ModificarUsuario(usuario, roles);
-                    return RedirectToAction("Index");
-                }
-                catch (Exception e)
-                {
+                var roles = datos["roles"].Split(',');
+                FachadaSIFIET.ModificarUsuario(usuario, roles);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-                    ViewBag.Mensaje = "Error" + e.Message;
-                    return View();
-                }
-            
-            
+                ViewBag.Mensaje = "Error" + e.Message;
+                return View();
+            }
+
+
         }
 
         //
@@ -162,11 +167,11 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Usuarios/Delete/5
         [HttpPost]
-        public ActionResult EliminarUsuario(int id, FormCollection collection)
+        public ActionResult EliminarUsuario(int idUsuario, FormCollection collection)
         {
             try
             {
-                FachadaSIFIET.EliminarUsuario(id);
+                FachadaSIFIET.EliminarUsuario(idUsuario);
                 return RedirectToAction("Index");
             }
             catch

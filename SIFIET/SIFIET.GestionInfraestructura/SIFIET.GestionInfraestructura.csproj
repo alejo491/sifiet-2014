@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +46,68 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicacion\FachadaFacultades.cs" />
+    <Compile Include="Aplicacion\FachadaFranjasHorarias.cs" />
+    <Compile Include="Aplicacion\FachadaSalones.cs" />
+    <Compile Include="Datos\Modelo\FACULTAD.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\FRANJA_HORARIA.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionInfraestructuraEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionInfraestructuraEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionInfraestructuraEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionInfraestructuraEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\SALON.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\SALON_DICTA_CURSO.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\SALON.cs" />
+    <Compile Include="Dominio\Servicios\ServicioFacultades.cs" />
+    <Compile Include="Dominio\Servicios\ServicioFranjasHorarias.cs" />
+    <Compile Include="Dominio\Servicios\ServicioSalones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="Datos\Modelo\GestionInfraestructuraEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GestionInfraestructuraEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Datos\Modelo\GestionInfraestructuraEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
+      <LastGenOutput>GestionInfraestructuraEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Datos\Modelo\GestionInfraestructuraEntities.edmx.diagram">
+      <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
+    </None>
+    <None Include="Datos\Modelo\GestionInfraestructuraEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
+      <LastGenOutput>GestionInfraestructuraEntities.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

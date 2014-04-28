@@ -1,1 +1,90 @@
-﻿
+﻿@model PagedList.IPagedList<SIFIET.GestionProgramas.Datos.Modelo.PROGRAMA>
+@using PagedList.Mvc;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{    
+    <fieldset>
+        <legend>Buscar Programa</legend>
+        Campo a buscar:
+        <select id="campo" name="campo">           
+            <option>Nombre</option>
+            <option>Facultad</option>
+        </select>
+        Ingrese el dato a buscar @Html.TextBox("busqueda")  
+        <input type="submit" value="Buscar" />
+    </fieldset>
+}
+<br />
+
+<h3>@ViewBag.ResultadoBusqueda</h3>
+
+<p>
+    @Html.ActionLink("Agregar", "RegistrarProgramaAcademico")
+</p>
+<table>
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Duración
+        </th>
+        <th>
+            Facultad
+        </th>
+        <th>
+            Modalidad
+        </th>
+        <th>
+            Codigo SNIES
+        </th>
+        <th>
+            Opciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBREPROGRAMA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DURACIONPROGRAMA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FACULTAD.NOMBREFACULTAD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MODALIDADPROGRAMA)
+        </td>    
+        <td>
+            @Html.DisplayFor(modelItem => item.CODIGOSNIESPROGRAMA)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma=item.IDENTIFICADORPROGRAMA }) |
+            @Html.ActionLink("Visualizar", "VisualizarProgramaAcademico", new { idPrograma=item.IDENTIFICADORPROGRAMA}) |
+            @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirm('¿Este programa tiene relacion con registros de la base de datos, confirma que desea eliminar el programa?')"})
+        </td>
+    </tr>
+}
+
+</table>
+
+<h3> @ViewBag.ResultadoOperacion </h3>
+
+@using (Html.BeginForm("CargarInformacion","Programa"))
+{
+        <input type="submit" value="Cargar Datos" />
+}
+
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

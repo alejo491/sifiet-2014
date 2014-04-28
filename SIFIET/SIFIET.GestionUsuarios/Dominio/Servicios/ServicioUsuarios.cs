@@ -31,11 +31,15 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             db.USUARIOs.Add(usuario);
             db.SaveChanges();
 
-
+            usuario =
+                (from usu in db.USUARIOs
+                    where usu.EMAILINSTITUCIONALUSUARIO.Trim().Equals(usuario.EMAILINSTITUCIONALUSUARIO)
+                 && usu.IDENTIFICACIONUSUARIO.Equals(usuario.IDENTIFICACIONUSUARIO)   
+                 select usu).FirstOrDefault();
 
             foreach (var rol in roles)
             {
-                usuario.ROLs.Add(db.ROLs.Find(rol));
+                if (usuario != null) usuario.ROLs.Add(db.ROLs.Find(decimal.Parse(rol.Trim())));
             }
             db.SaveChanges();
         }
