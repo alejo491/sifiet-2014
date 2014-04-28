@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(CORREQUISITOSASIGNATURA))
                 {
-                    var corre = CORREQUISITOSASIGNATURA.Split(',');
+                    var corre = CORREQUISITOSASIGNATURA.Split('|');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -36,7 +36,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "," + idAsignatura;
+                    CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "|" + idAsignatura;
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(PREREQUISITOSASIGNATURA))
                 {
-                    var corre = PREREQUISITOSASIGNATURA.Split(',');
+                    var corre = PREREQUISITOSASIGNATURA.Split('|');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -59,7 +59,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "," + idAsignatura;
+                    PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "|" + idAsignatura;
                 }
             }
         }
