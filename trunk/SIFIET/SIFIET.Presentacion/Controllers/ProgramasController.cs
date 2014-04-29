@@ -143,7 +143,7 @@ namespace SIFIET.Presentacion.Controllers
             if (Request.Files.Count > 0 && Request.Files["archivo"] != null)
             {
                 //var nombreArchivo = Path.GetFileName(Request.Files["archivo"].FileName);
-                string rutaArchivo = Server.MapPath("~/Archivos/") + Request.Files["archivo"].FileName;
+                string rutaArchivo = Server.MapPath("~/Uploads/") + Request.Files["archivo"].FileName;
                 string extencionArchivo = System.IO.Path.GetExtension(Request.Files["archivo"].FileName);
                 if (extencionArchivo == ".xls" || extencionArchivo == ".xlsx")
                 {
