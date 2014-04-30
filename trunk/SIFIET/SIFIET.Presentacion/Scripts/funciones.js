@@ -1,6 +1,6 @@
-﻿/*$(document).ready(function () {
-    alert('Pagina Cargada Exitosamente');
-});*/
+﻿$(document).ready(function () {
+    cargarMultiselect();
+});
 
 function comfirmarAgregarRol() {
     var nombre = document.getElementById("NOMBREROL").value;
@@ -106,9 +106,100 @@ function confirmarEliminarCurso() {
     var mensaje = "Este curso tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el curso?";
     return confirm(mensaje);
 }
-
+function confirmacionAgregarSalon() {
+    var mensaje = "¿Desea guardar el Salon con la informacion proporcionada?";
+    return confirm(mensaje);
+}
+function confirmSalirSalon() {
+    var r = confirm('¿Confirma que desea cancelar la accion?');
+    var url = window.location.pathname;
+    var pathArray = url.split('/');        // <-- no need in "string()"
+    var host = pathArray[0];
+    var newHost = '/Salones/Index';
+    if (r == true) {
+        window.location = host + newHost;
+    }
+    return false;
+}
+function confirmarEliminarSalon() {
+    var mensaje = "Este salon tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el salon?";
+    return confirm(mensaje);
+}
 function confirmacionAgregarGrupo() {
     var mensaje = "¿Desea guardar el Grupo de Investigacion con la informacion proporcionada?";
     return confirm(mensaje);
+}
+
+function cargarMultiselect() {
+    $('#ListaPrerequisitos').multiSelect({
+        selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        afterInit: function (ms) {
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function (e) {
+                if (e.which === 40) {
+                    that.$selectableUl.focus();
+                    return false;
+                }
+            });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function (e) {
+                if (e.which == 40) {
+                    that.$selectionUl.focus();
+                    return false;
+                }
+            });
+        },
+        afterSelect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });
+    $('#ListaCorrequisitos').multiSelect({
+        selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        afterInit: function (ms) {
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function (e) {
+                if (e.which === 40) {
+                    that.$selectableUl.focus();
+                    return false;
+                }
+            });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function (e) {
+                if (e.which == 40) {
+                    that.$selectionUl.focus();
+                    return false;
+                }
+            });
+        },
+        afterSelect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });
 }
 

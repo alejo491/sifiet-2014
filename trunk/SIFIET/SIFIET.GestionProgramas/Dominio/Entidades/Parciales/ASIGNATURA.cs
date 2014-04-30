@@ -24,7 +24,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(CORREQUISITOSASIGNATURA))
                 {
-                    var corre = CORREQUISITOSASIGNATURA.Split('|');
+                    var corre = CORREQUISITOSASIGNATURA.Split(',');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -36,7 +36,12 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "|" + idAsignatura;
+                    if (String.IsNullOrEmpty(CORREQUISITOSASIGNATURA))
+                    {
+                        CORREQUISITOSASIGNATURA = idAsignatura;
+                    }
+                    else
+                        CORREQUISITOSASIGNATURA = CORREQUISITOSASIGNATURA + "," + idAsignatura;
                 }
             }
         }
@@ -47,7 +52,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 ICollection<string> lst = new List<string>();
                 if (!String.IsNullOrEmpty(PREREQUISITOSASIGNATURA))
                 {
-                    var corre = PREREQUISITOSASIGNATURA.Split('|');
+                    var corre = PREREQUISITOSASIGNATURA.Split(',');
                     foreach (string idAsignatura in corre)
                     {
                         lst.Add(idAsignatura);
@@ -59,7 +64,12 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 foreach (string idAsignatura in value)
                 {
-                    PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "|" + idAsignatura;
+                    if (String.IsNullOrEmpty(PREREQUISITOSASIGNATURA))
+                    {
+                        PREREQUISITOSASIGNATURA = idAsignatura;
+                    }
+                    else
+                        PREREQUISITOSASIGNATURA = PREREQUISITOSASIGNATURA + "," + idAsignatura;
                 }
             }
         }
@@ -76,12 +86,14 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [IDYaExiste(ErrorMessage = "Este Codigo ya esta en uso, ingrese otro")]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$",ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string CODIGOASIGNATURA { get; set; }
         [Required]
         public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
         [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBREASIGNATURA { get; set; }
 
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
@@ -104,6 +116,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string ESTADOASIGNATURA { get; set; }
 
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string DESCRIPCIONASIGNATURA { get; set; }
 
     }

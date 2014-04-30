@@ -25,6 +25,7 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
         [Required]
         [NombreSalonYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe un Salon usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBRESALON { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "El {0} no pueder ser mayor de 50 caracteres")]
