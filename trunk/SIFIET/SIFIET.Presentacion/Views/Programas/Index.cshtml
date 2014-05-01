@@ -70,7 +70,7 @@
         <td>
             @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma=item.IDENTIFICADORPROGRAMA }) |
             @Html.ActionLink("Visualizar", "VisualizarProgramaAcademico", new { idPrograma=item.IDENTIFICADORPROGRAMA}) |
-            @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirm('¿Este programa tiene relacion con registros de la base de datos, confirma que desea eliminar el programa?')"})
+            @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirmarEliminarPrograma()"})
         </td>
     </tr>
 }
