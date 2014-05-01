@@ -81,7 +81,7 @@ namespace SIFIET.Presentacion.Controllers
                 ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar este programa";
             }
 
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
             return View(objPrograma);
         }
 
@@ -90,9 +90,9 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult EditarProgramaAcademico(decimal idPrograma)
         {
-            PROGRAMA programa = FachadaSIFIET.ConsultarProgramaAcademico(idPrograma);
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
-            return View(programa);
+            PROGRAMA objPrograma = FachadaSIFIET.ConsultarProgramaAcademico(idPrograma);
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
+            return View(objPrograma);
         }
 
         //
@@ -117,7 +117,7 @@ namespace SIFIET.Presentacion.Controllers
             {
                 TempData["ResultadoOperacion"] = "Ocurrio un error, No se pudo editar el programa.";
             }
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
             return View(objPrograma);
         }
 
