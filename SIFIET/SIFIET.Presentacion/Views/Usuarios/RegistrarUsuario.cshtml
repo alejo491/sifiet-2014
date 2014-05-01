@@ -52,11 +52,30 @@
                     <select id="roles" name="roles" multiple="true">
                         @foreach (var rol in ViewBag.roles)
                         {
-                            <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
 
-                        }
+                            if (ViewBag.rolesasignados != null)
+                                {
+                                    if (rol.IDENTIFICADORROL == ViewBag.rolesasignados.ElementAt(0).IDENTIFICADORROL && ViewBag.rolesasignados.Count != 0)
+                                    {
+                                        <option value="@rol.IDENTIFICADORROL" selected="true">@rol.NOMBREROL</option>
+                                        ViewBag.rolesasignados.RemoveAt(0);
+                                    }
+                                    else
+                                    {
+                                        <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
+                                    }
+                                }
+                                else
+                                {
 
-                    </select>
+                                    <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
+                                }
+
+
+
+                            }
+
+                            </select><input type="button" value="Crear Rol" onclick="window.location = '/Roles/RegistrarRol'" />
                 </div>
                 @if (!string.IsNullOrEmpty(ViewBag.ErrorRol))
                 {
@@ -94,11 +113,12 @@
 
             <div>
                 <div>
-                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarUsuario();" />
+                    <input type="button" value="Cancelar" onclick="return confirmSalirUsuario();" />
                 </div>
                 <div>
-                    @Html.ActionLink("Volver a la lista", "Index")
+                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarUsuario();" />
                 </div>
+                
             </div>
         </fieldset>
 
@@ -107,3 +127,6 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="/Scripts/funciones.js"></script>
+<script src="/Scripts/jquery.validate.min.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>

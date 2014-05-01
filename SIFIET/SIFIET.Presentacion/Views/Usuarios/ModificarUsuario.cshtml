@@ -1,4 +1,6 @@
-﻿@model SIFIET.GestionUsuarios.Datos.Modelo.USUARIO
+﻿@using System.Activities.Statements
+@using SIFIET.GestionUsuarios.Datos.Modelo
+@model SIFIET.GestionUsuarios.Datos.Modelo.USUARIO
 
 
 
@@ -28,7 +30,7 @@
 
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.IDENTIFICADORUSUARIO)
-            @Html.HiddenFor(model => model.ESTADOUSUARIO)
+            
 
             <div>
                 Nombres:
@@ -51,10 +53,39 @@
                 Rol:
                 <div>
                     <select name="roles" multiple="true">
-                        @foreach (var rol in ViewBag.roles)
+                        
+                        @if (ViewBag.rolesasignados != null)
                         {
-                            <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
+                            List<ROL> listaRols = ViewBag.rolesasignados;
+                            foreach (var rol in ViewBag.roles)
+                            {
+                                if (listaRols.Count==0)
+                                {
+                                    <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
+                                }
+                                else
+                                {
+                                    if (rol.IDENTIFICADORROL == listaRols.ElementAt(0).IDENTIFICADORROL)
+                                    {
+                                        <option value="@rol.IDENTIFICADORROL" selected>@rol.NOMBREROL</option>
+                                        listaRols.RemoveAt(0);
+                                    }
+                                    else
+                                    {
+                                        <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
 
+                                    }
+                                }
+                            }
+                            
+                        }
+                        else
+                        {
+                            foreach (var rol in ViewBag.roles)
+                            {
+                                <option value="@rol.IDENTIFICADORROL">@rol.NOMBREROL</option>
+
+                            }
                         }
 
                     </select>
@@ -78,7 +109,7 @@
             <div>
                 Contraseña:
                 <div>
-                    @Html.PasswordFor(model => model.PASSWORDUSUARIO)
+                    <input type="password" id="PASSWORDUSUARIO" name="PASSWORDUSUARIO" value="@Model.PASSWORDUSUARIO" />
                     @Html.ValidationMessageFor(model => model.PASSWORDUSUARIO)
                 </div>
                 
@@ -91,15 +122,27 @@
                 </div>
                 
             </div>
+            @if (Model.ESTADOUSUARIO=="Desactivo")
+            {
+                <div>
+                    Estado :
+                    <div>
+                        Activo @Html.RadioButtonFor(model => model.ESTADOUSUARIO, "Activo")
+                        Desactivado @Html.RadioButtonFor(model => model.ESTADOUSUARIO, "Desactivo",true)
+                        @Html.ValidationMessageFor(model => model.ESTADOUSUARIO)
+                    </div>
+                </div>
+                }
 
 
             <div>
                 <div>
-                    <input type="submit" value="Editar" onclick="return confirmacionAgregarUsuario();" />
+                    <input type="button" value="Cancelar" onclick="return confirmSalirUsuario();" />
                 </div>
                 <div>
-                    @Html.ActionLink("Cancelar", "Index")
+                    <input type="submit" value="Editar" onclick="return confirmacionEditarUsuario();" />
                 </div>
+                
             </div>
         </fieldset>
 
