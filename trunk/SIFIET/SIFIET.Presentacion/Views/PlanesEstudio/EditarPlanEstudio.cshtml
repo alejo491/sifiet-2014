@@ -60,25 +60,26 @@
                 @Html.LabelFor(model => model.IDENTIFICADORPROGRAMA, "Programa :")
             </div>
             <div class="editor-field">
-                @Html.DropDownList("IDENTIFICADORPROGRAMA", String.Empty)
+                @Html.DropDownList("IDENTIFICADORPROGRAMA")
                 @Html.ValidationMessageFor(model => model.IDENTIFICADORPROGRAMA)
             </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ESTADOPLANESTUDIOS)
-            </div>
-            <div class="editor-field">
-                Activo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS,"Activo")
-                Inactivo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS, "Inactivo")
-                @Html.ValidationMessageFor(model => model.ESTADOPLANESTUDIOS)
+            @if (Model.ESTADOPLANESTUDIOS == "Inactivo") { 
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ESTADOPLANESTUDIOS)
+                </div>
+                <div class="editor-field">
+                    Activo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS,"Activo")
+                    Inactivo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOPLANESTUDIOS)
            
-            </div>  
+                </div> 
+             } 
             <div>
             <p>
-                <input type="submit" value="Guardar" onclick="return confirm('¿Confirma que los datos del Plan de Estudios son correctos?')" />
+                <input type="submit" value="Guardar" onclick="return comfirmacionPlanEstudio()" />
                 <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
             </p>
-        </div>
+            </div>
     </fieldset>
 }
 
