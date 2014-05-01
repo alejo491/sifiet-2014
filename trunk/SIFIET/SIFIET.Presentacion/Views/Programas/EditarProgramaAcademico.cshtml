@@ -44,7 +44,7 @@
             @Html.LabelFor(model => model.FACULTAD.NOMBREFACULTAD)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IDENTIFICADORFACULTAD", "Seleccione la facultad")
+            @Html.DropDownList("IDENTIFICADORFACULTAD")
             @Html.ValidationMessageFor(model => model.IDENTIFICADORFACULTAD)
         </div>
 
@@ -87,9 +87,24 @@
             @Html.ValidationMessageFor(model => model.ADMISIONPROGRAMA)
         </div>
 
+
+
+        @if (Model.ESTADOPROGRAMA == "Inactivo")
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ESTADOPROGRAMA)
+            </div>
+            <div class="editor-field">
+                Activo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Activo")
+                Inactivo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Inactivo")
+                @Html.ValidationMessageFor(model => model.ESTADOPROGRAMA)
+
+            </div>
+        }
+        
        <div>
             <p>
-                <input type="submit" value="Guardar" onclick="return confirm('¿Confirma que los datos del programa son correctos?')" />
+                <input type="submit" value="Guardar" onclick="return comfirmacionPrograma()" />
                 <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
             </p>
         </div>
