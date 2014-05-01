@@ -90,8 +90,9 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             var db = new GestionProgramasEntities();
             try
             {
-                PROGRAMA programa = db.PROGRAMAs.Find(idPrograma);
-                db.PROGRAMAs.Remove(programa);
+                PROGRAMA objPrograma = db.PROGRAMAs.Find(idPrograma);
+                objPrograma.ESTADOPROGRAMA = "Inactivo";
+                db.Entry(objPrograma).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
             }
