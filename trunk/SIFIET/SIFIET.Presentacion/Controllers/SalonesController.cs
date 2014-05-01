@@ -14,33 +14,23 @@ namespace SIFIET.Presentacion.Controllers
         {
             ViewData["Mensaje"] = Session["varsession"];
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            var one = new SelectListItem() { Value = "1", Text = "Identificador" };
-            var two = new SelectListItem() { Value = "2", Text = "Nombre" };
+            var identificacion = new SelectListItem() { Value = "1", Text = "Identificador" };
+            var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
+            var nombreFacultad = new SelectListItem() { Value = "3", Text = "Facultad" };
             List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(one);
-            lista.Add(two);
+            lista.Add(identificacion);
+            lista.Add(nombresalon);
+            lista.Add(nombreFacultad);
             ViewBag.campoBusqueda = new SelectList(lista, "value", "text");
-            try
-            {
                 if (idSalon == null | String.IsNullOrEmpty(nombreSalon))
                     return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon));
                 else
                 {
-                    if (idSalon == 1)
-                        return View(FachadaSIFIET.ConsultarSalones(decimal.Parse(nombreSalon), ""));
-                    if (idSalon == 2)
-                        return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon));
-                    else
-                        return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon));
+                    var resultado = FachadaSIFIET.ConsultarSalones((decimal) idSalon, nombreSalon);
+                    if (resultado.Count == 0)
+                        ViewBag.ResultadoBusqueda = "ListaVacia";
+                    return View(resultado);
                 }
-
-            }
-            catch (Exception)
-            {
-
-                return View(FachadaSIFIET.ConsultarSalones(0, ""));
-            }
-
         }
 
         public ActionResult VisualizarSalon(decimal idSalon)
@@ -113,7 +103,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oSalon);
             }
         }
-
+        /*
         public ActionResult EliminarSalon(decimal idSalon)
         {
             return View(FachadaSIFIET.VisualizarSalon(idSalon));
@@ -121,8 +111,8 @@ namespace SIFIET.Presentacion.Controllers
 
 
         [HttpPost, ActionName("EliminarSalon")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EliminarSalonConfirmacion(decimal idSalon)
+        [ValidateAntiForgeryToken]*/
+        public ActionResult EliminarSalon(decimal idSalon)
         {
             try
             {
@@ -135,7 +125,8 @@ namespace SIFIET.Presentacion.Controllers
             }
             catch
             {
-                return View();
+                TempData["ResultadoOperacion"] = "Fallo al Eliminar el Salon";
+                return RedirectToAction("Index");
             }
         }
     }

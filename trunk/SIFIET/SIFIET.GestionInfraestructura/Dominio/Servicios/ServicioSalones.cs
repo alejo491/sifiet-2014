@@ -15,7 +15,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
           {
                 var db = new GestionInfraestructuraEntities();
                 var lista = new List<SALON>();
-                if (String.IsNullOrEmpty(nomSalon) & idSalon == 0)
+                if (String.IsNullOrEmpty(nomSalon))
                 {
                     lista = (from e in db.SALONs
                              select e).ToList();
@@ -23,20 +23,29 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 }
                 else
                 {
-                    if (idSalon != 0)
+                    if (idSalon == 1)
                     {
+                        var id = decimal.Parse(nomSalon);
                         lista = (from e in db.SALONs
                             where
-                                (e.IDENTIFICADORSALON == idSalon)
+                                (e.IDENTIFICADORSALON == id)
                             select e).ToList();
                         return lista;
                     }
-                    else
+                    if (idSalon == 2)
                     {
                         lista = (from e in db.SALONs
                                  where
                                      (e.NOMBRESALON.ToLower().Contains(nomSalon.ToLower()))
                                  select e).ToList();
+                        return lista;
+                    }
+                    else
+                    {
+                        lista = (from s in db.SALONs join f in db.FACULTADs on s.IDENTIFICADORFACULTAD equals f.IDENTIFICADORFACULTAD
+                                 where
+                                     (f.NOMBREFACULTAD.ToLower().Contains(nomSalon.ToLower()))
+                                 select s).ToList();
                         return lista;
                     }
 
@@ -79,7 +88,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                         nuevoSalon.NOMBRESALON == salon.NOMBRESALON &&
                         nuevoSalon.IDENTIFICADORFACULTAD == salon.IDENTIFICADORFACULTAD
                     select salon).FirstOrDefault();
-                return CrearFranjasHorarias(oSalon);
+                return true;
 
             }
             catch (Exception)
@@ -152,7 +161,10 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 var db = new GestionInfraestructuraEntities();
 
                 var salon = (from sal in db.SALONs where sal.IDENTIFICADORSALON == idSalon select sal).First();
-                db.SALONs.Remove(salon);
+                {
+                    salon.ESTADOSALON = "Inactivo";
+                }
+                //db.SALONs.Remove(salon);
                 db.SaveChanges();
                 return true;
 

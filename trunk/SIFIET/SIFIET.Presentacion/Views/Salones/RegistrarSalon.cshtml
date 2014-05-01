@@ -35,14 +35,7 @@
 
                 </div>
             </div>
-            <div>
-                Estado :
-                <div>
-                    Disponible @Html.RadioButtonFor(model => model.ESTADOSALON, "Disponible")
-                    Cerrado @Html.RadioButtonFor(model => model.ESTADOSALON, "Cerrado")
-                    @Html.ValidationMessageFor(model => model.ESTADOSALON)
-                </div>
-            </div>
+            @Html.HiddenFor(model => model.ESTADOSALON, new { @Value = "Activo" })
 
             <div>
                 <div>

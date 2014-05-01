@@ -86,14 +86,21 @@
                     @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
                 </div>
             </div>
-            <div>
-                Estado :
+            @if (Model.ESTADOASIGNATURA.Equals("Inactivo"))
+            {
                 <div>
-                    Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo",Model.ESTADOASIGNATURA)
-                    Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo",Model.ESTADOASIGNATURA)
-                    @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
+                    Estado :
+                    <div>
+                        Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo")
+                        Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo")
+                        @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
+                    </div>
                 </div>
-            </div>
+            }
+            @if (!Model.ESTADOASIGNATURA.Equals("Inactivo"))
+            {
+                @Html.HiddenFor(model => model.ESTADOASIGNATURA, new { @Value = "Activo" })
+            }
             <div>
                 Descripcion :
                 <div>
@@ -118,4 +125,4 @@
 <script type="text/javascript" src="~/Scripts/jquery.multi-select.js"></script>
 <script type="text/javascript" src="~/Scripts/funciones.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.quicksearch.js"></script>
-
+<script>cargarMultiselectDocument();</script>
