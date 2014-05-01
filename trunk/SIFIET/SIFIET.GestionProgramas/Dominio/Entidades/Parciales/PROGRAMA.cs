@@ -23,9 +23,15 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Nombre :")]
         [Required(ErrorMessage = "Este campos es requerido")]
+        [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [ProgramaNombreExiste(ErrorMessage = "Ya existe un Programa con el nombre que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public string NOMBREPROGRAMA { get; set; }
 
         [Display(Name = "Descripcion :")]
+        [Required(ErrorMessage = "Este campos es requerido")]
+        [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONPROGRAMA { get; set; }
 
         [Display(Name = "Facultad:")]
@@ -54,5 +60,26 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Estado :")]
         public string ESTADOPROGRAMA { get; set; }
       
+    }
+
+    public sealed class ProgramaNombreExiste : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            bool valid = false;
+            var programaValidacion = validationContext.ObjectInstance as PROGRAMA;
+            if (value != null)
+            {
+                var nombre = value as string;
+                var db = new GestionProgramasEntities();
+                var programa = (from e in db.PROGRAMAs where programaValidacion.NOMBREPROGRAMA == e.NOMBREPROGRAMA select e).FirstOrDefault();
+                var nombrePrograma = (from e in db.PROGRAMAs where nombre.ToUpper() == e.NOMBREPROGRAMA.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();
+                if (String.IsNullOrEmpty(nombrePrograma))
+                {
+                    valid = true;
+                }
+            }
+            return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+        }
     }
 }
