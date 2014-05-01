@@ -10,9 +10,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
 {
     public static class FachadaAsignaturas
     {
-        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
+        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura)
         {
-            return ServicioAsignaturas.ConsultarAsignaturas(palabraBusqueda);
+            return ServicioAsignaturas.ConsultarAsignaturas(idAsignatura,nombreAsignatura);
         }
 
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)

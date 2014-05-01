@@ -1,6 +1,9 @@
-﻿$(document).ready(function () {
-    cargarMultiselect();
-});
+﻿function cargarMultiselectDocument() {
+    $(document).ready(function () {
+        cargarMultiselect();
+    });
+}
+
 
 function comfirmarAgregarRol() {
     var nombre = document.getElementById("NOMBREROL").value;

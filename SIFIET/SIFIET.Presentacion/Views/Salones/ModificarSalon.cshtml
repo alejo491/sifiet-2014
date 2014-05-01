@@ -37,14 +37,26 @@
 
                     </div>
                 </div>
-                <div>
-                    Estado :
-                    <div>
-                        Disponible @Html.RadioButtonFor(model => model.ESTADOSALON, "Disponible")
-                        Cerrado @Html.RadioButtonFor(model => model.ESTADOSALON, "Cerrado")
-                        @Html.ValidationMessageFor(model => model.ESTADOSALON)
-                    </div>
-                </div>
+                        @if (Model.ESTADOSALON.Equals("Inactivo"))
+                        {
+                            <div>
+                                Estado :
+                                <div>
+                       
+                        
+                                    Activo @Html.RadioButtonFor(model => model.ESTADOSALON, "Activo")
+                                    Inactivo @Html.RadioButtonFor(model => model.ESTADOSALON, "Inactivo")
+                                    @Html.ValidationMessageFor(model => model.ESTADOSALON)
+                        
+                        
+                        
+                                </div>
+                            </div>
+                        }
+                        @if (!Model.ESTADOSALON.Equals("Inactivo"))
+                        {
+                            @Html.HiddenFor(model => model.ESTADOSALON, new { @Value = "Activo" })
+                        }
 
                 <div>
                     <input type="submit" value="Guardar" onclick="return confirmacionAgregarSalon();" />

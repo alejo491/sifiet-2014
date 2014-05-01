@@ -7,7 +7,10 @@
 }
 <div>
     <h2>Salones</h2>
-
+    @if (!String.IsNullOrEmpty(ViewBag.ResultadoBusqueda) && ViewBag.ResultadoBusqueda.Equals("ListaVacia"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
     @using (Html.BeginForm())
     {
         <p>
@@ -30,7 +33,7 @@
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
                 @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
-                @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON })
+                @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON }, new { onclick = "return confirmarEliminarSalon()" })
                 </text>
                 )
         })

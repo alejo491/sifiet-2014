@@ -6,11 +6,15 @@
 }
 <div>
     <h2>Asignaturas</h2>
+    @if (!String.IsNullOrEmpty(ViewBag.ResultadoBusqueda) && ViewBag.ResultadoBusqueda.Equals("ListaVacia"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
 
     @using (Html.BeginForm())
     {
         <p>
-            Palabra busqueda : @Html.TextBox("palabraBusqueda")
+            Campo: @Html.DropDownList("idAsignatura", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreAsignatura")
             <input type="submit" value="Buscar" />
 
         </p>
@@ -26,11 +30,12 @@
             grid.Column("NOMBREASIGNATURA",header:"Nombre"),
             grid.Column("SEMESTREASIGNATURA",header:"Semestre"),
             grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
+            grid.Column("ESTADOASIGNATURA",header:"Estado"),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) |
                 @Html.ActionLink("Visualizar", "VisualizarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) |
-                @Html.ActionLink("Eliminar", "EliminarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA })
+                @Html.ActionLink("Eliminar", "EliminarAsignatura", "Asignaturas", new { idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarAsignatura()" })
                 </text>
                 )
         })

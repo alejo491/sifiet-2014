@@ -54,9 +54,9 @@ namespace SIFIET.Aplicacion
         //Metodos dirigidos a Fachada Asignaturas en el dominio de Gestion de Programas
         #region Metodos Gestion de Asignaturas
 
-        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
+        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura)
         {
-            return FachadaAsignaturas.ConsultarAsignaturas(palabraBusqueda);
+            return FachadaAsignaturas.ConsultarAsignaturas(idAsignatura,nombreAsignatura);
         }
 
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)

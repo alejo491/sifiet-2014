@@ -15,11 +15,23 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Asignaturas/
-        public ActionResult Index(string palabraBusqueda)
+        public ActionResult Index(decimal? idAsignatura, string nombreAsignatura)
         {
             ViewData["Mensaje"] = Session["varsession"];
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            return View(FachadaSIFIET.ConsultarAsignaturas(palabraBusqueda));
+            var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };
+            var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
+            var lista = new List<SelectListItem> {identificacion, nombresalon};
+            ViewBag.campoBusqueda = new SelectList(lista, "value", "text");
+            if (idAsignatura == null | String.IsNullOrEmpty(nombreAsignatura))
+                return View(FachadaSIFIET.ConsultarAsignaturas(0, nombreAsignatura));
+            else
+            {
+                var resultado = FachadaSIFIET.ConsultarAsignaturas((decimal)idAsignatura, nombreAsignatura);
+                if (resultado.Count == 0)
+                    ViewBag.ResultadoBusqueda = "ListaVacia";
+                return View(resultado);
+            }
         }
 
         //
@@ -33,7 +45,7 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Asignaturas/Create
         public ActionResult RegistrarAsignatura()
         {
-            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"");
             ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA");
             var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
             ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
@@ -49,7 +61,7 @@ namespace SIFIET.Presentacion.Controllers
             try
             {
                 // TODO: Add insert logic here
-                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"");
                 ViewBag.ListaAsignaturas = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA");
                 var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
                 ViewBag.ListaPlanesEstudios = new SelectList(listaPlanesEstudios, "IDENTIFICADORPLANESTUDIOS", "NOMBREPLANESTUDIOS");
@@ -76,10 +88,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult ModificarAsignatura(decimal idAsignatura)
         {
             var oAsignatura = FachadaSIFIET.VisualizarAsignatura(idAsignatura) as ASIGNATURA;
-            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");/*
-            ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
-            ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);*/
-
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"");
             ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
             ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);
             var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
@@ -94,7 +103,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             try
             {
-                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"");
                 ViewBag.ListaAsignaturasCorrequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaCorrequisitos);
                 ViewBag.ListaAsignaturasPrerequisitos = new MultiSelectList(listaAsignaturas, "NOMBREASIGNATURA", "NOMBREASIGNATURA", oAsignatura.ListaPrerequisitos);
                 var listaPlanesEstudios = FachadaSIFIET.ConsultarPlanestudios("");
@@ -117,6 +126,7 @@ namespace SIFIET.Presentacion.Controllers
         }
         //
         // GET: /Asignaturas/Delete/5
+        /*
         public ActionResult EliminarAsignatura(decimal idAsignatura)
         {
             return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
@@ -125,8 +135,8 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Asignaturas/Delete/5
         [HttpPost, ActionName("EliminarAsignatura")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EliminarAsignaturaConfirmacion(decimal idAsignatura)
+        [ValidateAntiForgeryToken]*/
+        public ActionResult EliminarAsignatura(decimal idAsignatura)
         {
             try
             {
@@ -139,7 +149,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 

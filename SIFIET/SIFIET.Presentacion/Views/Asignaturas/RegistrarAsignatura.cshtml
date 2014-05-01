@@ -84,14 +84,7 @@
                     @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
                 </div>
             </div>
-            <div>
-                Estado :
-                <div>
-                    Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo")
-                    Inactivo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Inactivo")
-                    @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
-                </div>
-            </div>
+           @Html.HiddenFor(model => model.ESTADOASIGNATURA, new { @Value = "Activo" })
             <div>
                 Descripcion :
                 <div>
@@ -116,5 +109,5 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.11.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.multi-select.js"></script>
-<script type="text/javascript" src="~/Scripts/funciones.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.quicksearch.js"></script>
+<script>cargarMultiselectDocument();</script>
