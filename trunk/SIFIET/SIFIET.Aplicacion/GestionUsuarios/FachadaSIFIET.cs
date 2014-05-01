@@ -47,7 +47,7 @@ namespace SIFIET.Aplicacion
             return FachadaUsuarios.BuscarUsuarioPorApellido(apellido);
         }
 
-        public static List<USUARIO> ConsultarUsuarioPorIdentificacion(int id)
+        public static List<USUARIO> ConsultarUsuarioPorIdentificacion(string id)
         {
             return FachadaUsuarios.BuscarUsuarioPorIdentificacion(id);
         }

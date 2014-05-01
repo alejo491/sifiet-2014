@@ -53,35 +53,40 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         internal static void ModificarUsuario(USUARIO usuario, string[] roles)
         {
             var db = new GestionUsuariosEntities();
-            usuario.ROLs.Clear();
-            foreach (var rol in roles)
-            {
-
-                usuario.ROLs.Add(db.ROLs.Find(rol));
-            }
+            
             db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
 
+            
 
-
-
+            db.Database.ExecuteSqlCommand("Delete from USUARIO_TIENE_ROL" +
+                            " WHERE IDENTIFICADORUSUARIO= " + usuario.IDENTIFICADORUSUARIO);
             db.SaveChanges();
+            foreach (var rol in roles)
+            {
+                db.Database.ExecuteSqlCommand("Insert into USUARIO_TIENE_ROL(IDENTIFICADORROL,IDENTIFICADORUSUARIO)" +
+                            "values (" + rol + "," + usuario.IDENTIFICADORUSUARIO + ")");
+                db.SaveChanges();
+            }
+           
+
+
+            
         }
 
         public static void EliminarUsuario(int idUsuario)
         {
             var db = new GestionUsuariosEntities();
             var usuario = db.USUARIOs.Find(idUsuario);
-            usuario.ROLs.Clear();
-            db.USUARIOs.Remove(usuario);
+            usuario.ESTADOUSUARIO = "Desactivo";
             db.SaveChanges();
         }
 
-        internal static List<USUARIO> BuscarUsuarioPorIdentificacion(int id)
+        internal static List<USUARIO> BuscarUsuarioPorIdentificacion(string id)
         {
             var db = new GestionUsuariosEntities();
             List<USUARIO> lista = (from e in db.USUARIOs
-                                   where e.IDENTIFICADORUSUARIO == id
+                                   where e.IDENTIFICACIONUSUARIO.Equals(id)
                                    select e).ToList();
             return lista;
         }

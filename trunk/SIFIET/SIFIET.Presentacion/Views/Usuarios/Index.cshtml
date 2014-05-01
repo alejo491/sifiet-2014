@@ -8,18 +8,16 @@
 <div>
     <h2>Usuarios</h2>
 
-    @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
-    {
-        <script> mensajeNoUsuarios(); </script>
-    }
+    
+    
 
     @using (Html.BeginForm("Index", "Usuarios"))
     {
         <div>
             <label>Buscar Por:</label><select name="criterio">
                 <option value="nombre">Nombre</option>
-                
-                <option value="identificacion">Identificacion</option>
+                <option value="apellido">Apellido</option>
+                <option value="identificacion">Identificación</option>
             </select>
             <input name="valorbusqueda" type="text" value="" />
             <input type="submit" value="Buscar" />
@@ -33,24 +31,32 @@
         columns: new[]
         {
 
-            grid.Column("IDENTIFICADORUSUARIO",header:"Codigo"),
+            grid.Column("IDENTIFICADORUSUARIO",header:"Código"),
             grid.Column("NOMBRESUSUARIO",header:"Nombres"),
             grid.Column("APELLIDOSUSUARIO",header:"Apellidos"),
-            grid.Column("IDENTIFICACIONUSUARIO",header:"Identificacion"),
+            grid.Column("IDENTIFICACIONUSUARIO",header:"Identificación"),
             grid.Column("EMAILINSTITUCIONALUSUARIO",header:"Email"),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
                 @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
-                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
+                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirm('Este usuario esta asosiado a unos roles, Comfirma que desea eliminarlo de todos modos')" })
                 </text>
             )
         })
+    <div>@TempData["Mensaje"]</div>
 
-
-
+    
 
     <p>
-        @Html.ActionLink("Registrar Usuario", "RegistrarUsuario")
+        @Html.ActionLink("Agregar", "RegistrarUsuario")
     </p>
 </div>
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
+{
+    <script> mensajeNoUsuarios(); </script>
+}
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("valor numerico"))
+{
+    <script>  valorNumericoUuarios(); </script>
+}

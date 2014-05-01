@@ -36,25 +36,37 @@ namespace SIFIET.Presentacion.Controllers
             }
             if (datos["criterio"].Equals("apellido"))
             {
-                List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorApellido(datos["valorbusqueda"]);
-                if (lista.Count == 0)
-                {
-                    ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
-                }
-                return View(lista);
+                
+                
+                    List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorApellido(datos["valorbusqueda"]);
+                    if (lista.Count == 0)
+                    {
+                        ViewBag.Mensaje =
+                            "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
+                    }
+                    return View(lista);
+           
             }
             if (datos["criterio"].Equals("identificacion"))
             {
-                List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorIdentificacion(int.Parse(datos["valorbusqueda"]));
-                if (lista.Count == 0)
-                {
-                    ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
-                }
-                return View(lista);
+                int x;
+                if (int.TryParse(datos["valorbusqueda"], out x))
+                        {
+                        List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorIdentificacion(datos["valorbusqueda"]);
+                        if (lista.Count == 0)
+                        {
+                            ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
+                        }
+                        return View(lista);
+                    }
             }
 
-
+            ViewBag.Mensaje =
+                        "valor numerico";
             return View(FachadaSIFIET.ConsultarUsuarios());
+
+
+            
 
 
 
@@ -64,7 +76,9 @@ namespace SIFIET.Presentacion.Controllers
         //
         // GET: /Usuarios/Details/5
         public ActionResult VisualizarUsuario(int idUsuario)
+        
         {
+            
             return View(FachadaSIFIET.ConsultarUsuario(idUsuario));
         }
 
@@ -82,29 +96,32 @@ namespace SIFIET.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RegistrarUsuario([Bind(
                 Include =
-                    "EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADO"
+                    "EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO"
                 )] USUARIO usuario, FormCollection datos)
         {
             bool ban = true;
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
             if (datos["roles"]==null)
             {
-                ViewBag.Mensaje = "No se han seleccionado Roles";
+
+                ViewBag.ErrorRol = "No se han seleccionado Roles";
                 ban = false;
             }
             if (!ModelState.IsValid || !ban) return View(usuario);
-           // try
-           // {
+           try
+           {
                 var roles = datos["roles"].Split(',');
+                usuario.ESTADOUSUARIO = "Activo";
                 FachadaSIFIET.RegistrarUsuario(usuario, roles);
-                ViewBag.Mensaje = "Registro Exitoso";
-            //}
-           // catch (Exception e)
-           // {
+                TempData["Mensaje"] = "Usuaro Creado con Éxito";
+                return RedirectToAction("Index");
+            }
+           catch (Exception e)
+           {
 
-                //ViewBag.Mensaje = "Error" + e.Message;
-                //return View(usuario);
-            //}
+               ViewBag.Mensaje = "Error" + e.Message;
+               return View(usuario);
+            }
 
             return View(usuario);
 
@@ -114,9 +131,10 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Usuarios/Edit/5
         public ActionResult ModificarUsuario(int idUsuario)
         {
+            USUARIO oUsuario = FachadaSIFIET.ConsultarUsuario(idUsuario);
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-
-            return View(FachadaSIFIET.ConsultarUsuario(idUsuario));
+            ViewBag.rolesasignados = oUsuario.ROLs.ToList();
+            return View(oUsuario);
         }
 
         //
@@ -126,25 +144,28 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult ModificarUsuario(
             [Bind(
                 Include =
-                    "IDENTIFICADORUSUARIO,EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADO"
+                    "IDENTIFICADORUSUARIO,EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADOUSUARIO"
                 )] USUARIO usuario, FormCollection datos)
         {
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
 
+            ViewBag.rolesasignados = FachadaSIFIET.ConsultarUsuario(int.Parse(usuario.IDENTIFICADORUSUARIO.ToString())).ROLs.ToList();
+            bool ban = true;
             if (datos["roles"] == null)
             {
                 ViewBag.ErrorRol = "Este campo es obligatorio";
-
+                ban = false;
 
             }
 
-            if (!ModelState.IsValid) return View(usuario);
+            if (!ModelState.IsValid || !ban) return View(usuario);
             try
             {
 
 
                 var roles = datos["roles"].Split(',');
                 FachadaSIFIET.ModificarUsuario(usuario, roles);
+                TempData["Mensaje"] = "Usuaro Editado con Éxito";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -161,17 +182,10 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Usuarios/Delete/5
         public ActionResult EliminarUsuario(int idUsuario)
         {
-            return View(FachadaSIFIET.ConsultarUsuario(idUsuario));
-        }
-
-        //
-        // POST: /Usuarios/Delete/5
-        [HttpPost]
-        public ActionResult EliminarUsuario(int idUsuario, FormCollection collection)
-        {
             try
             {
                 FachadaSIFIET.EliminarUsuario(idUsuario);
+                TempData["Mensaje"] = "Usuaro Eliminado con Éxito";
                 return RedirectToAction("Index");
             }
             catch
@@ -179,5 +193,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View();
             }
         }
+
+        
     }
 }

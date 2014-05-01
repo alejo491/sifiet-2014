@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionUsuarios.Datos.Modelo;
 
-namespace SIFIET.GestionUsuarios.Dominio.Entidades.Parciales
+namespace SIFIET.GestionUsuarios.Datos.Modelo
 {
     [MetadataType(typeof(USUARIOMETADATA))]
     public partial class USUARIO
@@ -19,6 +19,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Entidades.Parciales
 
         [Required]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
+        [RegularExpression("^([a-zA-Z0-9 .&'-]+)$", ErrorMessage = "El Email no puede contener el @")]
         public string EMAILINSTITUCIONALUSUARIO { get; set; }
 
         [Required]
@@ -27,14 +28,16 @@ namespace SIFIET.GestionUsuarios.Dominio.Entidades.Parciales
 
         [Required]
         [IDYaExiste(ErrorMessage = "Esta Identificacion ya esta en uso, ingrese otro")]
-        [StringLength(10, ErrorMessage = "La {0} no pueder ser mayor de 10 caracteres")]
-        [EsNumeric(ErrorMessage = "La {0} solo toma valores numericos ")]
+        [StringLength(10, ErrorMessage = "La Identificacion no pueder ser mayor de 10 caracteres")]
+        [EsNumeric(ErrorMessage = "La Identificacion solo toma valores numericos ")]
         public string IDENTIFICACIONUSUARIO { get; set; }
 
         [Required]
+        [StringLength(180, ErrorMessage = "La {0} no pueder ser mayor de 180 caracteres")]
         public string NOMBRESUSUARIO { get; set; }
 
         [Required]
+        [StringLength(180, ErrorMessage = "La {0} no pueder ser mayor de 180 caracteres")]
         public string APELLIDOSUSUARIO { get; set; }
 
 
