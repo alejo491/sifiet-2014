@@ -16,47 +16,50 @@ namespace SIFIET.Aplicacion
         //Metodos dirigidos a Fachada Programas en el dominio de Gestion de Programas
         #region Metodos Gestion de Programas
 
-        public static PROGRAMA ConsultarProgramaAcademico(decimal idPrograma)
+        public static List<PROGRAMA> ConsultarProgramas()
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramaAcademico(idPrograma);
+            return FachadaProgramas.ConsultarProgramas();
         }
 
-        public static List<PROGRAMA> ConsultarProgramasAcademicos(string campo, string busqueda)
+        public static PROGRAMA ConsultarPrograma(string id)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(campo, busqueda);
+            return FachadaProgramas.ConsultarPrograma(id);
         }
 
-        public static List<PROGRAMA> ConsultarProgramasAcademicos()
+        public static List<PROGRAMA> ConsultarProgramaPorNombre(string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos();
+            return FachadaProgramas.ConsultarProgramaPorNombre(busqueda);
         }
 
-        public static bool RegistrarProgramaAcademico(PROGRAMA objPrograma)
+
+        public static bool RegistrarPrograma(PROGRAMA oPrograma)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.RegistrarProgramaAcademico(objPrograma);
-        }
-        public static bool EditarProgramaAcademico(PROGRAMA objPrograma)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.EditarProgramaAcademico(objPrograma);
+            return FachadaProgramas.RegistrarPrograma(oPrograma);
         }
 
-        public static bool EliminarProgramaAcademico(decimal idPrograma)
+
+        public static bool ModificarPrograma(PROGRAMA oPrograma)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.EliminarProgramaAcademico(idPrograma);
+            return FachadaProgramas.ModificarPrograma(oPrograma);
         }
 
-        public static bool CargarInformacion(DataSet datosExcel)
+        public static bool EliminarPrograma(PROGRAMA oPrograma)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.CargarInformacion(datosExcel);
+            return FachadaProgramas.EliminarPrograma(oPrograma);
+        }
+
+        public static bool CargarDatos(DataSet datosExcel)
+        {
+            return FachadaProgramas.CargarDatos(datosExcel);
         }
 
         #endregion
         //Metodos dirigidos a Fachada Asignaturas en el dominio de Gestion de Programas
         #region Metodos Gestion de Asignaturas
 
-        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura)
+        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
-            return FachadaAsignaturas.ConsultarAsignaturas(idAsignatura,nombreAsignatura);
+            return FachadaAsignaturas.ConsultarAsignaturas(palabraBusqueda);
         }
 
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
@@ -79,40 +82,41 @@ namespace SIFIET.Aplicacion
         {
             return FachadaAsignaturas.EliminarAsignatura(idAsignatura);
         }
+
         public static bool CargarInformacionAsignatura(string archivo)
         {
             return FachadaAsignaturas.CargarInformacion(archivo);
         }
+
+        public static bool VerificarCampoPlanEstudios(string nombrePlanEstudios)
+        {
+            return FachadaAsignaturas.VerificarCampoPlanEstudios(nombrePlanEstudios);
+        }
+
+        public static bool VerificarCampoCoRequisitosAsignatura(string coRequisitosAsignatura)
+        {
+            return FachadaAsignaturas.VerificarCampoCoRequisitosAsignatura(coRequisitosAsignatura);
+        }
+
+        public static bool VerificarCampoPreRequisitosAsignatura(string preRequisitosAsignatura)
+        {
+            return FachadaAsignaturas.VerificarCampoPreRequisitosAsignatura(preRequisitosAsignatura);
+        }
+
+        public static bool VerificarExistenciaAsignatura(string nombreAsignatura)
+        {
+            return FachadaCursos.VerificarExistenciaAsignatura(nombreAsignatura);
+        }
+
+        public static string ObtenerIdPlanEstudios(string nombre)
+        {
+            return FachadaAsignaturas.ObtenerIdPlanEstudios(nombre);
+        }
+
         #endregion
-        //Metodos dirigidos a Fachada Programas en el dominio de Plan de Estudios
-        #region Metodos Gestion Plan Estudios
+        //Metodos dirigidos a Fachada Plan Estudio en el dominio de Gestion de Programas
+        #region Metodos Gestion Plan Estudio
 
-        public static PLANESTUDIO ConsultarPlanEstudio(decimal idPlanEstudio)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanEstudio(idPlanEstudio);
-        }
-
-        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string campo, string busqueda)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(campo, busqueda);
-        }
-
-        public static bool RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.RegistrarPlanEstudio(objPlanEstudio);
-        }
-
-        public static bool EditarPlanEstudio(PLANESTUDIO objPlanEstudio)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.EditarPlanEstudio(objPlanEstudio);
-        }
-
-        public static bool EliminarPlanEstudio(decimal idPlanEstudio)
-        {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.EliminarPlanEstudio(idPlanEstudio);
-        }
-
-        // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
         {
             return FachadaPlanesEstudio.ConsultarPlanesEstudios(palabraBusqueda);
@@ -149,6 +153,31 @@ namespace SIFIET.Aplicacion
         {
             return FachadaCursos.CargarInformacion(archivo);
         }
+
+        public static bool VerificarCampoDocente(string nombre)
+        {
+            return FachadaCursos.VerificarCampoDocente(nombre);
+        }
+
+        public static string ObtenerIdAsignatura(string nombre)
+        {
+            return FachadaCursos.ObtenerIdAsignatura(nombre);
+        }
+
+        public static string ObtenerIdUsuario(string nombreDocente)
+        {
+            return FachadaCursos.ObtenerIdUsuario(nombreDocente);
+        }
+
+        public static bool VerificarCampoAsignatura(string nombreAsignatura)
+        {
+            return FachadaCursos.VerificarCampoAsignatura(nombreAsignatura);
+        }
+
+        public static bool VerificarExistenciaCurso(string nombreCurso)
+        {
+            return FachadaCursos.VerificarExistenciaCurso(nombreCurso);
+        }
         #endregion
         //Metodos dirigidos a Fachada Gestion de Grupos de Investigacion en el dominio de Gestion de Programas
         #region Metodos Gestion Grupos de Investigacion
@@ -175,11 +204,6 @@ namespace SIFIET.Aplicacion
             return FachadaGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda);
         }
 
-        public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorCodigo(string codigo)
-        {
-            return FachadaGInvestigacion.ConsultarGrupoInvestigacionPorCodigo(codigo);
-        }
-
         public static void RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
             FachadaGInvestigacion.RegistrarGrupoInvestigacion(grupo);
@@ -202,16 +226,16 @@ namespace SIFIET.Aplicacion
         }
 
         #endregion
-        //Metodos dirigidos a Fachada Facultades en el dominio de Gestion de Programas
-        #region Metodos Gestion de Facultades
 
-        public static List<SIFIET.GestionProgramas.Datos.Modelo.FACULTAD> obtenerNombreFacultades()
+
+        public static List<FRANJA_HORARIA> ObtenarHorarioCurso(decimal idCurso)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaFacultades.obtenerNombreFacultades();
+            return FachadaSalones.ObtenarHorarioCurso(idCurso);
         }
 
-
-
-        #endregion
+        public static bool CargarInformacionSalones(string archivo)
+        {
+            return FachadaSalones.CargarInformacion(archivo);
+        }
     }
 }

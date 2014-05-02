@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionProgramas.Datos.Modelo;
@@ -10,13 +11,16 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 {
     static class ServicioAsignaturas
     {
-        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura)
+        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
+          //  try
+          //  {
+
           try
           {
                 var db = new GestionProgramasEntities();
-                var lista = new List<ASIGNATURA>();
-                if (String.IsNullOrEmpty(nombreAsignatura))
+                List<ASIGNATURA> lista = new List<ASIGNATURA>();
+                if (String.IsNullOrEmpty(palabraBusqueda))
                 {
                     lista = (from e in db.ASIGNATURAs
                              select e).ToList();
@@ -24,22 +28,18 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 }
                 else
                 {
-                    if (idAsignatura == 1)
-                    {
-                        lista = (from e in db.ASIGNATURAs
-                                 where (e.CODIGOASIGNATURA.ToLower().Contains(nombreAsignatura.ToLower()))
-                                 select e).ToList();
-                        return lista;
-                    }
-                    else
-                    {
-                        lista = (from e in db.ASIGNATURAs
-                                 where (e.NOMBREASIGNATURA.ToLower().Contains(nombreAsignatura.ToLower()))
-                                 select e).ToList();
-                        return lista;
-                    }
+                    lista = (from e in db.ASIGNATURAs
+                             where (e.NOMBREASIGNATURA.Contains(palabraBusqueda) | e.CODIGOASIGNATURA.Contains(palabraBusqueda))
+                             select e).ToList();
+                    return lista;
 
                 }
+           // }
+           // catch (Exception)
+           // {
+            //    return new List<ASIGNATURA>();
+           // }
+
            }
            catch (Exception)
            {
@@ -129,11 +129,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var db = new GestionProgramasEntities();
 
                 var asg = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == idAsignatura select asig).First();
-                {
-                    asg.EdicionOmodificacion = "modificacion";
-                    asg.ESTADOASIGNATURA = "Inactivo";
-                }
-                //db.ASIGNATURAs.Remove(asg);
+                db.ASIGNATURAs.Remove(asg);
                 db.SaveChanges();
                 return true;
 
@@ -151,40 +147,101 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             StreamReader f = new StreamReader(archivo);
             try
             {
-                while ((linea = f.ReadLine()) != null)
-                {
-                    string[] campos = linea.Split(',');
-                    var db = new GestionProgramasEntities();
-
-                    var asg = new ASIGNATURA()
-                    {
-                        IDENTIFICADORASIGNATURA = decimal.Parse(campos[0]),
-                        IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[1]),
-                        NOMBREASIGNATURA = campos[2],
-                        CORREQUISITOSASIGNATURA = campos[3],
-                        PREREQUISITOSASIGNATURA = campos[4],
-                        SEMESTREASIGNATURA = short.Parse(campos[5]),
-                        CREDITOSASIGNATURA = decimal.Parse(campos[6]),
-                        MODALIDADASIGNATURA = campos[7],
-                        CLASIFICACIONASIGNATURA = campos[8],
-                        ESTADOASIGNATURA = campos[9],
-                        DESCRIPCIONASIGNATURA = campos[10],
-                        CODIGOASIGNATURA = campos[11],
-                        EdicionOmodificacion = "registrar"
-                    };
-                    //RegistrarAsignatura(asg);
-                    db.ASIGNATURAs.Add(asg);
-                    db.SaveChanges();
-                }
-                f.Dispose();
-                return true;
-            }
-            catch (Exception)
+            while ((linea = f.ReadLine()) != null)
             {
+                string[] campos = linea.Split(',');
+                var db = new GestionProgramasEntities();
 
+                var asg = new ASIGNATURA();
+                {
+                    asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
+                    asg.NOMBREASIGNATURA = campos[1];
+                    asg.CORREQUISITOSASIGNATURA = campos[2];
+                    asg.PREREQUISITOSASIGNATURA = campos[3];
+                    asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
+                    asg.CREDITOSASIGNATURA = decimal.Parse(campos[5]);
+                    asg.MODALIDADASIGNATURA = campos[6];
+                    asg.CLASIFICACIONASIGNATURA = campos[7];
+                    asg.ESTADOASIGNATURA = campos[8];
+                    asg.DESCRIPCIONASIGNATURA = campos[9];
+                    asg.CODIGOASIGNATURA = campos[10];
+                    asg.EdicionOmodificacion = "registrar";
+                }
+                db.ASIGNATURAs.Add(asg);
+                db.SaveChanges();
+            }
+            f.Dispose();
+            return true;
+        }
+        catch (Exception)
+            {
                 return false;
             }
         }
 
+        public static bool VerificarCampoPlanEstudios(string nombrePlanEstudios)
+        {
+            var db = new GestionProgramasEntities();
+            var plan = (from e in db.PLANESTUDIOS
+                        where e.NOMBREPLANESTUDIOS.ToLower() == nombrePlanEstudios.ToLower()
+                        select e).FirstOrDefault();
+            if (plan != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarCampoCoRequisitosAsignatura(string coRequisitosAsignatura)
+        {
+            var db = new GestionProgramasEntities();
+            var plan = (from e in db.ASIGNATURAs
+                        where e.NOMBREASIGNATURA.ToLower() == coRequisitosAsignatura.ToLower()
+                        select e).FirstOrDefault();
+            if (plan != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarCampoPreRequisitosAsignatura(string preRequisitosAsignatura)
+        {
+            var db = new GestionProgramasEntities();
+            var plan = (from e in db.ASIGNATURAs
+                        where e.NOMBREASIGNATURA.ToLower() == preRequisitosAsignatura.ToLower()
+                        select e).FirstOrDefault();
+            if (plan != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarExistenciaAsignatura(string nombreAsignatura)
+        {
+            var db = new GestionProgramasEntities();
+            var curso = (from e in db.ASIGNATURAs
+                         where e.NOMBREASIGNATURA.ToLower() == nombreAsignatura.ToLower()
+                         select e).FirstOrDefault();
+            if (curso != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static string ObtenerIdPlanEstudios(string nombre)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.PLANESTUDIOS
+                        where e.NOMBREPLANESTUDIOS.ToLower() == nombre.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return asig.IDENTIFICADORPLANESTUDIOS.ToString();
+            }
+            return "";
+        }
     }
 }

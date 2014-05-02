@@ -13,16 +13,24 @@
             <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
             <input type="submit" value="Abrir"/>
 
+       <div style="height:300px;width:600px;overflow:scroll;">
+
 @if (Model != null)
 {
     <p>A continuacion se muestran los datos que se desean agregar: </p>
     <table>
         <tr>
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Plan Estudio</th>
-            <th>PreRequisitos</th>
-            <th>CoRequisitos</th>
+            <th>NombrePlanEstudios</th>
+            <th>NombreAsignatura</th>
+            <th>CoRequisitosAsignatura</th>
+            <th>PreRequisitosAsignatura</th>
+            <th>SemestreAsignatura</th>
+            <th>CreditosAsignatura</th>
+            <th>ModalidadAsignatura</th>
+            <th>ClasificacionAsignatura</th>
+            <th>EstadoAsignatura</th>
+            <th>DescripcionAsignatura</th>
+            <th>CodigoAsignatura</th>
         </tr>
         @foreach(DataRow dr in Model.Tables[0].Rows)
      {
@@ -31,27 +39,51 @@
                 @dr[0].ToString()
             </td>
             <td>
-                @dr[3].ToString()
+                @dr[1].ToString()
             </td>
             <td>
                 @dr[2].ToString()
             </td>
             <td>
-                @dr[4].ToString()
+                @dr[3].ToString()
             </td>     
              <td>
+                @dr[4].ToString()
+             </td> 
+             <td>
                 @dr[5].ToString()
-            </td>     
+             </td>   
+             <td>
+                @dr[6].ToString()
+             </td> 
+             <td>
+                @dr[7].ToString()
+             </td>
+             <td>
+                @dr[8].ToString()
+             </td> 
+             <td>
+                @dr[9].ToString()
+             </td> 
+             <td>
+                @dr[10].ToString()
+             </td>  
          </tr>  
     }
         
     </table> 
 }
-
+</div>
 <div>
     
     @Html.ActionLink("Ir a inicio", "Index")
-    @Html.ActionLink("Cargar", "EnviarDatos")
+    @if (TempData["DatosOkSession"].ToString().Equals("Los datos cargardos son validos"))
+    {
+        @Html.ActionLink("Cargar", "EnviarDatos")
+    }
+    @Html.ActionLink("Cancelar", "Index")
+    <h3> @TempData["DatosOkSession"] </h3>
+    <font color="red"> @TempData["ErroresSession"] </font>
 </div>  
 
     </fieldset>
