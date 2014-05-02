@@ -10,9 +10,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
 {
     public static class FachadaAsignaturas
     {
-        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura)
+        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
         {
-            return ServicioAsignaturas.ConsultarAsignaturas(idAsignatura,nombreAsignatura);
+            return ServicioAsignaturas.ConsultarAsignaturas(palabraBusqueda);
         }
 
         public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
@@ -38,6 +38,26 @@ namespace SIFIET.GestionProgramas.Aplicacion
         public static bool CargarInformacion(string archivo)
         {
             return ServicioAsignaturas.CargarInformacion(archivo);
+        }
+
+        public static bool VerificarCampoPlanEstudios(string nombrePlanEstudios)
+        {
+            return ServicioAsignaturas.VerificarCampoPlanEstudios(nombrePlanEstudios);
+        }
+
+        public static bool VerificarCampoCoRequisitosAsignatura(string coRequisitosAsignatura)
+        {
+            return ServicioAsignaturas.VerificarCampoCoRequisitosAsignatura(coRequisitosAsignatura);
+        }
+
+        public static bool VerificarCampoPreRequisitosAsignatura(string preRequisitosAsignatura)
+        {
+            return ServicioAsignaturas.VerificarCampoPreRequisitosAsignatura(preRequisitosAsignatura);
+        }
+
+        public static string ObtenerIdPlanEstudios(string nombre)
+        {
+            return ServicioAsignaturas.ObtenerIdPlanEstudios(nombre);
         }
     }
 }
