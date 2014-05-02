@@ -25,7 +25,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
-        [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya esta en uso, ingrese otro")]
+        //[GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya está en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
 
         public string ESTADOGRUPOINVESTIGACION { get; set; }
@@ -35,35 +35,78 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [StringLength(250, ErrorMessage = "La {0} no pueder ser mayor de 250 caracteres")]        
         public string DESCRIPCIONGRUPOINVESTIGACION { get; set; }
 
+        [Display(Name = "Código")]
         [Required]
+        [EsNumeric(ErrorMessage = "El {0} solo toma valores numericos ")]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
+        //[CodigoGInvestigacionYaExiste(ErrorMessage = "Este Código ya está en uso, ingrese otro")]
         public string CODIGOGRUPOINVESTIGACION { get; set; }
 
     }
+
+    public sealed class CodigoGInvestigacionYaExiste : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                bool valid = false;
+
+                if (value != null)
+                {
+
+                    if (valid != true)
+                    {
+                        var idGInvestigacionValor = value as string;
+                        var db = new GestionProgramasEntities();
+                        var idGInvestigacion = (from g in db.GRUPO_INVESTIGACION where idGInvestigacionValor.Equals(g.CODIGOGRUPOINVESTIGACION) select g.CODIGOGRUPOINVESTIGACION).FirstOrDefault();
+                        if (String.IsNullOrEmpty(idGInvestigacion))
+                            valid = true;
+                    }
+
+                }
+                return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+            }
+        }
 
     public sealed class GrupoNombreYaExiste : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             bool valid = false;
-            var gInvestigacionValidacion = validationContext.ObjectInstance as GRUPO_INVESTIGACION;
+
             if (value != null)
             {
-                var nombre = value as string;
-                var db = new GestionProgramasEntities();
-                var gInvestigacion = (from e in db.GRUPO_INVESTIGACION where gInvestigacionValidacion.NOMBREGRUPOINVESTIGACION == e.NOMBREGRUPOINVESTIGACION select e).FirstOrDefault();
-                if (gInvestigacion != null)
-                {
-                    if (value.Equals(gInvestigacion.NOMBREGRUPOINVESTIGACION))
-                        valid = true;
-                }
+
                 if (valid != true)
                 {
-                    var nombreAsignatura = (from e in db.GRUPO_INVESTIGACION where nombre == e.NOMBREGRUPOINVESTIGACION select e.NOMBREGRUPOINVESTIGACION).FirstOrDefault
-                            ();
-                    if (String.IsNullOrEmpty(nombreAsignatura))
+                    var nombreGInvestigacionValor = value as string;
+                    var db = new GestionProgramasEntities();
+                    var nombreGInvestigacion = (from g in db.GRUPO_INVESTIGACION where nombreGInvestigacionValor.Equals(g.NOMBREGRUPOINVESTIGACION) select g.NOMBREGRUPOINVESTIGACION).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombreGInvestigacion))
                         valid = true;
                 }
+
+            }
+            return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+        }
+    }
+
+    public sealed class EsNumeric : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            bool valid = false;
+
+            if (value != null)
+            {
+
+                if (valid != true)
+                {
+                    var codigoGInvestigacion = value as string;
+                    int x;
+                    if (int.TryParse(codigoGInvestigacion, out x))
+                        valid = true;
+                }
+
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
