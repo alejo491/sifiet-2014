@@ -26,6 +26,11 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioGInvestigacion.ConsultarGrupoInvestigacionPorCodigo(codigo);
         }
 
+        public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorNombre(string nombre)
+        {
+            return ServicioGInvestigacion.ConsultarGrupoInvestigacionPorNombre(nombre);
+        }
+
         public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacion(int idGinvestigacion)
         {
             return ServicioGInvestigacion.ConsultarGrupoInvestigacion(idGinvestigacion);

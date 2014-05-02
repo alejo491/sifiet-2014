@@ -27,13 +27,15 @@
 
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.IDENTIFICADORGRUPOINVES)
+            @*@Html.HiddenFor(model => model.CODIGOGRUPOINVESTIGACION)
+            @Html.HiddenFor(model => model.NOMBREGRUPOINVESTIGACION)*@
             @Html.HiddenFor(model => model.ESTADOGRUPOINVESTIGACION)
 
             <div>
                 Codigo:
                 <div>
                     @Html.EditorFor(model => model.CODIGOGRUPOINVESTIGACION)
-                    @Html.ValidationMessageFor(model => model.NOMBREGRUPOINVESTIGACION)
+                    @Html.ValidationMessageFor(model => model.CODIGOGRUPOINVESTIGACION)
                 </div>
 
             </div>
@@ -48,7 +50,7 @@
             <div>
                 Descripcion:
                 <div>
-                    @Html.TextArea("DESCRIPCIONGRUPOINVESTIGACION")
+                    @Html.TextAreaFor(model => model.DESCRIPCIONGRUPOINVESTIGACION)  
                     @Html.ValidationMessageFor(model => model.DESCRIPCIONGRUPOINVESTIGACION)
                 </div>
 
@@ -57,16 +59,63 @@
             <div>
                 Departamento:
                 <div>
-                    @Html.DropDownListFor(model => model.IDENTIFICADORDEPARTAMENTO, ViewBag.ListaDepartamentos as SelectList)
-                    @Html.ValidationMessageFor(model => model.IDENTIFICADORDEPARTAMENTO)
-                </div>
+                    <select name="departamento">
+                        @if (ViewBag.DepartamentoRegistrado != null)
+                        {
+                            SIFIET.GestionProgramas.Datos.Modelo.DEPARTAMENTO deptoRegistrado = ViewBag.DepartamentoRegistrado;
+                            foreach (var depto in ViewBag.lstDepartamentos)
+                            {
+                                if (depto.IDENTIFICADORDEPARTAMENTO == deptoRegistrado.IDENTIFICADORDEPARTAMENTO)
+                                {
+                                    <option value="@depto.IDENTIFICADORDEPARTAMENTO" selected>@depto.NOMBREDEPARTAMENTO</option>
+                                }
+                                else
+                                {
+                                    <option value="@depto.IDENTIFICADORDEPARTAMENTO">@depto.NOMBREDEPARTAMENTO</option>
 
+                                }
+                            }
+                        }
+                        @*else
+                        {
+                            foreach (var depto in ViewBag.lstDepartamentos)
+                            {
+                                <option value="@depto.IDENTIFICADORDEPARTAMENTO">@depto.NOMBREDEPARTAMENTO</option>
+
+                            }
+                        }*@
+                    </select>                        
+                </div>
             </div>
             <div>
                 Director:
                 <div>
-                    @Html.DropDownListFor(model => model.IDENTIFICADORUSUARIO, ViewBag.ListaDocentes as SelectList)
-                    @Html.ValidationMessageFor(model => model.IDENTIFICADORUSUARIO)
+                    <select name="docente">
+                        @if (ViewBag.DocenteRegistrado != null)
+                        {
+                            SIFIET.GestionProgramas.Datos.Modelo.DOCENTE docenteRegistrado = ViewBag.DocenteRegistrado;
+                            foreach (var docente in ViewBag.lstDocentes)
+                            {
+                                if (docente.IDENTIFICADORUSUARIO == docenteRegistrado.IDENTIFICADORUSUARIO)
+                                {
+                                    <option value="@docente.IDENTIFICADORUSUARIO" selected>@docente.NombreCompletoDocente</option>
+                                }
+                                else
+                                {
+                                    <option value="@docente.IDENTIFICADORUSUARIO">@docente.NombreCompletoDocente</option>
+
+                                }
+                            }
+                        }
+                        @*else
+                        {
+                            foreach (var docente in ViewBag.lstDocentes)
+                            {
+                                <option value="@docente.IDENTIFICADORUSUARIO">@docente.NombreCompletoDocente</option>
+
+                            }
+                        }*@
+                    </select>                    
                 </div>
 
             </div>
