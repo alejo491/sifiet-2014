@@ -29,6 +29,16 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             return lista;
         }
 
+        public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorCodigo(string codigo)
+        {
+
+            var db = new GestionProgramasEntities();
+            GRUPO_INVESTIGACION gInvestigacion = (from g in db.GRUPO_INVESTIGACION
+                                               where g.CODIGOGRUPOINVESTIGACION == codigo
+                                               select g).FirstOrDefault();
+            return gInvestigacion;
+        }
+
         public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacion(int idGinvestigacion)
         {
             var db = new GestionProgramasEntities();

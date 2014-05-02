@@ -32,16 +32,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
                 }
-                return View(lista);
-            
-
-
-
-            
-
-
-
-
+                return View(lista);            
         }
         
         //
@@ -78,10 +69,18 @@ namespace SIFIET.Presentacion.Controllers
             ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NombreCompletoDocente");
             if (!ModelState.IsValid) return View(grupo);
             try
-            {
-                
-                FachadaSIFIET.RegistrarGrupoInvestigacion(grupo);
-                ViewBag.Mensaje = "Registro Exitoso";
+            {                
+                GRUPO_INVESTIGACION gInvestigacion = FachadaSIFIET.ConsultarGrupoInvestigacionPorCodigo(grupo.CODIGOGRUPOINVESTIGACION);
+                if(gInvestigacion == null)
+                {
+                    FachadaSIFIET.RegistrarGrupoInvestigacion(grupo);
+                    TempData["Mensaje"] = "Grupo de Investigación creado con éxito";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Mensaje = "El grupo de investigación con el código "+grupo.CODIGOGRUPOINVESTIGACION+" ya se encuentra registrado";
+                }
             }
             catch (Exception e)
             {
@@ -90,7 +89,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(grupo);
             }
 
-            return View();
+            return View(grupo);
 
         }
         
@@ -140,17 +139,10 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Usuarios/Delete/5
         public ActionResult EliminarGrupoInvestigacion(int idGinvestigacion)
         {
-            return View(FachadaSIFIET.ConsultarGrupoInvestigacion(idGinvestigacion));
-        }
-
-        //
-        // POST: /Usuarios/Delete/5
-        [HttpPost]
-        public ActionResult EliminarGrupoInvestigacion(int idGinvestigacion, FormCollection collection)
-        {
             try
             {
                 FachadaSIFIET.EliminarGrupoInvestigacion(idGinvestigacion);
+                TempData["Mensaje"] = "Grupo de investigación eliminado con éxito";
                 return RedirectToAction("Index");
             }
             catch

@@ -175,6 +175,11 @@ namespace SIFIET.Aplicacion
             return FachadaGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda);
         }
 
+        public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorCodigo(string codigo)
+        {
+            return FachadaGInvestigacion.ConsultarGrupoInvestigacionPorCodigo(codigo);
+        }
+
         public static void RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
             FachadaGInvestigacion.RegistrarGrupoInvestigacion(grupo);
