@@ -36,12 +36,12 @@
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
                 @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
-                @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES })
+                @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }, new { onclick = "return confirm('Comfirma que desea eliminar el grupo de investigación?')" })
                 </text>
             )
         })
 
-
+    <div>@TempData["Mensaje"]</div>
 
 
     <p>
