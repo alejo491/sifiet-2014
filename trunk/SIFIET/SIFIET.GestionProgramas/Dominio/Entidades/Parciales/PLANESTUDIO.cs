@@ -64,7 +64,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 if (String.IsNullOrEmpty(nombrePlanEstudio))
                 {
                     valid = true;
-                }                                        
+                }
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }

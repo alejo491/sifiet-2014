@@ -70,7 +70,7 @@ namespace SIFIET.Presentacion.Controllers
             if (!ModelState.IsValid) return View(grupo);
             try
             {
-                GRUPO_INVESTIGACION gInvestigacionCodigo = FachadaSIFIET.ConsultarGrupoInvestigacionPorCodigo(grupo.CODIGOGRUPOINVESTIGACION);
+                /*GRUPO_INVESTIGACION gInvestigacionCodigo = FachadaSIFIET.ConsultarGrupoInvestigacionPorCodigo(grupo.CODIGOGRUPOINVESTIGACION);
                 GRUPO_INVESTIGACION gInvestigacionNombre = FachadaSIFIET.ConsultarGrupoInvestigacionPorNombre(grupo.NOMBREGRUPOINVESTIGACION);
 
                 bool bandNombre = false;
@@ -95,7 +95,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     ViewBag.Mensaje = "El código y el nombre del grupo deben ser únicos";
                     return View(grupo);
-                }
+                }*/
             }
             catch (Exception e)
             {

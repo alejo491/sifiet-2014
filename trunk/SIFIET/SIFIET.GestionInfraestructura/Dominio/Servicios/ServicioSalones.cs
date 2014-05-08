@@ -176,7 +176,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 
         }
 
-        public static List<FRANJA_HORARIA> ObtenarHorarioCurso(decimal idCurso)
+        public static List<FRANJA_HORARIA> ObtenerHorarioCurso(decimal idCurso)
         {
             var db = new GestionInfraestructuraEntities();
             List<FRANJA_HORARIA> lista = (from e in db.FRANJA_HORARIA

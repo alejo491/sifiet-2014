@@ -35,9 +35,9 @@ namespace SIFIET.GestionUsuarios.Aplicacion
             return ServicioRoles.EliminarRol(idRol);
         }
 
-        public static bool ExisteNombre(string nombre)
+        public static bool ExisteNombreRol(string nombre)
         {
-            return ServicioRoles.ExisteNombre(nombre);
+            return ServicioRoles.ExisteNombreRol(nombre);
         }
 
         public static List<ROL> ConsultarRolPorNombre(string nombre)

@@ -80,7 +80,9 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             try
             {
                 db.Database.ExecuteSqlCommand("Update ROL SET NOMBREROL= '"+oRol.NOMBREROL+"' ,"+
-                    " DESCRIPCIONROL= '"+oRol.DESCRIPCIONROL+"' WHERE IDENTIFICADORROL= "+oRol.IDENTIFICADORROL);
+                    " DESCRIPCIONROL= '" + oRol.DESCRIPCIONROL + "' ," +
+                    " ESTADOROL= '" + oRol.ESTADOROL + "'" +
+                                              " WHERE IDENTIFICADORROL= " + oRol.IDENTIFICADORROL);
                 db.SaveChanges();
                 db.Database.ExecuteSqlCommand("Delete from ROL_TIENE_PERMISOS" +
                             " WHERE IDENTIFICADORROL= " + oRol.IDENTIFICADORROL);
@@ -104,10 +106,10 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             try
             {
                 var db = new GestionUsuariosEntities();
-                db.Database.ExecuteSqlCommand("Delete from ROL_TIENE_PERMISOS" +
+                /*db.Database.ExecuteSqlCommand("Delete from ROL_TIENE_PERMISOS" +
                             " WHERE IDENTIFICADORROL= " +int.Parse(idRol.Trim()));
+                db.SaveChanges();*/
                 var oRol = db.ROLs.Find(decimal.Parse(idRol.Trim()));
-                db.SaveChanges();
                 oRol.ESTADOROL = "Desactivado";
                 db.Entry(oRol).State = EntityState.Modified;
                 db.SaveChanges();
@@ -119,7 +121,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             }
     }
 
-        public static bool ExisteNombre(string nombre)
+        public static bool ExisteNombreRol(string nombre)
         {
             try
             {

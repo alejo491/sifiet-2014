@@ -65,7 +65,16 @@ namespace SIFIET.Presentacion.Controllers
                     NOMBREROL = collection["NOMBREROL"].Trim(),
                     ESTADOROL = "Activado"         
                 };
-            if (!ModelState.IsValid) return View(oRol);
+                var existeRol = FachadaSIFIET.ExisteNombreRol(collection["NOMBREROL"].Trim());
+            if (!ModelState.IsValid || existeRol)
+            {
+                ViewBag.lstNombresPermisos = FachadaSIFIET.ConsultarNombresPermisos();
+                if (existeRol)
+                {
+                    ViewBag.ErrorNombreRol = "Ya Existe Un Rol Con este Nombre";
+                }
+                return View(oRol);
+            }
             if (FachadaSIFIET.RegistrarRoles(oRol, permisos))
             {
                 TempData["Mensaje"] = "Rol Creado con Exito";
@@ -91,22 +100,30 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult ModificarRol(FormCollection collection)
         {
             var permisos = CrearPermisos(collection,(IEnumerable<PERMISO>) TempData["PermisosActuales"]);
+            bool existeRol = FachadaSIFIET.ExisteNombreRol(collection["NOMBREROL"].Trim());
+            if (!ModelState.IsValid ||( !collection["NOMBREROL"].Trim().Equals(collection["NombreActual"].Trim()) && existeRol))
+            {
+                var oRolActual = FachadaSIFIET.ConsultarRol(collection["IDENTIFICADORROL"].Trim());
+                TempData["PermisosActuales"] = oRolActual.PERMISOS;
+                if (existeRol)
+                {
+                    ViewBag.ErrorNombreRol = "Ya Existe Un Rol Con El Nombre ' " + collection["NOMBREROL"].Trim()+" '";
+                }
+                return View(oRolActual);
+            }
             var oRol = new ROL()
             {
                 IDENTIFICADORROL = decimal.Parse(collection["IDENTIFICADORROL"]),
                 DESCRIPCIONROL = collection["DESCRIPCIONROL"].Trim(),
                 NOMBREROL = collection["NOMBREROL"].Trim(),
-                ESTADOROL = "Activado"
+                ESTADOROL = collection["ESTADOROL"]
             };
-            if (ModelState.IsValid)
+            if (FachadaSIFIET.ModificarRol(oRol, permisos))
             {
-                if (FachadaSIFIET.ModificarRol(oRol, permisos))
-                {
-                    TempData["Mensaje"] = "Rol Creado con Exito";
-                    return RedirectToAction("Index");
-                }
-                ViewBag.Mensaje = "Error: No se ha podido registrar el Rol";
+                TempData["Mensaje"] = "Rol Modificado con Exito";
+                return RedirectToAction("Index");
             }
+            ViewBag.Mensaje = "Error: No se ha podido registrar el Rol";
             return View(oRol);
         }
 
@@ -119,8 +136,6 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // POST: /Roles/Delete/5
-        [HttpPost, ActionName("EliminarRol")]
-        [ValidateAntiForgeryToken]
         public ActionResult ConfirmarEliminarRol(int idRol)
         {
             if (FachadaSIFIET.EliminarRol(idRol.ToString()))

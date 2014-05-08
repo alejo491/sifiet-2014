@@ -528,7 +528,7 @@ namespace SIFIET.Presentacion.Controllers
         private bool VerificarExistenciaAsignatura(string nombreAsignatura)
         {
             bool verificarC = false;
-            verificarC = FachadaSIFIET.VerificarExistenciaAsignatura(nombreAsignatura);
+            //verificarC = FachadaSIFIET.VerificarExistenciaAsignatura(nombreAsignatura);
             return verificarC;
         }
 
