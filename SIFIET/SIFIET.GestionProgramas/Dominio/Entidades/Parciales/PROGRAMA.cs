@@ -10,7 +10,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(PROGRAMAMETADATA))]
     public partial class PROGRAMA
     {
-        
+
     }
 
     public class PROGRAMAMETADATA
@@ -59,7 +59,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Estado :")]
         public string ESTADOPROGRAMA { get; set; }
-      
+
     }
 
     public sealed class ProgramaNombreExiste : ValidationAttribute

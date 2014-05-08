@@ -23,33 +23,9 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
         [Required]
         [StringLength(250, ErrorMessage = "El {0} no Puede ser Mayor de 250 Caracteres")]
         public string DESCRIPCIONROL { get; set; }
+        [Required]
+        public string ESTADOROL { get; set; }
     }
 
-    public sealed class NombreExiste : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            bool valid = false;
-            var rolValidacion = validationContext.ObjectInstance as ROL;
-            if (value != null)
-            {
-                var nombre = value as string;
-                var db = new GestionUsuariosEntities();
-                var rol = (from e in db.ROLs where rolValidacion.IDENTIFICADORROL == e.IDENTIFICADORROL select e).FirstOrDefault();
-                if (rol != null)
-                {
-                    if (value.Equals(rol.NOMBREROL.Trim()))
-                        valid = true;
-                }
-                if (valid != true)
-                {
-                    var nombreAsignatura = (from e in db.ROLs where nombre.Trim().Equals(e.NOMBREROL.Trim()) select e.NOMBREROL).FirstOrDefault
-                            ();
-                    if (String.IsNullOrEmpty(nombreAsignatura))
-                        valid = true;
-                }
-            }
-            return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
-        }
-    }
+    
 }

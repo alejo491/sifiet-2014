@@ -52,7 +52,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult RegistrarProgramaAcademico()
         {
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.ConsultarFacultades(0,""), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace SIFIET.Presentacion.Controllers
                 ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar este programa";
             }
 
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.ConsultarFacultades(0,""), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
             return View(objPrograma);
         }
 
@@ -91,7 +91,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult EditarProgramaAcademico(decimal idPrograma)
         {
             PROGRAMA objPrograma = FachadaSIFIET.ConsultarProgramaAcademico(idPrograma);
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.ConsultarFacultades(0,""), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
             return View(objPrograma);
         }
 
@@ -117,7 +117,7 @@ namespace SIFIET.Presentacion.Controllers
             {
                 TempData["ResultadoOperacion"] = "Ocurrio un error, No se pudo editar el programa.";
             }
-            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.obtenerNombreFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
+            ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.ConsultarFacultades(0, ""), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD", objPrograma.IDENTIFICADORFACULTAD);
             return View(objPrograma);
         }
 

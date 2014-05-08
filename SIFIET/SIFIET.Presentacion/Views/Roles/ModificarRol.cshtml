@@ -21,12 +21,20 @@
 
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.IDENTIFICADORROL)
+            <input type="hidden" name="NombreActual" value="@Model.NOMBREROL" id="NombreActual"/>
             <div>
                 Nombre:
                 <div>
                     @Html.EditorFor(model => model.NOMBREROL)
                     @Html.ValidationMessageFor(model => model.NOMBREROL)
+                    
                 </div>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorNombreRol))
+                {
+                    <div>
+                        @ViewBag.ErrorNombreRol
+                    </div>
+                }
             </div>
 
             <div>
@@ -34,6 +42,24 @@
                 <div>
                     @Html.TextAreaFor(model => model.DESCRIPCIONROL)
                     @Html.ValidationMessageFor(model => model.DESCRIPCIONROL)
+                </div>
+            </div>
+            <div>
+                Estado :
+                <div>
+                    @if (Model.ESTADOROL.Trim().Equals("Desactivado"))
+                    {
+                        @Html.Label("Activado")
+                        @Html.RadioButtonFor(model => model.ESTADOROL, "Activado")
+                        @Html.Label("Desactivado")
+                        @Html.RadioButtonFor(model => model.ESTADOROL, "Desactivado")
+                        @Html.ValidationMessageFor(model => model.ESTADOROL)
+                    }
+                    else
+                    {
+                        @Html.Label(@Model.ESTADOROL)
+                        @Html.HiddenFor(model => model.ESTADOROL)
+                    }
                 </div>
             </div>
             @foreach (var item in Model.PERMISOS)

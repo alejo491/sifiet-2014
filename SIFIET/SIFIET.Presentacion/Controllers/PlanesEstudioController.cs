@@ -13,7 +13,6 @@ namespace SIFIET.Presentacion.Controllers
 { 
     public class PlanesEstudioController : Controller
     {
-        
 
         //
         // GET: /PlanEstudio/
@@ -140,6 +139,6 @@ namespace SIFIET.Presentacion.Controllers
                 TempData["ResultadoOperacion"] = "Ocurrio un error, no se pudo eliminar el Plan de Estudio";
             }
             return RedirectToAction("Index");
-        }                
+        }         
     }
 }

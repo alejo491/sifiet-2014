@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,12 +18,12 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
         public decimal IDENTIFICADORUSUARIO { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
+        [StringLength(15, ErrorMessage = "El Email no pueder ser mayor de 15 caracteres")]
         [RegularExpression("^([a-zA-Z0-9 .&'-]+)$", ErrorMessage = "El Email no puede contener el @")]
         public string EMAILINSTITUCIONALUSUARIO { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "La {0} de estar entre 6 y 15 caracteres", MinimumLength = 6)]
+        [StringLength(15, ErrorMessage = "El Password de estar entre 6 y 15 caracteres", MinimumLength = 6)]
         public string PASSWORDUSUARIO { get; set; }
 
         [Required]
@@ -33,11 +33,11 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
         public string IDENTIFICACIONUSUARIO { get; set; }
 
         [Required]
-        [StringLength(180, ErrorMessage = "La {0} no pueder ser mayor de 180 caracteres")]
+        [StringLength(180, ErrorMessage = "La Nombre no pueder ser mayor de 180 caracteres")]
         public string NOMBRESUSUARIO { get; set; }
 
         [Required]
-        [StringLength(180, ErrorMessage = "La {0} no pueder ser mayor de 180 caracteres")]
+        [StringLength(180, ErrorMessage = "El Apellido no pueder ser mayor de 180 caracteres")]
         public string APELLIDOSUSUARIO { get; set; }
 
 

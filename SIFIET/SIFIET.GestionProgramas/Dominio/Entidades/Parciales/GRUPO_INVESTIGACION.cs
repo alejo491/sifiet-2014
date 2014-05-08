@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Descripción")]
         [Required]
-        [StringLength(250, ErrorMessage = "La {0} no pueder ser mayor de 250 caracteres")]        
+        [StringLength(250, ErrorMessage = "La {0} no pueder ser mayor de 250 caracteres")]
         public string DESCRIPCIONGRUPOINVESTIGACION { get; set; }
 
         [Display(Name = "Código")]
@@ -45,27 +45,27 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     }
 
     public sealed class CodigoGInvestigacionYaExiste : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            bool valid = false;
+
+            if (value != null)
             {
-                bool valid = false;
 
-                if (value != null)
+                if (valid != true)
                 {
-
-                    if (valid != true)
-                    {
-                        var idGInvestigacionValor = value as string;
-                        var db = new GestionProgramasEntities();
-                        var idGInvestigacion = (from g in db.GRUPO_INVESTIGACION where idGInvestigacionValor.Equals(g.CODIGOGRUPOINVESTIGACION) select g.CODIGOGRUPOINVESTIGACION).FirstOrDefault();
-                        if (String.IsNullOrEmpty(idGInvestigacion))
-                            valid = true;
-                    }
-
+                    var idGInvestigacionValor = value as string;
+                    var db = new GestionProgramasEntities();
+                    var idGInvestigacion = (from g in db.GRUPO_INVESTIGACION where idGInvestigacionValor.Equals(g.CODIGOGRUPOINVESTIGACION) select g.CODIGOGRUPOINVESTIGACION).FirstOrDefault();
+                    if (String.IsNullOrEmpty(idGInvestigacion))
+                        valid = true;
                 }
-                return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+
             }
+            return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
+    }
 
     public sealed class GrupoNombreYaExiste : ValidationAttribute
     {
