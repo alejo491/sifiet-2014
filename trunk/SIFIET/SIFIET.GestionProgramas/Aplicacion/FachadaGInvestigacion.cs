@@ -15,10 +15,16 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioGInvestigacion.ConsultarGruposInvestigacion();
         }
 
-        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda)
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda, string estado)
         {
 
-            return ServicioGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda);
+            return ServicioGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda,estado);
+        }
+
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorCodigo(string busqueda, string estado)
+        {
+
+            return ServicioGInvestigacion.ConsultarGruposInvestigacionPorCodigo(busqueda, estado);
         }
 
         public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorCodigo(string codigo)

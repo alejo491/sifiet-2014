@@ -23,10 +23,10 @@
 
 
         <fieldset>
-            <legend>Nuevo Usuario</legend>
+            <legend>Nuevo Grupo de Investigación</legend>
 
             @Html.ValidationSummary(true)
-
+            @Html.HiddenFor(model => model.EdicionOmodificacion, new { @Value = "registro" })
             
 
             <div>

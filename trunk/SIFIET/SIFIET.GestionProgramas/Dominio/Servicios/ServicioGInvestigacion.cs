@@ -19,12 +19,22 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         }
 
 
-        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda)
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda,string estado)
         {
 
             var db = new GestionProgramasEntities();
             List<GRUPO_INVESTIGACION> lista = (from e in db.GRUPO_INVESTIGACION
-                                               where e.NOMBREGRUPOINVESTIGACION.Contains(busqueda)
+                                               where e.NOMBREGRUPOINVESTIGACION.Contains(busqueda) && e.ESTADOGRUPOINVESTIGACION.Equals(estado)
+                                               select e).ToList();
+            return lista;
+        }
+
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorCodigo(string busqueda, string estado)
+        {
+
+            var db = new GestionProgramasEntities();
+            List<GRUPO_INVESTIGACION> lista = (from e in db.GRUPO_INVESTIGACION
+                                               where e.CODIGOGRUPOINVESTIGACION.Contains(busqueda) && e.ESTADOGRUPOINVESTIGACION.Equals(estado)
                                                select e).ToList();
             return lista;
         }
@@ -61,6 +71,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         {
             var db = new GestionProgramasEntities();
             grupo.ESTADOGRUPOINVESTIGACION = "Activo";
+            grupo.EdicionOmodificacion = "registro";
             db.GRUPO_INVESTIGACION.Add(grupo);
             db.SaveChanges();
         }
@@ -83,10 +94,17 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             return lista;
         }
 
-        internal static void ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
+        internal static void ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupoIvestigacionModificado)
         {
-            var db = new GestionProgramasEntities();            
-            db.Entry(grupo).State = EntityState.Modified;            
+            var db = new GestionProgramasEntities();
+            var grupo = (from g in db.GRUPO_INVESTIGACION where g.IDENTIFICADORGRUPOINVES == grupoIvestigacionModificado.IDENTIFICADORGRUPOINVES select g).First();
+            grupo.EdicionOmodificacion = "modificacion";
+            grupo.IDENTIFICADORUSUARIO = grupoIvestigacionModificado.IDENTIFICADORUSUARIO;
+            grupo.IDENTIFICADORDEPARTAMENTO = grupoIvestigacionModificado.IDENTIFICADORDEPARTAMENTO;
+            grupo.NOMBREGRUPOINVESTIGACION = grupoIvestigacionModificado.NOMBREGRUPOINVESTIGACION;
+            grupo.ESTADOGRUPOINVESTIGACION = grupoIvestigacionModificado.ESTADOGRUPOINVESTIGACION;
+            grupo.DESCRIPCIONGRUPOINVESTIGACION = grupoIvestigacionModificado.DESCRIPCIONGRUPOINVESTIGACION;
+            grupo.CODIGOGRUPOINVESTIGACION = grupoIvestigacionModificado.CODIGOGRUPOINVESTIGACION;            
             db.SaveChanges();
         }
 

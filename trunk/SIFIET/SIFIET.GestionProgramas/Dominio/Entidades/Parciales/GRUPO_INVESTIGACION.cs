@@ -10,6 +10,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(GRUPO_INVESTIGACIONMETADATA))]
     public partial class GRUPO_INVESTIGACION
     {
+        public string EdicionOmodificacion { get; set; }
     }
 
     public class GRUPO_INVESTIGACIONMETADATA
@@ -23,23 +24,23 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Nombre")]
         [Required]
-        [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
+        [StringLength(250, ErrorMessage = "El Nombre no pueder ser mayor de 250 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
-        //[GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya está en uso, ingrese otro")]
+        [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya está en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
 
         public string ESTADOGRUPOINVESTIGACION { get; set; }
 
         [Display(Name = "Descripción")]
         [Required]
-        [StringLength(250, ErrorMessage = "La {0} no pueder ser mayor de 250 caracteres")]
+        [StringLength(250, ErrorMessage = "La Descripción no pueder ser mayor de 250 caracteres")]
         public string DESCRIPCIONGRUPOINVESTIGACION { get; set; }
 
         [Display(Name = "Código")]
         [Required]
-        [EsNumeric(ErrorMessage = "El {0} solo toma valores numericos ")]
-        [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
-        //[CodigoGInvestigacionYaExiste(ErrorMessage = "Este Código ya está en uso, ingrese otro")]
+        [EsNumeric(ErrorMessage = "El Código solo toma valores numericos ")]
+        [StringLength(15, ErrorMessage = "El Código no pueder ser mayor de 15 caracteres")]
+        [CodigoGInvestigacionYaExiste(ErrorMessage = "Este Código ya está en uso, ingrese otro")]
         public string CODIGOGRUPOINVESTIGACION { get; set; }
 
     }
@@ -49,10 +50,13 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             bool valid = false;
-
+            var grupoInvestigacionValidacion = (validationContext.ObjectInstance as GRUPO_INVESTIGACION).EdicionOmodificacion;
             if (value != null)
             {
-
+                if (grupoInvestigacionValidacion.Equals("modificacion"))
+                {
+                    valid = true;
+                }
                 if (valid != true)
                 {
                     var idGInvestigacionValor = value as string;
@@ -72,10 +76,13 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             bool valid = false;
-
+            var grupoInvestigacionValidacion = (validationContext.ObjectInstance as GRUPO_INVESTIGACION).EdicionOmodificacion;
             if (value != null)
             {
-
+                if (grupoInvestigacionValidacion.Equals("modificacion"))
+                {
+                    valid = true;
+                }
                 if (valid != true)
                 {
                     var nombreGInvestigacionValor = value as string;
