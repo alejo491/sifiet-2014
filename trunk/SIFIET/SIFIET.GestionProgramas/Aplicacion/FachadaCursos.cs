@@ -39,5 +39,30 @@ namespace SIFIET.GestionProgramas.Aplicacion
         {
             return ServicioCursos.CargarInformacion(archivo);
         }
+
+        public static bool VerificarCampoDocente(string nombreDocente, string apellidoDocente)
+        {
+            return ServicioCursos.VerificarCampoDocente(nombreDocente, apellidoDocente);
+        }
+
+        public static string ObtenerIdAsignatura(string nombre)
+        {
+            return ServicioCursos.ObtenerIdAsignatura(nombre);
+        }
+
+        public static string ObtenerIdUsuario(string nombreDocente, string apellidoDocente)
+        {
+            return ServicioCursos.ObtenerIdUsuario(nombreDocente, apellidoDocente);
+        }
+
+        public static bool VerificarCampoAsignatura(string nombreAsignatura)
+        {
+            return ServicioCursos.VerificarCampoAsignatura(nombreAsignatura);
+        }
+
+        public static bool VerificarExistenciaCurso(string nombreCurso)
+        {
+            return ServicioCursos.VerificarExistenciaCurso(nombreCurso);
+        }
     }
 }

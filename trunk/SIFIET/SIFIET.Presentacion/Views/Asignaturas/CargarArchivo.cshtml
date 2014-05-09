@@ -9,11 +9,11 @@
        <legend>Cargar Informacion</legend>
 
             <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
-            <input type="submit" value="Abrir"/>
-<div>
-    @Html.ActionLink("Ir a inicio", "Index")
-    <h3> @TempData["ArchivoSession"] </h3>
-</div>  
-
+            <input type="submit" value="Abrir"/>  
     </fieldset>
    }  
+<br/>
+    <div>
+        @Html.ActionLink("Cancelar", "Index", null, new { onclick = " return confirmSalirCargarArchivo(); " })
+        <h3> @TempData["ArchivoSession"] </h3>
+    </div> 

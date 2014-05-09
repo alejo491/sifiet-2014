@@ -151,6 +151,8 @@ namespace SIFIET.Presentacion.Controllers
             }
         }
 
+        // Lectura del archivo Excel
+
         public ActionResult CargarArchivo()
         {
             return View();
@@ -266,6 +268,7 @@ namespace SIFIET.Presentacion.Controllers
             int Ncol = 5;
             if (Ncol != ds.Tables[0].Columns.Count)
             {
+                TempData["ArchivoSession"] = "El Archivo que se intentó cargar no contiene un formato valido";
                 return RedirectToAction("CargarArchivo");
             }
             return RedirectToAction("CargarInformacion");
@@ -275,7 +278,171 @@ namespace SIFIET.Presentacion.Controllers
         {
             DataSet ds = new DataSet();
             ds = (DataSet)Session["DatosSession"];
+            bool valido = ValidarCampos(ds);
+            if (valido)
+            {
+                TempData["DatosOkSession"] = "Los datos cargardos son validos";
+                return View(ds);
+            }
+            TempData["DatosOkSession"] = "Los datos cargardos son invalidos";
             return View(ds);
+        }
+
+        //Valida los campos uno a uno contenidos en el DataSet, mostrando informacion de errores por cada tupla
+
+        public bool ValidarCampos(DataSet ds)
+        {
+            string erroresTupla = "", MsjBDerrores = "Los registros no pueden ser almacenados en la base da datos.";
+            int numTupla = 1;
+            bool validar;
+            List<int> validadorC = new List<int>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                validar = VerificarCampoDocente(row[1].ToString(), row[2].ToString());
+                if (validar)
+                {
+                    if (!row[1].ToString().Equals("") || !row[2].ToString().Equals(""))
+                    {
+                        validadorC.Add(1);
+                    }
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "Los campos Nombre y Apellido de docente en la tupla " + numTupla +
+                                            " parecen estar vacios.";
+                    }
+                }
+                else
+                {
+                    validadorC.Add(0);
+                    erroresTupla = erroresTupla + "El Docente " + row[1] + " " + row[2] + " de la tupla " + numTupla +
+                                            " no fue encontrado.";
+                }
+
+                validar = VerificarCampoAsignatura(row[0].ToString());
+                if (validar)
+                {
+                    if (!row[0].ToString().Equals(""))
+                    {
+                        validadorC.Add(1);
+                    }
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El campo Nombre Asignatura de la tupla " + numTupla +
+                                            " parece estar vacio.";
+                    }
+                }
+                else
+                {
+                    validadorC.Add(0);
+                    erroresTupla = erroresTupla + "La Asignatura " + row[0] + " de la tupla " + numTupla +
+                                            " no fue encontrado.";
+                }
+
+                validar = VerificarExistenciaCurso(row[3].ToString());
+                if (!validar)
+                {
+                    if (row[3].ToString().Length < 120)
+                    {
+                        if (!row[3].ToString().Equals(""))
+                        {
+                            validadorC.Add(1);
+                        }
+                        else
+                        {
+                            validadorC.Add(0);
+                            erroresTupla = erroresTupla + "El campo Nombre Curso de la tupla " + numTupla +
+                                           " parece estar vacio.";
+                        }
+                    }
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El campo NombreCurso de la tupla " + numTupla +
+                                       " supera la cantidad de caracteres permitidos (120).";
+                    }
+                }
+                else
+                {
+                    validadorC.Add(0);
+                    erroresTupla = erroresTupla + "El Curso " + row[3] + " de la tupla " + numTupla +
+                                        " ya existe";
+                }
+                if (row[4].ToString().Length < 30)
+                {
+                    if (!row[4].ToString().Equals(""))
+                    {
+                        if (row[4].ToString().Equals("Activo") || row[4].ToString().Equals("Inactivo"))
+                        {
+                            validadorC.Add(1);
+                        }
+                        else
+                        {
+                            validadorC.Add(0);
+                            erroresTupla = erroresTupla + "El Estado " + row[4] + " de la tupla " + numTupla +
+                                            " no es valido.";
+                        }
+                    }
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El campo Estado de la tupla " + numTupla +
+                                            " parece estar vacio.";
+                    }
+                }
+                else
+                {
+                    validadorC.Add(0);
+                    erroresTupla = erroresTupla + "El campo Estado de la tupla " + numTupla +
+                                   " supera la cantidad de caracteres permitidos (30).";
+                }
+                numTupla++;
+            }
+
+            foreach (var var in validadorC)
+            {
+                if (var.Equals(0))
+                {
+                    MsjBDerrores = MsjBDerrores + erroresTupla;
+                    TempData["ErroresSession"] = MsjBDerrores;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //Funciones necesarias para validacion de la informacion del DataSet, obtienen la existencia de tuplas o informacion de campos
+
+        private bool VerificarExistenciaCurso(string nombreCurso)
+        {
+            bool verificarC = false;
+            verificarC = FachadaSIFIET.VerificarExistenciaCurso(nombreCurso);
+            return verificarC;
+        }
+
+        private bool VerificarCampoAsignatura(string nombreAsignatura)
+        {
+            bool verificarC = false;
+            verificarC = FachadaSIFIET.VerificarCampoAsignatura(nombreAsignatura);
+            return verificarC;
+        }
+
+        public bool VerificarCampoDocente(string nombreDocente, string apellidoDocente)
+        {
+            bool verificarC = false;
+            verificarC = FachadaSIFIET.VerificarCampoDocente(nombreDocente, apellidoDocente);
+            return verificarC;
+        }
+
+        public string ObtenerIdAsignatura(string nombre)
+        {
+            return FachadaSIFIET.ObtenerIdAsignatura(nombre);
+        }
+
+        public string ObtenerIdUsuario(string nombreDocente, string apellidoDocente)
+        {
+            return FachadaSIFIET.ObtenerIdUsuario(nombreDocente, apellidoDocente);
         }
 
         public ActionResult EnviarDatos()
@@ -284,24 +451,29 @@ namespace SIFIET.Presentacion.Controllers
             {
                 DataSet ds = new DataSet();
                 ds = (DataSet)Session["DatosSession"];
+                string filePath = Server.MapPath(@"~\Uploads") + "\\file.txt";
+                string IdAsignatura, IdUsuario;
                 StreamWriter wr =
-                    new StreamWriter(
-                        @"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
+                    new StreamWriter(filePath);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4]);
+                    IdAsignatura = ObtenerIdAsignatura(row[0].ToString());
+                    IdUsuario = ObtenerIdUsuario(row[1].ToString(), row[2].ToString());
+                    wr.WriteLine(IdAsignatura + "," + IdUsuario + "," + row[3] + "," + row[4]);
                 }
 
                 wr.Dispose();
 
                 Session.Remove("DatosSession");
                 bool retorno =
-                    FachadaSIFIET.CargarInformacionCurso(@"C:\InfoAlex\Windows 8.1\Proyecto II\Aplicacion\SIFIET\SIFIET.Presentacion\Uploads\file.txt");
+                    FachadaSIFIET.CargarInformacionCurso(filePath);
                 if (retorno)
                 {
+                    TempData["UpSession"] = "El archivo fué cargado con exito";
                     return RedirectToAction("Index");
                 }
+                TempData["UpSession"] = "El archivo no fué cargado con exito";
                 return RedirectToAction("Index");
             }
             catch (Exception)

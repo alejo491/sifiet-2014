@@ -99,16 +99,18 @@ namespace SIFIET.Aplicacion
         {
             return FachadaAsignaturas.VerificarCampoPreRequisitosAsignatura(preRequisitosAsignatura);
         }
-        /*
-        public static bool VerificarExistenciaAsignatura(string nombreAsignatura)
+
+        public static bool VerificarExistenciaAsignatura(string nombreAsignatura, string codigoAsignatura)
         {
-            return FachadaCursos.VerificarExistenciaAsignatura(nombreAsignatura);
-        }*/
+            return FachadaAsignaturas.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);
+        }
 
         public static string ObtenerIdPlanEstudios(string nombre)
         {
             return FachadaAsignaturas.ObtenerIdPlanEstudios(nombre);
         }
+
+
 
         #endregion
         //Metodos dirigidos a Fachada Programas en el dominio de Plan de Estudios
@@ -176,10 +178,10 @@ namespace SIFIET.Aplicacion
         {
             return FachadaCursos.CargarInformacion(archivo);
         }
-        /*
-        public static bool VerificarCampoDocente(string nombre)
+
+        public static bool VerificarCampoDocente(string nombre, string apellido)
         {
-            return FachadaCursos.VerificarCampoDocente(nombre);
+            return FachadaCursos.VerificarCampoDocente(nombre, apellido);
         }
 
         public static string ObtenerIdAsignatura(string nombre)
@@ -187,9 +189,9 @@ namespace SIFIET.Aplicacion
             return FachadaCursos.ObtenerIdAsignatura(nombre);
         }
 
-        public static string ObtenerIdUsuario(string nombreDocente)
+        public static string ObtenerIdUsuario(string nombreDocente, string apellidoDocente)
         {
-            return FachadaCursos.ObtenerIdUsuario(nombreDocente);
+            return FachadaCursos.ObtenerIdUsuario(nombreDocente, apellidoDocente);
         }
 
         public static bool VerificarCampoAsignatura(string nombreAsignatura)
@@ -200,7 +202,7 @@ namespace SIFIET.Aplicacion
         public static bool VerificarExistenciaCurso(string nombreCurso)
         {
             return FachadaCursos.VerificarExistenciaCurso(nombreCurso);
-        }*/
+        }
         #endregion
         //Metodos dirigidos a Fachada Gestion de Grupos de Investigacion en el dominio de Gestion de Programas
         #region Metodos Gestion Grupos de Investigacion
