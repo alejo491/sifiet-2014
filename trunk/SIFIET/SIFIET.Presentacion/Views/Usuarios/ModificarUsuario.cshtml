@@ -32,7 +32,7 @@
             @Html.HiddenFor(model => model.IDENTIFICADORUSUARIO)
             @Html.HiddenFor(model => model.IDENTIFICACIONUSUARIO)
             @Html.HiddenFor(model => model.PASSWORDUSUARIO)
-            @Html.HiddenFor(model => model.ESTADOUSUARIO)
+
 
             <div>
                 Nombres:
@@ -122,6 +122,16 @@
                 </div>
                 
             </div>
+            
+                <div>
+                    Estado :
+                    <div>
+                        Activo @Html.RadioButtonFor(model => model.ESTADOUSUARIO, "Activo")
+                        Inactivado @Html.RadioButtonFor(model => model.ESTADOUSUARIO, "Inactivo", true)
+                        @Html.ValidationMessageFor(model => model.ESTADOUSUARIO)
+                    </div>
+                </div>
+            
             
 
             <div>
