@@ -10,23 +10,20 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class SalonesController : Controller
     {
-        public ActionResult Index(decimal? idSalon, string nombreSalon)
+        public ActionResult Index(decimal? idSalon, string nombreSalon, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
             var identificacion = new SelectListItem() { Value = "1", Text = "Identificador" };
             var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
             var nombreFacultad = new SelectListItem() { Value = "3", Text = "Facultad" };
-            List<SelectListItem> lista = new List<SelectListItem>();
-            lista.Add(identificacion);
-            lista.Add(nombresalon);
-            lista.Add(nombreFacultad);
+            var lista = new List<SelectListItem> {identificacion, nombresalon, nombreFacultad};
             ViewBag.campoBusqueda = new SelectList(lista, "value", "text");
                 if (idSalon == null | String.IsNullOrEmpty(nombreSalon))
-                    return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon));
+                    return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon,estado));
                 else
                 {
-                    var resultado = FachadaSIFIET.ConsultarSalones((decimal) idSalon, nombreSalon);
+                    var resultado = FachadaSIFIET.ConsultarSalones((decimal) idSalon, nombreSalon, estado);
                     if (resultado.Count == 0)
                         ViewBag.ResultadoBusqueda = "ListaVacia";
                     return View(resultado);

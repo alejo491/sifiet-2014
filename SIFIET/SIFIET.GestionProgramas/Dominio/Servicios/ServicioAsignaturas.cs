@@ -11,40 +11,43 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 {
     static class ServicioAsignaturas
     {
-        public static List<ASIGNATURA> ConsultarAsignaturas(string palabraBusqueda)
+        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura, string estado)
         {
-          //  try
-          //  {
-
-          try
-          {
+            try
+            {
                 var db = new GestionProgramasEntities();
-                List<ASIGNATURA> lista = new List<ASIGNATURA>();
-                if (String.IsNullOrEmpty(palabraBusqueda))
+                var lista = new List<ASIGNATURA>();
+                if (String.IsNullOrEmpty(nombreAsignatura))
                 {
-                    lista = (from e in db.ASIGNATURAs
-                             select e).ToList();
+                    if(String.IsNullOrEmpty(estado))
+                        lista = (from e in db.ASIGNATURAs select e).ToList();
+                    else
+                        lista = (from e in db.ASIGNATURAs where e.ESTADOASIGNATURA.Equals(estado) select e).ToList();
                     return lista;
                 }
                 else
                 {
-                    lista = (from e in db.ASIGNATURAs
-                             where (e.NOMBREASIGNATURA.Contains(palabraBusqueda) | e.CODIGOASIGNATURA.Contains(palabraBusqueda))
-                             select e).ToList();
-                    return lista;
+                    if (idAsignatura == 1)
+                    {
+                        lista = (from e in db.ASIGNATURAs
+                                 where (e.CODIGOASIGNATURA.ToLower().Contains(nombreAsignatura.ToLower()))&(e.ESTADOASIGNATURA.Equals(estado))
+                                 select e).ToList();
+                        return lista;
+                    }
+                    else
+                    {
+                        lista = (from e in db.ASIGNATURAs
+                                 where (e.NOMBREASIGNATURA.ToLower().Contains(nombreAsignatura.ToLower())) & (e.ESTADOASIGNATURA.Equals(estado))
+                                 select e).ToList();
+                        return lista;
+                    }
 
                 }
-           // }
-           // catch (Exception)
-           // {
-            //    return new List<ASIGNATURA>();
-           // }
-
-           }
-           catch (Exception)
-           {
-               return new List<ASIGNATURA>();
-           }
+            }
+            catch (Exception)
+            {
+                return new List<ASIGNATURA>();
+            }
 
 
         }
@@ -129,7 +132,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var db = new GestionProgramasEntities();
 
                 var asg = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == idAsignatura select asig).First();
-                db.ASIGNATURAs.Remove(asg);
+                {
+                    asg.EdicionOmodificacion = "modificacion";
+                    asg.ESTADOASIGNATURA = "Inactivo";
+                }
+                //db.ASIGNATURAs.Remove(asg);
                 db.SaveChanges();
                 return true;
 

@@ -9,7 +9,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 {
     static class ServicioSalones
     {
-        public static List<SALON> ConsultarSalones(decimal idSalon,string nomSalon)
+        public static List<SALON> ConsultarSalones(decimal idSalon,string nomSalon,string estado)
         {
         try
           {
@@ -17,8 +17,10 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 var lista = new List<SALON>();
                 if (String.IsNullOrEmpty(nomSalon))
                 {
-                    lista = (from e in db.SALONs
-                             select e).ToList();
+                    if(String.IsNullOrEmpty(estado))
+                        lista = (from e in db.SALONs select e).ToList();
+                    else
+                        lista = (from e in db.SALONs where e.ESTADOSALON.Equals(estado) select e).ToList();
                     return lista;
                 }
                 else

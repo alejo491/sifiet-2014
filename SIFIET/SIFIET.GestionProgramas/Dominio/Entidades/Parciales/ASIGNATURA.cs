@@ -116,7 +116,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string ESTADOASIGNATURA { get; set; }
 
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string DESCRIPCIONASIGNATURA { get; set; }
 
     }

@@ -10,9 +10,9 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
 {
     public static class FachadaSalones
     {
-        public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon)
+        public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon, string estado)
         {
-            return ServicioSalones.ConsultarSalones(idSalon,nombreSalon);
+            return ServicioSalones.ConsultarSalones(idSalon,nombreSalon,estado);
         }
 
         public static SALON VisualizarSalon(decimal idSalon)
