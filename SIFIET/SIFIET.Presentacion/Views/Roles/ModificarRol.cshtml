@@ -47,19 +47,11 @@
             <div>
                 Estado :
                 <div>
-                    @if (Model.ESTADOROL.Trim().Equals("Desactivado"))
-                    {
-                        @Html.Label("Activado")
-                        @Html.RadioButtonFor(model => model.ESTADOROL, "Activado")
-                        @Html.Label("Desactivado")
-                        @Html.RadioButtonFor(model => model.ESTADOROL, "Desactivado")
+                        @Html.Label("Activo")
+                        @Html.RadioButtonFor(model => model.ESTADOROL, "Activo")
+                        @Html.Label("Inactivo")
+                        @Html.RadioButtonFor(model => model.ESTADOROL, "Inactivo")
                         @Html.ValidationMessageFor(model => model.ESTADOROL)
-                    }
-                    else
-                    {
-                        @Html.Label(@Model.ESTADOROL)
-                        @Html.HiddenFor(model => model.ESTADOROL)
-                    }
                 </div>
             </div>
             @foreach (var item in Model.PERMISOS)

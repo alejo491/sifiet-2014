@@ -8,15 +8,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(ASIGNATURAMETADATA))]
     public partial class ASIGNATURA
     {
-        public string NombrePlaneEstudio
-        {
-            get
-            {
-                var db = new GestionProgramasEntities();
-                return (from e in db.PLANESTUDIOS where IDENTIFICADORPLANESTUDIOS == e.IDENTIFICADORPLANESTUDIOS select e.NOMBREPLANESTUDIOS).First();
-            }
-        }
-
         public ICollection<string> ListaCorrequisitos
         {
             get
@@ -89,8 +80,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [RegularExpression(@"^[A-Z0-9 a-z]*$",ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string CODIGOASIGNATURA { get; set; }
         [Required]
-        public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
-        [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
@@ -101,8 +90,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         public string PREREQUISITOSASIGNATURA { get; set; }
-        [Required]
-        public Nullable<short> SEMESTREASIGNATURA { get; set; }
         [Required]
         public Nullable<decimal> CREDITOSASIGNATURA { get; set; }
         [Required]

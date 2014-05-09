@@ -16,7 +16,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
         public PLANESTUDIO()
         {
-            this.ASIGNATURAs = new HashSet<ASIGNATURA>();
+            this.ASIGNATURA_PERTENECE_PLAN_ESTU = new HashSet<ASIGNATURA_PERTENECE_PLAN_ESTU>();
         }
     
         public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
@@ -28,7 +28,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string ESTADOPLANESTUDIOS { get; set; }
         public string CODIGOPLANESTUDIOS { get; set; }
     
-        public virtual ICollection<ASIGNATURA> ASIGNATURAs { get; set; }
+        public virtual ICollection<ASIGNATURA_PERTENECE_PLAN_ESTU> ASIGNATURA_PERTENECE_PLAN_ESTU { get; set; }
         public virtual PROGRAMA PROGRAMA { get; set; }
     }
 }

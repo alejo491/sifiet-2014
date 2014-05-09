@@ -21,7 +21,7 @@ namespace SIFIET.Presentacion.Controllers
         {
 
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            List<PLANESTUDIO> programas = FachadaSIFIET.ConsultarPlanesEstudios(campo, busqueda);
+            List<PLANESTUDIO> programas = FachadaSIFIET.ConsultarPlanesEstudios("",campo, busqueda);
             if (String.IsNullOrEmpty(campo) && String.IsNullOrEmpty(busqueda))
             {
                 ViewBag.ResultadoBusqueda = "Hay " + programas.Count() + " registro(s)";

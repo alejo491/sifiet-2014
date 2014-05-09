@@ -49,6 +49,9 @@
     <Compile Include="Aplicacion\FachadaFacultades.cs" />
     <Compile Include="Aplicacion\FachadaFranjasHorarias.cs" />
     <Compile Include="Aplicacion\FachadaSalones.cs" />
+    <Compile Include="Datos\Modelo\CURSO.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\Modelo\FACULTAD.cs">
       <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
     </Compile>
@@ -71,9 +74,6 @@
       <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Datos\Modelo\SALON.cs">
-      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Datos\Modelo\SALON_DICTA_CURSO.cs">
       <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Entidades\Parciales\SALON.cs" />

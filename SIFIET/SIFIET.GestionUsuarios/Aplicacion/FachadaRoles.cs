@@ -40,9 +40,9 @@ namespace SIFIET.GestionUsuarios.Aplicacion
             return ServicioRoles.ExisteNombreRol(nombre);
         }
 
-        public static List<ROL> ConsultarRolPorNombre(string nombre)
+        public static List<ROL> ConsultarRolPorNombre(string nombre, string estado)
         {
-            return ServicioRoles.ConsultarRolPorNombre(nombre);
+            return ServicioRoles.ConsultarRolPorNombre(nombre,estado);
         }
         public static List<ROL> ConsultarRolPorEstado(string estado)
         {

@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="Model.PERMISO" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.ROL" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="Model.ROL_TIENE_PERMISOS" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="Model.USUARIO_TIENE_ROL" />
       </Diagram>
     </edmx:Diagrams>

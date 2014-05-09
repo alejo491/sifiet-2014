@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="912c3af8e13246c2b80b99362d36c784" Name="Diagram1">
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FACULTAD" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.SALON" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.SALON_DICTA_CURSO" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_SALON_DI_SALON_DIC_SALON" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.CURSO" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FACULTAD" Width="1.5" PointX="0.5" PointY="1.375" />
+        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.SALON" Width="1.5" PointX="3" PointY="1.25" />
+        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_CURSO_TIE_CURSO" />
+        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD" />
+        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

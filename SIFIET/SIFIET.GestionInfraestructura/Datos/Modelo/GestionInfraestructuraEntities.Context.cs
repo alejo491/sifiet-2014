@@ -25,9 +25,9 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<CURSO> CURSOes { get; set; }
         public DbSet<FACULTAD> FACULTADs { get; set; }
         public DbSet<FRANJA_HORARIA> FRANJA_HORARIA { get; set; }
         public DbSet<SALON> SALONs { get; set; }
-        public DbSet<SALON_DICTA_CURSO> SALON_DICTA_CURSO { get; set; }
     }
 }

@@ -12,22 +12,16 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Roles/
-        public ActionResult Index()
-        {
-            return View(FachadaSIFIET.ConsultarRoles());
-        }
-
-        [HttpPost]
-        public ActionResult Index(FormCollection datos)
+        public ActionResult Index(string criterio, string valorbusqueda, string estado="Activo")
         {
             var oRoles = new List<ROL>();
-            if (datos["criterio"].Equals("nombre"))
+            if (valorbusqueda == null ||valorbusqueda.Trim().Equals(""))
             {
-                oRoles = FachadaSIFIET.ConsultarRolPorNombre((datos["valorbusqueda"]));
+                oRoles = FachadaSIFIET.ConsultarRolPorEstado(estado.Trim());
             }
-            if (datos["criterio"].Equals("estado"))
+            else
             {
-                oRoles = FachadaSIFIET.ConsultarRolPorEstado((datos["valorbusqueda"]));
+                oRoles = FachadaSIFIET.ConsultarRolPorNombre(valorbusqueda.Trim(), estado.Trim());
             }
             if (!oRoles.Any())
             {
@@ -36,6 +30,26 @@ namespace SIFIET.Presentacion.Controllers
             }
             return View(oRoles);
         }
+
+        /*[HttpPost]
+        public ActionResult Index(FormCollection datos)
+        {
+            var oRoles = new List<ROL>();
+            if (datos["criterio"].Equals("nombre"))
+            {
+                oRoles = FachadaSIFIET.ConsultarRolPorNombre((datos["valorbusqueda"].Trim()),datos["estado"].Trim());
+            }
+            else
+            {
+                oRoles = FachadaSIFIET.ConsultarRolPorEstado(datos["estado"].Trim());
+            }
+            if (!oRoles.Any())
+            {
+                ViewBag.Mensaje = "Ningun Rol Encontrado";
+                oRoles = FachadaSIFIET.ConsultarRoles();
+            }
+            return View(oRoles);
+        }*/
 
         //
         // GET: /Roles/Details/5

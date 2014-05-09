@@ -137,13 +137,13 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             }
         }
 
-        public static List<ROL> ConsultarRolPorNombre(string nombre)
+        public static List<ROL> ConsultarRolPorNombre(string nombre,string estado)
         {
             try
             {
                 var db = new GestionUsuariosEntities();
                 var lstRols = (from e in db.ROLs
-                    where e.NOMBREROL.Contains(nombre)
+                    where e.NOMBREROL.Contains(nombre) && e.ESTADOROL.Trim().Equals(estado.Trim())
                     select e).ToList();
                 return lstRols;
             }

@@ -8,19 +8,27 @@
 }
 <h2>Roles</h2>
 <div>
-    @using (Html.BeginForm("Index", "Roles"))
+    @using (Html.BeginForm(null,null,FormMethod.Get))
     {
-        <div>
-            <label>Buscar Por:</label><select name="criterio">
-                <option value="nombre">Nombre</option>
-                <option value="estado">Estado</option>
-            </select>
-            <input name="valorbusqueda" type="text" value="" />
-            <input type="submit" value="Buscar" />
+        <fieldset>
+            <legend>Buscar</legend>
+            <div style="display: block; font-size: 16px;">
+                <div style="float: left; margin-left: 5%">
+                    @Html.RadioButton("estado", "Activo", true)<label>  Activos   </label>
+                    @Html.RadioButton("estado", "Inactivo")<label>  Inactivos  </label>
+                </div>
+                <div style="float: right; margin-right: 5%;">
+                    <label>  Campo a Buscar:  </label><select name="criterio">
+                                                          <option value="nombre">Nombre</option>
+                                                      </select>
+                    <label> Dato a Buscar:</label>
+                    <input name="valorbusqueda" type="text" value="" />
+                    <input type="submit" value="Buscar" />
+                </div>
 
-        </div>
-    }
-    @grid.GetHtml(
+            </div>
+        </fieldset>
+        @grid.GetHtml(
             fillEmptyRows: true,
             mode: WebGridPagerModes.All,
             columns: new[]
@@ -31,12 +39,13 @@
                 grid.Column("ESTADOROL", header: "Estado"),
                 grid.Column("", header: "Opciones",
                     format: @<text>
-                    @Html.ActionLink("Editar", "ModificarRol", new { idRol = item.IDENTIFICADORROL }) |
-                    @Html.ActionLink("Detalles", "VisualizarRol", new { idRol = item.IDENTIFICADORROL }) |
-                   @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new { idRol = item.IDENTIFICADORROL }, new { onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')" })
-                    </text>
+                                 @Html.ActionLink("Editar", "ModificarRol", new {idRol = item.IDENTIFICADORROL}) |
+                                 @Html.ActionLink("Detalles", "VisualizarRol", new {idRol = item.IDENTIFICADORROL}) |
+                                 @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})
+                             </text>
                     )
             })
+    }
     @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("Ningun Rol Encontrado"))
     {
         <script> mensajeNoRoles(); </script>

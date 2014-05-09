@@ -16,15 +16,14 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
         public ASIGNATURA()
         {
+            this.ASIGNATURA_PERTENECE_PLAN_ESTU = new HashSet<ASIGNATURA_PERTENECE_PLAN_ESTU>();
             this.CURSOes = new HashSet<CURSO>();
         }
     
         public decimal IDENTIFICADORASIGNATURA { get; set; }
-        public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
         public string NOMBREASIGNATURA { get; set; }
         public string CORREQUISITOSASIGNATURA { get; set; }
         public string PREREQUISITOSASIGNATURA { get; set; }
-        public Nullable<short> SEMESTREASIGNATURA { get; set; }
         public Nullable<decimal> CREDITOSASIGNATURA { get; set; }
         public string MODALIDADASIGNATURA { get; set; }
         public string CLASIFICACIONASIGNATURA { get; set; }
@@ -32,7 +31,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public string DESCRIPCIONASIGNATURA { get; set; }
         public string CODIGOASIGNATURA { get; set; }
     
-        public virtual PLANESTUDIO PLANESTUDIO { get; set; }
+        public virtual ICollection<ASIGNATURA_PERTENECE_PLAN_ESTU> ASIGNATURA_PERTENECE_PLAN_ESTU { get; set; }
         public virtual ICollection<CURSO> CURSOes { get; set; }
     }
 }

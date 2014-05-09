@@ -20,7 +20,7 @@ namespace SIFIET.Presentacion.Controllers
         public ViewResult Index(string campo, string busqueda, int? page)
         {
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            List<PROGRAMA> programas = FachadaSIFIET.ConsultarProgramasAcademicos(campo, busqueda);
+            List<PROGRAMA> programas = FachadaSIFIET.ConsultarProgramasAcademicos("",campo, busqueda);
             if (String.IsNullOrEmpty(campo) && String.IsNullOrEmpty(busqueda))
             {
                 ViewBag.ResultadoBusqueda = "Hay " + programas.Count() + " registro(s)";
