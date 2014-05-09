@@ -12,15 +12,14 @@
     {
         <script> mensajeNoUsuarios(); </script>
     }
-
+    
     @using (Html.BeginForm("Index", "GruposInvestigacion"))
     {
-        <div>
-            <label>Buscar:</label>
-            <input name="valorbusqueda" type="text" value="" />
+        <p>
+            Activo @Html.RadioButton("estado", "Activo", true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("filtroBusquedaGInvestigacion", ViewBag.filtroBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("valorbusqueda")
             <input type="submit" value="Buscar" />
 
-        </div>
+        </p>
     }
 
     @grid.GetHtml(

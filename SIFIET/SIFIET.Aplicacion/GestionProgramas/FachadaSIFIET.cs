@@ -221,10 +221,16 @@ namespace SIFIET.Aplicacion
         
         }
 
-        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda)
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorNombre(string busqueda, string estado)
         {
 
-            return FachadaGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda);
+            return FachadaGInvestigacion.ConsultarGruposInvestigacionPorNombre(busqueda,estado);
+        }
+
+        public static List<GRUPO_INVESTIGACION> ConsultarGruposInvestigacionPorCodigo(string busqueda, string estado)
+        {
+
+            return FachadaGInvestigacion.ConsultarGruposInvestigacionPorCodigo(busqueda, estado);
         }
 
         public static GRUPO_INVESTIGACION ConsultarGrupoInvestigacionPorNombre(string nombre)

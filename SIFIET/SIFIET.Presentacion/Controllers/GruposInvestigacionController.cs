@@ -15,6 +15,11 @@ namespace SIFIET.Presentacion.Controllers
         // GET: //GruposInvestigacion
         public ActionResult Index()
         {
+            var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };
+            var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
+            var listaItems = new List<SelectListItem> { identificacion, nombresalon };
+            ViewBag.filtroBusqueda = new SelectList(listaItems, "value", "text");
+
             List<GRUPO_INVESTIGACION> lista = FachadaSIFIET.ConsultarGruposInvestigacion();
             if (lista.Count == 0)
             {
@@ -26,13 +31,26 @@ namespace SIFIET.Presentacion.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection datos)
         {
-            
-                List<GRUPO_INVESTIGACION> lista = FachadaSIFIET.ConsultarGruposInvestigacionPorNombre((datos["valorbusqueda"]));
-                if (lista.Count == 0)
-                {
-                    ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
-                }
-                return View(lista);            
+            var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };
+            var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
+            var listaItems = new List<SelectListItem> { identificacion, nombresalon };
+            ViewBag.filtroBusqueda = new SelectList(listaItems, "value", "text");
+
+            List<GRUPO_INVESTIGACION> lista = new List<GRUPO_INVESTIGACION>();
+            if (datos["filtroBusquedaGInvestigacion"].Equals("1"))
+            {
+                lista = FachadaSIFIET.ConsultarGruposInvestigacionPorCodigo(datos["valorbusqueda"], datos["estado"]);
+            } 
+            if (datos["filtroBusquedaGInvestigacion"].Equals("2"))
+            {
+                lista = FachadaSIFIET.ConsultarGruposInvestigacionPorNombre(datos["valorbusqueda"], datos["estado"]);
+            }   
+         
+            if (lista.Count == 0)
+            {
+                ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
+            }
+            return View(lista);            
         }
         
         //
@@ -57,55 +75,25 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegistrarGrupoInvestigacion([Bind(
-                Include =
-                    "IDENTIFICADORUSUARIO,IDENTIFICADORDEPARTAMENTO,NOMBREGRUPOINVESTIGACION,DESCRIPCIONGRUPOINVESTIGACION,ESTADOGRUPOINVESTIGACION,CODIGOGRUPOINVESTIGACION"
-                )] GRUPO_INVESTIGACION grupo, FormCollection datos)
+        public ActionResult RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
-
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
             ViewBag.ListaDepartamentos = new SelectList(listaDepartamentos, "IDENTIFICADORDEPARTAMENTO", "NOMBREDEPARTAMENTO");
             var listaDocentes = FachadaSIFIET.ConsultarDocentes();
             ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NombreCompletoDocente");
             if (!ModelState.IsValid) return View(grupo);
             try
-            {
-                /*GRUPO_INVESTIGACION gInvestigacionCodigo = FachadaSIFIET.ConsultarGrupoInvestigacionPorCodigo(grupo.CODIGOGRUPOINVESTIGACION);
-                GRUPO_INVESTIGACION gInvestigacionNombre = FachadaSIFIET.ConsultarGrupoInvestigacionPorNombre(grupo.NOMBREGRUPOINVESTIGACION);
-
-                bool bandNombre = false;
-                bool bandCodigo = false;
-
-                if (gInvestigacionNombre == null )
-                {
-                    bandNombre = true;
-                }
-                if (gInvestigacionCodigo == null)
-                {
-                    bandCodigo = true;
-                }
-
-                if (bandCodigo && bandNombre)
-                {      
-                    FachadaSIFIET.RegistrarGrupoInvestigacion(grupo);
-                    TempData["Mensaje"] = "Grupo de Investigación creado con éxito";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ViewBag.Mensaje = "El código y el nombre del grupo deben ser únicos";
-                    return View(grupo);
-                }*/
+            {                 
+                FachadaSIFIET.RegistrarGrupoInvestigacion(grupo);
+                TempData["Mensaje"] = "Grupo de Investigación creado con éxito";
+                return RedirectToAction("Index");                
             }
             catch (Exception e)
             {
 
                 ViewBag.Mensaje = "Error" + e.Message;
                 return View(grupo);
-            }
-
-            return View(grupo);
-
+            }            
         }
         
         //
@@ -131,39 +119,23 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ModificarGrupoInvestigacion(FormCollection datos)
+        public ActionResult ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
             ViewBag.ListaDepartamentos = new SelectList(listaDepartamentos, "IDENTIFICADORDEPARTAMENTO", "NOMBREDEPARTAMENTO");
             var listaDocentes = FachadaSIFIET.ConsultarDocentes();
             ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NombreCompletoDocente");
-
-            GRUPO_INVESTIGACION gInvestigacionActual = FachadaSIFIET.ConsultarGrupoInvestigacion(int.Parse(datos["IDENTIFICADORGRUPOINVES"]));
-
-            ViewBag.lstDepartamentos = listaDepartamentos;
-            ViewBag.lstDocentes = listaDocentes;
-            ViewBag.DepartamentoRegistrado = gInvestigacionActual.DEPARTAMENTO;
-            ViewBag.DocenteRegistrado = gInvestigacionActual.DOCENTE;            
-            
-            if (!ModelState.IsValid) return View(gInvestigacionActual);
-            GRUPO_INVESTIGACION grupo = new GRUPO_INVESTIGACION();
+                       
+            if (!ModelState.IsValid) return View(grupo);            
             try
-            {                
-                grupo.NOMBREGRUPOINVESTIGACION = datos["NOMBREGRUPOINVESTIGACION"];
-                grupo.CODIGOGRUPOINVESTIGACION = datos["CODIGOGRUPOINVESTIGACION"];
-                grupo.DESCRIPCIONGRUPOINVESTIGACION = datos["DESCRIPCIONGRUPOINVESTIGACION"];
-                grupo.ESTADOGRUPOINVESTIGACION = datos["ESTADOGRUPOINVESTIGACION"];
-                grupo.IDENTIFICADORGRUPOINVES = int.Parse(datos["IDENTIFICADORGRUPOINVES"]);
-                grupo.IDENTIFICADORDEPARTAMENTO = int.Parse(datos["departamento"]);
-                grupo.IDENTIFICADORUSUARIO = int.Parse(datos["docente"]);
+            {                                
                 FachadaSIFIET.ModificarGrupoInvestigacion(grupo);
                 TempData["Mensaje"] = "Grupo de investigación editado con exito";
-                return RedirectToAction("Index");
-                               
+                return RedirectToAction("Index");                               
             }
             catch (Exception e)
             {
-                //ViewBag.Mensaje = "Error" + e.Message;
+                ViewBag.Mensaje = "Error" + e.Message;
                 return View(grupo);
             }            
         }

@@ -27,9 +27,7 @@
 
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.IDENTIFICADORGRUPOINVES)
-            @*@Html.HiddenFor(model => model.CODIGOGRUPOINVESTIGACION)
-            @Html.HiddenFor(model => model.NOMBREGRUPOINVESTIGACION)*@
-            @Html.HiddenFor(model => model.ESTADOGRUPOINVESTIGACION)
+            @Html.HiddenFor(model => model.EdicionOmodificacion, new { @Value = "modificacion" })            
 
             <div>
                 Codigo:
@@ -59,68 +57,35 @@
             <div>
                 Departamento:
                 <div>
-                    <select name="departamento">
-                        @if (ViewBag.DepartamentoRegistrado != null)
-                        {
-                            SIFIET.GestionProgramas.Datos.Modelo.DEPARTAMENTO deptoRegistrado = ViewBag.DepartamentoRegistrado;
-                            foreach (var depto in ViewBag.lstDepartamentos)
-                            {
-                                if (depto.IDENTIFICADORDEPARTAMENTO == deptoRegistrado.IDENTIFICADORDEPARTAMENTO)
-                                {
-                                    <option value="@depto.IDENTIFICADORDEPARTAMENTO" selected>@depto.NOMBREDEPARTAMENTO</option>
-                                }
-                                else
-                                {
-                                    <option value="@depto.IDENTIFICADORDEPARTAMENTO">@depto.NOMBREDEPARTAMENTO</option>
-
-                                }
-                            }
-                        }
-                        @*else
-                        {
-                            foreach (var depto in ViewBag.lstDepartamentos)
-                            {
-                                <option value="@depto.IDENTIFICADORDEPARTAMENTO">@depto.NOMBREDEPARTAMENTO</option>
-
-                            }
-                        }*@
-                    </select>                        
+                    @Html.DropDownListFor(model => model.IDENTIFICADORDEPARTAMENTO, ViewBag.ListaDepartamentos as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORDEPARTAMENTO)                         
                 </div>
             </div>
             <div>
                 Director:
                 <div>
-                    <select name="docente">
-                        @if (ViewBag.DocenteRegistrado != null)
-                        {
-                            SIFIET.GestionProgramas.Datos.Modelo.DOCENTE docenteRegistrado = ViewBag.DocenteRegistrado;
-                            foreach (var docente in ViewBag.lstDocentes)
-                            {
-                                if (docente.IDENTIFICADORUSUARIO == docenteRegistrado.IDENTIFICADORUSUARIO)
-                                {
-                                    <option value="@docente.IDENTIFICADORUSUARIO" selected>@docente.NombreCompletoDocente</option>
-                                }
-                                else
-                                {
-                                    <option value="@docente.IDENTIFICADORUSUARIO">@docente.NombreCompletoDocente</option>
-
-                                }
-                            }
-                        }
-                        @*else
-                        {
-                            foreach (var docente in ViewBag.lstDocentes)
-                            {
-                                <option value="@docente.IDENTIFICADORUSUARIO">@docente.NombreCompletoDocente</option>
-
-                            }
-                        }*@
-                    </select>                    
+                    @Html.DropDownListFor(model => model.IDENTIFICADORUSUARIO, ViewBag.ListaDocentes as SelectList)
+                    @Html.ValidationMessageFor(model => model.IDENTIFICADORUSUARIO)                   
                 </div>
-
             </div>
-
-
+            <div>
+                Estado :
+                <div>
+                    @if (Model.ESTADOGRUPOINVESTIGACION.Trim().Equals("Desactivado"))
+                    {
+                        @Html.Label("Activo")
+                        @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Activo")
+                        @Html.Label("Inactivo")
+                        @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Inactivo")
+                        @Html.ValidationMessageFor(model => model.ESTADOGRUPOINVESTIGACION)
+                    }
+                    else
+                    {
+                        @Html.Label(@Model.ESTADOGRUPOINVESTIGACION)
+                        @Html.HiddenFor(model => model.ESTADOGRUPOINVESTIGACION)
+                    }
+                </div>
+            </div>
             <div>
                 <div>
                     <input type="submit" value="Editar" onclick="return confirmacionAgregarGrupo();" />
