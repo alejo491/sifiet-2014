@@ -14,7 +14,7 @@
     @using (Html.BeginForm())
     {
         <p>
-            Campo: @Html.DropDownList("idSalon", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreSalon")
+            Activos @Html.RadioButton("estado", "Activo", true) Inactivos @Html.RadioButton("estado", "Inactivo") Campo: @Html.DropDownList("idSalon", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreSalon")
             <input type="submit" value="Buscar" />
 
         </p>

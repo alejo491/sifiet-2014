@@ -19,9 +19,9 @@ namespace SIFIET.Aplicacion
         #endregion 
 
         #region Metodos Gestion Infraestructura Fachada Salones
-        public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon)
+        public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon, string estado)
         {
-            return FachadaSalones.ConsultarSalones(idSalon, nombreSalon);
+            return FachadaSalones.ConsultarSalones(idSalon, nombreSalon, estado);
         }
 
         public static SALON VisualizarSalon(decimal idSalon)

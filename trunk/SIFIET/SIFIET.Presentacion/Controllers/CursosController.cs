@@ -54,7 +54,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult RegistrarCurso()
         {
-            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
             var listaDocentes = FachadaSIFIET.ConsultarDocentes();
             ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
@@ -68,7 +68,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             try
             {
-                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
                 var listaDocentes = FachadaSIFIET.ConsultarDocentes();
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
                 ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
@@ -93,7 +93,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             var oCurso = FachadaSIFIET.VisualizarCurso(idCurso) as CURSO;
             //Consultar Asignaturas estaba con dos argumentos
-            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+            var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
             var listaDocentes = FachadaSIFIET.ConsultarDocentes();
             ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
@@ -105,7 +105,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             try
             {
-                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas("");
+                var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0, "", "Activo");
                 var listaDocentes = FachadaSIFIET.ConsultarDocentes();
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
                 ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
@@ -313,10 +313,10 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult RegistrarHorario(decimal idCurso)
         {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "");
-            ViewBag.ListaDias = FachadaSIFIET.ConsultarSalones(0, "");
-            ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "");
-            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Activo");
+            ViewBag.ListaDias = FachadaSIFIET.ConsultarSalones(0, "","Activo");
+            ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
             return View(FachadaSIFIET.VisualizarCurso(idCurso));
         }
 
