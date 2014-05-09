@@ -13,16 +13,22 @@
 
     @using (Html.BeginForm("Index", "Usuarios"))
     {
-        <div>
-            <label>Buscar Por:</label><select name="criterio">
-                <option value="nombre">Nombre</option>
-                <option value="apellido">Apellido</option>
-                <option value="identificacion">Identificación</option>
-            </select>
-            <input name="valorbusqueda" type="text" value="" />
-            <input type="submit" value="Buscar" />
+        <fieldset><legend>Busqueda Usuarios</legend>
+            <div>
+                Activos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Activo", true)
+                Inactivos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Inactivo")
+                <label>Campo a buscar:</label><select name="criterio">
+                                              <option value="cb">Escoja Campo</option>
+                                              <option value="nombre">Nombre</option>
+                                              <option value="apellido">Apellido</option>
+                                              <option value="identificacion">Identificación</option>
+                                          </select><label>Dato a buscar:</label>
+                <input name="valorbusqueda" type="text" value="" />
+        
+                <input type="submit" value="Buscar" />
 
-        </div>
+            </div>
+    </fieldset>
     }
 
     @grid.GetHtml(
@@ -36,11 +42,12 @@
             grid.Column("APELLIDOSUSUARIO",header:"Apellidos"),
             grid.Column("IDENTIFICACIONUSUARIO",header:"Identificación"),
             grid.Column("EMAILINSTITUCIONALUSUARIO",header:"Email"),
+            grid.Column("ESTADOUSUARIO",header:"Estado"),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
-                @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
-                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirm('Este usuario esta asosiado a unos roles, Comfirma que desea eliminarlo de todos modos')" })
+                @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) 
+                
                 </text>
             )
         })

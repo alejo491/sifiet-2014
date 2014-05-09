@@ -23,19 +23,7 @@ function mensajeNoRoles() {
     $(document).ready(function() { alert("No se ha encontrado ningun Rol con la informacion\que se ha ingresado, por favor intentelo nuevamente"); });
 }
 
-function valorNumericoUuarios() {
-    alert("Esta busqueda solo acepta valores numericos");
-}
 
-function confirmacionAgregarUsuario() {
-    var mensaje = "¿Desea guardar el Usuario con la informacion proporcionada?";
-    return confirm(mensaje);
-}
-
-function confirmacionEditarUsuario(){
-var mensaje = "¿Desea modificar el Usuario con la informacion proporcionada?";
-return confirm(mensaje);
-}
 
 function confirmSalirRol() {
     var r = confirm('¿Confirma que desea cacelar la accion?\nTodos los datos se perderan');
@@ -50,17 +38,7 @@ function confirmSalirRol() {
 }
 
 
-function confirmSalirUsuario() {
-    var r = confirm('Los datos que ha ingresado del nuevo usuario se borraran si proceda,\n ¿Confirma que desea cancelar la accion?');
-    var url = window.location.pathname;
-    var pathArray = url.split('/');        // <-- no need in "string()"
-    var host = pathArray[0];
-    var newHost = '/Usuarios';
-    if (r == true) {
-        window.location = host + newHost;
-    }
-    return false;
-}
+
 
 function confirmSalirGInvestigacion() {
     var r = confirm('¿Confirma que desea cancelar la accion?\nTodos los datos se perderan');
@@ -75,9 +53,6 @@ function confirmSalirGInvestigacion() {
 }
 
 
-function mensajeNoUsuarios() {
-    $(document).ready(function () { alert("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"); });
-}
 
 function getSelectValues(select) {
     var result = [];
@@ -301,3 +276,39 @@ function confirmarEliminarPlanEstudio() {
 
 
 /* Fin validacion plan de  estudio */
+
+
+/* Validacion modulo Gestio Usuarios*/
+
+    function confirmSalirUsuario() {
+        var r = confirm('Los datos que ha ingresado del nuevo usuario se borraran si proceda,\n ¿Confirma que desea cancelar la accion?');
+        var url = window.location.pathname;
+        var pathArray = url.split('/');        // <-- no need in "string()"
+        var host = pathArray[0];
+        var newHost = '/Usuarios';
+        if (r == true) {
+            window.location = host + newHost;
+        }
+        return false;
+    }
+    function valorNumericoUuarios() {
+        alert("Esta busqueda solo acepta valores numericos");
+    }
+
+    function confirmacionAgregarUsuario() {
+        var mensaje = "¿Desea guardar el Usuario con la informacion proporcionada?";
+        return confirm(mensaje);
+    }
+
+    function confirmacionEditarUsuario() {
+        var mensaje = "¿Desea modificar el Usuario con la informacion proporcionada?";
+        return confirm(mensaje);
+    }
+
+
+    function mensajeNoUsuarios() {
+        $(document).ready(function () { alert("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"); });
+    }
+   
+
+/* Fin validacion Gestio Usuarios*/

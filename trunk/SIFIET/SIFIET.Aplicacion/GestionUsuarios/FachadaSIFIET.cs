@@ -37,19 +37,24 @@ namespace SIFIET.Aplicacion
             FachadaUsuarios.EliminarUsuario(idUsuario);
         }
 
-        public static List<USUARIO> ConsultarUsuarioPorNombre(string nombre)
+        public static List<USUARIO> ConsultarUsuarioPorNombre(string nombre,string estado)
         {
-            return FachadaUsuarios.BuscarUsuarioPorNombre(nombre);
+            return FachadaUsuarios.BuscarUsuarioPorNombre(nombre,estado);
         }
 
-        public static List<USUARIO> ConsultarUsuarioPorApellido(string apellido)
+        public static List<USUARIO> ConsultarUsuarioPorApellido(string apellido,string estado)
         {
-            return FachadaUsuarios.BuscarUsuarioPorApellido(apellido);
+            return FachadaUsuarios.BuscarUsuarioPorApellido(apellido,estado);
         }
 
-        public static List<USUARIO> ConsultarUsuarioPorIdentificacion(string id)
+        public static List<USUARIO> ConsultarUsuarioPorIdentificacion(string id,string estado)
         {
-            return FachadaUsuarios.BuscarUsuarioPorIdentificacion(id);
+            return FachadaUsuarios.BuscarUsuarioPorIdentificacion(id,estado);
+        }
+
+        public static bool IdentificacionUsuarioExiste(string id)
+        {
+            return FachadaUsuarios.IdentificacionUsuarioExiste(id);
         }
 
         #endregion

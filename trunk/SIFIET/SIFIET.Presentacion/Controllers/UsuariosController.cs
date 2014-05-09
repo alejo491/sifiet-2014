@@ -25,44 +25,70 @@ namespace SIFIET.Presentacion.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection datos)
         {
+            
             if (datos["criterio"].Equals("nombre"))
             {
-                List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorNombre((datos["valorbusqueda"]));
-                if (lista.Count == 0)
+                if (datos["valorbusqueda"].Equals(""))
                 {
-                    ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
+                    ViewBag.Mensaje =
+                        "valor vacio";
                 }
-                return View(lista);
-            }
-            if (datos["criterio"].Equals("apellido"))
-            {
-                
-                
-                    List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorApellido(datos["valorbusqueda"]);
+                else
+                {
+                    List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorNombre(datos["valorbusqueda"],
+                        datos["ESTADOUSUARIO"]);
+
                     if (lista.Count == 0)
                     {
                         ViewBag.Mensaje =
                             "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
                     }
                     return View(lista);
-           
+                }
+            }
+            if (datos["criterio"].Equals("apellido"))
+            {
+
+                if (datos["valorbusqueda"].Equals(""))
+                {
+                    ViewBag.Mensaje =
+                        "valor vacio";
+                }
+                else
+                {
+                    List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorApellido(datos["valorbusqueda"],
+                        datos["ESTADOUSUARIO"]);
+                    if (lista.Count == 0)
+                    {
+                        ViewBag.Mensaje =
+                            "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
+                    }
+                    return View(lista);
+                }
+
             }
             if (datos["criterio"].Equals("identificacion"))
             {
                 int x;
                 if (int.TryParse(datos["valorbusqueda"], out x))
-                        {
-                        List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorIdentificacion(datos["valorbusqueda"]);
-                        if (lista.Count == 0)
-                        {
-                            ViewBag.Mensaje = "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
-                        }
-                        return View(lista);
+                {
+                    List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarioPorIdentificacion(datos["valorbusqueda"],
+                        datos["ESTADOUSUARIO"]);
+                    if (lista.Count == 0)
+                    {
+                        ViewBag.Mensaje =
+                            "No se han encontrado registros con el dato indicado, por favor intentelo de nuevo";
                     }
+                    return View(lista);
+                }
+                else
+                {
+                    ViewBag.Mensaje =
+                        "valor numerico";
+                }
             }
 
-            ViewBag.Mensaje =
-                        "valor numerico";
+            
             return View(FachadaSIFIET.ConsultarUsuarios());
 
 
@@ -141,31 +167,54 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ModificarUsuario(
-            [Bind(
-                Include =
-                    "IDENTIFICADORUSUARIO,EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO,ESTADOUSUARIO"
-                )] USUARIO usuario, FormCollection datos)
-        {
+        public ActionResult ModificarUsuario(FormCollection datos)
+         {
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-
-            ViewBag.rolesasignados = FachadaSIFIET.ConsultarUsuario(int.Parse(usuario.IDENTIFICADORUSUARIO.ToString())).ROLs.ToList();
-            bool ban = true;
-            if (datos["roles"] == null)
+            
+            List<ROL> rolesActuales =new List<ROL>();
+            foreach (var rol in datos["roles"].Split(','))
             {
-                ViewBag.ErrorRol = "Este campo es obligatorio";
-                ban = false;
-
+                rolesActuales.Add(FachadaSIFIET.ConsultarRol(rol));
             }
 
-            if (!ModelState.IsValid || !ban) return View(usuario);
+
+            ViewBag.rolesasignados = rolesActuales;
+
+            bool existe = FachadaSIFIET.IdentificacionUsuarioExiste(datos["identificacion"].Trim());
+            var usuario = new USUARIO()
+            {
+                IDENTIFICADORUSUARIO = decimal.Parse(datos["IDENTIFICADORUSUARIO"]),
+                EMAILINSTITUCIONALUSUARIO = datos["EMAILINSTITUCIONALUSUARIO"].Trim(),
+                IDENTIFICACIONUSUARIO = datos["identificacion"].Trim(),
+                NOMBRESUSUARIO = datos["NOMBRESUSUARIO"].Trim(),
+                APELLIDOSUSUARIO = datos["APELLIDOSUSUARIO"].Trim(),
+                PASSWORDUSUARIO = datos["PASSWORDUSUARIO"].Trim(),
+                ESTADOUSUARIO = datos["ESTADOUSUARIO"].Trim()
+                
+                
+            };
+
+
+            if (!ModelState.IsValid || (!datos["identificacion"].Trim().Equals(datos["IDENTIFICACIONUSUARIO"].Trim()) && existe))
+            {
+
+                ViewBag.rolesasignados = rolesActuales;
+                if (existe)
+                {
+                    ViewBag.ErrorIdUsuario = "Ya Existe Un Usuario Con Esta Identificacion ";
+                }
+                return View(usuario);
+            }
+
+            
+            
             try
             {
 
 
                 var roles = datos["roles"].Split(',');
                 FachadaSIFIET.ModificarUsuario(usuario, roles);
-                TempData["Mensaje"] = "Usuaro Editado con Éxito";
+                TempData["Mensaje"] = "Usuario Editado con Éxito";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
