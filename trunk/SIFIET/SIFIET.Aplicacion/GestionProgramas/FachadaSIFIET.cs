@@ -21,9 +21,9 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramaAcademico(idPrograma);
         }
 
-        public static List<PROGRAMA> ConsultarProgramasAcademicos(string campo, string busqueda)
+        public static List<PROGRAMA> ConsultarProgramasAcademicos(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(campo, busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(estado, campo, busqueda);
         }
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos()
@@ -113,7 +113,7 @@ namespace SIFIET.Aplicacion
 
 
         #endregion
-        //Metodos dirigidos a Fachada Programas en el dominio de Plan de Estudios
+        //Metodos dirigidos a Fachada Plan de Estudio en el dominio de Plan de Estudios
         #region Metodos Gestion Plan Estudios
 
         public static PLANESTUDIO ConsultarPlanEstudio(decimal idPlanEstudio)
@@ -121,9 +121,9 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanEstudio(idPlanEstudio);
         }
 
-        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string campo, string busqueda)
+        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(campo, busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(estado, campo, busqueda);
         }
 
         public static bool RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
