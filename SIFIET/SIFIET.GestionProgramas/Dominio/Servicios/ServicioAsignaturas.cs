@@ -154,33 +154,33 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             StreamReader f = new StreamReader(archivo);
             try
             {
-            while ((linea = f.ReadLine()) != null)
-            {
-                string[] campos = linea.Split(',');
-                var db = new GestionProgramasEntities();
-
-                var asg = new ASIGNATURA();
+                while ((linea = f.ReadLine()) != null)
                 {
-                    asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
-                    asg.NOMBREASIGNATURA = campos[1];
-                    asg.CORREQUISITOSASIGNATURA = campos[2];
-                    asg.PREREQUISITOSASIGNATURA = campos[3];
-                    asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
-                    asg.CREDITOSASIGNATURA = decimal.Parse(campos[5]);
-                    asg.MODALIDADASIGNATURA = campos[6];
-                    asg.CLASIFICACIONASIGNATURA = campos[7];
-                    asg.ESTADOASIGNATURA = campos[8];
-                    asg.DESCRIPCIONASIGNATURA = campos[9];
-                    asg.CODIGOASIGNATURA = campos[10];
-                    asg.EdicionOmodificacion = "registrar";
+                    string[] campos = linea.Split(',');
+                    var db = new GestionProgramasEntities();
+
+                    var asg = new ASIGNATURA();
+                    {
+                        asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
+                        asg.NOMBREASIGNATURA = campos[1];
+                        asg.CORREQUISITOSASIGNATURA = campos[2];
+                        asg.PREREQUISITOSASIGNATURA = campos[3];
+                        asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
+                        asg.CREDITOSASIGNATURA = decimal.Parse(campos[5]);
+                        asg.MODALIDADASIGNATURA = campos[6];
+                        asg.CLASIFICACIONASIGNATURA = campos[7];
+                        asg.ESTADOASIGNATURA = campos[8];
+                        asg.DESCRIPCIONASIGNATURA = campos[9];
+                        asg.CODIGOASIGNATURA = campos[10];
+                        asg.EdicionOmodificacion = "registrar";
+                    }
+                    db.ASIGNATURAs.Add(asg);
+                    db.SaveChanges();
                 }
-                db.ASIGNATURAs.Add(asg);
-                db.SaveChanges();
+                f.Dispose();
+                return true;
             }
-            f.Dispose();
-            return true;
-        }
-        catch (Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -225,11 +225,12 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             return false;
         }
 
-        public static bool VerificarExistenciaAsignatura(string nombreAsignatura)
+        public static bool VerificarExistenciaAsignatura(string nombreAsignatura, string codigoAsignatura)
         {
             var db = new GestionProgramasEntities();
             var curso = (from e in db.ASIGNATURAs
                          where e.NOMBREASIGNATURA.ToLower() == nombreAsignatura.ToLower()
+                         || e.CODIGOASIGNATURA.ToLower() == codigoAsignatura.ToLower()
                          select e).FirstOrDefault();
             if (curso != null)
             {

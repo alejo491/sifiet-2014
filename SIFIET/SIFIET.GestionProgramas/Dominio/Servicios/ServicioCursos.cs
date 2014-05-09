@@ -129,7 +129,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
         }
 
-        public static bool CargarInformacion(string archivo)
+        internal static bool CargarInformacion(string archivo)
         {
             String linea;
             StreamReader f = new StreamReader(archivo);
@@ -142,11 +142,10 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                     var curso = new CURSO()
                     {
-                        IDENTIFICADORCURSO = decimal.Parse(campos[0]),
-                        IDENTIFICADORASIGNATURA = decimal.Parse(campos[1]),
-                        IDENTIFICADORUSUARIO = decimal.Parse(campos[2]),
-                        NOMBRECURSO = campos[3],
-                        ESTADOCURSO = campos[4]
+                        IDENTIFICADORASIGNATURA = decimal.Parse(campos[0]),
+                        IDENTIFICADORUSUARIO = decimal.Parse(campos[1]),
+                        NOMBRECURSO = campos[2],
+                        ESTADOCURSO = campos[3]
                     };
                     db.CURSOes.Add(curso);
                     db.SaveChanges();
@@ -159,6 +158,73 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                 return false;
             }
+        }
+
+        public static bool VerificarCampoDocente(string nombreDocente, string apellidoDocente)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.DOCENTEs
+                        where e.NOMBRESUSUARIO.ToLower() == nombreDocente.ToLower()
+                        && e.APELLIDOSUSUARIO.ToLower() == apellidoDocente.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static string ObtenerIdAsignatura(string nombre)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.ASIGNATURAs
+                        where e.NOMBREASIGNATURA.ToLower() == nombre.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return asig.IDENTIFICADORASIGNATURA.ToString();
+            }
+            return "";
+        }
+
+        public static string ObtenerIdUsuario(string nombreDocente, string apellidoDocente)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.DOCENTEs
+                        where e.NOMBRESUSUARIO.ToLower() == nombreDocente.ToLower()
+                        && e.APELLIDOSUSUARIO.ToLower() == apellidoDocente.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return asig.IDENTIFICADORUSUARIO.ToString();
+            }
+            return "";
+        }
+
+        public static bool VerificarCampoAsignatura(string nombreAsignatura)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.ASIGNATURAs
+                        where e.NOMBREASIGNATURA.ToLower() == nombreAsignatura.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarExistenciaCurso(string nombreCurso)
+        {
+            var db = new GestionProgramasEntities();
+            var curso = (from e in db.CURSOes
+                         where e.NOMBRECURSO.ToLower() == nombreCurso.ToLower()
+                         select e).FirstOrDefault();
+            if (curso != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
     

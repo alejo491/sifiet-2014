@@ -46,13 +46,18 @@
     }
         
     </table> 
-}
-
-<div>
-    
-    @Html.ActionLink("Ir a inicio", "Index")
-    @Html.ActionLink("Cargar", "EnviarDatos")
-</div>  
+} 
 
     </fieldset>
-   }  
+   }
+<br/>
+<div>
+    
+    @if (TempData["DatosOkSession"].ToString().Equals("Los datos cargardos son validos"))
+    {
+        @Html.ActionLink("Cargar", "EnviarDatos")
+    }
+    @Html.ActionLink("Cancelar", "CargarArchivo", null, new { onclick = " return confirmSalirCargarArchivo(); " })
+    <h3> @TempData["DatosOkSession"] </h3>
+    <font color="red"> @TempData["ErroresSession"] </font>
+</div>  
