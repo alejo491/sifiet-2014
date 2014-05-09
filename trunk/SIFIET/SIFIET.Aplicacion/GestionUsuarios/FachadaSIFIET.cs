@@ -85,9 +85,9 @@ namespace SIFIET.Aplicacion
         {
             return FachadaRoles.EliminarRol(idRol);
         }
-        public static List<ROL> ConsultarRolPorNombre(string nombre)
+        public static List<ROL> ConsultarRolPorNombre(string nombre,string estado)
         {
-            return FachadaRoles.ConsultarRolPorNombre(nombre);
+            return FachadaRoles.ConsultarRolPorNombre(nombre,estado);
         }
 
         public static bool ExisteNombreRol(string nombre)

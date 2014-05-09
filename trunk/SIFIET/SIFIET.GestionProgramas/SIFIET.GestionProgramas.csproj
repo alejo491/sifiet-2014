@@ -55,6 +55,9 @@
     <Compile Include="Datos\Modelo\ASIGNATURA.cs">
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Datos\Modelo\ASIGNATURA_PERTENECE_PLAN_ESTU.cs">
+      <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\Modelo\CURSO.cs">
       <DependentUpon>GestionProgramasEntities.tt</DependentUpon>
     </Compile>

@@ -16,7 +16,6 @@
         <p>
             Activo @Html.RadioButton("estado","Activo",true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("idAsignatura", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreAsignatura")
             <input type="submit" value="Buscar" />
-
         </p>
     }
 
@@ -24,11 +23,8 @@
         fillEmptyRows: true,
         mode: WebGridPagerModes.All,
         columns: new[]
-        {
-
-            grid.Column("CODIGOASIGNATURA",header:"Codigo"),
+        {grid.Column("CODIGOASIGNATURA",header:"Codigo"),
             grid.Column("NOMBREASIGNATURA",header:"Nombre"),
-            grid.Column("SEMESTREASIGNATURA",header:"Semestre"),
             grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
             grid.Column("ESTADOASIGNATURA",header:"Estado"),
             grid.Column("",header:"Opciones",

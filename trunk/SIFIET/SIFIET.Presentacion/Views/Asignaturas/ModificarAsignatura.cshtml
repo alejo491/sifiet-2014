@@ -31,14 +31,6 @@
             </div>
 
             <div>
-                Plan de Estudios:
-                <div>
-                    @Html.DropDownListFor(model => model.IDENTIFICADORPLANESTUDIOS, ViewBag.ListaPlanesEstudios as SelectList,Model.IDENTIFICADORPLANESTUDIOS)
-                    @Html.ValidationMessageFor(model => model.IDENTIFICADORPLANESTUDIOS)
-
-                </div>
-            </div>
-            <div>
                 Nombre :
                 <div>
                     @Html.EditorFor(model => model.NOMBREASIGNATURA)
@@ -56,13 +48,6 @@
                 <div>
                     @Html.ListBoxFor(model => model.ListaPrerequisitos, ViewBag.ListaAsignaturasPrerequisitos as MultiSelectList, new { multiple = "true" })
                     @Html.ValidationMessageFor(model => model.PREREQUISITOSASIGNATURA)
-                </div>
-            </div>
-            <div>
-                Semestre :
-                <div>
-                    @Html.DropDownListFor(model => model.SEMESTREASIGNATURA, new SelectList(new short[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }),Model.SEMESTREASIGNATURA)
-                    @Html.ValidationMessageFor(model => model.SEMESTREASIGNATURA)
                 </div>
             </div>
             <div>

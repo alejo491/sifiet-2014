@@ -23,7 +23,7 @@ namespace SIFIET.Aplicacion
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(estado, campo, busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(campo,busqueda);
         }
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos()
@@ -123,7 +123,7 @@ namespace SIFIET.Aplicacion
 
         public static List<PLANESTUDIO> ConsultarPlanesEstudios(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(estado, campo, busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(campo, busqueda);
         }
 
         public static bool RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
@@ -149,22 +149,22 @@ namespace SIFIET.Aplicacion
         #endregion
         //Metodos dirigidos a Fachada Gestion Cursos en el dominio de Gestion de Programas
         #region Metodos Gestion Cursos
-        public static List<CURSO> ConsultarCursos(decimal idCurso, string nombreCurso)
+        public static List<GestionProgramas.Datos.Modelo.CURSO> ConsultarCursos(decimal idCurso, string nombreCurso)
         {
             return FachadaCursos.ConsultarCursos(idCurso, nombreCurso);
         }
 
-        public static CURSO VisualizarCurso(decimal idCurso)
+        public static GestionProgramas.Datos.Modelo.CURSO VisualizarCurso(decimal idCurso)
         {
             return FachadaCursos.VisualizarCurso(idCurso);
         }
 
-        public static bool RegistrarCurso(CURSO oCurso)
+        public static bool RegistrarCurso(GestionProgramas.Datos.Modelo.CURSO oCurso)
         {
             return FachadaCursos.RegistrarCurso(oCurso);
         }
 
-        public static bool ModificarCurso(CURSO oCurso)
+        public static bool ModificarCurso(GestionProgramas.Datos.Modelo.CURSO oCurso)
         {
             return FachadaCursos.ModificarCurso(oCurso);
         }

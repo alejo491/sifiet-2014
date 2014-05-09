@@ -18,13 +18,13 @@ namespace SIFIET.Presentacion
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
-
-        protected void Apllication_Error(object sender, EventArgs e)
+        /*
+        protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
-            //log.Debug("-------------------------");
-            //log.Error("Exception -\n"+ex);
-           // log.Debug("-------------------------");
-        }
+            og.Debug("-------------------------");
+            log.Error("Exception -\n"+ex);
+            log.Debug("-------------------------");
+        }*/
     }
 }

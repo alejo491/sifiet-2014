@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SIFIET.GestionInfraestructura.Datos.Modelo
+namespace SIFIET.GestionProgramas.Datos.Modelo
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SALON_DICTA_CURSO
+    public partial class ASIGNATURA_PERTENECE_PLAN_ESTU
     {
-        public decimal IDENTIFICADORSALON { get; set; }
-        public decimal IDENTIFICADORCURSO { get; set; }
+        public decimal IDENTIFICADORASIGNATURA { get; set; }
+        public decimal IDENTIFICADORPLANESTUDIOS { get; set; }
+        public Nullable<decimal> SEMESTRE { get; set; }
     
-        public virtual SALON SALON { get; set; }
+        public virtual ASIGNATURA ASIGNATURA { get; set; }
+        public virtual PLANESTUDIO PLANESTUDIO { get; set; }
     }
 }

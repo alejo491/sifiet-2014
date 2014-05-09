@@ -26,6 +26,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         }
     
         public DbSet<ASIGNATURA> ASIGNATURAs { get; set; }
+        public DbSet<ASIGNATURA_PERTENECE_PLAN_ESTU> ASIGNATURA_PERTENECE_PLAN_ESTU { get; set; }
         public DbSet<CURSO> CURSOes { get; set; }
         public DbSet<DEPARTAMENTO> DEPARTAMENTOes { get; set; }
         public DbSet<DOCENTE> DOCENTEs { get; set; }

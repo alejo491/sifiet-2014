@@ -103,11 +103,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 {
                     asignatura.EdicionOmodificacion = "modificacion";
                     asignatura.CODIGOASIGNATURA = asignaturaModificada.CODIGOASIGNATURA;
-                    asignatura.IDENTIFICADORPLANESTUDIOS = asignaturaModificada.IDENTIFICADORPLANESTUDIOS;
+                    //asignatura.IDENTIFICADORPLANESTUDIOS = asignaturaModificada.IDENTIFICADORPLANESTUDIOS;
                     asignatura.NOMBREASIGNATURA = asignaturaModificada.NOMBREASIGNATURA;
                     asignatura.CORREQUISITOSASIGNATURA = asignaturaModificada.CORREQUISITOSASIGNATURA;
                     asignatura.PREREQUISITOSASIGNATURA = asignaturaModificada.PREREQUISITOSASIGNATURA;
-                    asignatura.SEMESTREASIGNATURA = asignaturaModificada.SEMESTREASIGNATURA;
+                    //asignatura.SEMESTREASIGNATURA = asignaturaModificada.SEMESTREASIGNATURA;
                     asignatura.CREDITOSASIGNATURA = asignaturaModificada.CREDITOSASIGNATURA;
                     asignatura.MODALIDADASIGNATURA = asignaturaModificada.MODALIDADASIGNATURA;
                     asignatura.CLASIFICACIONASIGNATURA = asignaturaModificada.CLASIFICACIONASIGNATURA;
@@ -161,11 +161,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                     var asg = new ASIGNATURA();
                     {
-                        asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
+                        //asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
                         asg.NOMBREASIGNATURA = campos[1];
                         asg.CORREQUISITOSASIGNATURA = campos[2];
                         asg.PREREQUISITOSASIGNATURA = campos[3];
-                        asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
+                        //asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
                         asg.CREDITOSASIGNATURA = decimal.Parse(campos[5]);
                         asg.MODALIDADASIGNATURA = campos[6];
                         asg.CLASIFICACIONASIGNATURA = campos[7];
