@@ -105,11 +105,6 @@ namespace SIFIET.Aplicacion
             return FachadaAsignaturas.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);
         }
 
-        public static string ObtenerIdPlanEstudios(string nombre)
-        {
-            return FachadaAsignaturas.ObtenerIdPlanEstudios(nombre);
-        }
-
 
 
         #endregion

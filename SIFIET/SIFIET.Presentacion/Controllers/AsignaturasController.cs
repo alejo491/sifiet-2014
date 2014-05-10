@@ -257,7 +257,7 @@ namespace SIFIET.Presentacion.Controllers
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);
             Session["DatosSession"] = ds;
-            int Ncol = 11;
+            int Ncol = 9;
             if (Ncol != ds.Tables[0].Columns.Count)
             {
                 TempData["ArchivoSession"] = "El Archivo que se intentó cargar no contiene un formato valido";
@@ -292,32 +292,12 @@ namespace SIFIET.Presentacion.Controllers
             List<int> validadorC = new List<int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                if (row[0].ToString().Length < 120)
-                {
-                    if (!row[0].ToString().Equals(""))
-                    {
-                        validadorC.Add(1);
-                    }
-                    else
-                    {
-                        validadorC.Add(0);
-                        erroresTupla = erroresTupla + "El campo Plan de Estudios de la tupla " + numTupla +
-                                       " parece estar vacio.";
-                    }
-                }
-                else
-                {
-                    validadorC.Add(0);
-                    erroresTupla = erroresTupla + "El nombre Plan de Estudios de la tupla " + numTupla +
-                                   " supera la cantidad de caracteres permitidos (120).";
-                }
-
-                validar = VerificarExistenciaAsignatura(row[1].ToString(), row[10].ToString());
+                validar = VerificarExistenciaAsignatura(row[0].ToString(), row[8].ToString());
                 if (!validar)
                 {
-                    if (row[1].ToString().Length < 120)
+                    if (row[0].ToString().Length < 120)
                     {
-                        if (!row[1].ToString().Equals(""))
+                        if (!row[0].ToString().Equals(""))
                         {
                             validadorC.Add(1);
                         }
@@ -338,15 +318,15 @@ namespace SIFIET.Presentacion.Controllers
                 else
                 {
                     validadorC.Add(0);
-                    erroresTupla = erroresTupla + "El Curso " + row[1] + " de la tupla " + numTupla +
+                    erroresTupla = erroresTupla + "El Curso " + row[0] + " de la tupla " + numTupla +
                                         " ya existe.";
                 }
 
-                if (row[2].ToString().Length < 250)
+                if (row[1].ToString().Length < 250)
                 {
-                    if (!row[2].ToString().Equals(""))
+                    if (!row[1].ToString().Equals(""))
                     {
-                        validar = VerificarCampoCoRequisitosAsignatura(row[2].ToString());
+                        validar = VerificarCampoCoRequisitosAsignatura(row[1].ToString());
                         if (validar)
                         {
                             validadorC.Add(1);
@@ -354,7 +334,7 @@ namespace SIFIET.Presentacion.Controllers
                         else
                         {
                             validadorC.Add(0);
-                            erroresTupla = erroresTupla + "El CoRequisito(s) " + row[2] + " en la tupla " + numTupla +
+                            erroresTupla = erroresTupla + "El CoRequisito(s) " + row[1] + " en la tupla " + numTupla +
                                     " no fue encontrado.";
                         }
                     }
@@ -366,11 +346,11 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (250).";
                 }
 
-                if (row[3].ToString().Length < 250)
+                if (row[2].ToString().Length < 250)
                 {
-                    if (!row[3].ToString().Equals(""))
+                    if (!row[2].ToString().Equals(""))
                     {
-                        validar = VerificarCampoPreRequisitosAsignatura(row[3].ToString());
+                        validar = VerificarCampoPreRequisitosAsignatura(row[2].ToString());
                         if (validar)
                         {
                             validadorC.Add(1);
@@ -378,7 +358,7 @@ namespace SIFIET.Presentacion.Controllers
                         else
                         {
                             validadorC.Add(0);
-                            erroresTupla = erroresTupla + "El PreRequisito(s) " + row[3] +
+                            erroresTupla = erroresTupla + "El PreRequisito(s) " + row[2] +
                                            " en la tupla " + numTupla + " no fue encontrado.";
                         }
                     }
@@ -390,37 +370,16 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (250).";
                 }
 
-                if (!row[4].ToString().Equals(""))
+                if (!row[3].ToString().Equals(""))
                 {
-                    if (row[4].ToString().Equals("1") || row[4].ToString().Equals("2") || row[4].ToString().Equals("3") || row[4].ToString().Equals("4") || row[4].ToString().Equals("5") ||
-                        row[4].ToString().Equals("6") || row[4].ToString().Equals("7") || row[4].ToString().Equals("8") || row[4].ToString().Equals("9") || row[4].ToString().Equals("10"))
+                    if (row[3].ToString().Equals("2") || row[3].ToString().Equals("4") || row[3].ToString().Equals("6"))
                     {
                         validadorC.Add(1);
                     }
                     else
                     {
                         validadorC.Add(0);
-                        erroresTupla = erroresTupla + "El Semetre " + row[4] + " de la tupla " + numTupla +
-                                           " no es valido.";
-                    }
-                }
-                else
-                {
-                    validadorC.Add(0);
-                    erroresTupla = erroresTupla + "El campo Semestre de la tupla " + numTupla +
-                                       " parece estar vacio.";
-                }
-
-                if (!row[5].ToString().Equals(""))
-                {
-                    if (row[5].ToString().Equals("2") || row[5].ToString().Equals("4") || row[5].ToString().Equals("6"))
-                    {
-                        validadorC.Add(1);
-                    }
-                    else
-                    {
-                        validadorC.Add(0);
-                        erroresTupla = erroresTupla + "El numero de Creditos " + row[5] + " de la tupla " + numTupla + " " +
+                        erroresTupla = erroresTupla + "El numero de Creditos " + row[3] + " de la tupla " + numTupla + " " +
                                        " no es valido.";
                     }
                 }
@@ -430,18 +389,18 @@ namespace SIFIET.Presentacion.Controllers
                     erroresTupla = erroresTupla + "El campo Creditos de la tupla " + numTupla +
                                        " parece estar vacio.";
                 }
-                if (row[6].ToString().Length < 50)
+                if (row[4].ToString().Length < 50)
                 {
-                    if (!row[6].ToString().Equals(""))
+                    if (!row[4].ToString().Equals(""))
                     {
-                        if (row[6].ToString().Equals("Presencial") || row[6].ToString().Equals("Semi-presencial"))
+                        if (row[4].ToString().Equals("Presencial") || row[4].ToString().Equals("Semi-presencial"))
                         {
                             validadorC.Add(1);
                         }
                         else
                         {
                             validadorC.Add(0);
-                            erroresTupla = erroresTupla + "La Modalidad " + row[6] + " de la tupla " + numTupla +
+                            erroresTupla = erroresTupla + "La Modalidad " + row[4] + " de la tupla " + numTupla +
                                            " no es valida.";
                         }
                     }
@@ -459,9 +418,9 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (50).";
                 }
 
-                if (row[7].ToString().Length < 50)
+                if (row[5].ToString().Length < 50)
                 {
-                    if (!row[7].ToString().Equals(""))
+                    if (!row[5].ToString().Equals(""))
                     {
                         validadorC.Add(1);
                     }
@@ -479,18 +438,18 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (50).";
                 }
 
-                if (row[8].ToString().Length < 30)
+                if (row[6].ToString().Length < 30)
                 {
-                    if (!row[8].ToString().Equals(""))
+                    if (!row[6].ToString().Equals(""))
                     {
-                        if (row[8].ToString().Equals("Activo") || row[8].ToString().Equals("Inactivo"))
+                        if (row[6].ToString().Equals("Activo") || row[6].ToString().Equals("Inactivo"))
                         {
                             validadorC.Add(1);
                         }
                         else
                         {
                             validadorC.Add(0);
-                            erroresTupla = erroresTupla + "El Estado " + row[8] + " de la tupla " + numTupla +
+                            erroresTupla = erroresTupla + "El Estado " + row[6] + " de la tupla " + numTupla +
                                            " no es valido.";
                         }
                     }
@@ -508,9 +467,9 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (30).";
                 }
 
-                if (row[9].ToString().Length < 250)
+                if (row[7].ToString().Length < 250)
                 {
-                    if (!row[9].ToString().Equals(""))
+                    if (!row[7].ToString().Equals(""))
                     {
                         validadorC.Add(1);
                     }
@@ -528,9 +487,9 @@ namespace SIFIET.Presentacion.Controllers
                                    " supera la cantidad de caracteres permitidos (250).";
                 }
 
-                if (row[10].ToString().Length < 15)
+                if (row[8].ToString().Length < 15)
                 {
-                    if (!row[10].ToString().Equals(""))
+                    if (!row[8].ToString().Equals(""))
                     {
                         validadorC.Add(1);
                     }
@@ -585,11 +544,6 @@ namespace SIFIET.Presentacion.Controllers
             return verificarC;
         }
 
-        private string ObtenerIdPlanEstudios(string nombre)
-        {
-            return FachadaSIFIET.ObtenerIdPlanEstudios(nombre);
-        }
-
         public ActionResult EnviarDatos()
         {
             try
@@ -597,15 +551,13 @@ namespace SIFIET.Presentacion.Controllers
                 DataSet ds = new DataSet();
                 ds = (DataSet)Session["DatosSession"];
                 string filePath = Server.MapPath(@"~\Uploads") + "\\file.txt";
-                string IdPlanEstudios;
                 StreamWriter wr = new StreamWriter(filePath);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    IdPlanEstudios = ObtenerIdPlanEstudios(row[0].ToString());
-                    wr.WriteLine(IdPlanEstudios + "," + row[1] + "," + row[2] + "," + row[3] + "," + row[4] +
-                                 "," + row[5] + "," + row[6] + "," + row[7] + "," + row[8] + "," +
-                                 row[9] + "," + row[10]);
+                    wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] +
+                                 "," + row[4] + "," + row[5] + "," + row[6] + "," + row[7] + "," +
+                                 row[8]);
                 }
                 wr.Dispose();
 
