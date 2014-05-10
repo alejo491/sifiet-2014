@@ -55,11 +55,6 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioAsignaturas.VerificarCampoPreRequisitosAsignatura(preRequisitosAsignatura);
         }
 
-        public static string ObtenerIdPlanEstudios(string nombre)
-        {
-            return ServicioAsignaturas.ObtenerIdPlanEstudios(nombre);
-        }
-
         public static bool VerificarExistenciaAsignatura(string nombreAsignatura, string codigoAsignatura)
         {
             return ServicioAsignaturas.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);

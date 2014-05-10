@@ -161,17 +161,15 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
                     var asg = new ASIGNATURA();
                     {
-                        //asg.IDENTIFICADORPLANESTUDIOS = decimal.Parse(campos[0]);
-                        asg.NOMBREASIGNATURA = campos[1];
-                        asg.CORREQUISITOSASIGNATURA = campos[2];
-                        asg.PREREQUISITOSASIGNATURA = campos[3];
-                        //asg.SEMESTREASIGNATURA = short.Parse(campos[4]);
-                        asg.CREDITOSASIGNATURA = decimal.Parse(campos[5]);
-                        asg.MODALIDADASIGNATURA = campos[6];
-                        asg.CLASIFICACIONASIGNATURA = campos[7];
-                        asg.ESTADOASIGNATURA = campos[8];
-                        asg.DESCRIPCIONASIGNATURA = campos[9];
-                        asg.CODIGOASIGNATURA = campos[10];
+                        asg.NOMBREASIGNATURA = campos[0];
+                        asg.CORREQUISITOSASIGNATURA = campos[1];
+                        asg.PREREQUISITOSASIGNATURA = campos[2];
+                        asg.CREDITOSASIGNATURA = decimal.Parse(campos[3]);
+                        asg.MODALIDADASIGNATURA = campos[4];
+                        asg.CLASIFICACIONASIGNATURA = campos[5];
+                        asg.ESTADOASIGNATURA = campos[6];
+                        asg.DESCRIPCIONASIGNATURA = campos[7];
+                        asg.CODIGOASIGNATURA = campos[8];
                         asg.EdicionOmodificacion = "registrar";
                     }
                     db.ASIGNATURAs.Add(asg);
@@ -237,19 +235,6 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 return true;
             }
             return false;
-        }
-
-        public static string ObtenerIdPlanEstudios(string nombre)
-        {
-            var db = new GestionProgramasEntities();
-            var asig = (from e in db.PLANESTUDIOS
-                        where e.NOMBREPLANESTUDIOS.ToLower() == nombre.ToLower()
-                        select e).FirstOrDefault();
-            if (asig != null)
-            {
-                return asig.IDENTIFICADORPLANESTUDIOS.ToString();
-            }
-            return "";
         }
     }
 }
