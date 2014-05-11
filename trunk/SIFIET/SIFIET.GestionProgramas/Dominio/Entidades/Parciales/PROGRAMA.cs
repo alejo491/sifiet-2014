@@ -21,7 +21,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public Nullable<decimal> CODIGOSNIESPROGRAMA { get; set; }
 
 
-        [Display(Name = "Nombre :")]
+        [Display(Name = "Nombre del programa:")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
