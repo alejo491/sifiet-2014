@@ -18,7 +18,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
-            ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
+            ViewBag.ResultadoOperacion = TempData["ResultadoOperacion"] as string;
             ViewBag.estado = estado;
             ViewBag.campo = campo;
             ViewBag.busqueda = busqueda;
