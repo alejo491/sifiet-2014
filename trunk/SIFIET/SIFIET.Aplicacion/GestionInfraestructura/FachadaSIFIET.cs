@@ -16,6 +16,11 @@ namespace SIFIET.Aplicacion
         {
             return GestionInfraestructura.Aplicacion.FachadaFacultades.ConsultarFacultades(idFacultad, nombreFacultad);
         }
+
+        public static List<FACULTAD> ConsultarFacultades()
+        {
+            return GestionInfraestructura.Aplicacion.FachadaFacultades.ConsultarFacultades();
+        }
         #endregion 
 
         #region Metodos Gestion Infraestructura Fachada Salones

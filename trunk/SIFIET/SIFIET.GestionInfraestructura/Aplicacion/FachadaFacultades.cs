@@ -14,5 +14,10 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
         {
             return ServicioFacultades.ConsultarFacultades(idFacultad, nombreFacultad);
         }
+
+        public static List<FACULTAD> ConsultarFacultades()
+        {
+            return ServicioFacultades.ConsultarFacultades();
+        }
     }
 }

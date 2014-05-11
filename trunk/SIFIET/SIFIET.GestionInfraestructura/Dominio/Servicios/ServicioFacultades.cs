@@ -49,5 +49,13 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 
 
         }
+
+        public static List<FACULTAD> ConsultarFacultades()
+        {
+            var db = new GestionInfraestructuraEntities();
+            var facultades = from m in db.FACULTADs
+                             select m;
+            return facultades.ToList();
+        }
     }
 }
