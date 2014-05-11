@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Aplicacion\FachadaAsignaturas.cs" />
     <Compile Include="Aplicacion\FachadaCursos.cs" />
-    <Compile Include="Aplicacion\FachadaFacultades.cs" />
     <Compile Include="Aplicacion\FachadaGInvestigacion.cs" />
     <Compile Include="Aplicacion\FachadaPlanesEstudio.cs" />
     <Compile Include="Aplicacion\FachadaProgramas.cs" />
@@ -103,7 +102,6 @@
     <Compile Include="Dominio\Entidades\Parciales\PROGRAMA.cs" />
     <Compile Include="Dominio\Servicios\ServicioAsignaturas.cs" />
     <Compile Include="Dominio\Servicios\ServicioCursos.cs" />
-    <Compile Include="Dominio\Servicios\ServicioFacultades.cs" />
     <Compile Include="Dominio\Servicios\ServicioGInvestigacion.cs" />
     <Compile Include="Dominio\Servicios\ServicioPlanesEstudio.cs" />
     <Compile Include="Dominio\Servicios\ServicioProgramas.cs" />
