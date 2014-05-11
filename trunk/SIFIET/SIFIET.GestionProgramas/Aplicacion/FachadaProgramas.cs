@@ -16,9 +16,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramaAcademico(idPrograma);
         }
 
-        public static List<PROGRAMA> ConsultarProgramasAcademicos(string campo, string busqueda)
+        public static List<PROGRAMA> ConsultarProgramasAcademicos(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramasAcademicos(campo, busqueda);
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.ConsultarProgramasAcademicos(estado, campo, busqueda);
         }
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos()

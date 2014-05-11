@@ -237,42 +237,42 @@ function cargarMultiselect() {
 
 /* Validacion modulo Programas*/
 
-function comfirmacionPrograma() {
-    var codigo = document.getElementById("CODIGOSNIESPROGRAMA").value;
-    var nombre = document.getElementById("NOMBREPROGRAMA").value;
-    var descripcion = document.getElementById("DESCRIPCIONPROGRAMA").value;
-    var facultad = document.getElementById("IDENTIFICADORFACULTAD").value;
-    var duracion = document.getElementById("DURACIONPROGRAMA").value;     
-    var modalidad = "";
-    var jornada = "";
-    var admision = "";
+//function comfirmacionPrograma() {
+//    var codigo = document.getElementById("CODIGOSNIESPROGRAMA").value;
+//    var nombre = document.getElementById("NOMBREPROGRAMA").value;
+//    var descripcion = document.getElementById("DESCRIPCIONPROGRAMA").value;
+//    var facultad = document.getElementById("IDENTIFICADORFACULTAD").value;
+//    var duracion = document.getElementById("DURACIONPROGRAMA").value;     
+//    var modalidad = "";
+//    var jornada = "";
+//    var admision = "";
 
-    if ($('input[name=MODALIDADPROGRAMA]:checked').length > 0) {
-        modalidad = "si";
-    }
-    if ($('input[name=JORNADAPROGRAMA]:checked').length > 0) {
-        jornada = "si";
-    }
-    if ($('input[name=ADMISIONPROGRAMA]:checked').length > 0) {
-        admision = "si";
-    }
+//    if ($('input[name=MODALIDADPROGRAMA]:checked').length > 0) {
+//        modalidad = "si";
+//    }
+//    if ($('input[name=JORNADAPROGRAMA]:checked').length > 0) {
+//        jornada = "si";
+//    }
+//    if ($('input[name=ADMISIONPROGRAMA]:checked').length > 0) {
+//        admision = "si";
+//    }
 
-    var mensaje;
-    if (nombre.trim() == "" || codigo.trim() == "" || descripcion.trim() == "" || facultad.trim() == "" ||
-        duracion.trim() == "" || modalidad.trim() == "" || jornada.trim() == "" || admision.trim() == "") {
-        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
-        alert(mensaje);
-        return false;
-    } else {
-        mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
-        return confirm(mensaje);
-    }
-}
+//    var mensaje;
+//    if (nombre.trim() == "" || codigo.trim() == "" || descripcion.trim() == "" || facultad.trim() == "" ||
+//        duracion.trim() == "" || modalidad.trim() == "" || jornada.trim() == "" || admision.trim() == "") {
+//        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+//        alert(mensaje);
+//        return false;
+//    } else {
+//        mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
+//        return confirm(mensaje);
+//    }
+//}
 
-function confirmarEliminarPrograma() {
-    var mensaje = "Este Programa tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminarlo?";
-    return confirm(mensaje);
-}
+//function confirmarEliminarPrograma() {
+//    var mensaje = "Este Programa tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminarlo?";
+//    return confirm(mensaje);
+//}
 
 
 /* Fin validacion programas */

@@ -17,11 +17,13 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             return db.PLANESTUDIOS.Find(idPlanEstudio);
         }
 
-        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string campo = "", string busqueda = "")
+        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string estado, string campo, string busqueda)
         {
             var db = new GestionProgramasEntities();
             var planesEstudios = from m in db.PLANESTUDIOS
                                  select m;
+
+            planesEstudios = planesEstudios.Where(s => s.ESTADOPLANESTUDIOS.Contains(estado));
 
             if (!String.IsNullOrEmpty(campo) && !String.IsNullOrEmpty(busqueda))
             {

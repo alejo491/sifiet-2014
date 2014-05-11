@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using SIFIET.Aplicacion;
 using SIFIET.GestionProgramas.Datos.Modelo;
-using PagedList;
 using System.Diagnostics;
 
 namespace SIFIET.Presentacion.Controllers
@@ -17,26 +16,28 @@ namespace SIFIET.Presentacion.Controllers
         //
         // GET: /PlanEstudio/
 
-        public ViewResult Index(string campo, string busqueda, int? page)
+        public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
 
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            List<PLANESTUDIO> programas = FachadaSIFIET.ConsultarPlanesEstudios("",campo, busqueda);
+            ViewBag.estado = estado;
+            ViewBag.campo = campo;
+            ViewBag.busqueda = busqueda;
+
+            List<PLANESTUDIO> planesEstudios = FachadaSIFIET.ConsultarPlanesEstudios(estado, campo, busqueda);
             if (String.IsNullOrEmpty(campo) && String.IsNullOrEmpty(busqueda))
             {
-                ViewBag.ResultadoBusqueda = "Hay " + programas.Count() + " registro(s)";
+                ViewBag.ResultadoBusqueda = "Hay " + planesEstudios.Count() + " registro(s)";
             }
-            else if (programas.Count() == 0)
+            else if (planesEstudios.Count() == 0)
             {
                 ViewBag.ResultadoBusqueda = "No se encontraron registros";
             }
             else
             {
-                ViewBag.ResultadoBusqueda = "Se encontro" + programas.Count() + " registro(s)";
+                ViewBag.ResultadoBusqueda = "Se encontro" + planesEstudios.Count() + " registro(s)";
             }
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(programas.ToPagedList(pageNumber, pageSize));
+            return View(planesEstudios);
         }
 
         //

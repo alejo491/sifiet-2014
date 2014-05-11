@@ -23,7 +23,7 @@ namespace SIFIET.Aplicacion
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(campo,busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.ConsultarProgramasAcademicos(estado, campo,busqueda);
         }
 
         public static List<PROGRAMA> ConsultarProgramasAcademicos()
@@ -118,7 +118,7 @@ namespace SIFIET.Aplicacion
 
         public static List<PLANESTUDIO> ConsultarPlanesEstudios(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(campo, busqueda);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.ConsultarPlanesEstudios(estado, campo, busqueda);
         }
 
         public static bool RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)

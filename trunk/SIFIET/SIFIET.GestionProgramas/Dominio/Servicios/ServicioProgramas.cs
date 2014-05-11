@@ -21,11 +21,13 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
 
 
-        public static List<PROGRAMA> ConsultarProgramasAcademicos(string campo = "", string busqueda = "")
+        public static List<PROGRAMA> ConsultarProgramasAcademicos(string estado, string campo, string busqueda)
         {
             var db = new GestionProgramasEntities();
             var programas = from m in db.PROGRAMAs
                             select m;
+
+            programas = programas.Where(s => s.ESTADOPROGRAMA.Contains(estado));
 
             if (!String.IsNullOrEmpty(campo) && !String.IsNullOrEmpty(busqueda))
             {

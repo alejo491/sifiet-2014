@@ -15,9 +15,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return SIFIET.GestionProgramas.Dominio.Servicios.ServicioPlanesEstudio.ConsultarPlanEstudio(idPlanEstudio);
         }
 
-        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string campo, string busqueda)
+        public static List<PLANESTUDIO> ConsultarPlanesEstudios(string estado, string campo, string busqueda)
         {
-            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioPlanesEstudio.ConsultarPlanesEstudios(campo, busqueda);
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioPlanesEstudio.ConsultarPlanesEstudios(estado, campo, busqueda);
         }
         
         public static bool RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
