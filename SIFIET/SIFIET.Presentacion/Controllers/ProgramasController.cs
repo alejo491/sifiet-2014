@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using SIFIET.Aplicacion;
 using SIFIET.GestionProgramas.Datos.Modelo;
-using PagedList;
 using System.Data.OleDb;
 
 namespace SIFIET.Presentacion.Controllers
@@ -17,10 +16,14 @@ namespace SIFIET.Presentacion.Controllers
 
         // GET: /Programa/
 
-        public ViewResult Index(string campo, string busqueda, int? page)
+        public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            List<PROGRAMA> programas = FachadaSIFIET.ConsultarProgramasAcademicos("",campo, busqueda);
+            ViewBag.estado = estado;
+            ViewBag.campo = campo;
+            ViewBag.busqueda = busqueda;
+
+            List<PROGRAMA> programas = FachadaSIFIET.ConsultarProgramasAcademicos(estado, campo, busqueda);
             if (String.IsNullOrEmpty(campo) && String.IsNullOrEmpty(busqueda))
             {
                 ViewBag.ResultadoBusqueda = "Hay " + programas.Count() + " registro(s)";
@@ -33,9 +36,8 @@ namespace SIFIET.Presentacion.Controllers
             {
                 ViewBag.ResultadoBusqueda = "Se encontro" + programas.Count() + " registro(s)";
             }
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(programas.ToPagedList(pageNumber, pageSize));
+
+            return View(programas);
         }
 
         //
