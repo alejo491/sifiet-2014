@@ -54,8 +54,8 @@
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |
-                @Html.ActionLink("Visualizar", "VisualizarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |
-                @Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" })
+@Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
+                @Html.ActionLink("Visualizar", "VisualizarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS })
                 </text>
                 )
         })
