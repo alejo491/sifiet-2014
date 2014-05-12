@@ -31,7 +31,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [ProgramaNombreExiste(ErrorMessage = "Ya existe un Programa con el nombre que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public string NOMBREPROGRAMA { get; set; }
 
-        [Display(Name = "Descripcion :")]
+        [Display(Name = "Descripción :")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras

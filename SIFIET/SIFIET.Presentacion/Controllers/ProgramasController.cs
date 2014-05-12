@@ -131,7 +131,6 @@ namespace SIFIET.Presentacion.Controllers
             if (FachadaSIFIET.EliminarProgramaAcademico(idPrograma))
             {
                 TempData["ResultadoOperacion"] = "Programa eliminado con Exito.";
-                return RedirectToAction("Index");
             }
             else
             {

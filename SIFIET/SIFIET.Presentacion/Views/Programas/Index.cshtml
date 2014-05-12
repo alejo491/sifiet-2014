@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SIFIET.GestionProgramas.Datos.Modelo.PROGRAMA>
 
 @{
-    ViewBag.Title = "Programa";
+    ViewBag.Title = "Gestionar Programas Académicos";
     WebGrid grid = new WebGrid(Model);
 }
 
-<h2>Programa</h2>
+<h2>Gestionar Programas Académicos</h2>
 @using (Html.BeginForm(null, null, FormMethod.Get))
 {
     <fieldset>
@@ -60,8 +60,9 @@
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })
+                @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirmarEliminarPrograma()" })    
                 @Html.ActionLink("Visualizar", "VisualizarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })
-                @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirmarEliminarPrograma()" })
+               
                 </text>
                 )
         })
