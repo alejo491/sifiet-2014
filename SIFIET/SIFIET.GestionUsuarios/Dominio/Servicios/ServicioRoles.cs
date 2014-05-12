@@ -110,7 +110,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
                             " WHERE IDENTIFICADORROL= " +int.Parse(idRol.Trim()));
                 db.SaveChanges();*/
                 var oRol = db.ROLs.Find(decimal.Parse(idRol.Trim()));
-                oRol.ESTADOROL = "Desactivado";
+                oRol.ESTADOROL = "Inactivo";
                 db.Entry(oRol).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
@@ -127,7 +127,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             {
                 var db = new GestionUsuariosEntities();
                 var lista = (from e in db.ROLs
-                    where e.NOMBREROL.Trim() == nombre.Trim()
+                    where e.NOMBREROL.ToLower().Trim().Equals(nombre.ToLower().Trim())
                     select e).ToList();
                 return lista.Count > 0;
             }
@@ -142,8 +142,12 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             try
             {
                 var db = new GestionUsuariosEntities();
-                var lstRols = (from e in db.ROLs
+                /*var lstRols = (from e in db.ROLs
                     where e.NOMBREROL.Contains(nombre) && e.ESTADOROL.Trim().Equals(estado.Trim())
+                    select e).ToList();*/
+                var lstRols = (from e in db.ROLs
+                               where e.NOMBREROL.ToLower().Contains(nombre.ToLower())
+                          && e.ESTADOROL.Trim().Equals(estado.Trim())
                     select e).ToList();
                 return lstRols;
             }

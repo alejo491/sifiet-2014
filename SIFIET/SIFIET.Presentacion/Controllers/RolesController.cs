@@ -77,7 +77,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     DESCRIPCIONROL = collection["DESCRIPCIONROL"].Trim(),
                     NOMBREROL = collection["NOMBREROL"].Trim(),
-                    ESTADOROL = "Activado"         
+                    ESTADOROL = "Activo"         
                 };
                 var existeRol = FachadaSIFIET.ExisteNombreRol(collection["NOMBREROL"].Trim());
             if (!ModelState.IsValid || existeRol)

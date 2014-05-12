@@ -10,8 +10,8 @@ function comfirmarAgregarRol() {
     var descripcion = document.getElementById("DESCRIPCIONROL").value;
     var mensaje;
     if (nombre.trim() == "" || descripcion.trim() == "") {
-        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
-        alert(mensaje);
+        //mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        //alert(mensaje);
         return true;
     } else {
         mensaje = "¿Desea Registrar los datos Ingresados?";
