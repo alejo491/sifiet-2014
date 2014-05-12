@@ -17,6 +17,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             var db = new GestionUsuariosEntities();
 
             List<USUARIO> lista = (from e in db.USUARIOs
+                                   where e.ESTADOUSUARIO.Trim().Equals("Activo")
                                    select e).ToList();
             return lista;
         }
