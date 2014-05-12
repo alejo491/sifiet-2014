@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,13 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(PROGRAMAMETADATA))]
     public partial class PROGRAMA
     {
-
+        public string operacion { get; set; }
     }
 
     public class PROGRAMAMETADATA
-    {
-
+    {   
+                        
+        
         [Display(Name = "Codigo SNIES:")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
@@ -69,17 +71,28 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             bool valid = false;
-            var programaValidacion = validationContext.ObjectInstance as PROGRAMA;
+            var programaValidacion = validationContext.ObjectInstance as PROGRAMA;            
             if (value != null)
             {
                 var nombre = value as string;
-                var db = new GestionProgramasEntities();
-                var programa = (from e in db.PROGRAMAs where programaValidacion.NOMBREPROGRAMA == e.NOMBREPROGRAMA select e).FirstOrDefault();
-                var nombrePrograma = (from e in db.PROGRAMAs where nombre.ToUpper() == e.NOMBREPROGRAMA.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();
-                if (String.IsNullOrEmpty(nombrePrograma))
-                {
-                    valid = true;
+                var db = new GestionProgramasEntities();                
+                if (programaValidacion.operacion == "editar" || programaValidacion.operacion == "eliminar")
+                {                   
+                    var programaNombre = (from e in db.PROGRAMAs where programaValidacion.IDENTIFICADORPROGRAMA == e.IDENTIFICADORPROGRAMA select e.NOMBREPROGRAMA).FirstOrDefault();
+                    var nombrePrograma = (from e in db.PROGRAMAs where nombre.ToUpper() == e.NOMBREPROGRAMA.ToUpper() && e.NOMBREPROGRAMA.ToUpper() != programaNombre.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();                    
+                    if (String.IsNullOrEmpty(nombrePrograma))
+                    {
+                        valid = true;
+                    }
                 }
+                else {                                       
+                    var nombrePrograma = (from e in db.PROGRAMAs where nombre.ToUpper() == e.NOMBREPROGRAMA.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombrePrograma))
+                    {
+                        valid = true;
+                    }                
+                }   
+                
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
