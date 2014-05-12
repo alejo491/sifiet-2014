@@ -16,6 +16,8 @@
 
         @Html.HiddenFor(model => model.IDENTIFICADORPROGRAMA, new { @Value = Model.IDENTIFICADORPROGRAMA })
         @Html.HiddenFor(model => model.ESTADOPROGRAMA, new { @Value = Model.ESTADOPROGRAMA })
+        @Html.HiddenFor(model => model.operacion, new { @Value = "editar" })
+        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.CODIGOSNIESPROGRAMA)
