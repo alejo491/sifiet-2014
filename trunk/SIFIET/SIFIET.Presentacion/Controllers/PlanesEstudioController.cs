@@ -64,8 +64,7 @@ namespace SIFIET.Presentacion.Controllers
         [HttpPost]
         public ActionResult RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
         {
-            Debug.WriteLine(objPlanEstudio.FECHAINICIOPLANESTUDIOS);
-            Debug.WriteLine(objPlanEstudio.FECHAFINPLANESTUDIOS);
+                        
             if (ModelState.IsValid)
             {
                 objPlanEstudio.ESTADOPLANESTUDIOS = "Activo";
@@ -82,7 +81,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             else
             {
-                ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar este Plan de Estudios.";
+                ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar este Plan de Estudios. (Model)";
             }
 
             ViewBag.IDENTIFICADORPROGRAMA = new SelectList(FachadaSIFIET.ConsultarProgramasAcademicos(), "IDENTIFICADORPROGRAMA", "NOMBREPROGRAMA", objPlanEstudio.IDENTIFICADORPROGRAMA);

@@ -44,7 +44,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Estado :")]
         public string ESTADOPLANESTUDIOS { get; set; }
 
-        [Required(ErrorMessage = "Este campos es requerido")]
+        
         public virtual PROGRAMA PROGRAMA { get; set; }
 
     }
