@@ -10,6 +10,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(PLANESTUDIOMETADATA))]
     public partial class PLANESTUDIO
     {
+        public string operacion {get; set;}
     }
 
     public class PLANESTUDIOMETADATA
@@ -44,7 +45,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Estado :")]
         public string ESTADOPLANESTUDIOS { get; set; }
 
-        
+
         public virtual PROGRAMA PROGRAMA { get; set; }
 
     }
@@ -59,12 +60,26 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 var nombre = value as string;
                 var db = new GestionProgramasEntities();
-                var planEstudio = (from e in db.PLANESTUDIOS where planEstudioValidacion.NOMBREPLANESTUDIOS == e.NOMBREPLANESTUDIOS select e).FirstOrDefault();
-                var nombrePlanEstudio = (from e in db.PLANESTUDIOS where nombre.ToUpper() == e.NOMBREPLANESTUDIOS.ToUpper() select e.NOMBREPLANESTUDIOS).FirstOrDefault();
-                if (String.IsNullOrEmpty(nombrePlanEstudio))
+                if(planEstudioValidacion.operacion == "editar" || planEstudioValidacion.operacion == "eliminar")
                 {
-                    valid = true;
+                    var planEstudioNombre = (from e in db.PLANESTUDIOS where planEstudioValidacion.IDENTIFICADORPLANESTUDIOS == e.IDENTIFICADORPLANESTUDIOS select e.NOMBREPLANESTUDIOS).FirstOrDefault();
+                    var nombrePlanEstudio = (from e in db.PLANESTUDIOS where nombre.ToUpper() == e.NOMBREPLANESTUDIOS.ToUpper() && e.NOMBREPLANESTUDIOS.ToUpper() != planEstudioNombre.ToUpper() select e.NOMBREPLANESTUDIOS).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombrePlanEstudio))
+                    {
+                        valid = true;
+                    }
                 }
+                else
+                {
+                    var planEstudio = (from e in db.PLANESTUDIOS where planEstudioValidacion.NOMBREPLANESTUDIOS == e.NOMBREPLANESTUDIOS select e).FirstOrDefault();
+                    var nombrePlanEstudio = (from e in db.PLANESTUDIOS where nombre.ToUpper() == e.NOMBREPLANESTUDIOS.ToUpper() select e.NOMBREPLANESTUDIOS).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombrePlanEstudio))
+                    {
+                        valid = true;
+                    }                
+                }
+
+                
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
