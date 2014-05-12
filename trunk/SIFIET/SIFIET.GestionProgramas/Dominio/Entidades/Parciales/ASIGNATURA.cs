@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -77,7 +77,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [IDYaExiste(ErrorMessage = "Este Codigo ya esta en uso, ingrese otro")]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$",ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string CODIGOASIGNATURA { get; set; }
         [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]

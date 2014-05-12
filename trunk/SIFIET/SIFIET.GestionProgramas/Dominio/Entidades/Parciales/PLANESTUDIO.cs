@@ -10,7 +10,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     [MetadataType(typeof(PLANESTUDIOMETADATA))]
     public partial class PLANESTUDIO
     {
-        public string operacion {get; set;}
+        public string operacion { get; set; }
     }
 
     public class PLANESTUDIOMETADATA
@@ -60,7 +60,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 var nombre = value as string;
                 var db = new GestionProgramasEntities();
-                if(planEstudioValidacion.operacion == "editar" || planEstudioValidacion.operacion == "eliminar")
+                if (planEstudioValidacion.operacion == "editar" || planEstudioValidacion.operacion == "eliminar")
                 {
                     var planEstudioNombre = (from e in db.PLANESTUDIOS where planEstudioValidacion.IDENTIFICADORPLANESTUDIOS == e.IDENTIFICADORPLANESTUDIOS select e.NOMBREPLANESTUDIOS).FirstOrDefault();
                     var nombrePlanEstudio = (from e in db.PLANESTUDIOS where nombre.ToUpper() == e.NOMBREPLANESTUDIOS.ToUpper() && e.NOMBREPLANESTUDIOS.ToUpper() != planEstudioNombre.ToUpper() select e.NOMBREPLANESTUDIOS).FirstOrDefault();
@@ -76,10 +76,10 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                     if (String.IsNullOrEmpty(nombrePlanEstudio))
                     {
                         valid = true;
-                    }                
+                    }
                 }
 
-                
+
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }

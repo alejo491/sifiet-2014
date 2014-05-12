@@ -40,8 +40,8 @@
                 grid.Column("", header: "Opciones",
                     format: @<text>
                                  @Html.ActionLink("Editar", "ModificarRol", new {idRol = item.IDENTIFICADORROL}) |
-                                 @Html.ActionLink("Detalles", "VisualizarRol", new {idRol = item.IDENTIFICADORROL}) |
-                                 @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})
+                                 @Html.ActionLink("Visualizar", "VisualizarRol", new {idRol = item.IDENTIFICADORROL}) |
+                                 <!--@Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})-->
                              </text>
                     )
             })
@@ -55,7 +55,7 @@
     </p>
     <div>
         <h3>
-            @Html.ActionLink("Registrar", "RegistrarRol")
+            @Html.ActionLink("Agregar", "RegistrarRol")
         </h3>
     </div>
 
