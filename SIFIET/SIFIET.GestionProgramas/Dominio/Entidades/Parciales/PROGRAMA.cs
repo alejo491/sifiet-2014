@@ -18,6 +18,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Codigo SNIES:")]
         [Required(ErrorMessage = "Este campos es requerido")]
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> CODIGOSNIESPROGRAMA { get; set; }
 
 
@@ -40,6 +41,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Duración :")]
         [Required(ErrorMessage = "Este campos es requerido")]
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> DURACIONPROGRAMA { get; set; }
 
         [Display(Name = "Modalidad :")]
