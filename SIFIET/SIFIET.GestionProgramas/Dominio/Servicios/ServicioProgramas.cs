@@ -77,8 +77,8 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         {
             var db = new GestionProgramasEntities();
             try
-            {
-                db.Entry(objPrograma).State = EntityState.Modified;
+            {                
+                db.Entry(objPrograma).State = EntityState.Modified;                
                 db.SaveChanges();
                 return true;
             }
@@ -91,20 +91,21 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         public static bool EliminarProgramaAcademico(decimal idPrograma)
         {
             var db = new GestionProgramasEntities();
-            //try
-            //{
+            try
+            {
            
                 PROGRAMA objPrograma = db.PROGRAMAs.Find(idPrograma);
                 Debug.WriteLine(objPrograma.CODIGOSNIESPROGRAMA);
                 objPrograma.ESTADOPROGRAMA = "Inactivo";
+                objPrograma.operacion = "eliminar";
                 db.Entry(objPrograma).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
-            //}
-            //catch (Exception)
-            //{
-            //    return false;
-            //}
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static bool CargarInformacion(DataSet datosExcel)
