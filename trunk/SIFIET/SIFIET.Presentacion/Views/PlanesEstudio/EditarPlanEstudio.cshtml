@@ -15,7 +15,9 @@
         <legend>Editar Plan de Estudios</legend>
 
             @Html.HiddenFor(model => model.IDENTIFICADORPLANESTUDIOS, new { @Value = Model.IDENTIFICADORPLANESTUDIOS })
-           
+            @Html.HiddenFor(model => model.ESTADOPLANESTUDIOS, new { @Value = Model.ESTADOPLANESTUDIOS })
+            @Html.HiddenFor(model => model.operacion, new { @Value = "editar" })   
+
             <div class="editor-label">
                 @Html.LabelFor(model => model.NOMBREPLANESTUDIOS)
             </div>
