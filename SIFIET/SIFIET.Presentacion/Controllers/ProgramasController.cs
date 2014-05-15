@@ -66,7 +66,6 @@ namespace SIFIET.Presentacion.Controllers
         {
             if (ModelState.IsValid)
             {
-                objPrograma.ESTADOPROGRAMA = "Activo";
                 if (FachadaSIFIET.RegistrarProgramaAcademico(objPrograma))
                 {
                     TempData["ResultadoOperacion"] = "Programa creado con Exito.";

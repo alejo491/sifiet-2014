@@ -15,7 +15,6 @@
         <legend>Editar Plan de Estudios</legend>
 
             @Html.HiddenFor(model => model.IDENTIFICADORPLANESTUDIOS, new { @Value = Model.IDENTIFICADORPLANESTUDIOS })
-            @Html.HiddenFor(model => model.ESTADOPLANESTUDIOS, new { @Value = Model.ESTADOPLANESTUDIOS })
             @Html.HiddenFor(model => model.operacion, new { @Value = "editar" })   
 
             <div class="editor-label">
@@ -65,23 +64,22 @@
                 @Html.DropDownList("IDENTIFICADORPROGRAMA")
                 @Html.ValidationMessageFor(model => model.IDENTIFICADORPROGRAMA)
             </div>
-            @if (Model.ESTADOPLANESTUDIOS == "Inactivo") { 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.ESTADOPLANESTUDIOS)
-                </div>
-                <div class="editor-field">
-                    Activo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS,"Activo")
-                    Inactivo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS, "Inactivo")
-                    @Html.ValidationMessageFor(model => model.ESTADOPLANESTUDIOS)
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ESTADOPLANESTUDIOS)
+            </div>
+            <div class="editor-field">
+                Activo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS,"Activo")
+                Inactivo @Html.RadioButtonFor(model => model.ESTADOPLANESTUDIOS, "Inactivo")
+                @Html.ValidationMessageFor(model => model.ESTADOPLANESTUDIOS)
            
-                </div> 
-             } 
-            <div>
+            </div> 
+
             <p>
                 <input type="submit" value="Guardar" onclick="return comfirmacionPlanEstudio()" />
                 <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
             </p>
-            </div>
+            
     </fieldset>
 }
 
