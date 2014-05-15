@@ -55,6 +55,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarPlanEstudio()
         {
             ViewBag.IDENTIFICADORPROGRAMA = new SelectList(FachadaSIFIET.ConsultarProgramasAcademicos(), "IDENTIFICADORPROGRAMA", "NOMBREPROGRAMA");
+            ViewBag.Asignaturas = new SelectList(FachadaSIFIET.ConsultarAsignaturas(0, "", "Activo"), "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
             return View();
         } 
 
@@ -67,7 +68,6 @@ namespace SIFIET.Presentacion.Controllers
                         
             if (ModelState.IsValid)
             {
-                objPlanEstudio.ESTADOPLANESTUDIOS = "Activo";
                 if (FachadaSIFIET.RegistrarPlanEstudio(objPlanEstudio))
                 {
                     TempData["ResultadoOperacion"] = "Plan de Estudios creado con Exito.";

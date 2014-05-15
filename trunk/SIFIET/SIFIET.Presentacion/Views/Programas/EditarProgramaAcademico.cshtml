@@ -15,7 +15,6 @@
         <legend>Editar Programa</legend>                
 
         @Html.HiddenFor(model => model.IDENTIFICADORPROGRAMA, new { @Value = Model.IDENTIFICADORPROGRAMA })
-        @Html.HiddenFor(model => model.ESTADOPROGRAMA, new { @Value = Model.ESTADOPROGRAMA })
         @Html.HiddenFor(model => model.operacion, new { @Value = "editar" })
         
 
@@ -90,20 +89,15 @@
             @Html.ValidationMessageFor(model => model.ADMISIONPROGRAMA)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ESTADOPROGRAMA)
+        </div>
+        <div class="editor-field">
+            Activo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Activo")
+            Inactivo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Inactivo")
+            @Html.ValidationMessageFor(model => model.ESTADOPROGRAMA)
 
-
-        @if (Model.ESTADOPROGRAMA == "Inactivo")
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ESTADOPROGRAMA)
-            </div>
-            <div class="editor-field">
-                Activo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Activo")
-                Inactivo @Html.RadioButtonFor(model => model.ESTADOPROGRAMA, "Inactivo")
-                @Html.ValidationMessageFor(model => model.ESTADOPROGRAMA)
-
-            </div>
-        }
+        </div>
         
        <div>
             <p>
