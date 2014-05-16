@@ -305,5 +305,18 @@ function confirmarEliminarPlanEstudio() {
     return confirm(mensaje);
 }
 
+function validarAgregarAsignaturaPlanEstudio() {
+    if ($("#SEMESTRE").val() == "" || $("#IDENTIFICADORASIGNATURA").val() == "") {
+        alert("Debe seleccionar el Semestre y la Asignatura para poderlo agregar al plan de estudio ");
+        return false;
+    }
+    return true;
+}
+
+function confirmarEliminarAsignaturaPlanEstudio() {
+    var mensaje = "¿Desea quitar esta asignatura del plan de estudio?";
+    return confirm(mensaje);
+}
+
 
 /* Fin validacion plan de  estudio */

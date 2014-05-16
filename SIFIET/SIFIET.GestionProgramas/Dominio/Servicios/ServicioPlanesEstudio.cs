@@ -110,21 +110,41 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         public static bool RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio)
         {
             var db = new GestionProgramasEntities();
-            //try
-            //{
-            Debug.WriteLine("semestre : " + objAsignaturaPlanEstudio.SEMESTRE);
-            Debug.WriteLine("Id plan estudio : " + objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS);
-            Debug.WriteLine("Id asignatura : " + objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS);    
-                
+            try
+            {           
                 db.ASIGNATURA_PERTENECE_PLAN_ESTU.Add(objAsignaturaPlanEstudio);
                 db.SaveChanges();
-                return true;    
-            //}
-            //catch (Exception)
-            //{
-            //    return false;
-            //}
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+
+        // eliminar una asignatura del plan de estudio
+        public static bool EliminarAsignaturaPlanEstudio(decimal idPlanEstudio, decimal idAsignatura)
+        {
+            var db = new GestionProgramasEntities();
+            try
+            {
+
+                var asignaturasPlanEstudio = (from e in db.ASIGNATURA_PERTENECE_PLAN_ESTU where e.IDENTIFICADORPLANESTUDIOS == idPlanEstudio && e.IDENTIFICADORASIGNATURA == idAsignatura select e).FirstOrDefault();
+                if( asignaturasPlanEstudio != null) {
+                     db.ASIGNATURA_PERTENECE_PLAN_ESTU.Remove(asignaturasPlanEstudio);
+                     db.SaveChanges();
+                     return true;
+                }
+                return false;
+                
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
         // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
         {

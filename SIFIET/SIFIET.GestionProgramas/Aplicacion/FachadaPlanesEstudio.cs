@@ -43,6 +43,11 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioPlanesEstudio.RegistrarAsignaturaPlanEstudio(objAsignaturaPlanEstudio);
         }
 
+        public static bool EliminarAsignaturaPlanEstudio(decimal idPlanEstudio, decimal idAsignatura) 
+        {
+            return ServicioPlanesEstudio.EliminarAsignaturaPlanEstudio(idPlanEstudio, idAsignatura);
+        }
+
         // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanesEstudios(string palabraBusqueda)
         {

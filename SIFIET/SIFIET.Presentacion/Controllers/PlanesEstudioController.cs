@@ -147,6 +147,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult GestionAsignaturasPlanEstudio(decimal idPlanEstudio = 0)
         {
+            ViewBag.ResultadoOperacion = TempData["ResultadoOperacion"] as string;
             if (idPlanEstudio == 0) {
                 return RedirectToAction("Index");
             }
@@ -160,9 +161,17 @@ namespace SIFIET.Presentacion.Controllers
             }
             ViewBag.idPlanEstudio = idPlanEstudio;
             ViewBag.SEMESTRE = new SelectList(semestres);
-            ViewBag.IDENTIFICADORASIGNATURA = new SelectList(FachadaSIFIET.ConsultarAsignaturas(0, "", "Activo"), "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
 
-            List<ASIGNATURA_PERTENECE_PLAN_ESTU> listaAsignaturasPlanesEstudio = FachadaSIFIET.ConsultarAsignaturasPorPlanEstudio(idPlanEstudio);            
+            List<ASIGNATURA> listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0, "", "Activo");
+            List<ASIGNATURA_PERTENECE_PLAN_ESTU> listaAsignaturasPlanesEstudio = FachadaSIFIET.ConsultarAsignaturasPorPlanEstudio(idPlanEstudio);
+
+            foreach(ASIGNATURA_PERTENECE_PLAN_ESTU item in listaAsignaturasPlanesEstudio)
+            {
+                ASIGNATURA asignatura = listaAsignaturas.First(obj => obj.NOMBREASIGNATURA == item.ASIGNATURA.NOMBREASIGNATURA);
+                listaAsignaturas.Remove(asignatura);
+            }
+            ViewBag.NombrePlanEstudio = objPlanEstudio.NOMBREPLANESTUDIOS;
+            ViewBag.IDENTIFICADORASIGNATURA = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");                        
             return View(listaAsignaturasPlanesEstudio);
         }
 
@@ -170,17 +179,38 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio)
         {
 
-            if (FachadaSIFIET.RegistrarAsignaturaPlanEstudio(objAsignaturaPlanEstudio))
-            {
-                TempData["ResultadoOperacion"] = "Asignatura Agregada con exito";
-                
+            if (objAsignaturaPlanEstudio.SEMESTRE == null || objAsignaturaPlanEstudio.IDENTIFICADORASIGNATURA == null) {
+                TempData["ResultadoOperacion"] = "Debe seleccionar un semestre y una asignatura para agregar al plan de estudios";
             }
             else
             {
-                ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo agregar la asignatura.";
-                
+                if (FachadaSIFIET.RegistrarAsignaturaPlanEstudio(objAsignaturaPlanEstudio))
+                {
+                    TempData["ResultadoOperacion"] = "Asignatura agregada con exito al plan de estudio";
+
+                }
+                else
+                {
+                    TempData["ResultadoOperacion"] = "Ocurrio un error, No se pudo agregar la asignatura al plan de estudio.";
+
+                }
             }
+            
+                
             return RedirectToAction("GestionAsignaturasPlanEstudio", new { idPlanEstudio = objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS });
+        }
+
+        public ActionResult EliminarAsignaturaPlanEstudio(decimal idPlanEstudio, decimal idAsignatura)
+        {
+            if (FachadaSIFIET.EliminarAsignaturaPlanEstudio(idPlanEstudio, idAsignatura))
+            {
+                TempData["ResultadoOperacion"] = "Asignatura desagregada con exito del plan de estudio";
+            }
+            else
+            {
+                TempData["ResultadoOperacion"] = "Ocurrio un error, no se pudo desagregar la asignatura del plan de estudio";
+            }
+            return RedirectToAction("GestionAsignaturasPlanEstudio", new { idPlanEstudio = idPlanEstudio });
         }
     }
 }
