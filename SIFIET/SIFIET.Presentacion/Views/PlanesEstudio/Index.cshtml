@@ -51,6 +51,11 @@
             grid.Column("FECHAINICIOPLANESTUDIOS",header:"Fecha Inicio"),
             grid.Column("FECHAFINPLANESTUDIOS",header:"Fecha Fin"),
             grid.Column("PROGRAMA.NOMBREPROGRAMA",header:"Programa"),
+            grid.Column("",header:"Gestion Asignaturas",
+                format: @<text>
+                @Html.ActionLink("Gestionar", "GestionAsignaturasPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS })
+                </text>
+            ),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |

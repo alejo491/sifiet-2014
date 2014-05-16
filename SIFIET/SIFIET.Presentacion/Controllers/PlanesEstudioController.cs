@@ -139,6 +139,48 @@ namespace SIFIET.Presentacion.Controllers
                 TempData["ResultadoOperacion"] = "Ocurrio un error, no se pudo eliminar el Plan de Estudio";
             }
             return RedirectToAction("Index");
-        }         
+        }
+
+
+        //
+        // Gestion de Asinaturas por plan de estudio
+
+        public ActionResult GestionAsignaturasPlanEstudio(decimal idPlanEstudio = 0)
+        {
+            if (idPlanEstudio == 0) {
+                return RedirectToAction("Index");
+            }
+            PLANESTUDIO objPlanEstudio = FachadaSIFIET.ConsultarPlanEstudio(idPlanEstudio);
+
+            int semestre = (int) objPlanEstudio.PROGRAMA.DURACIONPROGRAMA;
+            List<int> semestres = new List<int>();
+            for (int i = 1; i <= semestre; i++ )
+            {
+                semestres.Add(i);
+            }
+            ViewBag.idPlanEstudio = idPlanEstudio;
+            ViewBag.SEMESTRE = new SelectList(semestres);
+            ViewBag.IDENTIFICADORASIGNATURA = new SelectList(FachadaSIFIET.ConsultarAsignaturas(0, "", "Activo"), "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
+
+            List<ASIGNATURA_PERTENECE_PLAN_ESTU> listaAsignaturasPlanesEstudio = FachadaSIFIET.ConsultarAsignaturasPorPlanEstudio(idPlanEstudio);            
+            return View(listaAsignaturasPlanesEstudio);
+        }
+
+        
+        public ActionResult RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio)
+        {
+
+            if (FachadaSIFIET.RegistrarAsignaturaPlanEstudio(objAsignaturaPlanEstudio))
+            {
+                TempData["ResultadoOperacion"] = "Asignatura Agregada con exito";
+                
+            }
+            else
+            {
+                ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo agregar la asignatura.";
+                
+            }
+            return RedirectToAction("GestionAsignaturasPlanEstudio", new { idPlanEstudio = objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS });
+        }
     }
 }

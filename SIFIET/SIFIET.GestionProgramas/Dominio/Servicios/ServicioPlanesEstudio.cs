@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data;
 using SIFIET.GestionProgramas.Datos.Modelo;
+using System.Diagnostics;
 
 namespace SIFIET.GestionProgramas.Dominio.Servicios
 {
@@ -92,7 +93,38 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             }
         }
 
+        // metodo buscar asignaturas que pertenecen a un plan de estudio
+        public static List<ASIGNATURA_PERTENECE_PLAN_ESTU> ConsultarAsignaturasPorPlanEstudio(decimal idPlanEstudio)
+        {
+            var db = new GestionProgramasEntities();
+            var asignaturasPlanEstudio = from m in db.ASIGNATURA_PERTENECE_PLAN_ESTU          
+                                         select m;
 
+            asignaturasPlanEstudio = asignaturasPlanEstudio.Where(s => s.IDENTIFICADORPLANESTUDIOS == idPlanEstudio);
+            asignaturasPlanEstudio = asignaturasPlanEstudio.OrderBy(s => s.SEMESTRE);
+            return asignaturasPlanEstudio.ToList();
+                
+        }
+
+        // registra una asignatura al plan de estudio
+        public static bool RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio)
+        {
+            var db = new GestionProgramasEntities();
+            //try
+            //{
+            Debug.WriteLine("semestre : " + objAsignaturaPlanEstudio.SEMESTRE);
+            Debug.WriteLine("Id plan estudio : " + objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS);
+            Debug.WriteLine("Id asignatura : " + objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS);    
+                
+                db.ASIGNATURA_PERTENECE_PLAN_ESTU.Add(objAsignaturaPlanEstudio);
+                db.SaveChanges();
+                return true;    
+            //}
+            //catch (Exception)
+            //{
+            //    return false;
+            //}
+        }
         // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
         {

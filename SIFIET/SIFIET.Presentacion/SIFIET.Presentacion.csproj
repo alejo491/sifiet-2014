@@ -224,6 +224,7 @@
     <Content Include="Views\PlanesEstudio\Index.cshtml" />
     <Content Include="Views\PlanesEstudio\RegistrarPlanEstudio.cshtml" />
     <Content Include="Views\PlanesEstudio\VisualizarPlanEstudio.cshtml" />
+    <Content Include="Views\PlanesEstudio\GestionAsignaturasPlanEstudio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
