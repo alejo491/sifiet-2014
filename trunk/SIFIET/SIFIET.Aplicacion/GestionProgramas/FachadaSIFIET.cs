@@ -136,6 +136,14 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionProgramas.Aplicacion.FachadaPlanesEstudio.EliminarPlanEstudio(idPlanEstudio);
         }
 
+        public static List<ASIGNATURA_PERTENECE_PLAN_ESTU> ConsultarAsignaturasPorPlanEstudio(decimal idPlanEstudio) {
+            return FachadaPlanesEstudio.ConsultarAsignaturasPorPlanEstudio(idPlanEstudio);
+        }
+
+        public static bool RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio) {
+            return FachadaPlanesEstudio.RegistrarAsignaturaPlanEstudio(objAsignaturaPlanEstudio);
+        }
+
         // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
         {

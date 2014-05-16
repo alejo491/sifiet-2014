@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SIFIET.GestionProgramas.Datos.Modelo.ASIGNATURA_PERTENECE_PLAN_ESTU>
+@{
+    ViewBag.Title = "GestionAsignaturasPlanEstudio";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<h2>Gestion Asignaturas por Plan de Estudio</h2>
+
+@using (Html.BeginForm("RegistrarAsignaturaPlanEstudio", "PlanesEstudio"))
+{
+    <fieldset>
+        <legend>Agregar Asignatura al Plan de estudio</legend>
+            <input type="hidden" name="IDENTIFICADORPLANESTUDIOS" value="@ViewBag.idPlanEstudio" />
+            <label for="SEMESTRE">Semestre </label>
+            @Html.DropDownList("SEMESTRE", "--")
+            <label for="IDENTIFICADORASIGNATURA">Asignatura </label>
+            @Html.DropDownList("IDENTIFICADORASIGNATURA", "--")
+            <input type="submit" value="Agregar"  />
+            
+
+    </fieldset>
+}
+
+@grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+            grid.Column("SEMESTRE",header:"Semestre"),
+            grid.Column("ASIGNATURA.NOMBREASIGNATURA",header:"Asignatura"),
+            grid.Column("",header:"Eliminar",
+                format: @<text>
+                
+                @Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
+            
+                </text>
+            )
+        })
+@Html.ActionLink("Volver", "Index")
