@@ -6,6 +6,8 @@
 
 <h2>Gestion Asignaturas por Plan de Estudio</h2>
 
+<h4>@ViewBag.NombrePlanEstudio</h4>
+
 @using (Html.BeginForm("RegistrarAsignaturaPlanEstudio", "PlanesEstudio"))
 {
     <fieldset>
@@ -15,7 +17,7 @@
             @Html.DropDownList("SEMESTRE", "--")
             <label for="IDENTIFICADORASIGNATURA">Asignatura </label>
             @Html.DropDownList("IDENTIFICADORASIGNATURA", "--")
-            <input type="submit" value="Agregar"  />
+            <input type="submit" value="Agregar" onclick="return validarAgregarAsignaturaPlanEstudio()"  />
             
 
     </fieldset>
@@ -28,12 +30,14 @@
         {
             grid.Column("SEMESTRE",header:"Semestre"),
             grid.Column("ASIGNATURA.NOMBREASIGNATURA",header:"Asignatura"),
-            grid.Column("",header:"Eliminar",
+            grid.Column("",header:"Quitar",
                 format: @<text>
                 
-                @Html.ActionLink("Eliminar", "EliminarAsignaturaPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS, idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
+                @Html.ActionLink("Quitar", "EliminarAsignaturaPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS, idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarAsignaturaPlanEstudio()" }) |
             
                 </text>
             )
         })
 @Html.ActionLink("Volver", "Index")
+
+<h3> @ViewBag.ResultadoOperacion </h3>
