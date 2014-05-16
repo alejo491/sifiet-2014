@@ -31,7 +31,7 @@
             grid.Column("",header:"Eliminar",
                 format: @<text>
                 
-                @Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
+                @Html.ActionLink("Eliminar", "EliminarAsignaturaPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS, idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
             
                 </text>
             )
