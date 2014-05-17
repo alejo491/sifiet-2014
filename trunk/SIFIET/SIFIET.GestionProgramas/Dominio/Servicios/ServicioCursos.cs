@@ -68,20 +68,21 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
         }
 
-        internal static bool RegistrarCurso(CURSO nuevoCurso)
+        internal static decimal RegistrarCurso(CURSO nuevoCurso)
         {
             try
             {
                 var db = new GestionProgramasEntities();
                 db.CURSOes.Add(nuevoCurso);
                 db.SaveChanges();
-                return true;
-
+                var oCurso = (from curso in db.CURSOes where curso.IDENTIFICADORASIGNATURA==nuevoCurso.IDENTIFICADORASIGNATURA && curso.NOMBRECURSO.ToLower().Trim().Equals(nuevoCurso.NOMBRECURSO.ToLower().Trim()) && curso.IDENTIFICADORUSUARIO==nuevoCurso.IDENTIFICADORUSUARIO select curso).FirstOrDefault();
+                if (oCurso != null)
+                    return oCurso.IDENTIFICADORCURSO;
+                return -1;
             }
             catch (Exception)
             {
-
-                return false;
+                return -1;
             }
 
         }

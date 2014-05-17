@@ -7,8 +7,6 @@
                     var select = $('#DIAFRANJA');
                     select.empty();
                     $.each(myData, function (index, itemData) {
-
-                        alert("itemValue:"+itemData.Value+"itemText"+itemData.Text);
                         select.append($('<option/>', {
                             value: itemData.Value,
                             text: itemData.Text,
@@ -20,13 +18,30 @@
     $(document).ready(function () {
         $('#DIAFRANJA').change(function () {
             var idDia = $(this).val();
-            $.getJSON("ObtenerListaHoraInicio", { id: idDia },
+            var idSalon = $('#IDENTIFICADORSALON').val();
+            $.getJSON("ObtenerListaHoraInicio", { dia: idDia, idSalon:idSalon },
                 function (myData) {
                     var select = $('#HORAINICIOFRANJA');
                     select.empty();
                     $.each(myData, function (index, itemData) {
-
-                        alert("itemValue:" + itemData.Value + "itemText" + itemData.Text);
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text,
+                        }));
+                    });
+                });
+        });
+    });
+    $(document).ready(function () {
+        $('#HORAINICIOFRANJA').change(function () {
+            var idDia = $('#DIAFRANJA').val();
+            var idSalon = $('#IDENTIFICADORSALON').val();
+            var horaInicio = $('#HORAINICIOFRANJA').val();
+            $.getJSON("ObtenerListaHoraFin", { dia: idDia, idSalon: idSalon, horaInicio:horaInicio },
+                function (myData) {
+                    var select = $('#HORAFINFRANJA');
+                    select.empty();
+                    $.each(myData, function (index, itemData) {
                         select.append($('<option/>', {
                             value: itemData.Value,
                             text: itemData.Text,
@@ -56,5 +71,11 @@
     </div>
     <div>
         @Html.DropDownList("HORAINICIOFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Inicio---", new { id = "HORAINICIOFRANJA" })
+    </div>
+    <div>
+        <label>Seleccionar Hora Fin:</label>
+    </div>
+    <div>
+        @Html.DropDownList("HORAFINFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Fin---", new { id = "HORAFINFRANJA" })
     </div>
 }

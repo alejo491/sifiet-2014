@@ -167,7 +167,7 @@ namespace SIFIET.Aplicacion
             return FachadaCursos.VisualizarCurso(idCurso);
         }
 
-        public static bool RegistrarCurso(GestionProgramas.Datos.Modelo.CURSO oCurso)
+        public static decimal RegistrarCurso(GestionProgramas.Datos.Modelo.CURSO oCurso)
         {
             return FachadaCursos.RegistrarCurso(oCurso);
         }
