@@ -20,7 +20,7 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioCursos.VisualizarCurso(idCurso);
         }
 
-        public static bool RegistrarCurso(CURSO oCurso)
+        public static decimal RegistrarCurso(CURSO oCurso)
         {
             return ServicioCursos.RegistrarCurso(oCurso);
         }

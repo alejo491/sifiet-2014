@@ -28,16 +28,12 @@ namespace SIFIET.Presentacion.Controllers
             {
                 if (idCurso == null | String.IsNullOrEmpty(nombreCurso))
                     return View(FachadaSIFIET.ConsultarCursos(0, nombreCurso));
+                if (idCurso == 1)
+                    return View(FachadaSIFIET.ConsultarCursos(decimal.Parse(nombreCurso), ""));
+                if (idCurso == 2)
+                    return View(FachadaSIFIET.ConsultarCursos(0, nombreCurso));
                 else
-                {
-                    if (idCurso == 1)
-                        return View(FachadaSIFIET.ConsultarCursos(decimal.Parse(nombreCurso), ""));
-                    if (idCurso == 2)
-                        return View(FachadaSIFIET.ConsultarCursos(0, nombreCurso));
-                    else
-                        return View(FachadaSIFIET.ConsultarCursos(0, nombreCurso));
-                }
-
+                    return View(FachadaSIFIET.ConsultarCursos(0, nombreCurso));
             }
             catch (Exception)
             {
@@ -73,14 +69,14 @@ namespace SIFIET.Presentacion.Controllers
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
                 ViewBag.ListaDocentes = new SelectList(listaDocentes, "IDENTIFICADORUSUARIO", "NOMBRESUSUARIO");
                 if (!ModelState.IsValid) return View(oCurso);
-                bool resultado = FachadaSIFIET.RegistrarCurso(oCurso);
-
-                if (resultado)
+                var idCurso = FachadaSIFIET.RegistrarCurso(oCurso);
+                if (idCurso > 0)
+                {
                     TempData["ResultadoOperacion"] = "Curso Agregado con Exito";
-                else
-                    TempData["ResultadoOperacion"] = "Fallo al Agregar el Curso";
-
-                ViewBag.Mensaje = "false";
+                    oCurso = FachadaSIFIET.VisualizarCurso(idCurso);
+                    return RedirectToAction("RegistrarHorario", oCurso);
+                }
+                TempData["ResultadoOperacion"] = "Fallo al Agregar el Curso";
                 return RedirectToAction("Index");
             }
             catch
@@ -91,7 +87,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult ModificarCurso(decimal idCurso)
         {
-            var oCurso = FachadaSIFIET.VisualizarCurso(idCurso) as CURSO;
+            var oCurso = FachadaSIFIET.VisualizarCurso(idCurso);
             //Consultar Asignaturas estaba con dos argumentos
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
             var listaDocentes = FachadaSIFIET.ConsultarDocentes();
@@ -150,6 +146,99 @@ namespace SIFIET.Presentacion.Controllers
                 return View();
             }
         }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult ObtenerListaDias(string id)
+        {
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(id.Trim()));
+            var myData = lstFranjaDia.Select(a => new SelectListItem()
+            {
+                Value = a,
+                Text = a
+            });
+            return Json(myData, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult ObtenerListaHoraInicio(string dia, string idSalon)
+        {
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(idSalon.Trim()),dia);
+            var myData = lstFranjaDia.Select(a => new SelectListItem()
+            {
+                Value = a,
+                Text = a
+            });
+            return Json(myData, JsonRequestBehavior.AllowGet);
+        }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult ObtenerListaHoraFin(string dia, string idSalon, string horaInicio)
+        {
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(idSalon.Trim()), dia,horaInicio);
+            var myData = lstFranjaDia.Select(a => new SelectListItem()
+            {
+                Value = a,
+                Text = a
+            });
+            return Json(myData, JsonRequestBehavior.AllowGet);
+        }
+        private static string diaANombre(string diaNum)
+        {
+            string diaLetras = "";
+            switch (diaNum.Trim())
+            {
+                case "1":
+                    diaLetras = "Lunes";
+                    break;
+                case "2":
+                    diaLetras = "Martes";
+                    break;
+                case "3":
+                    diaLetras = "Miercoles";
+                    break;
+                case "4":
+                    diaLetras = "jueves";
+                    break;
+                case "5":
+                    diaLetras = "Viernes";
+                    break;
+                case "6":
+                    diaLetras = "Sabado";
+                    break;
+                case "7":
+                    diaLetras = "Domingo";
+                    break;
+
+            }
+            return diaLetras;
+        }
+
+        public ActionResult RegistrarHorario(CURSO oCurso)
+        {
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Activo");
+           // ViewBag.ListaDias = ViewBag.ListaFrajaDia = FachadaSIFIET.ConsultarFranjaHoraria();
+            //ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            //ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            return View(oCurso);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegistrarHorario(FormCollection datos)
+        {
+            //AQUI VA LA LOGICA DE EDITAR LA FRANJA HORARIA
+            ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(decimal.Parse(datos["idCurso"]));
+            return View(FachadaSIFIET.VisualizarCurso(decimal.Parse(datos["idCurso"])));
+        }
+
+        public ActionResult EliminarHorario(FormCollection datos)
+        {
+            //AQUI VA LA LOGICA DE Eliminar LA FRANJA HORARIA
+            return View();
+        }
+
+
+
 
         // Lectura del archivo Excel
 
@@ -481,30 +570,6 @@ namespace SIFIET.Presentacion.Controllers
                 Dispose();
                 return RedirectToAction("Index");
             }
-        }
-
-        public ActionResult RegistrarHorario(decimal idCurso)
-        {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Activo");
-            ViewBag.ListaDias = FachadaSIFIET.ConsultarSalones(0, "","Activo");
-            ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
-            ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
-            return View(FachadaSIFIET.VisualizarCurso(idCurso));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegistrarHorario(FormCollection datos)
-        {
-            //AQUI VA LA LOGICA DE EDITAR LA FRANJA HORARIA
-            ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(decimal.Parse(datos["idCurso"]));
-            return View(FachadaSIFIET.VisualizarCurso(decimal.Parse(datos["idCurso"])));
-        }
-
-        public ActionResult EliminarHorario(FormCollection datos)
-        {
-            //AQUI VA LA LOGICA DE Eliminar LA FRANJA HORARIA
-            return View();
         }
     }
 }
