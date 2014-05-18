@@ -320,3 +320,16 @@ function confirmarEliminarAsignaturaPlanEstudio() {
 
 
 /* Fin validacion plan de  estudio */
+
+
+function confirmSalirHorario() {
+    var r = confirm('¿Confirma que desea terminar la accion?');
+    var url = window.location.pathname;
+    var pathArray = url.split('/');        // <-- no need in "string()"
+    var host = pathArray[0];
+    var newHost = '/Cursos/Index';
+    if (r == true) {
+        window.location = host + newHost;
+    }
+    return false;
+}
