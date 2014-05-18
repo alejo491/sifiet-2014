@@ -51,9 +51,9 @@
         });
     });
 </script>
-@using (Html.BeginForm())
-{
+
     @Html.ValidationSummary(true)
+   @Html.Hidden("idCurso", ViewData["idCurso"])
     <div>
         <label>Seleccionar Salon: </label>
     </div>
@@ -78,4 +78,4 @@
     <div>
         @Html.DropDownList("HORAFINFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Fin---", new { id = "HORAFINFRANJA" })
     </div>
-}
+

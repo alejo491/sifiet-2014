@@ -66,6 +66,18 @@ namespace SIFIET.Aplicacion
         {
             return FachadaFranjasHorarias.ConsultarFranjaHorariaDisponible(idSalon, dia, horaInicio, horaFin);
         }
+
+        public static void RegistrarFranjaHoraria(FRANJA_HORARIA franja, decimal idCurso)
+        {
+            FachadaFranjasHorarias.RegistrarFranjaHoraria(franja, idCurso);
+
+        }
+
+        public static void EliminarFranjaHoraria(int idCurso ,int idHorario )
+        {
+            FachadaFranjasHorarias.EliminarFranjaHoraria(idCurso, idHorario);
+        }
+
         #endregion
     }
 }

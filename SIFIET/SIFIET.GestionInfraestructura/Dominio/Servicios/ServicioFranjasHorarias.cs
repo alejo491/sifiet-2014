@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,26 +120,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             }
             return resultado;
         }
-        private List<FRANJA_HORARIA> crearFranjaHorarias()
-        {
-            var lstDias = CrearListaDias();
-            var lstHoras = CrearListaHoras();
-            var lstFranjas = new List<FRANJA_HORARIA>();
-            foreach (var dia in lstDias)
-            {
-                foreach (var hora in lstHoras)
-                {
-                    var oFraja = new FRANJA_HORARIA()
-                    {
-                        DIAFRANJA = dia,
-                        HORAINICIOFRANJA = hora.ToString(),
-                        HORAFINFRANJA = (hora+1).ToString(),
-                    };
-                    lstFranjas.Add(oFraja);
-                }
-            }
-            return lstFranjas;
-        }
+        
 
         private static List<string> CrearListaDias()
         {
@@ -154,6 +136,30 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 lstHoras.Add(i);
             }
             return lstHoras;
-        } 
+        }
+
+        public static void RegistrarFranjaHoraria(FRANJA_HORARIA franja,decimal idCurso)
+        {
+            var db = new GestionInfraestructuraEntities();
+            (from e in db.CURSOes 
+                       where e.IDENTIFICADORCURSO==idCurso
+                       select e
+                           ).FirstOrDefault().FRANJA_HORARIA.Add(franja);
+            
+            db.SaveChanges();
+        
+        }
+
+        internal static void EliminarFranjaHoraria(int idCurso, int idHorario)
+        {
+            var db = new GestionInfraestructuraEntities();
+
+            FRANJA_HORARIA horario = (from e in db.FRANJA_HORARIA
+             where e.IDENTIFICADORFRANJA == idHorario
+             select e).FirstOrDefault();
+
+            db.FRANJA_HORARIA.Remove(horario);
+            db.SaveChanges();    
+        }
     }
 }
