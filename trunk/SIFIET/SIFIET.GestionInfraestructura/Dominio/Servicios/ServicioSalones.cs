@@ -205,10 +205,10 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
         public static List<FRANJA_HORARIA> ObtenerHorarioCurso(decimal idCurso)
         {
             var db = new GestionInfraestructuraEntities();
-            List<FRANJA_HORARIA> lista = (from e in db.FRANJA_HORARIA
-                     
+            List<FRANJA_HORARIA> lista = (from e in db.CURSOes
+                                          where e.IDENTIFICADORCURSO == idCurso
                          
-                     select e).ToList();
+                     select e).FirstOrDefault().FRANJA_HORARIA.ToList();
             return lista;
         }
     }

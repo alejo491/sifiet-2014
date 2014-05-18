@@ -21,5 +21,17 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
         {
             return ServicioFranjasHorarias.ConsultarFranjaHorariaDisponible(idSalon,dia,horaInicio,horaFin);
         }
+
+
+        public static void RegistrarFranjaHoraria(FRANJA_HORARIA franja, decimal idCurso)
+        {
+            ServicioFranjasHorarias.RegistrarFranjaHoraria(franja,idCurso);
+
+        }
+
+        public static void EliminarFranjaHoraria(int idCurso, int idHorario)
+        {
+            ServicioFranjasHorarias.EliminarFranjaHoraria(idCurso, idHorario);
+        }
     }
 }
