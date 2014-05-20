@@ -48,6 +48,26 @@ namespace SIFIET.Aplicacion
         {
             return FachadaSalones.EliminarSalon(idSalon);
         }
+
+        public static bool CargarInformacionSalon(string archivo)
+        {
+            return FachadaSalones.CargarInformacion(archivo);
+        }
+
+        public static bool VerificarExistenciaSalon(string nombreSalon)
+        {
+            return FachadaSalones.VerificarExistenciaSalon(nombreSalon);
+        }
+
+        public static bool VerificarCampoFacultad(string nombreFacultad)
+        {
+            return FachadaSalones.VerificarCampoFacultad(nombreFacultad);
+        }
+
+        public static string ObtenerIdFacultad(string nombreFacultad)
+        {
+            return FachadaSalones.ObtenerIdFacultad(nombreFacultad);
+        }
         #endregion
 
         #region Metodos Gestion de Infraestructura Fachada FranjaHorarias

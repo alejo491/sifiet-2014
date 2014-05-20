@@ -39,7 +39,8 @@
         })
     <p>
         @Html.ActionLink("Agregar", "RegistrarSalon")
-        @Html.Encode(ViewData["UpSession"])
+        @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
+        <h3> @TempData["UpSession"] </h3>
         <h3> @ViewBag.Resultado </h3>
     </p>
 </div>

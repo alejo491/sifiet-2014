@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "CargarInformacion";
+}
+@using System.Data
+@model System.Data.DataSet
+
+@using (Html.BeginForm("CargarArchivo", "Salones", FormMethod.Post, new {enctype = "multipart/form-data"}))
+   {
+   <fieldset>
+       
+       <legend>Cargar Informacion</legend>
+
+            <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+            <input type="submit" value="Abrir"/>
+
+    <div style="height:300px;width:600px;overflow:scroll;">
+
+        @if (Model != null)
+        {
+            <p>A continuacion se muestran los datos que se desean agregar: </p>
+            <table>
+                <tr>
+                    <th>NombreFacultad</th>
+                    <th>NombreSalon</th>
+                    <th>EstadoSalon</th>
+                </tr>
+                @foreach(DataRow dr in Model.Tables[0].Rows)
+                {
+                    <tr>
+                        <td>
+                            @dr[0].ToString()
+                        </td>
+                        <td>
+                            @dr[1].ToString()
+                        </td>
+                        <td>
+                            @dr[2].ToString()
+                        </td> 
+                    </tr>  
+                }
+        
+            </table> 
+        }
+    </div>
+    </fieldset>
+   }  
+<br/>
+<div>
+    
+    @if (TempData["DatosOkSession"].ToString().Equals("Los datos cargardos son validos"))
+    {
+        @Html.ActionLink("Cargar", "EnviarDatos")
+    }
+    @Html.ActionLink("Cancelar", "CargarArchivo", null, new { onclick = " return confirmSalirCargarArchivo(); " })
+    <h3> @TempData["DatosOkSession"] </h3>
+    <font color="red"> @TempData["ErroresSession"] </font>
+</div>

@@ -156,7 +156,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             {
                 while ((linea = f.ReadLine()) != null)
                 {
-                    string[] campos = linea.Split(',');
+                    string[] campos = linea.Split('|');
                     var db = new GestionProgramasEntities();
 
                     var asg = new ASIGNATURA();
