@@ -289,6 +289,7 @@ namespace SIFIET.Presentacion.Controllers
             string erroresTupla = "", MsjBDerrores = "Los registros no pueden ser almacenados en la base da datos.";
             bool validar;
             int numTupla = 1;
+            string[] campos;
             List<int> validadorC = new List<int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
@@ -322,52 +323,60 @@ namespace SIFIET.Presentacion.Controllers
                                         " ya existe.";
                 }
 
-                if (row[1].ToString().Length < 250)
+                campos = row[1].ToString().Split(',');
+                foreach (var var in campos)
                 {
-                    if (!row[1].ToString().Equals(""))
+                    if (row[1].ToString().Length < 250)
                     {
-                        validar = VerificarCampoCoRequisitosAsignatura(row[1].ToString());
-                        if (validar)
+                        if (!row[1].ToString().Equals(""))
                         {
-                            validadorC.Add(1);
-                        }
-                        else
-                        {
-                            validadorC.Add(0);
-                            erroresTupla = erroresTupla + "El CoRequisito(s) " + row[1] + " en la tupla " + numTupla +
-                                    " no fue encontrado.";
+                            validar = VerificarCampoCoRequisitosAsignatura(var);
+                            if (validar)
+                            {
+                                validadorC.Add(1);
+                            }
+                            else
+                            {
+                                validadorC.Add(0);
+                                erroresTupla = erroresTupla + "El CoRequisito(s) " + var + " en la tupla " + numTupla +
+                                               " no fue encontrado.";
+                            }
                         }
                     }
-                }
-                else
-                {
-                    validadorC.Add(0);
-                    erroresTupla = erroresTupla + "El campo CoRequisito(s) de la tupla " + numTupla +
-                                   " supera la cantidad de caracteres permitidos (250).";
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El campo CoRequisito(s) de la tupla " + numTupla +
+                                       " supera la cantidad de caracteres permitidos (250).";
+                    }
                 }
 
-                if (row[2].ToString().Length < 250)
+                campos = row[2].ToString().Split(',');
+                foreach (var var in campos)
                 {
-                    if (!row[2].ToString().Equals(""))
+                    if (row[2].ToString().Length < 250)
                     {
-                        validar = VerificarCampoPreRequisitosAsignatura(row[2].ToString());
-                        if (validar)
+                        if (!row[2].ToString().Equals(""))
                         {
-                            validadorC.Add(1);
-                        }
-                        else
-                        {
-                            validadorC.Add(0);
-                            erroresTupla = erroresTupla + "El PreRequisito(s) " + row[2] +
-                                           " en la tupla " + numTupla + " no fue encontrado.";
+                            validar = VerificarCampoPreRequisitosAsignatura(var);
+                            if (validar)
+                            {
+                                validadorC.Add(1);
+                            }
+                            else
+                            {
+                                validadorC.Add(0);
+                                erroresTupla = erroresTupla + "El PreRequisito(s) " + var +
+                                               " en la tupla " + numTupla + " no fue encontrado.";
+                            }
                         }
                     }
-                }
-                else
-                {
-                    validadorC.Add(0);
-                    erroresTupla = erroresTupla + "El campo PreRequisito(s) de la tupla " + numTupla +
-                                   " supera la cantidad de caracteres permitidos (250).";
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El campo PreRequisito(s) de la tupla " + numTupla +
+                                       " supera la cantidad de caracteres permitidos (250).";
+                    }
                 }
 
                 if (!row[3].ToString().Equals(""))
@@ -555,8 +564,8 @@ namespace SIFIET.Presentacion.Controllers
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    wr.WriteLine(row[0] + "," + row[1] + "," + row[2] + "," + row[3] +
-                                 "," + row[4] + "," + row[5] + "," + row[6] + "," + row[7] + "," +
+                    wr.WriteLine(row[0] + "|" + row[1] + "|" + row[2] + "|" + row[3] +
+                                 "|" + row[4] + "|" + row[5] + "|" + row[6] + "|" + row[7] + "|" +
                                  row[8]);
                 }
                 wr.Dispose();
