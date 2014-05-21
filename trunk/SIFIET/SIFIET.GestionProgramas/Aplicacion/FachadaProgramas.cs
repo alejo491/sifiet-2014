@@ -45,5 +45,20 @@ namespace SIFIET.GestionProgramas.Aplicacion
         {
            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.CargarInformacion(datosExcel);
         }
+
+        public static bool VerificarExistenciaPrograma(string nombrePrograma)
+        {
+            return ServicioProgramas.VerificarExistenciaPrograma(nombrePrograma);
+        }
+
+        public static string ObtenerIdPrograma(string nombrePrograma)
+        {
+            return ServicioProgramas.ObtenerIdPrograma(nombrePrograma);
+        }
+
+        public static bool VerificarExistenciaFacultad(string nombreFacultad)
+        {
+            return ServicioProgramas.VerificarExistenciaFacultad(nombreFacultad);
+        }
     }
 }

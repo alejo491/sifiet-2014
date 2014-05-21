@@ -142,5 +142,43 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         }
 
 
+        public static bool VerificarExistenciaPrograma(string nombrePrograma)
+        {
+            var db = new GestionProgramasEntities();
+            var curso = (from e in db.PROGRAMAs
+                         where e.NOMBREPROGRAMA.ToLower() == nombrePrograma.ToLower()
+                         select e).FirstOrDefault();
+            if (curso != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static string ObtenerIdPrograma(string nombrePrograma)
+        {
+            var db = new GestionProgramasEntities();
+            var asig = (from e in db.PROGRAMAs
+                        where e.NOMBREPROGRAMA.ToLower() == nombrePrograma.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return asig.IDENTIFICADORPROGRAMA.ToString();
+            }
+            return "";
+        }
+
+        public static bool VerificarExistenciaFacultad(string nombreFacultad)
+        {
+            var db = new GestionProgramasEntities();
+            var curso = (from e in db.FACULTADs
+                         where e.NOMBREFACULTAD.ToLower() == nombreFacultad.ToLower()
+                         select e).FirstOrDefault();
+            if (curso != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
