@@ -111,17 +111,30 @@ namespace SIFIET.Presentacion.Controllers
                 var resultado = FachadaSIFIET.ModificarCurso(oCurso);
 
                 if (resultado)
+                {
                     TempData["ResultadoOperacion"] = "Curso Modificado con Exito";
+                    oCurso = FachadaSIFIET.VisualizarCurso(oCurso.IDENTIFICADORCURSO);
+                    return RedirectToAction("ModificarHorario", oCurso);
+                }
                 else
+                {
                     TempData["ResultadoOperacion"] = "Fallo al Modificar el Curso";
-                ViewBag.Mensaje = "false";
-                return RedirectToAction("Index");
+                    ViewBag.Mensaje = "false";
+                    return RedirectToAction("Index");
+                }                    
             }
             catch
             {
                 return View(oCurso);
             }
         }
+
+        public ActionResult ModificarHorario(CURSO oCurso)
+        {
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Disponible");
+            ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);            
+            return View(oCurso);
+        }        
 
         public ActionResult EliminarCurso(decimal idCurso)
         {
@@ -220,7 +233,7 @@ namespace SIFIET.Presentacion.Controllers
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);
            // ViewBag.ListaDias = ViewBag.ListaFrajaDia = FachadaSIFIET.ConsultarFranjaHoraria();
             //ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
-            //ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            //ViewBag.ListaHoraFin = FachadaSIFIET.ConsultarSalones(0, "", "Activo");            
             return View(oCurso);
         }
 
