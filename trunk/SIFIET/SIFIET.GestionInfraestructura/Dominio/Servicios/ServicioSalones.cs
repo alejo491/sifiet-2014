@@ -257,8 +257,8 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
         {
             String linea;
             StreamReader f = new StreamReader(archivo);
-            try
-            {
+            /*try
+            {*/
             while ((linea = f.ReadLine()) != null)
             {
                 string[] campos = linea.Split(',');
@@ -275,12 +275,12 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             }
             f.Dispose();
             return true;
-            }
+            /*}
             catch (Exception)
             {
 
                 return false;
-            }
+            }*/
         }
     }
 }
