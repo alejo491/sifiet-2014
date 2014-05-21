@@ -150,7 +150,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             {
                 while ((linea = f.ReadLine()) != null)
                 {
-                    string[] campos = linea.Split('|');
+                    string[] campos = linea.Split(',');
                     var db = new GestionProgramasEntities();
 
                     var prog = new PROGRAMA();
@@ -194,12 +194,12 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         public static string ObtenerIdPrograma(string nombrePrograma)
         {
             var db = new GestionProgramasEntities();
-            var asig = (from e in db.PROGRAMAs
-                        where e.NOMBREPROGRAMA.ToLower() == nombrePrograma.ToLower()
+            var asig = (from e in db.FACULTADs
+                        where e.NOMBREFACULTAD.ToLower() == nombrePrograma.ToLower()
                         select e).FirstOrDefault();
             if (asig != null)
             {
-                return asig.IDENTIFICADORPROGRAMA.ToString();
+                return asig.IDENTIFICADORFACULTAD.ToString();
             }
             return "";
         }
