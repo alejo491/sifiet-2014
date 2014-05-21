@@ -680,7 +680,7 @@ namespace SIFIET.Presentacion.Controllers
 
                 Session.Remove("DatosSession");
                 bool retorno =
-                    FachadaSIFIET.CargarInformacionAsignatura(filePath);
+                    FachadaSIFIET.CargarInformacionPrograma(filePath);
                 if (retorno)
                 {
                     TempData["UpSession"] = "El archivo fué cargado con exito";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             }
         }
 
-        public static bool CargarInformacion(DataSet datosExcel)
+        /*public static bool CargarInformacion(DataSet datosExcel)
         {
             var db = new GestionProgramasEntities();
             if (datosExcel != null)
@@ -139,8 +140,43 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 }
             }
             return false;
-        }
+        }*/
 
+        internal static bool CargarInformacion(string archivo)
+        {
+            String linea;
+            StreamReader f = new StreamReader(archivo);
+            try
+            {
+                while ((linea = f.ReadLine()) != null)
+                {
+                    string[] campos = linea.Split('|');
+                    var db = new GestionProgramasEntities();
+
+                    var prog = new PROGRAMA();
+                    {
+                        prog.IDENTIFICADORFACULTAD = decimal.Parse(campos[0]);
+                        prog.NOMBREPROGRAMA = campos[1];
+                        prog.DESCRIPCIONPROGRAMA = campos[2];
+                        prog.JORNADAPROGRAMA = campos[3];
+                        prog.DURACIONPROGRAMA = decimal.Parse(campos[4]);
+                        prog.ADMISIONPROGRAMA = campos[5];
+                        prog.CODIGOSNIESPROGRAMA = decimal.Parse(campos[6]);
+                        prog.PERIODODURACIONPROGRAMA = campos[7];
+                        prog.ESTADOPROGRAMA = campos[8];
+                        prog.MODALIDADPROGRAMA = campos[9];
+                    }
+                    db.PROGRAMAs.Add(prog);
+                    db.SaveChanges();
+                }
+                f.Dispose();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public static bool VerificarExistenciaPrograma(string nombrePrograma)
         {

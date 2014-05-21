@@ -41,9 +41,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.EliminarProgramaAcademico(idPrograma);
         }
 
-        public static bool CargarInformacion(DataSet datosExcel)
+        public static bool CargarInformacion(string archivo)
         {
-           return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.CargarInformacion(datosExcel);
+            return SIFIET.GestionProgramas.Dominio.Servicios.ServicioProgramas.CargarInformacion(archivo);
         }
 
         public static bool VerificarExistenciaPrograma(string nombrePrograma)
