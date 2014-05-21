@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,15 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 {
     static class ServicioSalones
     {
-        public static List<SALON> ConsultarSalones(decimal idSalon,string nomSalon,string estado)
+        public static List<SALON> ConsultarSalones(decimal idSalon, string nomSalon, string estado)
         {
-        try
-          {
+            try
+            {
                 var db = new GestionInfraestructuraEntities();
                 var lista = new List<SALON>();
                 if (String.IsNullOrEmpty(nomSalon))
                 {
-                    if(String.IsNullOrEmpty(estado))
+                    if (String.IsNullOrEmpty(estado))
                         lista = (from e in db.SALONs select e).ToList();
                     else
                         lista = (from e in db.SALONs where e.ESTADOSALON.Equals(estado) select e).ToList();
@@ -29,9 +30,9 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                     {
                         var id = decimal.Parse(nomSalon);
                         lista = (from e in db.SALONs
-                            where
-                                (e.IDENTIFICADORSALON == id)
-                            select e).ToList();
+                                 where
+                                     (e.IDENTIFICADORSALON == id)
+                                 select e).ToList();
                         return lista;
                     }
                     if (idSalon == 2)
@@ -44,7 +45,8 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                     }
                     else
                     {
-                        lista = (from s in db.SALONs join f in db.FACULTADs on s.IDENTIFICADORFACULTAD equals f.IDENTIFICADORFACULTAD
+                        lista = (from s in db.SALONs
+                                 join f in db.FACULTADs on s.IDENTIFICADORFACULTAD equals f.IDENTIFICADORFACULTAD
                                  where
                                      (f.NOMBREFACULTAD.ToLower().Contains(nomSalon.ToLower()))
                                  select s).ToList();
@@ -52,11 +54,11 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                     }
 
                 }
-           }
-           catch (Exception)
-           {
-               return new List<SALON>();
-           }
+            }
+            catch (Exception)
+            {
+                return new List<SALON>();
+            }
 
 
         }
@@ -66,8 +68,8 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             {
                 var db = new GestionInfraestructuraEntities();
                 var salon = (from e in db.SALONs
-                                  where e.IDENTIFICADORSALON == idSalon
-                                  select e).FirstOrDefault();
+                             where e.IDENTIFICADORSALON == idSalon
+                             select e).FirstOrDefault();
                 return salon;
 
             }
@@ -86,10 +88,10 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 db.SALONs.Add(nuevoSalon);
                 db.SaveChanges();
                 var oSalon = (from salon in db.SALONs
-                    where
-                        nuevoSalon.NOMBRESALON.ToLower().Trim().Equals(salon.NOMBRESALON.ToLower().Trim()) &&
-                        nuevoSalon.IDENTIFICADORFACULTAD == salon.IDENTIFICADORFACULTAD
-                    select salon).FirstOrDefault();
+                              where
+                                  nuevoSalon.NOMBRESALON.ToLower().Trim().Equals(salon.NOMBRESALON.ToLower().Trim()) &&
+                                  nuevoSalon.IDENTIFICADORFACULTAD == salon.IDENTIFICADORFACULTAD
+                              select salon).FirstOrDefault();
                 return true;
 
             }
@@ -119,7 +121,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                             DIAFRANJA = d.ToString().Trim(),
                         };
                         db.Database.ExecuteSqlCommand("Insert into FRANJA_HORARIA (IDENTIFICADORSALON, HORAINICIOFRANJA,HORAFINFRANJA,DIAFRANJA,ESTADOFRANJA) values (" +
-                                              "'" + oFranjaHoraria.IDENTIFICADORSALON+ "'," +
+                                              "'" + oFranjaHoraria.IDENTIFICADORSALON + "'," +
                                               "'" + oFranjaHoraria.HORAINICIOFRANJA + "'," +
                                               "'" + oFranjaHoraria.HORAFINFRANJA + "'," +
                                               "'" + oFranjaHoraria.DIAFRANJA + "'," +
@@ -207,9 +209,78 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             var db = new GestionInfraestructuraEntities();
             List<FRANJA_HORARIA> lista = (from e in db.CURSOes
                                           where e.IDENTIFICADORCURSO == idCurso
-                         
-                     select e).FirstOrDefault().FRANJA_HORARIA.ToList();
+
+                                          select e).FirstOrDefault().FRANJA_HORARIA.ToList();
             return lista;
+        }
+
+        public static bool VerificarExistenciaSalon(string nombreSalon)
+        {
+            var db = new GestionInfraestructuraEntities();
+            var curso = (from e in db.SALONs
+                         where e.NOMBRESALON.ToLower() == nombreSalon.ToLower()
+                         select e).FirstOrDefault();
+            if (curso != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarCampoFacultad(string nombreFacultad)
+        {
+            var db = new GestionInfraestructuraEntities();
+            var asig = (from e in db.FACULTADs
+                        where e.NOMBREFACULTAD.ToLower() == nombreFacultad.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static string ObtenerIdFacultad(string nombreFacultad)
+        {
+            var db = new GestionInfraestructuraEntities();
+            var asig = (from e in db.FACULTADs
+                        where e.NOMBREFACULTAD.ToLower() == nombreFacultad.ToLower()
+                        select e).FirstOrDefault();
+            if (asig != null)
+            {
+                return asig.IDENTIFICADORFACULTAD.ToString();
+            }
+            return "";
+        }
+
+        internal static bool CargarInformacion(string archivo)
+        {
+            String linea;
+            StreamReader f = new StreamReader(archivo);
+            try
+            {
+            while ((linea = f.ReadLine()) != null)
+            {
+                string[] campos = linea.Split(',');
+                var db = new GestionInfraestructuraEntities();
+
+                var salon = new SALON()
+                {
+                    IDENTIFICADORFACULTAD = decimal.Parse(campos[0]),
+                    NOMBRESALON = campos[1],
+                    ESTADOSALON = campos[2]
+                };
+                db.SALONs.Add(salon);
+                db.SaveChanges();
+            }
+            f.Dispose();
+            return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }
