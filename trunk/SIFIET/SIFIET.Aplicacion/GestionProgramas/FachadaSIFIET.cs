@@ -45,9 +45,9 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.EliminarProgramaAcademico(idPrograma);
         }
 
-        public static bool CargarInformacion(DataSet datosExcel)
+        public static bool CargarInformacion(string archivo)
         {
-            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.CargarInformacion(datosExcel);
+            return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.CargarInformacion(archivo);
         }
 
         public static bool VerificarExistenciaFacultad(string nombreFacultad)
@@ -63,6 +63,10 @@ namespace SIFIET.Aplicacion
         public static string ObtenerIdPrograma(string nombrePrograma)
         {
             return FachadaProgramas.ObtenerIdPrograma(nombrePrograma);
+        }
+        public static bool CargarInformacionPrograma(string archivo)
+        {
+            return FachadaProgramas.CargarInformacion(archivo);
         }
 
         #endregion
@@ -288,5 +292,6 @@ namespace SIFIET.Aplicacion
         {
             return FachadaSalones.CargarInformacion(archivo);
         }*/
+
     }
 }
