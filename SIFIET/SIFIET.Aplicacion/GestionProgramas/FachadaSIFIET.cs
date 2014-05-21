@@ -50,6 +50,21 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionProgramas.Aplicacion.FachadaProgramas.CargarInformacion(datosExcel);
         }
 
+        public static bool VerificarExistenciaFacultad(string nombreFacultad)
+        {
+            return FachadaProgramas.VerificarExistenciaFacultad(nombreFacultad);
+        }
+
+        public static bool VerificarExistenciaPrograma(string nombrePrograma)
+        {
+            return FachadaProgramas.VerificarExistenciaPrograma(nombrePrograma);
+        }
+
+        public static string ObtenerIdPrograma(string nombrePrograma)
+        {
+            return FachadaProgramas.ObtenerIdPrograma(nombrePrograma);
+        }
+
         #endregion
         //Metodos dirigidos a Fachada Asignaturas en el dominio de Gestion de Programas
         #region Metodos Gestion de Asignaturas
@@ -104,9 +119,6 @@ namespace SIFIET.Aplicacion
         {
             return FachadaAsignaturas.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);
         }
-
-
-
         #endregion
         //Metodos dirigidos a Fachada Plan de Estudio en el dominio de Plan de Estudios
         #region Metodos Gestion Plan Estudios

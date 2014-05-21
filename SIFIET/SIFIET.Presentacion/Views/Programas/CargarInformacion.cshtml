@@ -1,53 +1,85 @@
 ﻿@{
-    ViewBag.Title = "CargarDatos";
+    ViewBag.Title = "CargarInformacion";
 }
-
-
-
+@using System.Data
 @model System.Data.DataSet
- 
-@if(Model == null){
-    <h2>Cargar Datos</h2>
-    using (Html.BeginForm("CargarInformacion", "Programas", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div>
-            Seleccionar Archivo
-            <input type="file" name="archivo" /><br/>
-            <input type="submit" value="Subir" name="Command" /><br />
-        </div>
-        <div>
-        </div>
-    }
-}                    
-else
-{    
-    <h2>DATOS CARGADOS</h2>
-    <table>
-        <tr>
-            <th>Nombre</th><th>Jornada</th><th>Duración</th><th>Codigo SNIES</th>
-        </tr>
-        @for (int i = 0; i < Model.Tables[0].Rows.Count; i++)
-     {
-         <tr>
-            <td>
-                @Model.Tables[0].Rows[i][1].ToString()
-            </td>
-            <td>
-                @Model.Tables[0].Rows[i][3].ToString()
-            </td>
-            <td>
-                @Model.Tables[0].Rows[i][4].ToString()
-            </td>
-            <td>
-                @Model.Tables[0].Rows[i][6].ToString()
-            </td>        
-        </tr>  
-    }
-    </table> 
-}
-          
-<h3> @ViewBag.ResultadoOperacion </h3>
 
+@using (Html.BeginForm("CargarArchivo", "Programas", FormMethod.Post, new {enctype = "multipart/form-data"}))
+   {
+   <fieldset>
+       
+       <legend>Cargar Informacion</legend>
+
+            <input name="archivo" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+            <input type="submit" value="Abrir"/>
+
+    <div style="height:300px;width:600px;overflow:scroll;">
+
+        @if (Model != null)
+        {
+            <p>A continuacion se muestran los datos que se desean agregar: </p>
+            <table>
+                <tr>
+                    <th>NombreFacultad</th>
+                    <th>NombrePrograma</th>
+                    <th>DescripcionPrograma</th>
+                    <th>JornadaPrograma</th>
+                    <th>DuracionPrograma</th>
+                    <th>AdmisionPrograma</th>
+                    <th>CodigoSNIES</th>
+                    <th>PeriodoDuracionPrograma</th>
+                    <th>EstadoPrograma</th>
+                    <th>ModalidadPrograma</th>
+                </tr>
+                @foreach(DataRow dr in Model.Tables[0].Rows)
+                {
+                    <tr>
+                        <td>
+                            @dr[0].ToString()
+                        </td>
+                        <td>
+                            @dr[1].ToString()
+                        </td>
+                        <td>
+                            @dr[2].ToString()
+                        </td>
+                        <td>
+                            @dr[3].ToString()
+                        </td>     
+                        <td>
+                            @dr[4].ToString()
+                        </td> 
+                        <td>
+                            @dr[5].ToString()
+                        </td>   
+                        <td>
+                            @dr[6].ToString()
+                        </td> 
+                        <td>
+                            @dr[7].ToString()
+                        </td>
+                        <td>
+                            @dr[8].ToString()
+                        </td> 
+                        <td>
+                            @dr[9].ToString()
+                        </td> 
+                    </tr>  
+                }
+        
+            </table> 
+        }
+    </div>
+    </fieldset>
+   }  
+<br/>
 <div>
-    @Html.ActionLink("Ir a inicio", "Index")
+    
+    @if (TempData["DatosOkSession"].ToString().Equals("Los datos cargardos son validos"))
+    {
+        @Html.ActionLink("Cargar", "EnviarDatos")
+    }
+    @Html.ActionLink("Cancelar", "CargarArchivo", null, new { onclick = " return confirmSalirCargarArchivo(); " })
+    <h3> @TempData["DatosOkSession"] </h3>
+    <font color="red"> @TempData["ErroresSession"] </font>
 </div>

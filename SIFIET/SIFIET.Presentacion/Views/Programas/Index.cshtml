@@ -68,8 +68,9 @@
         })
 
 <p>
-    @Html.ActionLink("Cargar desde Archivo", "CargarInformacion")
     @Html.ActionLink("Agregar", "RegistrarProgramaAcademico")
+    @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
+    <h3> @TempData["UpSession"] </h3>
 </p>
 
 <h3> @ViewBag.ResultadoOperacion </h3>
