@@ -117,8 +117,13 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             {
                 var db = new GestionProgramasEntities();
 
-                var curso = (from cur in db.CURSOes where cur.IDENTIFICADORCURSO == idCurso select cur).First();
-                db.CURSOes.Remove(curso);
+                var curso = db.CURSOes.Find(idCurso);
+                curso.ESTADOCURSO = "Eliminado";
+                List<FRANJA_HORARIA> lstFranjasHorarias = curso.FRANJA_HORARIA.ToList();
+                foreach (FRANJA_HORARIA franja in lstFranjasHorarias)
+                {
+                    db.FRANJA_HORARIA.Remove(franja);
+                }                 
                 db.SaveChanges();
                 return true;
 

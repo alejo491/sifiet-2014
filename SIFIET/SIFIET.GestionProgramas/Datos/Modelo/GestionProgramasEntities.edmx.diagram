@@ -24,6 +24,8 @@
         <AssociationConnector Association="Model.FK_PROGRAMA_FACULTAD__FACULTAD" />
         <AssociationConnector Association="Model.FK_PLANESTU_PROGRAMA__PROGRAMA" />
         <AssociationConnector Association="Model.DEPARTAMENTO_SOPORTA_PROGRAMA" />
+        <EntityTypeShape EntityType="Model.FRANJA_HORARIA" Width="1.5" PointX="7.5" PointY="9.75" />
+        <AssociationConnector Association="Model.FK_FRANJA_H_CURSO_TIE_CURSO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -79,6 +79,18 @@
           <Property Name="ESTADOFACULTAD" Type="varchar2" MaxLength="30" />
           <Property Name="CODIGOFACULTAD" Type="varchar2" MaxLength="15" />
         </EntityType>
+        <EntityType Name="FRANJA_HORARIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFRANJA" />
+          </Key>
+          <Property Name="IDENTIFICADORFRANJA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="HORAINICIOFRANJA" Type="varchar2" MaxLength="10" />
+          <Property Name="HORAFINFRANJA" Type="varchar2" MaxLength="10" />
+          <Property Name="DIAFRANJA" Type="varchar2" MaxLength="124" />
+          <Property Name="ESTADOFRANJA" Type="varchar2" MaxLength="10" />
+        </EntityType>
         <EntityType Name="GRUPO_INVESTIGACION">
           <Key>
             <PropertyRef Name="IDENTIFICADORGRUPOINVES" />
@@ -204,6 +216,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FRANJA_H_CURSO_TIE_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
+          <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORCURSO" />
+            </Principal>
+            <Dependent Role="FRANJA_HORARIA">
+              <PropertyRef Name="IDENTIFICADORCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM">
           <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
           <End Role="GRUPO_INVESTIGACION" Type="Self.GRUPO_INVESTIGACION" Multiplicity="*" />
@@ -260,6 +284,7 @@
           <EntitySet Name="DEPARTAMENTO_SOPORTA_PROGRAMA" EntityType="Self.DEPARTAMENTO_SOPORTA_PROGRAMA" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="DOCENTE" EntityType="Self.DOCENTE" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="FACULTAD" EntityType="Self.FACULTAD" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="FRANJA_HORARIA" EntityType="Self.FRANJA_HORARIA" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="GRUPO_INVESTIGACION" EntityType="Self.GRUPO_INVESTIGACION" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="PLANESTUDIOS" EntityType="Self.PLANESTUDIOS" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="PROGRAMA" EntityType="Self.PROGRAMA" Schema="GPA" store:Type="Tables" />
@@ -290,6 +315,10 @@
           <AssociationSet Name="FK_DOCENTE_DOCENTE_P_DEPARTAM" Association="Self.FK_DOCENTE_DOCENTE_P_DEPARTAM">
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
             <End Role="DOCENTE" EntitySet="DOCENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRANJA_H_CURSO_TIE_CURSO" Association="Self.FK_FRANJA_H_CURSO_TIE_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
           </AssociationSet>
           <AssociationSet Name="FK_GRUPO_IN_DEPARTAME_DEPARTAM" Association="Self.FK_GRUPO_IN_DEPARTAME_DEPARTAM">
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
@@ -362,6 +391,11 @@
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTOes" />
             <End Role="PROGRAMA" EntitySet="PROGRAMAs" />
           </AssociationSet>
+          <EntitySet Name="FRANJA_HORARIA" EntityType="Model.FRANJA_HORARIA" />
+          <AssociationSet Name="FK_FRANJA_H_CURSO_TIE_CURSO" Association="Model.FK_FRANJA_H_CURSO_TIE_CURSO">
+            <End Role="CURSO" EntitySet="CURSOes" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ASIGNATURA">
           <Key>
@@ -402,6 +436,7 @@
           <Property Name="ESTADOCURSO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASIGNATURA" Relationship="Model.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="CURSO" ToRole="ASIGNATURA" />
           <NavigationProperty Name="DOCENTE" Relationship="Model.FK_CURSO_DOCENTE_D_DOCENTE" FromRole="CURSO" ToRole="DOCENTE" />
+          <NavigationProperty Name="FRANJA_HORARIA" Relationship="Model.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="CURSO" ToRole="FRANJA_HORARIA" />
         </EntityType>
         <EntityType Name="DEPARTAMENTO">
           <Key>
@@ -602,6 +637,31 @@
           <End Type="Model.DEPARTAMENTO" Role="DEPARTAMENTO" Multiplicity="*" />
           <End Type="Model.PROGRAMA" Role="PROGRAMA" Multiplicity="*" />
         </Association>
+        <EntityType Name="FRANJA_HORARIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORFRANJA" />
+          </Key>
+          <Property Name="IDENTIFICADORFRANJA" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORSALON" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="HORAINICIOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HORAFINFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DIAFRANJA" Type="String" MaxLength="124" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CURSO" Relationship="Model.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="FRANJA_HORARIA" ToRole="CURSO" />
+        </EntityType>
+        <Association Name="FK_FRANJA_H_CURSO_TIE_CURSO">
+          <End Type="Model.CURSO" Role="CURSO" Multiplicity="1" />
+          <End Type="Model.FRANJA_HORARIA" Role="FRANJA_HORARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORCURSO" />
+            </Principal>
+            <Dependent Role="FRANJA_HORARIA">
+              <PropertyRef Name="IDENTIFICADORCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -731,6 +791,19 @@
               <ScalarProperty Name="IDENTIFICADORDEPARTAMENTO" ColumnName="IDENTIFICADORDEPARTAMENTO" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="FRANJA_HORARIA">
+            <EntityTypeMapping TypeName="Model.FRANJA_HORARIA">
+              <MappingFragment StoreEntitySet="FRANJA_HORARIA">
+                <ScalarProperty Name="ESTADOFRANJA" ColumnName="ESTADOFRANJA" />
+                <ScalarProperty Name="DIAFRANJA" ColumnName="DIAFRANJA" />
+                <ScalarProperty Name="HORAFINFRANJA" ColumnName="HORAFINFRANJA" />
+                <ScalarProperty Name="HORAINICIOFRANJA" ColumnName="HORAINICIOFRANJA" />
+                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
+                <ScalarProperty Name="IDENTIFICADORFRANJA" ColumnName="IDENTIFICADORFRANJA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

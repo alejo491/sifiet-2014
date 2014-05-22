@@ -34,5 +34,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         public DbSet<GRUPO_INVESTIGACION> GRUPO_INVESTIGACION { get; set; }
         public DbSet<PLANESTUDIO> PLANESTUDIOS { get; set; }
         public DbSet<PROGRAMA> PROGRAMAs { get; set; }
+        public DbSet<FRANJA_HORARIA> FRANJA_HORARIA { get; set; }
     }
 }
