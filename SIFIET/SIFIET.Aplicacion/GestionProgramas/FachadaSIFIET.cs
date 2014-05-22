@@ -60,9 +60,9 @@ namespace SIFIET.Aplicacion
             return FachadaProgramas.VerificarExistenciaPrograma(nombrePrograma);
         }
 
-        public static string ObtenerIdPrograma(string nombrePrograma)
+        public static string ObtenerIdFacultadProg(string nombreFacultad)
         {
-            return FachadaProgramas.ObtenerIdPrograma(nombrePrograma);
+            return FachadaProgramas.ObtenerIdFacultad(nombreFacultad);
         }
         public static bool CargarInformacionPrograma(string archivo)
         {

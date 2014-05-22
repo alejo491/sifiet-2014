@@ -214,11 +214,12 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             return lista;
         }
 
-        public static bool VerificarExistenciaSalon(string nombreSalon)
+        public static bool VerificarExistenciaSalon(string nombreSalon, decimal IdFacultad)
         {
             var db = new GestionInfraestructuraEntities();
             var curso = (from e in db.SALONs
                          where e.NOMBRESALON.ToLower() == nombreSalon.ToLower()
+                         && e.IDENTIFICADORFACULTAD== IdFacultad
                          select e).FirstOrDefault();
             if (curso != null)
             {

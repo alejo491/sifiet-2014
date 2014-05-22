@@ -54,9 +54,9 @@ namespace SIFIET.Aplicacion
             return FachadaSalones.CargarInformacion(archivo);
         }
 
-        public static bool VerificarExistenciaSalon(string nombreSalon)
+        public static bool VerificarExistenciaSalon(string nombreSalon, string IdFacultad)
         {
-            return FachadaSalones.VerificarExistenciaSalon(nombreSalon);
+            return FachadaSalones.VerificarExistenciaSalon(nombreSalon, IdFacultad);
         }
 
         public static bool VerificarCampoFacultad(string nombreFacultad)

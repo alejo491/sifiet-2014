@@ -273,8 +273,9 @@ namespace SIFIET.Presentacion.Controllers
         public bool ValidarCampos(DataSet ds)
         {
             string erroresTupla = "", MsjBDerrores = "Los registros no pueden ser almacenados en la base da datos.";
-            bool validar;
+            bool validar = false;
             int numTupla = 1;
+            string IdFacultad;
             List<int> validadorC = new List<int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
@@ -308,7 +309,12 @@ namespace SIFIET.Presentacion.Controllers
                                         " no fue encontrado.";
                 }
 
-                validar = VerificarExistenciaSalon(row[1].ToString());
+                IdFacultad = ObtenerIdFacultad(row[0].ToString());
+                if (!IdFacultad.Equals(""))
+                {
+                    validar = VerificarExistenciaSalon(row[1].ToString(), IdFacultad);
+                }
+                
                 if (!validar)
                 {
                     if (row[0].ToString().Length < 120)
@@ -384,10 +390,11 @@ namespace SIFIET.Presentacion.Controllers
 
         //Funciones necesarias para validacion de la informacion del DataSet, obtienen la existencia de tuplas o informacion de campos
 
-        private bool VerificarExistenciaSalon(string nombreSalon)
+        private bool VerificarExistenciaSalon(string nombreSalon, string IdFacultad)
         {
             bool verificarC = false;
-            verificarC = FachadaSIFIET.VerificarExistenciaSalon(nombreSalon);
+
+            verificarC = FachadaSIFIET.VerificarExistenciaSalon(nombreSalon, IdFacultad);
             return verificarC;
         }
 
