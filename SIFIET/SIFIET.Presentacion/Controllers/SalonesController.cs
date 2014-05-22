@@ -17,10 +17,10 @@ namespace SIFIET.Presentacion.Controllers
         {
             ViewData["Mensaje"] = Session["varsession"];
             ViewBag.Resultado = TempData["ResultadoOperacion"] as string;
-            var identificacion = new SelectListItem() { Value = "1", Text = "Identificador" };
+            //var identificacion = new SelectListItem() { Value = "1", Text = "Identificador" };
             var nombresalon = new SelectListItem() { Value = "2", Text = "Nombre" };
             var nombreFacultad = new SelectListItem() { Value = "3", Text = "Facultad" };
-            var lista = new List<SelectListItem> {identificacion, nombresalon, nombreFacultad};
+            var lista = new List<SelectListItem> {nombresalon, nombreFacultad};
             ViewBag.campoBusqueda = new SelectList(lista, "value", "text");
                 if (idSalon == null | String.IsNullOrEmpty(nombreSalon))
                     return View(FachadaSIFIET.ConsultarSalones(0, nombreSalon,estado));

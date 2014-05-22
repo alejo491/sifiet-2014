@@ -11,7 +11,7 @@
     {
         <script> mensajeNoUsuarios(); </script>
     }
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Get))
     {
         <p>
             Activos @Html.RadioButton("estado", "Activo", true) Inactivos @Html.RadioButton("estado", "Inactivo") Campo: @Html.DropDownList("idSalon", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreSalon")
@@ -28,7 +28,6 @@
 
             grid.Column("NOMBRESALON",header:"Nombre"),
             grid.Column("NombreFacultad",header:"Facultad"),
-            grid.Column("ESTADOSALON",header:"Estado"),
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON }) |

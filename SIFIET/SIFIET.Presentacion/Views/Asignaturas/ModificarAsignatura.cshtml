@@ -71,9 +71,7 @@
                     @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
                 </div>
             </div>
-            @if (Model.ESTADOASIGNATURA.Equals("Inactivo"))
-            {
-                <div>
+            <div>
                     Estado :
                     <div>
                         Activo @Html.RadioButtonFor(model => model.ESTADOASIGNATURA, "Activo")
@@ -81,11 +79,6 @@
                         @Html.ValidationMessageFor(model => model.ESTADOASIGNATURA)
                     </div>
                 </div>
-            }
-            @if (!Model.ESTADOASIGNATURA.Equals("Inactivo"))
-            {
-                @Html.HiddenFor(model => model.ESTADOASIGNATURA, new { @Value = "Activo" })
-            }
             <div>
                 Descripcion :
                 <div>
