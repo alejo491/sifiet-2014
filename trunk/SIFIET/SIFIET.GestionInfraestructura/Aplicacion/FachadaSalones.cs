@@ -40,9 +40,9 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
             return ServicioSalones.ObtenerHorarioCurso(idCurso);
         }
 
-        public static bool VerificarExistenciaSalon(string nombreSalon)
+        public static bool VerificarExistenciaSalon(string nombreSalon, string IdFacultad)
         {
-            return ServicioSalones.VerificarExistenciaSalon(nombreSalon);
+            return ServicioSalones.VerificarExistenciaSalon(nombreSalon, decimal.Parse(IdFacultad));
         }
 
         public static bool VerificarCampoFacultad(string nombreFacultad)

@@ -369,6 +369,8 @@ namespace SIFIET.Presentacion.Controllers
         {
             string erroresTupla = "", MsjBDerrores = "Los registros no pueden ser almacenados en la base da datos.";
             bool validar;
+            bool canConvert;
+            long number1 = 0;
             int numTupla = 1;
             string[] campos;
             List<int> validadorC = new List<int>();
@@ -536,7 +538,17 @@ namespace SIFIET.Presentacion.Controllers
                 
                 if (!row[6].ToString().Equals(""))
                 {
-                    validadorC.Add(1);
+                    canConvert = long.TryParse(row[6].ToString(), out number1);
+                    if (canConvert == true)
+                    {
+                        validadorC.Add(1);
+                    }
+                    else
+                    {
+                        validadorC.Add(0);
+                        erroresTupla = erroresTupla + "El CodigoSNIES " + row[6] + "de la tupla " + numTupla +
+                                        " no es valido.";
+                    }
                 }
                 else
                 {
@@ -654,9 +666,9 @@ namespace SIFIET.Presentacion.Controllers
             return verificarC;
         }
 
-        private string ObtenerIdPrograma(string nombrePrograma)
+        private string ObtenerIdFacultad(string nombrePrograma)
         {
-            return FachadaSIFIET.ObtenerIdPrograma(nombrePrograma);
+            return FachadaSIFIET.ObtenerIdFacultadProg(nombrePrograma);
         }
 
         public ActionResult EnviarDatos()
@@ -666,13 +678,13 @@ namespace SIFIET.Presentacion.Controllers
                 DataSet ds = new DataSet();
                 ds = (DataSet)Session["DatosSession"];
                 string filePath = Server.MapPath(@"~\Uploads") + "\\file.txt";
-                string IdPrograma;
+                string IdFacultad;
                 StreamWriter wr = new StreamWriter(filePath);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    IdPrograma = ObtenerIdPrograma(row[0].ToString());
-                    wr.WriteLine(IdPrograma + "," + row[1] + "," + row[2] + "," + row[3] +
+                    IdFacultad = ObtenerIdFacultad(row[0].ToString());
+                    wr.WriteLine(IdFacultad + "," + row[1] + "," + row[2] + "," + row[3] +
                                  "," + row[4] + "," + row[5] + "," + row[6] + "," + row[7] + "," +
                                  row[8] + "," + row[9]);
                 }

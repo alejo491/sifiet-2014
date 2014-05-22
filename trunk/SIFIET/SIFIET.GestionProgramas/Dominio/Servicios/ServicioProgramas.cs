@@ -191,11 +191,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             return false;
         }
 
-        public static string ObtenerIdPrograma(string nombrePrograma)
+        public static string ObtenerIdFacultad(string nombreFacultad)
         {
             var db = new GestionProgramasEntities();
             var asig = (from e in db.FACULTADs
-                        where e.NOMBREFACULTAD.ToLower() == nombrePrograma.ToLower()
+                        where e.NOMBREFACULTAD.ToLower() == nombreFacultad.ToLower()
                         select e).FirstOrDefault();
             if (asig != null)
             {

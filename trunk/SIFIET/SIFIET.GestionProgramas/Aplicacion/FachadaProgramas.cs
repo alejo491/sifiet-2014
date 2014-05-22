@@ -51,9 +51,9 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioProgramas.VerificarExistenciaPrograma(nombrePrograma);
         }
 
-        public static string ObtenerIdPrograma(string nombrePrograma)
+        public static string ObtenerIdFacultad(string nombreFacultad)
         {
-            return ServicioProgramas.ObtenerIdPrograma(nombrePrograma);
+            return ServicioProgramas.ObtenerIdFacultad(nombreFacultad);
         }
 
         public static bool VerificarExistenciaFacultad(string nombreFacultad)
