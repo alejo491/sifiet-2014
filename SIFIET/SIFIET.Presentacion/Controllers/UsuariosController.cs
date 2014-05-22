@@ -136,6 +136,7 @@ namespace SIFIET.Presentacion.Controllers
             if (!ModelState.IsValid || !ban) return View(usuario);
            try
            {
+               usuario.EMAILINSTITUCIONALUSUARIO = usuario.EMAILINSTITUCIONALUSUARIO + "@unicauca.edu.co";
                 var roles = datos["roles"].Split(',');
                 usuario.ESTADOUSUARIO = "Activo";
                 FachadaSIFIET.RegistrarUsuario(usuario, roles);
@@ -158,6 +159,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult ModificarUsuario(int idUsuario)
         {
             USUARIO oUsuario = FachadaSIFIET.ConsultarUsuario(idUsuario);
+            oUsuario.EMAILINSTITUCIONALUSUARIO = oUsuario.EMAILINSTITUCIONALUSUARIO.Split('@').ElementAt(0);
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
             ViewBag.rolesasignados = oUsuario.ROLs.ToList();
             return View(oUsuario);
@@ -184,7 +186,7 @@ namespace SIFIET.Presentacion.Controllers
             var usuario = new USUARIO()
             {
                 IDENTIFICADORUSUARIO = decimal.Parse(datos["IDENTIFICADORUSUARIO"]),
-                EMAILINSTITUCIONALUSUARIO = datos["EMAILINSTITUCIONALUSUARIO"].Trim(),
+                EMAILINSTITUCIONALUSUARIO = datos["EMAILINSTITUCIONALUSUARIO"].Trim()+"@unicauca.edu.co",
                 IDENTIFICACIONUSUARIO = datos["identificacion"].Trim(),
                 NOMBRESUSUARIO = datos["NOMBRESUSUARIO"].Trim(),
                 APELLIDOSUSUARIO = datos["APELLIDOSUSUARIO"].Trim(),
