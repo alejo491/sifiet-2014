@@ -30,7 +30,7 @@
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) |
                 @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso= item.IDENTIFICADORCURSO }) |
-                
+                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO }, new { onclick = "return confirmarEliminarCurso();" }) | 
                 </text>
                 )
         })

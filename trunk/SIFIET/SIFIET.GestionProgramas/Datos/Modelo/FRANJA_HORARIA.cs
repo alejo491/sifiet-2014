@@ -12,21 +12,16 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     using System;
     using System.Collections.Generic;
     
-    public partial class CURSO
+    public partial class FRANJA_HORARIA
     {
-        public CURSO()
-        {
-            this.FRANJA_HORARIA = new HashSet<FRANJA_HORARIA>();
-        }
-    
+        public decimal IDENTIFICADORFRANJA { get; set; }
         public decimal IDENTIFICADORCURSO { get; set; }
-        public decimal IDENTIFICADORASIGNATURA { get; set; }
-        public decimal IDENTIFICADORUSUARIO { get; set; }
-        public string NOMBRECURSO { get; set; }
-        public string ESTADOCURSO { get; set; }
+        public decimal IDENTIFICADORSALON { get; set; }
+        public string HORAINICIOFRANJA { get; set; }
+        public string HORAFINFRANJA { get; set; }
+        public string DIAFRANJA { get; set; }
+        public string ESTADOFRANJA { get; set; }
     
-        public virtual ASIGNATURA ASIGNATURA { get; set; }
-        public virtual DOCENTE DOCENTE { get; set; }
-        public virtual ICollection<FRANJA_HORARIA> FRANJA_HORARIA { get; set; }
+        public virtual CURSO CURSO { get; set; }
     }
 }

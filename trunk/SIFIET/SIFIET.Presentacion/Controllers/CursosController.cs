@@ -138,7 +138,12 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult EliminarCurso(decimal idCurso)
         {
-            return View(FachadaSIFIET.VisualizarCurso(idCurso));
+            var resultado = FachadaSIFIET.EliminarCurso(idCurso);
+            if (resultado)
+                TempData["ResultadoOperacion"] = "Curso Eliminado con Exito";
+            else
+                TempData["ResultadoOperacion"] = "Fallo al Eliminar el Curso";
+            return RedirectToAction("Index");
         }
 
 
@@ -281,11 +286,8 @@ namespace SIFIET.Presentacion.Controllers
             TempData["Mensaje"] = "Horario Eliminado con Éxito";
             FachadaSIFIET.EliminarFranjaHoraria(idCurso, idHorario);
             return RedirectToAction("RegistrarHorario", FachadaSIFIET.VisualizarCurso(idCurso));
-        }
-
-
-
-
+        }        
+        
         // Lectura del archivo Excel
 
         public ActionResult CargarArchivo()
