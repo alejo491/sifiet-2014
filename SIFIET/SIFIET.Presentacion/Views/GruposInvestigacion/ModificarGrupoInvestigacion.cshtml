@@ -70,20 +70,12 @@
             </div>
             <div>
                 Estado :
-                <div>
-                    @if (Model.ESTADOGRUPOINVESTIGACION.Trim().Equals("Desactivado"))
-                    {
-                        @Html.Label("Activo")
-                        @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Activo")
-                        @Html.Label("Inactivo")
-                        @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Inactivo")
-                        @Html.ValidationMessageFor(model => model.ESTADOGRUPOINVESTIGACION)
-                    }
-                    else
-                    {
-                        @Html.Label(@Model.ESTADOGRUPOINVESTIGACION)
-                        @Html.HiddenFor(model => model.ESTADOGRUPOINVESTIGACION)
-                    }
+                <div>                    
+                    @Html.Label("Activo")
+                    @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Activo")
+                    @Html.Label("Inactivo")
+                    @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOGRUPOINVESTIGACION)                    
                 </div>
             </div>
             <div>

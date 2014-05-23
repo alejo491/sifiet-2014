@@ -69,8 +69,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
         }
         public static void RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
-            var db = new GestionProgramasEntities();
-            grupo.ESTADOGRUPOINVESTIGACION = "Activo";
+            var db = new GestionProgramasEntities();            
             grupo.EdicionOmodificacion = "registro";
             db.GRUPO_INVESTIGACION.Add(grupo);
             db.SaveChanges();
@@ -110,9 +109,10 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
 
         public static void EliminarGrupoInvestigacion(int idGinvestigacion)
         {
-            var db = new GestionProgramasEntities();
-            var grupoInvestigacion = db.GRUPO_INVESTIGACION.Find(idGinvestigacion);
-            db.GRUPO_INVESTIGACION.Remove(grupoInvestigacion);
+            var db = new GestionProgramasEntities();            
+            var gInvestigacion = db.GRUPO_INVESTIGACION.Find(idGinvestigacion);
+            gInvestigacion.EdicionOmodificacion = "modificacion";
+            gInvestigacion.ESTADOGRUPOINVESTIGACION = "Eliminado";
             db.SaveChanges();
         }
     }
