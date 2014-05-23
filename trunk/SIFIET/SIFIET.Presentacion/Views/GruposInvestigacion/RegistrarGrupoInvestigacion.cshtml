@@ -70,8 +70,16 @@
                 </div>
                 
             </div>
-            
-
+            <div>
+                Estado :
+                <div>
+                    @Html.Label("Activo")
+                    @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Activo")
+                    @Html.Label("Inactivo")
+                    @Html.RadioButtonFor(model => model.ESTADOGRUPOINVESTIGACION, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOGRUPOINVESTIGACION)
+                </div>
+            </div>
             <div>
                 <div>
                     <input type="submit" value="Guardar" onclick="return confirmacionAgregarGrupo();" />

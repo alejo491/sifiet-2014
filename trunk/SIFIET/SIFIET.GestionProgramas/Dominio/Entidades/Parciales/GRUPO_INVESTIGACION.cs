@@ -29,6 +29,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya está en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
 
+        [Required]
         public string ESTADOGRUPOINVESTIGACION { get; set; }
 
         [Display(Name = "Descripción")]
@@ -38,7 +39,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Código")]
         [Required]
-        [EsNumeric(ErrorMessage = "El Código solo toma valores numericos ")]
+        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]
         [StringLength(15, ErrorMessage = "El Código no pueder ser mayor de 15 caracteres")]
         [CodigoGInvestigacionYaExiste(ErrorMessage = "Este Código ya está en uso, ingrese otro")]
         public string CODIGOGRUPOINVESTIGACION { get; set; }
@@ -91,7 +92,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                     if (String.IsNullOrEmpty(nombreGInvestigacion))
                         valid = true;
                 }
-
             }
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
