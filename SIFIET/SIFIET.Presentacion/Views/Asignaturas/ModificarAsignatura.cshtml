@@ -67,8 +67,8 @@
             <div>
                 Clasificacion :
                 <div>
-                    @Html.DropDownListFor(model => model.CLASIFICACIONASIGNATURA, new SelectList(new string[] { "1", "2", "3", "4", "6" }),Model.CLASIFICACIONASIGNATURA)
-                    @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
+                   @Html.EditorFor(model => model.CLASIFICACIONASIGNATURA)
+                   @Html.ValidationMessageFor(model => model.CLASIFICACIONASIGNATURA)
                 </div>
             </div>
             <div>
