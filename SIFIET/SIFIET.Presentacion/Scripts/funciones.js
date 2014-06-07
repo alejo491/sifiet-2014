@@ -100,8 +100,19 @@ function confirmSalirCargarArchivo() {
 }
 
 function confirmacionAgregarAsignatura() {
-   var mensaje = "¿Desea guardar la Asignatura con la siguiente información?";
+    var nombre = document.getElementById("NOMBREASIGNATURA").value;
+    var codigo = document.getElementById("CODIGOASIGNATURA").value;
+    var clasificacion = document.getElementById("CLASIFICACIONASIGNATURA").value;
+    var mensaje;
+    if (nombre.trim() == "" || descripcion.trim() == "" || clasificacion.trim() == "") {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return true;
+    }
+    else {
+        mensaje = "¿Desea guardar la Asignatura con la siguiente información?";
         return confirm(mensaje);
+    }
 }
 function confirmSalirAsignatura() {
     var r = confirm('¿Confirma que desea cancelar la accion?');
@@ -138,8 +149,17 @@ function confirmarEliminarCurso() {
     return confirm(mensaje);
 }
 function confirmacionAgregarSalon() {
-    var mensaje = "¿Desea guardar el Salon con la informacion proporcionada?";
-    return confirm(mensaje);
+    var nombre = document.getElementById("NOMBRESALON").value;    
+    var mensaje;
+    if (nombre.trim() == "") {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return true;
+    }
+    else {
+        mensaje = "¿Desea guardar el Salon con la informacion proporcionada?";
+        return confirm(mensaje);
+    }
 }
 function confirmSalirSalon() {
     var r = confirm('¿Confirma que desea cancelar la accion?');
