@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using SIFIET.Aplicacion;
 using SIFIET.GestionUsuarios.Datos.Modelo;
+﻿using SIFIET.GestionUsuarios.Dominio.Entidades.Seguridad;
+using System.Web.Security;
 
 namespace SIFIET.Presentacion.Controllers
 {
@@ -12,6 +14,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Usuarios/
+        [Authorize]
         public ActionResult Index()
         {
             List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarios();
@@ -243,6 +246,44 @@ namespace SIFIET.Presentacion.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult LogOn()
+        {
+            return View();
+
+        }
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();            
+            return RedirectToAction("Index", "Home");
+
+        }
+        [HttpPost]
+        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (new ProveedorMembrecias().ValidateUser(model.UserName, model.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (!String.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "El usuario o password es incorrecto");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         

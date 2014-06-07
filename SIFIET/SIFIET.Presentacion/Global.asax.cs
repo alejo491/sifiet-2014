@@ -18,6 +18,12 @@ namespace SIFIET.Presentacion
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
+        protected void Application_BeginRequest()
+        {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+        }
         /*
         protected void Application_Error(object sender, EventArgs e)
         {

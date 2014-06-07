@@ -33,15 +33,15 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>C:\Users\waruano\Downloads\log4net-1.2.13\bin\net\4.0\release\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +77,9 @@
     </Compile>
     <Compile Include="Dominio\Entidades\Parciales\ROL.cs" />
     <Compile Include="Dominio\Entidades\Parciales\USUARIO.cs" />
+    <Compile Include="Dominio\Entidades\Seguridad\LogOnModel.cs" />
+    <Compile Include="Dominio\Entidades\Seguridad\ProveedorMembrecias.cs" />
+    <Compile Include="Dominio\Entidades\Seguridad\ProveedorRoles.cs" />
     <Compile Include="Dominio\Servicios\ServicioRoles.cs" />
     <Compile Include="Dominio\Servicios\ServicioUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

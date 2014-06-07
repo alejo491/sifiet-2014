@@ -1,0 +1,59 @@
+﻿@model SIFIET.GestionUsuarios.Dominio.Entidades.Seguridad.LogOnModel
+
+@{
+    ViewBag.Title = "InicioSesion";
+    
+}
+
+@if (Request.IsAuthenticated)
+{
+    <h4>No posee permiso para acceder al recurso</h4>
+
+}
+else
+{
+
+    <h2>Iniciar Sesion</h2>
+
+using (Html.BeginForm())
+ {
+     @Html.AntiForgeryToken()    
+        
+         @Html.ValidationSummary(true)
+        <fieldset>
+        <legend>Bienvenido</legend>
+
+         <div>
+             Usuario
+             <div>
+                 @Html.EditorFor(model => model.UserName) @@unicauca.edu.co
+                 @Html.ValidationMessageFor(model => model.UserName)
+             </div>
+                    
+             Contraseña
+             <div>
+                 @Html.EditorFor(model => model.Password) 
+                 @Html.ValidationMessageFor(model => model.Password)
+                
+             </div>
+         </div>
+
+         <div>
+            Recordarme : 
+             <div>
+                 @Html.EditorFor(model => model.RememberMe)
+                 @Html.ValidationMessageFor(model => model.RememberMe)
+             </div>
+         </div>
+
+         <div>            
+                 <input type="submit" value="Entrar" class="btn btn-default" />             
+         </div>   
+        </fieldset>
+
+    }
+    }
+
+    <div>
+        @Html.ActionLink("Inicio", "Index","Home")
+    </div>

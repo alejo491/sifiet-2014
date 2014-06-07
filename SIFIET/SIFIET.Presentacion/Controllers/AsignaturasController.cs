@@ -14,6 +14,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class AsignaturasController : Controller
     {
+        [Authorize]
         public ActionResult Index(decimal? idAsignatura, string nombreAsignatura, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -35,6 +36,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Asignaturas/Details/5
+        [Authorize]
         public ActionResult VisualizarAsignatura(decimal idAsignatura)
         {
             return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
@@ -42,6 +44,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Asignaturas/Create
+        [Authorize(Roles="Asignaturas")]
         public ActionResult RegistrarAsignatura()
         {
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0, "","Activo");
@@ -53,6 +56,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Asignaturas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult RegistrarAsignatura(ASIGNATURA oAsignatura)
         {
             try
@@ -80,6 +84,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Asignaturas/Edit/5
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult ModificarAsignatura(decimal idAsignatura)
         {
             var oAsignatura = FachadaSIFIET.VisualizarAsignatura(idAsignatura) as ASIGNATURA;
@@ -92,6 +97,7 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Asignaturas/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult ModificarAsignatura(ASIGNATURA oAsignatura)
         {
             try
@@ -127,6 +133,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Asignaturas/Delete/5
         [HttpPost, ActionName("EliminarAsignatura")]
         [ValidateAntiForgeryToken]*/
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult EliminarAsignatura(decimal idAsignatura)
         {
             try
@@ -144,14 +151,13 @@ namespace SIFIET.Presentacion.Controllers
             }
         }
 
-        // Lectura del archivo Excel
-
+        // Lectura del archivo Excel        
         public ActionResult CargarArchivo()
         {
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post)]       
         public ActionResult CargarArchivo(HttpPostedFileBase archivo)
         {
             Boolean fileOK = false;
