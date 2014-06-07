@@ -16,11 +16,11 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             try
             {
                 var db = new GestionProgramasEntities();
-                var lista = new List<ASIGNATURA>();
+                var lista = new List<ASIGNATURA>();               
                 if (String.IsNullOrEmpty(nombreAsignatura))
                 {
                     if(String.IsNullOrEmpty(estado))
-                        lista = (from e in db.ASIGNATURAs select e).ToList();
+                        lista = (from e in db.ASIGNATURAs where !e.ESTADOASIGNATURA.Equals("Eliminado") select e).ToList();
                     else
                         lista = (from e in db.ASIGNATURAs where e.ESTADOASIGNATURA.Equals(estado) select e).ToList();
                     return lista;
@@ -134,7 +134,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                 var asg = (from asig in db.ASIGNATURAs where asig.IDENTIFICADORASIGNATURA == idAsignatura select asig).First();
                 {
                     asg.EdicionOmodificacion = "modificacion";
-                    asg.ESTADOASIGNATURA = "Inactivo";
+                    asg.ESTADOASIGNATURA = "Eliminado";
                 }
                 //db.ASIGNATURAs.Remove(asg);
                 db.SaveChanges();
