@@ -282,7 +282,7 @@ function comfirmacionPrograma() {
         duracion.trim() == "" || modalidad.trim() == "" || jornada.trim() == "" || admision.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
-        return false;
+        return true;
     } else {
         mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
         return confirm(mensaje);

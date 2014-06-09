@@ -67,6 +67,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             if (ModelState.IsValid)
             {
+                objPrograma.ESTADOPROGRAMA = "Activo";
                 if (FachadaSIFIET.RegistrarProgramaAcademico(objPrograma))
                 {
                     TempData["ResultadoOperacion"] = "Programa creado con Exito.";
@@ -372,7 +373,7 @@ namespace SIFIET.Presentacion.Controllers
             bool canConvert;
             long number1 = 0;
             int numTupla = 1;
-            string[] campos;
+            //string[] campos;
             List<int> validadorC = new List<int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
