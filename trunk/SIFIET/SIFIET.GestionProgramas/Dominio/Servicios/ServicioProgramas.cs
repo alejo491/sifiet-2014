@@ -38,8 +38,10 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
                     case "Nombre":
                         programas = programas.Where(s => s.NOMBREPROGRAMA.ToUpper().Contains(busqueda.ToUpper()));
                         break;
-                    case "Facultad":
-                        programas = programas.Where(s => s.FACULTAD.NOMBREFACULTAD.ToUpper().Contains(busqueda.ToUpper()));
+                    case "Codigo":
+                        decimal temp;
+                        decimal? numericValue = decimal.TryParse(busqueda, out temp) ? temp : default(decimal?);
+                        programas = programas.Where(s => s.CODIGOSNIESPROGRAMA == numericValue);
                         break;
                     default:
                         break;

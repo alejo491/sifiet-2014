@@ -20,7 +20,8 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Codigo SNIES:")]
         [Required(ErrorMessage = "Este campos es requerido")]
-        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:#}", ApplyFormatInEditMode = true)]
+        //[CodigoSNIESExiste(ErrorMessage = "Ya existe un Programa con el codigo que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public Nullable<decimal> CODIGOSNIESPROGRAMA { get; set; }
 
 
@@ -34,12 +35,16 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Descripción :")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        //[RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONPROGRAMA { get; set; }
 
         [Display(Name = "Facultad:")]
         //[Required(ErrorMessage = "Este campos es requerido")]
         public virtual FACULTAD FACULTAD { get; set; }
+
+        [Display(Name = "Periodo :")]
+        [Required(ErrorMessage = "Este campos es requerido")]
+        public string PERIODODURACIONPROGRAMA { get; set; }
 
         [Display(Name = "Duración :")]
         [Required(ErrorMessage = "Este campos es requerido")]
@@ -57,9 +62,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Admisión :")]
         [Required(ErrorMessage = "Este campos es requerido")]
         public string ADMISIONPROGRAMA { get; set; }
-
-        [Display(Name = "Duración Periodo :")]
-        public string PERIODODURACIONPROGRAMA { get; set; }
 
         [Display(Name = "Estado :")]
         public string ESTADOPROGRAMA { get; set; }
@@ -98,4 +100,6 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
     }
+
+    
 }

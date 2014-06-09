@@ -51,6 +51,14 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.PERIODODURACIONPROGRAMA)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PERIODODURACIONPROGRAMA, new SelectList(new String[] { "2 meses", "4 meses", "6 meses", "8 meses", "10 meses", "12 meses" }), "Seleccione el periodo de duracíon")
+            @Html.ValidationMessageFor(model => model.PERIODODURACIONPROGRAMA)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.DURACIONPROGRAMA)
         </div>
         <div class="editor-field">
