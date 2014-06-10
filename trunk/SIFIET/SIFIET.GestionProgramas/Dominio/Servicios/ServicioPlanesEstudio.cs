@@ -81,7 +81,7 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             try
             {
                 PLANESTUDIO objPlanEstudio = db.PLANESTUDIOS.Find(idPlanEstudio);
-                objPlanEstudio.ESTADOPLANESTUDIOS = "Inactivo";
+                objPlanEstudio.ESTADOPLANESTUDIOS = "Eliminado";
                 objPlanEstudio.operacion = "eliminar";
                 db.Entry(objPlanEstudio).State = EntityState.Modified;
                 db.SaveChanges();
