@@ -26,7 +26,8 @@ namespace SIFIET.Presentacion.Controllers
             if (!oRoles.Any())
             {
                 ViewBag.Mensaje = "Ningun Rol Encontrado";
-                oRoles = FachadaSIFIET.ConsultarRoles();
+                //oRoles = FachadaSIFIET.ConsultarRoles();
+                oRoles=new List<ROL>();
             }
             return View(oRoles);
         }
@@ -104,6 +105,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             var oRol = FachadaSIFIET.ConsultarRol(idRol.ToString().Trim());
             TempData["PermisosActuales"] = oRol.PERMISOS;
+            ViewBag.lstNombresPermisos = FachadaSIFIET.ConsultarNombresPermisos();
             return View(oRol);
         }
 
@@ -113,15 +115,21 @@ namespace SIFIET.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModificarRol(FormCollection collection)
         {
-            var permisos = CrearPermisos(collection,(IEnumerable<PERMISO>) TempData["PermisosActuales"]);
+            //var permisos = CrearPermisos(collection,(IEnumerable<PERMISO>) TempData["PermisosActuales"]);
+            var permisos = CrearPermisos(collection);
             bool existeRol = FachadaSIFIET.ExisteNombreRol(collection["NOMBREROL"].Trim());
             if (!ModelState.IsValid ||( !collection["NOMBREROL"].Trim().Equals(collection["NombreActual"].Trim()) && existeRol))
             {
                 var oRolActual = FachadaSIFIET.ConsultarRol(collection["IDENTIFICADORROL"].Trim());
+                ViewBag.lstNombresPermisos = FachadaSIFIET.ConsultarNombresPermisos();
                 TempData["PermisosActuales"] = oRolActual.PERMISOS;
                 if (existeRol)
                 {
-                    ViewBag.ErrorNombreRol = "Ya Existe Un Rol Con El Nombre ' " + collection["NOMBREROL"].Trim()+" '";
+                    ViewBag.ErrorNombreRol = "Ya Existe Un Rol Con El Nombre ' " + collection["NOMBREROL"].Trim() + " '";
+                }
+                else
+                {
+                    @ViewBag.ErrorNombreRol = "";
                 }
                 return View(oRolActual);
             }
@@ -176,13 +184,16 @@ namespace SIFIET.Presentacion.Controllers
             }
             foreach (var item in nombresPermiso)
             {
-                var permiso = new PERMISO()
+                if (int.Parse(datos[item.Trim()]) == 1)
                 {
-                    ESTADOPERMISO = "Activo",
-                    NOMBREPERMISO = item.Trim(),
-                    GESTIONARPERMISO = int.Parse(datos[item.Trim()]),
-                };
-                permisos.Add(permiso);
+                    var permiso = new PERMISO()
+                    {
+                        ESTADOPERMISO = "Activo",
+                        NOMBREPERMISO = item.Trim(),
+                        GESTIONARPERMISO = int.Parse(datos[item.Trim()]),
+                    };
+                    permisos.Add(permiso);
+                }
             }
             return permisos;
         }

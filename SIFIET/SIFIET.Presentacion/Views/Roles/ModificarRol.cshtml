@@ -47,13 +47,14 @@
             <div>
                 Estado :
                 <div>
-                        @Html.Label("Activo")
-                        @Html.RadioButtonFor(model => model.ESTADOROL, "Activo")
-                        @Html.Label("Inactivo")
-                        @Html.RadioButtonFor(model => model.ESTADOROL, "Inactivo")
-                        @Html.ValidationMessageFor(model => model.ESTADOROL)
+                    @Html.Label("Activo")
+                    @Html.RadioButtonFor(model => model.ESTADOROL, "Activo")
+                    @Html.Label("Inactivo")
+                    @Html.RadioButtonFor(model => model.ESTADOROL, "Inactivo")
+                    @Html.ValidationMessageFor(model => model.ESTADOROL)
                 </div>
             </div>
+            <!--
             @foreach (var item in Model.PERMISOS)
             {
                 <div>
@@ -71,7 +72,29 @@
                         }
                     </select>
                 </div>
-            }
+            }-->
+                @foreach (var item in (List<string>)ViewBag.lstNombresPermisos)
+                {
+                    <label>@item</label>
+                    if ((from permiso in (IEnumerable<PERMISO>)TempData["PermisosActuales"]
+                             where permiso.NOMBREPERMISO.ToLower().Trim().Equals(
+                             item.ToLower().Trim()) select permiso).ToList().Count >0)
+                     {
+                         <select name="@item" id="@item">
+                             <option value=0>Visualizar</option>
+                             <option value=1 selected>Gestionar</option>
+                         </select>
+                     }
+                    else
+                    {
+                        {
+                            <select name="@item" id="@item">
+                             <option value=0 selected>Visualizar</option>
+                             <option value=1>Gestionar</option>
+                            </select>
+                        }
+                    }
+                }
             <div>
                 <div>
                     <input type="submit" value="Guardar" onclick="return comfirmarAgregarRol()" />

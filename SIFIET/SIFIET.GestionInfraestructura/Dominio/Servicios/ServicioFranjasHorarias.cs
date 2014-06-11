@@ -28,26 +28,20 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
             }
         }
 
-        public static List<string> ConsultarFranjaHorariaDisponible(decimal idSalon, string dia = "",
+        public static List<string> ConsultarFranjaHorariaDisponible(string identificadorSalon, string dia = "",
             string horaInicio = "", string horaFin = "")
         {
             var db = new GestionInfraestructuraEntities();
             var resultado = new List<string>();
             resultado.Add("Seleccionar");
+            decimal idSalon = 0;
+            if (!identificadorSalon.Trim().Equals(""))
+            {
+                 idSalon = decimal.Parse(identificadorSalon.Trim());
+            }
             if (dia.Equals("") && horaInicio.Equals("") && horaFin.Equals(""))
             {
 
-                /*var agrupacion =
-                    (from franja in db.FRANJA_HORARIA where franja.IDENTIFICADORSALON == idSalon && franja.ESTADOFRANJA.Trim().Equals("Activo") group franja by franja.DIAFRANJA.Trim() into f select f).ToList();
-
-                lstFranjaHoraria = new List<FRANJA_HORARIA>();
-                foreach (var grupo in agrupacion)
-                {
-                    var oFranja = new FRANJA_HORARIA();
-                    oFranja.DIAFRANJA = grupo.Key;
-                    oFranja.IDENTIFICADORFRANJA=grupo.First().IDENTIFICADORFRANJA;
-                    lstFranjaHoraria.Add(oFranja);
-                }*/
                 var lstDias = CrearListaDias();
                 //var lstHoras = CrearListaHoras();
                 foreach (var diaSemana in lstDias)
