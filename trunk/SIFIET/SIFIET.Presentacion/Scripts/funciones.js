@@ -10,8 +10,8 @@ function comfirmarAgregarRol() {
     var descripcion = document.getElementById("DESCRIPCIONROL").value;
     var mensaje;
     if (nombre.trim() == "" || descripcion.trim() == "") {
-        //mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
-        //alert(mensaje);
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
         return true;
     } else {
         mensaje = "¿Desea Registrar los datos Ingresados?";
@@ -130,8 +130,9 @@ function confirmarEliminarAsignatura() {
     return confirm(mensaje);
 }
 function confirmacionAgregarCurso() {
-    var mensaje = "¿Desea guardar el Curso con la informacion proporcionada?";
-    return confirm(mensaje);
+    //var mensaje = "¿Desea guardar el Curso con la informacion proporcionada?";
+    //return confirm(mensaje);
+    return true;
 }
 function confirmSalirCurso() {
     var r = confirm('¿Confirma que desea cancelar la accion?');
@@ -313,7 +314,7 @@ function comfirmacionPlanEstudio() {
     if (nombre.trim() == "" || codigo.trim() == "" || descripcion.trim() == "" || fechaInicio.trim() == "" || fechaFin.trim() == "" || programa.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
-        return false;
+        return true;
     } else {
         mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
         return confirm(mensaje);
@@ -347,7 +348,7 @@ function confirmSalirHorario() {
     var url = window.location.pathname;
     var pathArray = url.split('/');        // <-- no need in "string()"
     var host = pathArray[0];
-    var newHost = '/Cursos/Index';
+    var newHost = '/Cursos';
     if (r == true) {
         window.location = host + newHost;
     }

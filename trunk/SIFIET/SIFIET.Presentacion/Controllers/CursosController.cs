@@ -131,7 +131,7 @@ namespace SIFIET.Presentacion.Controllers
 
         public ActionResult ModificarHorario(CURSO oCurso)
         {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Disponible");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);            
             return View(oCurso);
         }        
@@ -169,7 +169,7 @@ namespace SIFIET.Presentacion.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult ObtenerListaDias(string id)
         {
-            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(id.Trim()));
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(id.Trim());
             var myData = lstFranjaDia.Select(a => new SelectListItem()
             {
                 Value = a,
@@ -182,7 +182,7 @@ namespace SIFIET.Presentacion.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult ObtenerListaHoraInicio(string dia, string idSalon)
         {
-            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(idSalon.Trim()),dia);
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(idSalon.Trim(),dia);
             var myData = lstFranjaDia.Select(a => new SelectListItem()
             {
                 Value = a,
@@ -193,7 +193,7 @@ namespace SIFIET.Presentacion.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult ObtenerListaHoraFin(string dia, string idSalon, string horaInicio)
         {
-            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(decimal.Parse(idSalon.Trim()), dia,horaInicio);
+            var lstFranjaDia = FachadaSIFIET.ConsultarFranjaHorariaDisponible(idSalon.Trim(),dia,horaInicio);
             var myData = lstFranjaDia.Select(a => new SelectListItem()
             {
                 Value = a,
@@ -201,40 +201,9 @@ namespace SIFIET.Presentacion.Controllers
             });
             return Json(myData, JsonRequestBehavior.AllowGet);
         }
-        private static string diaANombre(string diaNum)
-        {
-            string diaLetras = "";
-            switch (diaNum.Trim())
-            {
-                case "1":
-                    diaLetras = "Lunes";
-                    break;
-                case "2":
-                    diaLetras = "Martes";
-                    break;
-                case "3":
-                    diaLetras = "Miercoles";
-                    break;
-                case "4":
-                    diaLetras = "jueves";
-                    break;
-                case "5":
-                    diaLetras = "Viernes";
-                    break;
-                case "6":
-                    diaLetras = "Sabado";
-                    break;
-                case "7":
-                    diaLetras = "Domingo";
-                    break;
-
-            }
-            return diaLetras;
-        }
-
         public ActionResult RegistrarHorario(CURSO oCurso)
         {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Disponible");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Activo");
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);
            // ViewBag.ListaDias = ViewBag.ListaFrajaDia = FachadaSIFIET.ConsultarFranjaHoraria();
             //ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
@@ -247,7 +216,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarHorario(FormCollection datos)
         {
 
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Disponible");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
 
             try
             {
@@ -258,15 +227,22 @@ namespace SIFIET.Presentacion.Controllers
                     HORAFINFRANJA = datos["HORAFINFRANJA"],
                     HORAINICIOFRANJA = datos["HORAINICIOFRANJA"],
                     DIAFRANJA = datos["DIAFRANJA"],
-                    ESTADOFRANJA = "disponible"
+                    ESTADOFRANJA = "Disponible"
 
                 };
-                
-                FachadaSIFIET.RegistrarFranjaHoraria(franja, decimal.Parse(datos["idCurso"]));
+                if (comprobarFranja(franja))
+                {
+                    FachadaSIFIET.RegistrarFranjaHoraria(franja, decimal.Parse(datos["idCurso"]));
+                    TempData["Mensaje"] = "Horario Agregado con Éxito";
+                }
+                else
+                {
+                    TempData["Mensaje"] = "Todos los Campos Son Requeridos, Intentelo nuevamente";
+                }
             }
             catch (Exception)
             {
-                
+                TempData["Mensaje"] = "Error al Agregar el Horario";
                 
             }
 
@@ -274,8 +250,30 @@ namespace SIFIET.Presentacion.Controllers
 
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(decimal.Parse(datos["idCurso"]));
             ViewData["idCurso"] = datos["idCurso"];
-            TempData["Mensaje"] = "Horario Agregado con Éxito";
             return View(FachadaSIFIET.VisualizarCurso(decimal.Parse(datos["idCurso"])));
+        }
+
+        private bool comprobarFranja(FRANJA_HORARIA oFranjaHoraria)
+        {
+            var ban = true;
+
+            if (oFranjaHoraria.IDENTIFICADORSALON == 0)
+            {
+                ban = false;
+            }
+            if (oFranjaHoraria.DIAFRANJA.Trim().Equals("Seleccionar"))
+            {
+                ban = false;
+            }
+            if (oFranjaHoraria.HORAINICIOFRANJA.Trim().Equals("Seleccionar"))
+            {
+                ban = false;
+            }
+            if (oFranjaHoraria.HORAFINFRANJA.Trim().Equals("Seleccionar"))
+            {
+                ban = false;
+            }
+            return ban;
         }
 
         public ActionResult EliminarHorario(int idCurso,int idHorario)

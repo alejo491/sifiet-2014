@@ -57,25 +57,25 @@
     <div>
         <label>Seleccionar Salon: </label>
     </div>
-    <div>
-        @Html.DropDownList("IDENTIFICADORSALON", new SelectList(ViewBag.ListaSalones as System.Collections.IEnumerable, "IDENTIFICADORSALON", "NOMBRESALON"), "---seleccionar salon--", new { id = "IDENTIFICADORSALON" })
-    </div>
+<div>
+    @Html.DropDownList("IDENTIFICADORSALON", new SelectList(ViewBag.ListaSalones as System.Collections.IEnumerable, "IDENTIFICADORSALON", "NOMBRESALON"), "---seleccionar salon--", new { id = "IDENTIFICADORSALON" })
+</div>
     <div>
         <label>Seleccionar Dia:</label>
     </div>
-    <div>
-        @Html.DropDownList("DIAFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "DIAFRANJA"), "---Dia---", new { id = "DIAFRANJA" })
-    </div>
+<div>
+    @Html.DropDownList("DIAFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "DIAFRANJA"), "---Dia---", new { id = "DIAFRANJA" })
+</div>
     <div>
         <label>Seleccionar Hora Inicio:</label>
     </div>
-    <div>
-        @Html.DropDownList("HORAINICIOFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Inicio---", new { id = "HORAINICIOFRANJA" })
-    </div>
+<div>
+    @Html.DropDownList("HORAINICIOFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Inicio---", new { id = "HORAINICIOFRANJA" })
+</div>
     <div>
         <label>Seleccionar Hora Fin:</label>
     </div>
-    <div>
-        @Html.DropDownList("HORAFINFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Fin---", new { id = "HORAFINFRANJA" })
-    </div>
+<div>
+    @Html.DropDownList("HORAFINFRANJA", new SelectList(Enumerable.Empty<SelectListItem>(), "IDENTIFICADORFRANJA", "HORAINICIOFRANJA"), "---Hora de Fin---", new { id = "HORAFINFRANJA" })
+</div>
 

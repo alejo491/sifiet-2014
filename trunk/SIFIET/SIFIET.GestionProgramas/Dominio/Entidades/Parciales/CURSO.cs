@@ -39,7 +39,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
         [NombreCursoYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe un Curso usando ese nombre")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBRECURSO { get; set; }
         [Required]
         [StringLength(30, ErrorMessage = "El {0} no pueder ser mayor de 30 caracteres")]
@@ -56,7 +56,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 var nombre = value as string;
                 var db = new GestionProgramasEntities();
-                var curso = (from e in db.CURSOes where cursoValidacion.IDENTIFICADORCURSO == e.IDENTIFICADORCURSO select e).FirstOrDefault();
+                var curso = (from e in db.CURSOes where cursoValidacion.IDENTIFICADORCURSO == e.IDENTIFICADORCURSO && !e.ESTADOCURSO.Equals("Eliminado") select e).FirstOrDefault();
                 if (curso != null)
                 {
                     if (value.Equals(curso.NOMBRECURSO))

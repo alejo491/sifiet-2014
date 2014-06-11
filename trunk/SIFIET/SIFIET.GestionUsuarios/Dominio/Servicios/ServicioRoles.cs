@@ -18,7 +18,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             try
             {
                 var db = new GestionUsuariosEntities();
-                var roles = db.ROLs.ToList();
+                var roles = (from rol in db.ROLs where !rol.ESTADOROL.Equals("Eliminado") select rol).ToList();
                 return roles;
             }
             catch (Exception)
@@ -106,12 +106,8 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
             try
             {
                 var db = new GestionUsuariosEntities();
-                /*db.Database.ExecuteSqlCommand("Delete from ROL_TIENE_PERMISOS" +
-                            " WHERE IDENTIFICADORROL= " +int.Parse(idRol.Trim()));
-                db.SaveChanges();*/
-                var oRol = db.ROLs.Find(decimal.Parse(idRol.Trim()));
-                oRol.ESTADOROL = "Inactivo";
-                db.Entry(oRol).State = EntityState.Modified;
+                db.Database.ExecuteSqlCommand("Update ROL SET ESTADOROL= 'Eliminado'" +
+                                              " WHERE IDENTIFICADORROL= " + decimal.Parse(idRol.Trim()));
                 db.SaveChanges();
                 return true;
            }
@@ -128,6 +124,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
                 var db = new GestionUsuariosEntities();
                 var lista = (from e in db.ROLs
                     where e.NOMBREROL.ToLower().Trim().Equals(nombre.ToLower().Trim())
+                    && !e.ESTADOROL.Equals("Eliminado")
                     select e).ToList();
                 return lista.Count > 0;
             }

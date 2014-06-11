@@ -81,7 +81,7 @@ namespace SIFIET.Aplicacion
             return FachadaSalones.ObtenerHorarioCurso(idCurso);
         }
 
-        public static List<string> ConsultarFranjaHorariaDisponible(decimal idSalon, string dia = "",
+        public static List<string> ConsultarFranjaHorariaDisponible(string idSalon, string dia = "",
             string horaInicio = "", string horaFin = "")
         {
             return FachadaFranjasHorarias.ConsultarFranjaHorariaDisponible(idSalon, dia, horaInicio, horaFin);

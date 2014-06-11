@@ -16,7 +16,7 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
             return ServicioFranjasHorarias.ConsultarFranjaHoraria(idSalon, dia, horaInicio, horaFin);
         }
 
-        public static List<string> ConsultarFranjaHorariaDisponible(decimal idSalon, string dia = "",
+        public static List<string> ConsultarFranjaHorariaDisponible(string idSalon, string dia = "",
             string horaInicio = "", string horaFin = "")
         {
             return ServicioFranjasHorarias.ConsultarFranjaHorariaDisponible(idSalon,dia,horaInicio,horaFin);

@@ -36,12 +36,12 @@
 
                 grid.Column("NOMBREROL", header: "Nombre"),
                 grid.Column("DESCRIPCIONROL", header: "Descipcion"),
-                grid.Column("ESTADOROL", header: "Estado"),
+                //grid.Column("ESTADOROL", header: "Estado"),
                 grid.Column("", header: "Opciones",
                     format: @<text>
                                  @Html.ActionLink("Editar", "ModificarRol", new {idRol = item.IDENTIFICADORROL}) |
                                  @Html.ActionLink("Visualizar", "VisualizarRol", new {idRol = item.IDENTIFICADORROL}) |
-                                 <!--@Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})-->
+                                @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})
                              </text>
                     )
             })
