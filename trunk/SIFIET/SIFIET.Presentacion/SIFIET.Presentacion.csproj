@@ -148,11 +148,14 @@
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsignaturasController.cs" />
+    <Compile Include="Controllers\EtiquetasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\GruposInvestigacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -168,7 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\fonts\vegur\vegur-regular-webfont.eot" />
     <Content Include="Content\fonts\vegur\vegur-regular-webfont.ttf" />
     <Content Include="Content\fonts\vegur\vegur-regular-webfont.woff" />
@@ -224,8 +229,15 @@
     <Content Include="Views\PlanesEstudio\RegistrarPlanEstudio.cshtml" />
     <Content Include="Views\PlanesEstudio\VisualizarPlanEstudio.cshtml" />
     <Content Include="Views\PlanesEstudio\GestionAsignaturasPlanEstudio.cshtml" />
+    <Content Include="Views\Salones\CargarArchivo.cshtml" />
+    <Content Include="Views\Salones\CargarInformacion.cshtml" />
+    <Content Include="Views\Programas\CargarArchivo.cshtml" />
     <Content Include="Views\Cursos\ModificarHorario.cshtml" />
     <Content Include="Views\Usuarios\LogOn.cshtml" />
+    <Content Include="Views\Etiquetas\Index.cshtml" />
+    <Content Include="Views\Etiquetas\VisualizarEtiquetas.cshtml" />
+    <Content Include="Views\Etiquetas\RegistrarEtiquetas.cshtml" />
+    <Content Include="Views\Etiquetas\EditarEtiquetas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -242,6 +254,10 @@
     <ProjectReference Include="..\SIFIET.Aplicacion\SIFIET.Aplicacion.csproj">
       <Project>{fec384d8-b151-41f1-9533-4a56962ae088}</Project>
       <Name>SIFIET.Aplicacion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIFIET.GestionContenidos\SIFIET.GestionContenidos.csproj">
+      <Project>{D03702EE-D6C8-4932-9C5C-BD88FA8B9274}</Project>
+      <Name>SIFIET.GestionContenidos</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIFIET.GestionInfraestructura\SIFIET.GestionInfraestructura.csproj">
       <Project>{2af67ccc-9866-4419-9963-cde1f6f802ad}</Project>
