@@ -1,0 +1,44 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.ETIQUETA
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Editar Etiqueta</legend>
+
+            @Html.HiddenFor(model => model.IDENTIFICADORETIQUETA, new { @Value = Model.IDENTIFICADORETIQUETA })
+            @Html.HiddenFor(model => model.operacion, new { @Value = "editar" })   
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NOMBREETIQUETA)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NOMBREETIQUETA)
+                @Html.ValidationMessageFor(model => model.NOMBREETIQUETA)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DESCRIPCIONETIQUETA)
+            </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DESCRIPCIONETIQUETA)
+            @Html.ValidationMessageFor(model => model.DESCRIPCIONETIQUETA)
+        </div>
+            <p>
+                <input type="submit" value="Guardar" onclick="return comfirmacionEtiqueta()" />
+                <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
+            </p>
+            
+    </fieldset>
+}
+
+<h3> @ViewBag.ResultadoOperacion </h3>
+

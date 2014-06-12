@@ -1,0 +1,24 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.ETIQUETA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Visualizar Etiquetas</legend>
+
+    <div class="display-label">@Html.LabelFor(model => model.NOMBREETIQUETA)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOMBREETIQUETA)
+    </div>
+    
+    <div class="display-label">@Html.LabelFor(model => model.DESCRIPCIONETIQUETA)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPCIONETIQUETA)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Volver", "Index")
+</p>

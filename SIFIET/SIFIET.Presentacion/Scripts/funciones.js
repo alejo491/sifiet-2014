@@ -354,3 +354,27 @@ function confirmSalirHorario() {
     }
     return false;
 }
+
+/* Validacion modulo Etiquetas*/
+
+function confirmarEliminarEtiqueta() {
+    var mensaje = "Esta Etiqueta tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminarlo?";
+    return confirm(mensaje);
+}
+
+function comfirmacionEtiqueta() {
+    var nombre = document.getElementById("NOMBREETIQUETA").value;
+    var desc = document.getElementById("DESCRIPCIONETIQUETA").value;
+
+    var mensaje;
+    if (nombre.trim() == "" || desc.trim() == "") {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return false;
+    } else {
+        mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
+        return confirm(mensaje);
+    }
+}
+
+/* Fin validacion Etiquetas */
