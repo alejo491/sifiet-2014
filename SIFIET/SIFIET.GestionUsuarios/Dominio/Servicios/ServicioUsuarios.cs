@@ -27,10 +27,19 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         {
             var db = new GestionUsuariosEntities();
 
-
-
-            db.USUARIOs.Add(usuario);
+            db.Database.ExecuteSqlCommand("INSERT INTO USUARIO(EMAILINSTITUCIONALUSUARIO, PASSWORDUSUARIO, IDENTIFICACIONUSUARIO, NOMBRESUSUARIO, APELLIDOSUSUARIO, ESTADOUSUARIO) VALUES (" +
+                                              "'" + usuario.EMAILINSTITUCIONALUSUARIO + "'," +
+                                              "'" + usuario.PASSWORDUSUARIO + "'," +
+                                              "'" + usuario.IDENTIFICACIONUSUARIO + "'," +
+                                              "'" + usuario.NOMBRESUSUARIO + "'," +
+                                              "'" + usuario.APELLIDOSUSUARIO + "'," +
+                                              "'" + usuario.ESTADOUSUARIO + "')");
             db.SaveChanges();
+
+
+            //db.USUARIOs.Add(usuario);
+
+        //db.SaveChanges();
 
             usuario =
                 (from usu in db.USUARIOs
@@ -87,7 +96,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         {
             var db = new GestionUsuariosEntities();
             var usuario = db.USUARIOs.Find(idUsuario);
-            usuario.ESTADOUSUARIO = "Inactivo";
+            usuario.ESTADOUSUARIO = "Eliminado";
             db.SaveChanges();
         }
 

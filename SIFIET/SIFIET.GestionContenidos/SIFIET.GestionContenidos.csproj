@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +46,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicacion\FachadaEtiquetas.cs" />
+    <Compile Include="Datos\Modelo\ATRIBUTO.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\BLOQUE.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\CATEGORIA.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\CONTENIDO.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\ETIQUETA.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionContenidosEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionContenidosEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionContenidosEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\GestionContenidosEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionContenidosEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\TIPOCONTENIDO.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\Modelo\USUARIO.cs">
+      <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\ETIQUETA.cs" />
+    <Compile Include="Dominio\Servicios\ServicioEtiquetas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Datos\Modelo\GestionContenidosEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GestionContenidosEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Datos\Modelo\GestionContenidosEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GestionContenidosEntities.edmx</DependentUpon>
+      <LastGenOutput>GestionContenidosEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Datos\Modelo\GestionContenidosEntities.edmx.diagram">
+      <DependentUpon>GestionContenidosEntities.edmx</DependentUpon>
+    </None>
+    <None Include="Datos\Modelo\GestionContenidosEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GestionContenidosEntities.edmx</DependentUpon>
+      <LastGenOutput>GestionContenidosEntities.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

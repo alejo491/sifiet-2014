@@ -15,13 +15,13 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         public static ETIQUETA ConsultarEtiqueta(decimal idEtiqueta)
         {
-            var db = new GestionEtiquetasEntities();
+            var db = new GestionContenidosEntities();
             return db.ETIQUETAs.Find(idEtiqueta);
         }
 
         public static List<ETIQUETA> ConsultarEtiquetas(string busqueda)
         {
-            var db = new GestionEtiquetasEntities();
+            var db = new GestionContenidosEntities();
             var etiquetas = from m in db.ETIQUETAs
                                  select m;
 
@@ -36,7 +36,7 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         public static bool RegistrarEtiqueta(ETIQUETA objEtiqueta)
         {
-            var db = new GestionEtiquetasEntities();
+            var db = new GestionContenidosEntities();
             try
             {
                 db.ETIQUETAs.Add(objEtiqueta);
@@ -51,7 +51,7 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         public static bool EditarEtiqueta(ETIQUETA objEtiqueta)
         {
-            var db = new GestionEtiquetasEntities();
+            var db = new GestionContenidosEntities();
             try
             {
                 db.Entry(objEtiqueta).State = EntityState.Modified;
@@ -66,7 +66,7 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         public static bool EliminarEtiqueta(decimal idEtiqueta)
         {
-            var db = new GestionEtiquetasEntities();
+            var db = new GestionContenidosEntities();
             try
             {
                 ETIQUETA objEtiqueta = db.ETIQUETAs.Find(idEtiqueta);

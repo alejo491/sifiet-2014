@@ -82,7 +82,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBREASIGNATURA { get; set; }
 
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
@@ -117,7 +117,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
             {
                 var nombre = value as string;
                 var db = new GestionProgramasEntities();
-                var asignatura = (from e in db.ASIGNATURAs where asignaturaValidacion.IDENTIFICADORASIGNATURA == e.IDENTIFICADORASIGNATURA select e).FirstOrDefault();
+                var asignatura = (from e in db.ASIGNATURAs where asignaturaValidacion.IDENTIFICADORASIGNATURA == e.IDENTIFICADORASIGNATURA && !e.ESTADOASIGNATURA.Equals("Eliminado") select e).FirstOrDefault();
                 if (asignatura != null)
                 {
                     if (value.Equals(asignatura.NOMBREASIGNATURA))
@@ -125,7 +125,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 }
                 if (valid != true)
                 {
-                    var nombreAsignatura = (from e in db.ASIGNATURAs where nombre == e.NOMBREASIGNATURA select e.NOMBREASIGNATURA).FirstOrDefault
+                    var nombreAsignatura = (from e in db.ASIGNATURAs where nombre == e.NOMBREASIGNATURA && !e.ESTADOASIGNATURA.Equals("Eliminado") select e.NOMBREASIGNATURA).FirstOrDefault
                             ();
                     if (String.IsNullOrEmpty(nombreAsignatura))
                         valid = true;
@@ -150,7 +150,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 {
                     var idAsignaturaValor = value as string;
                     var db = new GestionProgramasEntities();
-                    var idAsignatura = (from e in db.ASIGNATURAs where idAsignaturaValor.Equals(e.CODIGOASIGNATURA) select e.CODIGOASIGNATURA).FirstOrDefault();
+                    var idAsignatura = (from e in db.ASIGNATURAs where idAsignaturaValor.Equals(e.CODIGOASIGNATURA) && !e.ESTADOASIGNATURA.Equals("Eliminado") select e.CODIGOASIGNATURA).FirstOrDefault();
                     if (String.IsNullOrEmpty(idAsignatura))
                         valid = true;
                 }

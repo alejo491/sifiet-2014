@@ -13,10 +13,10 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GestionEtiquetasEntities : DbContext
+    public partial class GestionContenidosEntities : DbContext
     {
-        public GestionEtiquetasEntities()
-            : base("name=GestionEtiquetasEntities")
+        public GestionContenidosEntities()
+            : base("name=GestionContenidosEntities")
         {
         }
     
@@ -25,7 +25,12 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<ATRIBUTO> ATRIBUTOes { get; set; }
+        public DbSet<BLOQUE> BLOQUEs { get; set; }
+        public DbSet<CATEGORIA> CATEGORIAs { get; set; }
         public DbSet<CONTENIDO> CONTENIDOes { get; set; }
         public DbSet<ETIQUETA> ETIQUETAs { get; set; }
+        public DbSet<TIPOCONTENIDO> TIPOCONTENIDOes { get; set; }
+        public DbSet<USUARIO> USUARIOs { get; set; }
     }
 }

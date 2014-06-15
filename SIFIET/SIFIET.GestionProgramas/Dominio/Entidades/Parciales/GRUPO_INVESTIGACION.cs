@@ -62,7 +62,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 {
                     var idGInvestigacionValor = value as string;
                     var db = new GestionProgramasEntities();
-                    var idGInvestigacion = (from g in db.GRUPO_INVESTIGACION where idGInvestigacionValor.Equals(g.CODIGOGRUPOINVESTIGACION) select g.CODIGOGRUPOINVESTIGACION).FirstOrDefault();
+                    var idGInvestigacion = (from g in db.GRUPO_INVESTIGACION where idGInvestigacionValor.Equals(g.CODIGOGRUPOINVESTIGACION) && !g.ESTADOGRUPOINVESTIGACION.Equals("Eliminado")  select g.CODIGOGRUPOINVESTIGACION).FirstOrDefault();
                     if (String.IsNullOrEmpty(idGInvestigacion))
                         valid = true;
                 }

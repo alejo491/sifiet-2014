@@ -12,27 +12,23 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
     using System;
     using System.Collections.Generic;
     
-    public partial class CONTENIDO
+    public partial class CATEGORIA
     {
-        public CONTENIDO()
+        public CATEGORIA()
         {
             this.ATRIBUTOes = new HashSet<ATRIBUTO>();
-            this.ETIQUETAs = new HashSet<ETIQUETA>();
+            this.BLOQUEs = new HashSet<BLOQUE>();
+            this.CONTENIDOes = new HashSet<CONTENIDO>();
         }
     
-        public decimal IDENTIFICADORCONTENIDO { get; set; }
-        public decimal IDENTIFICADORUSUARIO { get; set; }
         public decimal IDENTIFICADORCATEGORIA { get; set; }
-        public string TITULOCONTENIDO { get; set; }
-        public string DESCRIPCIONCONTENIDO { get; set; }
-        public string CUERPOCONTENIDO { get; set; }
-        public string FECHACREACIONCONTENIDO { get; set; }
-        public string ESTADOCONTENIDO { get; set; }
-        public string PRIORIDADCONTENIDO { get; set; }
+        public string NOMBRECATEGORIA { get; set; }
+        public string DESCRIPCIONCATEGORIA { get; set; }
+        public string ESTADOCATEGORIA { get; set; }
+        public Nullable<decimal> VISIBLEPRINCIPALCATEGORIA { get; set; }
     
-        public virtual CATEGORIA CATEGORIA { get; set; }
-        public virtual USUARIO USUARIO { get; set; }
         public virtual ICollection<ATRIBUTO> ATRIBUTOes { get; set; }
-        public virtual ICollection<ETIQUETA> ETIQUETAs { get; set; }
+        public virtual ICollection<BLOQUE> BLOQUEs { get; set; }
+        public virtual ICollection<CONTENIDO> CONTENIDOes { get; set; }
     }
 }
