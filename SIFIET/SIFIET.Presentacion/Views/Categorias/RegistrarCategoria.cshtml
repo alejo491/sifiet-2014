@@ -30,6 +30,15 @@
             @Html.EditorFor(model => model.DESCRIPCIONCATEGORIA)
             @Html.ValidationMessageFor(model => model.DESCRIPCIONCATEGORIA)
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VISIBLEPRINCIPALCATEGORIA)
+        </div>
+        <div class="editor-field">
+            Si @Html.RadioButtonFor(model => model.VISIBLEPRINCIPALCATEGORIA, 1)
+            No @Html.RadioButtonFor(model => model.VISIBLEPRINCIPALCATEGORIA, 0)
+            @Html.ValidationMessageFor(model => model.VISIBLEPRINCIPALCATEGORIA)
+        </div>
         <div>
             <p>
                 <input type="submit" value="Siguiente" onclick="return comfirmacionCategoria()" />
