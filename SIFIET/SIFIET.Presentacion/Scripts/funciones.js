@@ -389,11 +389,22 @@ function comfirmacionCategoria() {
     if (nombre.trim() == "" || desc.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
-        return false;
+        return true;
     } else {
         mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
         return confirm(mensaje);
     }
+}
+function confirmSalirCategoria() {
+    var r = confirm('¿Confirma que desea terminar la accion?');
+    var url = window.location.pathname;
+    var pathArray = url.split('/');        // <-- no need in "string()"
+    var host = pathArray[0];
+    var newHost = '/Categorias';
+    if (r == true) {
+        window.location = host + newHost;
+    }
+    return false;
 }
 
 /* Fin validacion Categorias */

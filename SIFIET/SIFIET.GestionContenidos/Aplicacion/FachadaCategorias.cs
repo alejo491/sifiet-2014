@@ -23,5 +23,20 @@ namespace SIFIET.GestionContenidos.Aplicacion
         {
             return SIFIET.GestionContenidos.Dominio.Servicios.ServicioCategorias.ConsultarCategoria(idCategoria);
         }
+
+        public static decimal RegistrarAtributo(ATRIBUTO oAtributo)
+        {
+            return Dominio.Servicios.ServicioCategorias.RegistrarAtributo(oAtributo);
+        }
+
+        public static bool existeAtributoCategoria(ATRIBUTO oAtributo)
+        {
+            return Dominio.Servicios.ServicioCategorias.existeAtributoCategoria(oAtributo);
+        }
+
+        public static bool EliminarAtributoContenido(decimal idCatecoria, decimal idAtributo)
+        {
+            return Dominio.Servicios.ServicioCategorias.EliminarAtributoContenido(idCatecoria, idAtributo);
+        }
     }
 }

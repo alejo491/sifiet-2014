@@ -53,5 +53,59 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
             var db = new GestionContenidosEntities();
             return db.CATEGORIAs.Find(idCategoria);
         }
+
+        public static decimal RegistrarAtributo(ATRIBUTO oAtributo)
+        {
+            var db = new GestionContenidosEntities();
+            try
+            {
+            db.Database.ExecuteSqlCommand("Insert into ATRIBUTO (IDENTIFICADORCATEGORIA, NOMBREATRIBUTO,OBLIGATORIOATRIBUTO,PANELEDICIONATRIBUTO,TIPOATRIBUTO,TAMANIOATRIBUTO) values (" +
+                                              "'" + oAtributo.IDENTIFICADORCATEGORIA + "'," +
+                                              "'" + oAtributo.NOMBREATRIBUTO + "'," +
+                                              "'" + oAtributo.OBLIGATORIOATRIBUTO + "'," +
+                                              "'" + oAtributo.PANELEDICIONATRIBUTO + "'," +
+                                              "'" + oAtributo.TIPOATRIBUTO + "'," +
+                                              "" + oAtributo.TAMANIOATRIBUTO + ")");
+                db.SaveChanges();
+                var _Atributo = (from a in db.ATRIBUTOes where a.NOMBREATRIBUTO.ToLower().Trim().Equals(oAtributo.NOMBREATRIBUTO.ToLower().Trim()) select a).FirstOrDefault();
+                if (_Atributo != null)
+                {
+                    return _Atributo.IDENTIFICADORATRIBUTO;
+                }
+                return -1;
+            }
+             catch (Exception)
+             {
+                 return -1;
+             }
+        }
+
+        public static bool existeAtributoCategoria(ATRIBUTO oAtributo)
+        {
+            var db = new GestionContenidosEntities();
+            var atributo = (from a in db.ATRIBUTOes
+                where
+                    oAtributo.IDENTIFICADORCATEGORIA == a.IDENTIFICADORCATEGORIA &&
+                    oAtributo.NOMBREATRIBUTO == a.NOMBREATRIBUTO
+                select a).ToList();
+            return atributo.Count > 0;
+        }
+
+        public static bool EliminarAtributoContenido(decimal idCategoria, decimal idAtributo)
+        {
+            var db = new GestionContenidosEntities();
+            try
+            {
+                var atributo = (from a in db.ATRIBUTOes
+                    where idCategoria == a.IDENTIFICADORCATEGORIA && idAtributo == a.IDENTIFICADORATRIBUTO select a).FirstOrDefault();
+                db.ATRIBUTOes.Remove(atributo);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
