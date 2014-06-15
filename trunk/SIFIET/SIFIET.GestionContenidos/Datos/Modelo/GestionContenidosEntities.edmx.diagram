@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f0ef5c96d4e45cdb6b139d4c1787cb5" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ATRIBUTO" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.BLOQUE" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CATEGORIA" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CONTENIDO" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ETIQUETA" Width="1.5" PointX="8.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TIPOCONTENIDO" Width="1.5" PointX="8" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_ATRIBUTO_CATEGORIA_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_BLOQUE_CATEGORIA_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CONTENID_CATEGORIA_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CONTENID_USUARIO_G_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.CONTENIDO_ATRIBUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.CONTENIDO_TIPO_CONTENIDO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -38,7 +38,7 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
             if (value != null)
             {
                 var nombre = value as string;
-                var db = new GestionEtiquetasEntities();
+                var db = new GestionContenidosEntities();
                 var asignatura = (from e in db.ETIQUETAs where asignaturaValidacion.IDENTIFICADORETIQUETA == e.IDENTIFICADORETIQUETA select e).FirstOrDefault();
                 if (asignatura != null)
                 {

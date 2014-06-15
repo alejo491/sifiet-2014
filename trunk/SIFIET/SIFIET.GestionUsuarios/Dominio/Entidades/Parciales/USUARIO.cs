@@ -34,7 +34,7 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
 
         [Required]
         [StringLength(180, ErrorMessage = "La Nombre no pueder ser mayor de 180 caracteres")]
-        [RegularExpression("^([a-zA-Z]+)$", ErrorMessage = "El Nombre no puede contener caracteres especiales")]
+        [RegularExpression("^[a-zA-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "El Nombre no puede contener caracteres especiales")]
         public string NOMBRESUSUARIO { get; set; }
 
         [Required]

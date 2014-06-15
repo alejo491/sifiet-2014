@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ATRIBUTO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORATRIBUTO" />
+          </Key>
+          <Property Name="IDENTIFICADORATRIBUTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREATRIBUTO" Type="varchar2" MaxLength="255" />
+          <Property Name="TAMANIOATRIBUTO" Type="number" Precision="38" Scale="0" />
+          <Property Name="PANELEDICIONATRIBUTO" Type="number" Precision="38" Scale="0" />
+          <Property Name="OBLIGATORIOATRIBUTO" Type="number" Precision="38" Scale="0" />
+          <Property Name="TIPOATRIBUTO" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="BLOQUE">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORBLOQUE" />
+          </Key>
+          <Property Name="IDENTIFICADORBLOQUE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="POSICIONXBLOQUE" Type="number" Precision="38" Scale="0" />
+          <Property Name="POSICIONYBLOQUE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ANCHOBLOQUE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ALTURABLOQUE" Type="number" Precision="38" Scale="0" />
+          <Property Name="OFFSETBLOQUE" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+          </Key>
+          <Property Name="IDENTIFICADORCATEGORIA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECATEGORIA" Type="varchar2" MaxLength="255" />
+          <Property Name="DESCRIPCIONCATEGORIA" Type="varchar2" MaxLength="1000" />
+          <Property Name="ESTADOCATEGORIA" Type="varchar2" MaxLength="50" />
+          <Property Name="VISIBLEPRINCIPALCATEGORIA" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="CONTENIDO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+          </Key>
+          <Property Name="IDENTIFICADORCONTENIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITULOCONTENIDO" Type="varchar2" MaxLength="255" />
+          <Property Name="DESCRIPCIONCONTENIDO" Type="varchar2" MaxLength="1000" />
+          <Property Name="CUERPOCONTENIDO" Type="varchar2" MaxLength="4000" />
+          <Property Name="FECHACREACIONCONTENIDO" Type="varchar2" MaxLength="200" />
+          <Property Name="ESTADOCONTENIDO" Type="varchar2" MaxLength="50" />
+          <Property Name="PRIORIDADCONTENIDO" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CONTENIDO_ATRIBUTO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            <PropertyRef Name="IDENTIFICADORATRIBUTO" />
+          </Key>
+          <Property Name="IDENTIFICADORCONTENIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORATRIBUTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTENIDO_TIPO_CONTENIDO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            <PropertyRef Name="IDENTIFICADORETIQUETA" />
+          </Key>
+          <Property Name="IDENTIFICADORCONTENIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORETIQUETA" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ETIQUETA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORETIQUETA" />
+          </Key>
+          <Property Name="IDENTIFICADORETIQUETA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREETIQUETA" Type="varchar2" MaxLength="255" />
+          <Property Name="DESCRIPCIONETIQUETA" Type="varchar2" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TIPOCONTENIDO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORTIPOCONTENIDO" />
+          </Key>
+          <Property Name="IDENTIFICADORTIPOCONTENIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRETIPOCONTENIDO" Type="varchar2" MaxLength="100" />
+          <Property Name="DESCRIPCIONTIPOCONTENIDO" Type="varchar2" MaxLength="100" />
+          <Property Name="ESTADOTIPOCONTENIDO" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="varchar2" MaxLength="80" />
+          <Property Name="PASSWORDUSUARIO" Type="varchar2" MaxLength="15" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="varchar2" MaxLength="10" />
+          <Property Name="NOMBRESUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="APELLIDOSUSUARIO" Type="varchar2" MaxLength="180" />
+          <Property Name="ESTADOUSUARIO" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_ATRIBUTO_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="ATRIBUTO" Type="Self.ATRIBUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="ATRIBUTO">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BLOQUE_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="BLOQUE" Type="Self.BLOQUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="BLOQUE">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CONTENIDO_ATRIBUTO">
+          <End Role="ATRIBUTO" Type="Self.ATRIBUTO" Multiplicity="1" />
+          <End Role="CONTENIDO_ATRIBUTO" Type="Self.CONTENIDO_ATRIBUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ATRIBUTO">
+              <PropertyRef Name="IDENTIFICADORATRIBUTO" />
+            </Principal>
+            <Dependent Role="CONTENIDO_ATRIBUTO">
+              <PropertyRef Name="IDENTIFICADORATRIBUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CONTENIDO_CONTENI2">
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="1" />
+          <End Role="CONTENIDO_TIPO_CONTENIDO" Type="Self.CONTENIDO_TIPO_CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            </Principal>
+            <Dependent Role="CONTENIDO_TIPO_CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CONTENIDO_CONTENID">
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="1" />
+          <End Role="CONTENIDO_ATRIBUTO" Type="Self.CONTENIDO_ATRIBUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            </Principal>
+            <Dependent Role="CONTENIDO_ATRIBUTO">
+              <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CONTENIDO_ETIQUETA">
+          <End Role="ETIQUETA" Type="Self.ETIQUETA" Multiplicity="1" />
+          <End Role="CONTENIDO_TIPO_CONTENIDO" Type="Self.CONTENIDO_TIPO_CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ETIQUETA">
+              <PropertyRef Name="IDENTIFICADORETIQUETA" />
+            </Principal>
+            <Dependent Role="CONTENIDO_TIPO_CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORETIQUETA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_USUARIO_G_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ATRIBUTO" EntityType="Self.ATRIBUTO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="BLOQUE" EntityType="Self.BLOQUE" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="CONTENIDO" EntityType="Self.CONTENIDO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="CONTENIDO_ATRIBUTO" EntityType="Self.CONTENIDO_ATRIBUTO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="CONTENIDO_TIPO_CONTENIDO" EntityType="Self.CONTENIDO_TIPO_CONTENIDO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="ETIQUETA" EntityType="Self.ETIQUETA" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="TIPOCONTENIDO" EntityType="Self.TIPOCONTENIDO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="GPA" store:Type="Tables" />
+          <AssociationSet Name="FK_ATRIBUTO_CATEGORIA_CATEGORI" Association="Self.FK_ATRIBUTO_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="ATRIBUTO" EntitySet="ATRIBUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BLOQUE_CATEGORIA_CATEGORI" Association="Self.FK_BLOQUE_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="BLOQUE" EntitySet="BLOQUE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CATEGORIA_CATEGORI" Association="Self.FK_CONTENID_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="CONTENIDO" EntitySet="CONTENIDO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CONTENIDO_ATRIBUTO" Association="Self.FK_CONTENID_CONTENIDO_ATRIBUTO">
+            <End Role="ATRIBUTO" EntitySet="ATRIBUTO" />
+            <End Role="CONTENIDO_ATRIBUTO" EntitySet="CONTENIDO_ATRIBUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CONTENIDO_CONTENI2" Association="Self.FK_CONTENID_CONTENIDO_CONTENI2">
+            <End Role="CONTENIDO" EntitySet="CONTENIDO" />
+            <End Role="CONTENIDO_TIPO_CONTENIDO" EntitySet="CONTENIDO_TIPO_CONTENIDO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CONTENIDO_CONTENID" Association="Self.FK_CONTENID_CONTENIDO_CONTENID">
+            <End Role="CONTENIDO" EntitySet="CONTENIDO" />
+            <End Role="CONTENIDO_ATRIBUTO" EntitySet="CONTENIDO_ATRIBUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CONTENIDO_ETIQUETA" Association="Self.FK_CONTENID_CONTENIDO_ETIQUETA">
+            <End Role="ETIQUETA" EntitySet="ETIQUETA" />
+            <End Role="CONTENIDO_TIPO_CONTENIDO" EntitySet="CONTENIDO_TIPO_CONTENIDO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_USUARIO_G_USUARIO" Association="Self.FK_CONTENID_USUARIO_G_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="CONTENIDO" EntitySet="CONTENIDO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ATRIBUTO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORATRIBUTO" />
+          </Key>
+          <Property Name="IDENTIFICADORATRIBUTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREATRIBUTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAMANIOATRIBUTO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PANELEDICIONATRIBUTO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="OBLIGATORIOATRIBUTO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TIPOATRIBUTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_ATRIBUTO_CATEGORIA_CATEGORI" FromRole="ATRIBUTO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="CONTENIDOes" Relationship="Self.CONTENIDO_ATRIBUTO" FromRole="ATRIBUTO" ToRole="CONTENIDO" />
+        </EntityType>
+        <EntityType Name="BLOQUE">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORBLOQUE" />
+          </Key>
+          <Property Name="IDENTIFICADORBLOQUE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="POSICIONXBLOQUE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="POSICIONYBLOQUE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ANCHOBLOQUE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ALTURABLOQUE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="OFFSETBLOQUE" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_BLOQUE_CATEGORIA_CATEGORI" FromRole="BLOQUE" ToRole="CATEGORIA" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+          </Key>
+          <Property Name="IDENTIFICADORCATEGORIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECATEGORIA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONCATEGORIA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOCATEGORIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VISIBLEPRINCIPALCATEGORIA" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="ATRIBUTOes" Relationship="Self.FK_ATRIBUTO_CATEGORIA_CATEGORI" FromRole="CATEGORIA" ToRole="ATRIBUTO" />
+          <NavigationProperty Name="BLOQUEs" Relationship="Self.FK_BLOQUE_CATEGORIA_CATEGORI" FromRole="CATEGORIA" ToRole="BLOQUE" />
+          <NavigationProperty Name="CONTENIDOes" Relationship="Self.FK_CONTENID_CATEGORIA_CATEGORI" FromRole="CATEGORIA" ToRole="CONTENIDO" />
+        </EntityType>
+        <EntityType Name="CONTENIDO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORCONTENIDO" />
+          </Key>
+          <Property Name="IDENTIFICADORCONTENIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCATEGORIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITULOCONTENIDO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONCONTENIDO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CUERPOCONTENIDO" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="FECHACREACIONCONTENIDO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOCONTENIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRIORIDADCONTENIDO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_CONTENID_CATEGORIA_CATEGORI" FromRole="CONTENIDO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_CONTENID_USUARIO_G_USUARIO" FromRole="CONTENIDO" ToRole="USUARIO" />
+          <NavigationProperty Name="ATRIBUTOes" Relationship="Self.CONTENIDO_ATRIBUTO" FromRole="CONTENIDO" ToRole="ATRIBUTO" />
+          <NavigationProperty Name="ETIQUETAs" Relationship="Self.CONTENIDO_TIPO_CONTENIDO" FromRole="CONTENIDO" ToRole="ETIQUETA" />
+        </EntityType>
+        <EntityType Name="ETIQUETA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORETIQUETA" />
+          </Key>
+          <Property Name="IDENTIFICADORETIQUETA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREETIQUETA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONETIQUETA" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTENIDOes" Relationship="Self.CONTENIDO_TIPO_CONTENIDO" FromRole="ETIQUETA" ToRole="CONTENIDO" />
+        </EntityType>
+        <EntityType Name="TIPOCONTENIDO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORTIPOCONTENIDO" />
+          </Key>
+          <Property Name="IDENTIFICADORTIPOCONTENIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRETIPOCONTENIDO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONTIPOCONTENIDO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOTIPOCONTENIDO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORUSUARIO" />
+          </Key>
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMAILINSTITUCIONALUSUARIO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDUSUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IDENTIFICACIONUSUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRESUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOSUSUARIO" Type="String" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOUSUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTENIDOes" Relationship="Self.FK_CONTENID_USUARIO_G_USUARIO" FromRole="USUARIO" ToRole="CONTENIDO" />
+        </EntityType>
+        <Association Name="FK_ATRIBUTO_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="ATRIBUTO" Type="Self.ATRIBUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="ATRIBUTO">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BLOQUE_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="BLOQUE" Type="Self.BLOQUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="BLOQUE">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_CATEGORIA_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Principal>
+            <Dependent Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORCATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENID_USUARIO_G_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Principal>
+            <Dependent Role="CONTENIDO">
+              <PropertyRef Name="IDENTIFICADORUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTENIDO_ATRIBUTO">
+          <End Role="ATRIBUTO" Type="Self.ATRIBUTO" Multiplicity="*" />
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+        </Association>
+        <Association Name="CONTENIDO_TIPO_CONTENIDO">
+          <End Role="CONTENIDO" Type="Self.CONTENIDO" Multiplicity="*" />
+          <End Role="ETIQUETA" Type="Self.ETIQUETA" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GestionContenidosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ATRIBUTOes" EntityType="Self.ATRIBUTO" />
+          <EntitySet Name="BLOQUEs" EntityType="Self.BLOQUE" />
+          <EntitySet Name="CATEGORIAs" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="CONTENIDOes" EntityType="Self.CONTENIDO" />
+          <EntitySet Name="ETIQUETAs" EntityType="Self.ETIQUETA" />
+          <EntitySet Name="TIPOCONTENIDOes" EntityType="Self.TIPOCONTENIDO" />
+          <EntitySet Name="USUARIOs" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_ATRIBUTO_CATEGORIA_CATEGORI" Association="Self.FK_ATRIBUTO_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIAs" />
+            <End Role="ATRIBUTO" EntitySet="ATRIBUTOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BLOQUE_CATEGORIA_CATEGORI" Association="Self.FK_BLOQUE_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIAs" />
+            <End Role="BLOQUE" EntitySet="BLOQUEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_CATEGORIA_CATEGORI" Association="Self.FK_CONTENID_CATEGORIA_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIAs" />
+            <End Role="CONTENIDO" EntitySet="CONTENIDOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENID_USUARIO_G_USUARIO" Association="Self.FK_CONTENID_USUARIO_G_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIOs" />
+            <End Role="CONTENIDO" EntitySet="CONTENIDOes" />
+          </AssociationSet>
+          <AssociationSet Name="CONTENIDO_ATRIBUTO" Association="Self.CONTENIDO_ATRIBUTO">
+            <End Role="ATRIBUTO" EntitySet="ATRIBUTOes" />
+            <End Role="CONTENIDO" EntitySet="CONTENIDOes" />
+          </AssociationSet>
+          <AssociationSet Name="CONTENIDO_TIPO_CONTENIDO" Association="Self.CONTENIDO_TIPO_CONTENIDO">
+            <End Role="CONTENIDO" EntitySet="CONTENIDOes" />
+            <End Role="ETIQUETA" EntitySet="ETIQUETAs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="GestionContenidosEntities">
+          <EntitySetMapping Name="ATRIBUTOes">
+            <EntityTypeMapping TypeName="Model.ATRIBUTO">
+              <MappingFragment StoreEntitySet="ATRIBUTO">
+                <ScalarProperty Name="IDENTIFICADORATRIBUTO" ColumnName="IDENTIFICADORATRIBUTO" />
+                <ScalarProperty Name="IDENTIFICADORCATEGORIA" ColumnName="IDENTIFICADORCATEGORIA" />
+                <ScalarProperty Name="NOMBREATRIBUTO" ColumnName="NOMBREATRIBUTO" />
+                <ScalarProperty Name="TAMANIOATRIBUTO" ColumnName="TAMANIOATRIBUTO" />
+                <ScalarProperty Name="PANELEDICIONATRIBUTO" ColumnName="PANELEDICIONATRIBUTO" />
+                <ScalarProperty Name="OBLIGATORIOATRIBUTO" ColumnName="OBLIGATORIOATRIBUTO" />
+                <ScalarProperty Name="TIPOATRIBUTO" ColumnName="TIPOATRIBUTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BLOQUEs">
+            <EntityTypeMapping TypeName="Model.BLOQUE">
+              <MappingFragment StoreEntitySet="BLOQUE">
+                <ScalarProperty Name="IDENTIFICADORBLOQUE" ColumnName="IDENTIFICADORBLOQUE" />
+                <ScalarProperty Name="IDENTIFICADORCATEGORIA" ColumnName="IDENTIFICADORCATEGORIA" />
+                <ScalarProperty Name="POSICIONXBLOQUE" ColumnName="POSICIONXBLOQUE" />
+                <ScalarProperty Name="POSICIONYBLOQUE" ColumnName="POSICIONYBLOQUE" />
+                <ScalarProperty Name="ANCHOBLOQUE" ColumnName="ANCHOBLOQUE" />
+                <ScalarProperty Name="ALTURABLOQUE" ColumnName="ALTURABLOQUE" />
+                <ScalarProperty Name="OFFSETBLOQUE" ColumnName="OFFSETBLOQUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIAs">
+            <EntityTypeMapping TypeName="Model.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="IDENTIFICADORCATEGORIA" ColumnName="IDENTIFICADORCATEGORIA" />
+                <ScalarProperty Name="NOMBRECATEGORIA" ColumnName="NOMBRECATEGORIA" />
+                <ScalarProperty Name="DESCRIPCIONCATEGORIA" ColumnName="DESCRIPCIONCATEGORIA" />
+                <ScalarProperty Name="ESTADOCATEGORIA" ColumnName="ESTADOCATEGORIA" />
+                <ScalarProperty Name="VISIBLEPRINCIPALCATEGORIA" ColumnName="VISIBLEPRINCIPALCATEGORIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTENIDOes">
+            <EntityTypeMapping TypeName="Model.CONTENIDO">
+              <MappingFragment StoreEntitySet="CONTENIDO">
+                <ScalarProperty Name="IDENTIFICADORCONTENIDO" ColumnName="IDENTIFICADORCONTENIDO" />
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="IDENTIFICADORCATEGORIA" ColumnName="IDENTIFICADORCATEGORIA" />
+                <ScalarProperty Name="TITULOCONTENIDO" ColumnName="TITULOCONTENIDO" />
+                <ScalarProperty Name="DESCRIPCIONCONTENIDO" ColumnName="DESCRIPCIONCONTENIDO" />
+                <ScalarProperty Name="CUERPOCONTENIDO" ColumnName="CUERPOCONTENIDO" />
+                <ScalarProperty Name="FECHACREACIONCONTENIDO" ColumnName="FECHACREACIONCONTENIDO" />
+                <ScalarProperty Name="ESTADOCONTENIDO" ColumnName="ESTADOCONTENIDO" />
+                <ScalarProperty Name="PRIORIDADCONTENIDO" ColumnName="PRIORIDADCONTENIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ETIQUETAs">
+            <EntityTypeMapping TypeName="Model.ETIQUETA">
+              <MappingFragment StoreEntitySet="ETIQUETA">
+                <ScalarProperty Name="IDENTIFICADORETIQUETA" ColumnName="IDENTIFICADORETIQUETA" />
+                <ScalarProperty Name="NOMBREETIQUETA" ColumnName="NOMBREETIQUETA" />
+                <ScalarProperty Name="DESCRIPCIONETIQUETA" ColumnName="DESCRIPCIONETIQUETA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOCONTENIDOes">
+            <EntityTypeMapping TypeName="Model.TIPOCONTENIDO">
+              <MappingFragment StoreEntitySet="TIPOCONTENIDO">
+                <ScalarProperty Name="IDENTIFICADORTIPOCONTENIDO" ColumnName="IDENTIFICADORTIPOCONTENIDO" />
+                <ScalarProperty Name="NOMBRETIPOCONTENIDO" ColumnName="NOMBRETIPOCONTENIDO" />
+                <ScalarProperty Name="DESCRIPCIONTIPOCONTENIDO" ColumnName="DESCRIPCIONTIPOCONTENIDO" />
+                <ScalarProperty Name="ESTADOTIPOCONTENIDO" ColumnName="ESTADOTIPOCONTENIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOs">
+            <EntityTypeMapping TypeName="Model.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="EMAILINSTITUCIONALUSUARIO" ColumnName="EMAILINSTITUCIONALUSUARIO" />
+                <ScalarProperty Name="PASSWORDUSUARIO" ColumnName="PASSWORDUSUARIO" />
+                <ScalarProperty Name="IDENTIFICACIONUSUARIO" ColumnName="IDENTIFICACIONUSUARIO" />
+                <ScalarProperty Name="NOMBRESUSUARIO" ColumnName="NOMBRESUSUARIO" />
+                <ScalarProperty Name="APELLIDOSUSUARIO" ColumnName="APELLIDOSUSUARIO" />
+                <ScalarProperty Name="ESTADOUSUARIO" ColumnName="ESTADOUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CONTENIDO_ATRIBUTO" TypeName="Model.CONTENIDO_ATRIBUTO" StoreEntitySet="CONTENIDO_ATRIBUTO">
+            <EndProperty Name="ATRIBUTO">
+              <ScalarProperty Name="IDENTIFICADORATRIBUTO" ColumnName="IDENTIFICADORATRIBUTO" />
+            </EndProperty>
+            <EndProperty Name="CONTENIDO">
+              <ScalarProperty Name="IDENTIFICADORCONTENIDO" ColumnName="IDENTIFICADORCONTENIDO" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CONTENIDO_TIPO_CONTENIDO" TypeName="Model.CONTENIDO_TIPO_CONTENIDO" StoreEntitySet="CONTENIDO_TIPO_CONTENIDO">
+            <EndProperty Name="CONTENIDO">
+              <ScalarProperty Name="IDENTIFICADORCONTENIDO" ColumnName="IDENTIFICADORCONTENIDO" />
+            </EndProperty>
+            <EndProperty Name="ETIQUETA">
+              <ScalarProperty Name="IDENTIFICADORETIQUETA" ColumnName="IDENTIFICADORETIQUETA" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
