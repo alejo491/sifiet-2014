@@ -1,0 +1,24 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.CATEGORIA
+
+@{
+    ViewBag.Title = "Registrar Atributo";
+}
+
+<h2>Registrar Atributo</h2>
+
+<fieldset>
+    <legend>Categoria</legend>
+
+    <div class="display-label">@Html.LabelFor(model => model.NOMBRECATEGORIA)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOMBRECATEGORIA)
+    </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.DESCRIPCIONCATEGORIA)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DESCRIPCIONCATEGORIA)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Volver", "Index")
+</p>

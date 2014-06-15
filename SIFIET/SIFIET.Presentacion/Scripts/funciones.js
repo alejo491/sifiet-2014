@@ -378,3 +378,22 @@ function comfirmacionEtiqueta() {
 }
 
 /* Fin validacion Etiquetas */
+
+/* Validacion modulo Categorias */
+
+function comfirmacionCategoria() {
+    var nombre = document.getElementById("NOMBRECATEGORIA").value;
+    var desc = document.getElementById("DESCRIPCIONCATEGORIA").value;
+
+    var mensaje;
+    if (nombre.trim() == "" || desc.trim() == "") {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return false;
+    } else {
+        mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
+        return confirm(mensaje);
+    }
+}
+
+/* Fin validacion Categorias */
