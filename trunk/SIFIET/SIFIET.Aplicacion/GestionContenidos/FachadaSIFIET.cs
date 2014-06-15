@@ -39,5 +39,24 @@ namespace SIFIET.Aplicacion
         }
 
         #endregion
+
+        #region Metodos Gestion de Categorias
+
+        public static List<CATEGORIA> ConsultarCategorias(string busqueda)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaCategorias.ConsultarCategorias(busqueda);
+        }
+
+        public static decimal RegistrarCategoria(CATEGORIA categoriaIn)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaCategorias.RegistrarCategoria(categoriaIn);
+        }
+
+        public static CATEGORIA ConsultarCategoria(decimal idCategoria)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaCategorias.ConsultarCategoria(idCategoria);
+        }
+
+        #endregion
     }
 }

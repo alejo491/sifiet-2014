@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.CATEGORIA>
+
+@{
+    ViewBag.Title = "Categorias";
+    WebGrid grid = new WebGrid(Model);
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <fieldset>
+        <legend>Buscar Categoria</legend>
+        Busqueda por nombre:
+
+        <input type="text" name="busqueda" value="@ViewBag.busqueda" />
+        <input type="submit" value="Buscar" />
+    </fieldset>
+}
+<br />
+@grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+
+            grid.Column("NOMBRECATEGORIA",header:"Nombre"),
+            grid.Column("DESCRIPCIONCATEGORIA",header:"Descripción"),
+            @*grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "EditarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }) |
+                @Html.ActionLink("Eliminar", "EliminarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }, new { onclick = "return confirmarEliminarEtiqueta()" }) |
+                @Html.ActionLink("Visualizar", "VisualizarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA })
+                </text>
+                )*@
+        })
+
+<p>
+    @Html.ActionLink("Agregar", "RegistrarCategoria")
+</p>
+<h3> @ViewBag.ResultadoOperacion </h3>

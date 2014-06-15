@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicacion\FachadaCategorias.cs" />
     <Compile Include="Aplicacion\FachadaEtiquetas.cs" />
     <Compile Include="Datos\Modelo\ATRIBUTO.cs">
       <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
@@ -83,7 +84,9 @@
     <Compile Include="Datos\Modelo\USUARIO.cs">
       <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\CATEGORIA.cs" />
     <Compile Include="Dominio\Entidades\Parciales\ETIQUETA.cs" />
+    <Compile Include="Dominio\Servicios\ServicioCategorias.cs" />
     <Compile Include="Dominio\Servicios\ServicioEtiquetas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
