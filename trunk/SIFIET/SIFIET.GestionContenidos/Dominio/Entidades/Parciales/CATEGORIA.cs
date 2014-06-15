@@ -27,6 +27,10 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
         [StringLength(1000, ErrorMessage = "El {0} no pueder ser mayor de 1000 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONCATEGORIA { get; set; }
+
+        [Display(Name = "Visible :")]
+        [Required(ErrorMessage = "Seleccione una opción")]
+        public Nullable<decimal> VISIBLEPRINCIPALCATEGORIA { get; set; }
     }
 
     public sealed class NombreCategoriaYaExiste : ValidationAttribute

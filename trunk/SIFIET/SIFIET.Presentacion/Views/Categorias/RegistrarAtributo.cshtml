@@ -18,6 +18,18 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.DESCRIPCIONCATEGORIA)
     </div>
+
+    <div class="display-label">@Html.LabelFor(model => model.VISIBLEPRINCIPALCATEGORIA)</div>
+    <div class="display-field">
+        @if (Model.VISIBLEPRINCIPALCATEGORIA == 1)
+        {
+            <div class="display-field">Si</div>
+        }
+        else
+        {
+            <div class="display-field">No</div>
+        }        
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Volver", "Index")
