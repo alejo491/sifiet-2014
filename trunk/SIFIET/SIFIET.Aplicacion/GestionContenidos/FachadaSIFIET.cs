@@ -57,6 +57,20 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionContenidos.Aplicacion.FachadaCategorias.ConsultarCategoria(idCategoria);
         }
 
+        public static decimal RegistrarAtributo(ATRIBUTO oAtributo)
+        {
+            return GestionContenidos.Aplicacion.FachadaCategorias.RegistrarAtributo(oAtributo);
+        }
+
+        public static bool exiteAtributoCategoria(ATRIBUTO oAtributo)
+        {
+            return GestionContenidos.Aplicacion.FachadaCategorias.existeAtributoCategoria(oAtributo);
+        }
+
+        public static bool EliminarAtributoContenido(decimal idCategoria, decimal idAtributo)
+        {
+            return GestionContenidos.Aplicacion.FachadaCategorias.EliminarAtributoContenido(idCategoria, idAtributo);
+        }
         #endregion
     }
 }

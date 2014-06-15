@@ -19,13 +19,13 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
         [Required(ErrorMessage = "Este campo es requerido")]
         [NombreCategoriaYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Etiqueta usando ese nombre")]
         [StringLength(255, ErrorMessage = "El {0} no pueder ser mayor de 255 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string NOMBRECATEGORIA { get; set; }
 
         [Display(Name = "Descripción :")]
         [Required(ErrorMessage = "Este campo es requerido")]
         [StringLength(1000, ErrorMessage = "El {0} no pueder ser mayor de 1000 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_.,]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONCATEGORIA { get; set; }
 
         [Display(Name = "Visible :")]

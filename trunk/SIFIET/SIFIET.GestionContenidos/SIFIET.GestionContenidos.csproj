@@ -84,6 +84,7 @@
     <Compile Include="Datos\Modelo\USUARIO.cs">
       <DependentUpon>GestionContenidosEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\ATRIBUTO.cs" />
     <Compile Include="Dominio\Entidades\Parciales\CATEGORIA.cs" />
     <Compile Include="Dominio\Entidades\Parciales\ETIQUETA.cs" />
     <Compile Include="Dominio\Servicios\ServicioCategorias.cs" />
