@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsignaturasController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\ContenidosController.cs" />
     <Compile Include="Controllers\EtiquetasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
     <Compile Include="Controllers\GruposInvestigacionController.cs" />
@@ -242,6 +243,9 @@
     <Content Include="Views\Categorias\Index.cshtml" />
     <Content Include="Views\Categorias\RegistrarCategoria.cshtml" />
     <Content Include="Views\Categorias\RegistrarAtributo.cshtml" />
+    <Content Include="Views\Contenidos\Index.cshtml" />
+    <Content Include="Views\Contenidos\RegistrarContenido.cshtml" />
+    <Content Include="Views\Contenidos\EliminarContenido.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

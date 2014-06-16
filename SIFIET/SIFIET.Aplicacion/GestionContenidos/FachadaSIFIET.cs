@@ -72,5 +72,30 @@ namespace SIFIET.Aplicacion
             return GestionContenidos.Aplicacion.FachadaCategorias.EliminarAtributoContenido(idCategoria, idAtributo);
         }
         #endregion
+
+        #region Metodos Gestion Contenido
+        public static List<CONTENIDO> ConsultarContenidos(decimal idContenido, string nombreContenido, string estado)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ConsultarContenidos(idContenido, nombreContenido, estado);
+        }
+        public static CONTENIDO VisualizarContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.VisualizarContenido(idContenido);
+        }
+        public static bool RegistrarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.RegistrarContenido(objContenido, atributos);
+        }
+
+        public static bool ModificarContenido(CONTENIDO objContenido)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ModificarContenido(objContenido);
+        }
+
+        public static bool EliminarContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.EliminarContenido(idContenido);
+        }
+        #endregion
     }
 }

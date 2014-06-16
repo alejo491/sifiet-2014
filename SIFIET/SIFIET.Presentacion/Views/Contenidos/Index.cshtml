@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO>
+@{
+
+    ViewBag.Title = "Contenidos";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Contenidos</h2>
+    @if (!String.IsNullOrEmpty(ViewBag.ResultadoBusqueda) && ViewBag.ResultadoBusqueda.Equals("ListaVacia"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
+
+    @using (Html.BeginForm(null, null, FormMethod.Get))
+    {
+        <p>
+            Activo @Html.RadioButton("estado", "Activo", true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("idContenido", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreContenido")
+            <input type="submit" value="Buscar" />
+        </p>
+    }
+
+    @grid.GetHtml(
+        fillEmptyRows: true,
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {grid.Column("FECHACREACIONCONTENIDO",header:"Fecha Creacion"),
+            grid.Column("TITULOCONTENIDO",header:"Titulo"),
+            grid.Column("DESCRIPCIONCONTENIDO",header:"Descripcion"),
+            grid.Column("",header:"Opciones",
+                format: @<text>
+                @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |
+                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |
+                @Html.ActionLink("Eliminar", "EliminarContenido", "Contenidos", new { idContenido = item.IDENTIFICADORCONTENIDO }, new { onclick = "return confirmarEliminarContenido()" })
+                </text>
+                )
+        })    
+    <p>
+        @using (Html.BeginForm("RegistrarContenido", "Contenidos",FormMethod.Get))
+        {            
+        <p>
+            @Html.DropDownList("nomCategoria", ViewBag.ListaCategorias as SelectList)         
+            <input type="submit" value="Agregar" />
+        </p>
+        }
+        
+        @Html.ActionLink("Agregar", "RegistrarContenido")      
+        <h3> @TempData["UpSession"] </h3>
+        <h3> @ViewBag.Resultado </h3>
+    </p>
+</div>
