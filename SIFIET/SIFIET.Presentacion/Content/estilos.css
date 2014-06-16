@@ -1,223 +1,199 @@
-/***** Fuentes *****/
-@font-face {
-    font-family: 'Vegur-Regular';
-    src: url('fonts/vegur/vegur-regular-webfont.eot');
-    src: url('fonts/vegur/vegur-regular-webfont.eot?iefix') format('eot'),
-         url('fonts/vegur/vegur-regular-webfont.woff') format('woff'),
-         url('fonts/vegur/vegur-regular-webfont.ttf') format('truetype'),
-         url('fonts/vegur/vegur-regular-webfont.svg#webfontZam02nTh') format('svg');
-    font-weight: normal;
-    font-style: normal; 
-}
+/* Paleta de colores */
+/*
+	azul oscuro #092169;
+	azul claro  #22419A;
+	rojo claro  #CC0000;
+	rojo oscuro #770000;
+
+
+*/
 
 
 body {
-	background: url(img/body-bkg.png) repeat-x scroll 0% 0% #C8CDD6;
-	font-family: "Vegur-Regular", "Arial Narrow", Arial, sans-serif;
-	line-height: 1;
-	font-size: 13px;
+	background: url(img/body-bkg2.png) repeat-x scroll 0% 0% #C8CDD6;
+	font-family: 'Open Sans', sans-serif;
 }
 
-/***** Main Header ******/
-#mainHeader {
-
+header {
+	background: #092169;
+	margin: auto;
+	color: #fff;
 }
-	#mainHeader .contenedor {
-		width: 972px;
-		margin: auto;
-		background-color: #092169;
-		padding: 35px 0 0px;
-	}
-		#mainHeader .top {
-			background-color: #22419A;
-			position: relative;
-		}
-			#mainHeader .top .borde-redondo {
-				position: absolute;
-				width: 125px;
-				height: 125px;
-				border-radius: 60px;
-				background-color: #22419A;
-				top: -15px;
-			}
-			#mainHeader .top .titulo:link, #mainHeader .top .titulo:visited {
-				text-transform: uppercase;
-				float: right;
-				margin: 20px 20px 0 0;
-				font-size: 60px;
-				font-weight: bold;
-				color: #FFFFFF;
-				text-decoration: none;
-				text-shadow: 0 0 50px #000000;
-			}
-			#mainHeader .top .logo {
-				position: relative;
-				z-index: 1;
-				margin-left: 23px;
-				padding-top: 2px;
-				float: left;
-			}
-				#mainHeader .top .logo a {
-					width: 192px;
-					height: 96px;
-					display: block;
-					background: url(img/logo-unicauca.png) no-repeat;
-				}
-		#mainHeader .bottom {
-			height: 40px;
-			background: url(img/bkg-cabecera-rojo.png) repeat-y;
-		}
 
-		/***** Main Navigation *****/
-		#mainNav {
-			margin-top: -13px;
-			display: table;
-			margin-left: auto;
-			margin-right: auto;
-		}
-			#mainNav ul {
-				padding-left: 0;
-			}
-				#mainNav ul li {
-					float: left;
-					margin-right: 12px;
-					background: #3C3C3C;
-					position: relative;
-				}
-					#mainNav ul li .punta {
-						position: absolute;
-						right: -7px;
-						top: -11px;
-    					width: 0;
-    					height: 0;
-    					border-bottom: 11px solid #092169; 
-    					border-right: 8px solid transparent;    
-					}
-					#mainNav ul li a:link, #mainNav ul li a:visited {
-						padding:10px 10px;
-						text-transform:uppercase;
-						text-shadow: 0px 1px 0px #414141;
-						background:#092169;
-						background: -moz-linear-gradient(top, #22419A, #092169);
-						background: -webkit-linear-gradient(top, #22419A, #092169);
-						background: -o-linear-gradient(top, #22419A, #092169);
-						background: -ms-linear-gradient(top, #22419A, #092169);
-						background: linear-gradient( #22419A, #092169);
-						-pie-background: linear-gradient(#22419A, #092169); /*IE8*/
-						-webkit-border-radius:2px;
-						-moz-border-radius:2px;
-						border-radius:2px;
-						-webkit-box-shadow: rgba(54,59,64, .75) 3px 3px 4px;
-						-moz-box-shadow: rgba(54,59,64, .75) 3px 3px 4px;
-						box-shadow: rgba(54,59,64, .75) 3px 3px 4px;
-						color: #FFFFFF;
-						text-decoration: none;
-						font-size: 17px;
-					}
-
-					#mainNav ul li a.active, #mainNav ul li a:hover, #mainNav ul li a:focus {
-						color:#eaeacd;
-						background:#092169;
-						-pie-background:#092169;
-						text-shadow:none;
-						-webkit-box-shadow: rgba(54,59,64, .75) 2px 2px 2px;
-						-moz-box-shadow: rgba(54,59,64, .75) 2px 2px 2px;
-						box-shadow: rgba(54,59,64, .75) 2px 2px 2px;					
-						
-					}
-
-/**** Contenido General *****/
-#contenido {
-	margin-top: -13px;
+header .top {
+	background-color: #22419A;
+	position: relative;
+	-webkit-box-shadow: 0 8px 6px -6px #222;
+	   -moz-box-shadow: 0 8px 6px -6px #222;
+	        box-shadow: 0 8px 6px -6px #222;
+	border-top: 2px solid #294FBC;
 }
-	#contenido .contenedor {
-		background: #FFFFFF;
-		width: 932px;
-		margin: auto;
-		border-top: 1px solid rgba(0,0,0,0.5);
-		padding: 30px 20px 10px;
-	}
-		#mainMenu {
-			border-right:1px solid #999;
-			padding:10px 0px;
-			width:145px;
-			float: left;
-			margin-right: 15px;
-		}
-			#mainMenu li {
-				list-style: none;
-				border-bottom: 1px solid #092169;
-			}
-			#mainMenu li.first {
-				border-top: 1px solid #092169;	
-			}
-				#mainMenu a:link, #mainMenu a:visited {
-					display: block;
-					height: 47px;
-					color: #092169;
-					line-height: 47px;
-					text-align: center;
-					text-decoration: none;
-					font-size: 18px;
-					-webkit-transition: all 100ms ease-in-out;
-            		-moz-transition: all 100ms ease-in-out;
-            		-o-transition: all 100ms ease-in-out;
-            		transition: all 100ms ease-in-out;
-				}
-				#mainMenu a.active, #mainMenu a:hover, #mainMenu a:focus {
-					background-color: #092169;
-					color: #FFFFFF;
-				}
-		.breadcrumb {
-			font-size: 15px;
-		}
-			.breadcrumb a:link, .breadcrumb a:visited {
-				color: #092169;
-				text-decoration: none;
-			}
-			.breadcrumb a:hover, .breadcrumb a:focus {
-				text-decoration: underline;
-			}
 
-        .wrapper {
-            float: left;
-        }
-
-/***** Main Footer *****/
-#mainFooter {
+header .info-usuario {
+	font-size: 11px;
+	text-align: right;
+	padding: 7px 120px 7px 0;
 	
-}	
-	#mainFooter .contenedor {
-		width: 972px;
-		margin: auto;
-		background: url(img/bkg-footer.jpg) repeat-x 0% 41px; 
-		background-color: #FFFFFF;
-		padding: 0px;
-	}
-		#mainFooter .contenedor .separador {
-			background: url(img/foot-bkg.gif) no-repeat;
-			width: 972px;
-			height: 75px;
-		}
-		#mainFooter .contenedor .pie {
-			background: url(img/bkg-cabecera-rojo.png) repeat-y;
-			width: 972px;
-			border-top: 5px solid #092169;
-		}
-			#mainFooter .contenedor .pie .decoracion {
-				width: 132px;
-				height: 59px;
-			}
-			#mainFooter .contenedor .pie .decoracion.izq {
-				background: url(img/fon-izq-footer-inf.gif) no-repeat;
-				float: left;
-			}
-			#mainFooter .contenedor .pie .decoracion.der {
-				background: url(img/fon-der-footer-inf.gif) no-repeat;
-				float: right;
-			}
+}
+
+header .info-usuario a{
+	color: #fff;
+	text-decoration: none;
+	
+}
+
+
+header .top .borde-redondo {
+	position: absolute;
+	right: 0;
+	width: 125px;
+	height: 125px;
+	border-radius: 60px;
+	background-color: #22419A;
+	top: -15px;
+}
+
+header .top .titulo {
+	margin: 5px 0 0  40px;
+	text-shadow: 2px 2px 8px #222;
+}
+
+header .top .titulo a{
+	font-size: 42px;
+	color: #fff;
+	text-decoration: none;
+}
+
+header .top .subtitulo{
+	position: relative;
+}
+header .top .logo {
+	position: relative;
+	z-index: 1;
+	margin-right: 23px;
+	padding-top: 2px;
+	float: right;
+}
+header .top .logo a {
+	width: 192px;
+	height: 96px;
+	display: block;	
+	background: url(img/logo-unicauca.png) no-repeat;
+}
+header .bottom {
+	height: 40px;
+	background: url(img/bkg-cabecera-rojo.png) repeat-y;
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+}
+
+/*--------------Contenido-----------------*/
+
+
+.contenido {
+	background: #fff;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+
+nav ul{
+	background: #DDD;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	margin: 10px 0;
+	background: -webkit-linear-gradient(right, #DDD , #EEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #DDD, #EEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #DDD, #EEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #DDD , #EEE); /* Standard syntax */
+}
+
+nav ul .titulo-menu{
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	font-size: 16px;
+	text-align: right;
+	padding-right: 14px;
+	background: #092169;
+	background: -webkit-linear-gradient(left, #092169 , #051543); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #092169, #051543); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #092169, #051543); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to left, #092169 , #051543); /* Standard syntax */
+	
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+	padding: 10px 20px;
+}
+
+nav ul li {
+	border-bottom: 1px solid #949494;
+	border-top: 1px solid #fff;
+}
+
+nav ul li a:hover {
+	text-decoration: none;
+	border-right: 4px solid #CC0000;
+	background: #D7D7D7;
+}
+
+
+/*-------------- Footer -----------------*/
+
+.contenedor {
+	width: 100%;
+	background: url(img/bkg-footer.jpg) repeat-x 0% 41px; 
+	background-color: #FFF;	
+}
+
+.contenedor .separador {
+	height: 75px;
+	background: url(img/foot-bkg.gif) no-repeat center;	
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+}
+
+.contenedor .pie {
+	background: url(img/bkg-cabecera-rojo.png) repeat-y;	
+	border-top: 5px solid #092169;
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+	-webkit-box-shadow: 0 8px 6px -6px #222;
+	   -moz-box-shadow: 0 8px 6px -6px #222;
+	        box-shadow: 0 8px 6px -6px #222;
+}
+
+.contenedor .pie .decoracion {
+	width: 132px;
+	height: 59px;
+}
+
+.contenedor .pie .decoracion.izq {
+	background: url(img/fon-izq-footer-inf.gif) no-repeat;
+	float: left;
+}
+
+.contenedor .pie .decoracion.der {
+	background: url(img/fon-der-footer-inf.gif) no-repeat;
+	float: right;
+}
 
 /***** Miscelanea *****/
 .clear {
 	clear: both;
 }
+
+
