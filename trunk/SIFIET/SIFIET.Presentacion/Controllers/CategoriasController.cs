@@ -69,7 +69,7 @@ namespace SIFIET.Presentacion.Controllers
 
             return View(categoriaIn);            
         }
-
+        
         public ActionResult RegistrarAtributo(CATEGORIA categoriaIn)
         {
             categoriaIn = FachadaSIFIET.ConsultarCategoria(categoriaIn.IDENTIFICADORCATEGORIA);
@@ -85,20 +85,20 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarAtributo(FormCollection collection)
+        public ActionResult RegistrarAtributo(ATRIBUTO inAtributo)
         {
-            var categoriaIn = FachadaSIFIET.ConsultarCategoria(decimal.Parse(collection["IDENTIFICADORCATEGORIA"]));
+            var categoriaIn = FachadaSIFIET.ConsultarCategoria(inAtributo.IDENTIFICADORCATEGORIA);
             
             if (ModelState.IsValid)
             {
                 ATRIBUTO oAtributo = new ATRIBUTO()
                 {
-                    IDENTIFICADORCATEGORIA = decimal.Parse(collection["IDENTIFICADORCATEGORIA"].Trim()),
-                    NOMBREATRIBUTO = collection["NOMBREATRIBUTO"],
-                    OBLIGATORIOATRIBUTO = decimal.Parse(collection["OBLIGATORIOATRIBUTO"].Trim()),
-                    PANELEDICIONATRIBUTO = decimal.Parse(collection["PANELEDICIONATRIBUTO"].Trim()),
-                    TAMANIOATRIBUTO = decimal.Parse(collection["TAMANIOATRIBUTO"]),
-                    TIPOATRIBUTO = collection["TIPOATRIBUTO"],
+                    IDENTIFICADORCATEGORIA = inAtributo.IDENTIFICADORCATEGORIA,
+                    NOMBREATRIBUTO = inAtributo.NOMBREATRIBUTO,
+                    OBLIGATORIOATRIBUTO = inAtributo.OBLIGATORIOATRIBUTO,
+                    PANELEDICIONATRIBUTO = inAtributo.PANELEDICIONATRIBUTO,
+                    TAMANIOATRIBUTO = inAtributo.TAMANIOATRIBUTO,
+                    TIPOATRIBUTO = inAtributo.TIPOATRIBUTO,
                 };
                 if (!FachadaSIFIET.exiteAtributoCategoria(oAtributo))
                 {
@@ -117,7 +117,6 @@ namespace SIFIET.Presentacion.Controllers
                     @TempData["Mensaje"] = "Ya existe un Atributo con el nombre "+oAtributo.NOMBREATRIBUTO+" en Esta categoria";
                    
                 }
-
             }
             else
             {
@@ -139,7 +138,6 @@ namespace SIFIET.Presentacion.Controllers
             ViewData["idCategoria"] = idCategoria;
             if (FachadaSIFIET.EliminarAtributoContenido(idCategoria, idAtributo))
             {
-
                 TempData["Mensaje"] = "Atributo Eliminado con Éxito";
             }
             else
@@ -148,7 +146,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             var categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoria);
             return RedirectToAction("RegistrarAtributo",categoriaIn);
-        } 
+        }
 
     }
 }
