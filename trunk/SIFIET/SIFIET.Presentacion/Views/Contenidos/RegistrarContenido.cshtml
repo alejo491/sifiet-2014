@@ -1,0 +1,86 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
+
+@{
+    ViewBag.Title = "RegistrarContenido";
+}
+
+<h2>RegistrarContenido</h2>
+
+@using (Html.BeginForm("RegistrarContenido","Contenidos")) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CONTENIDO</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        Categoria
+        @Html.DropDownListFor(model => model.IDENTIFICADORCATEGORIA, ViewBag.ListaCategorias as SelectList)
+        @Html.ValidationMessageFor(model => model.IDENTIFICADORCATEGORIA)
+
+        <div class="form-group">
+            Titulo
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TITULOCONTENIDO)
+                @Html.ValidationMessageFor(model => model.TITULOCONTENIDO)
+            </div>
+        </div>
+
+        <div class="form-group">
+            Descripcion
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.DESCRIPCIONCONTENIDO)
+                @Html.ValidationMessageFor(model => model.DESCRIPCIONCONTENIDO)
+            </div>
+        </div>        
+        <div class="form-group">
+            Cuerpo
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.CUERPOCONTENIDO)
+                @Html.ValidationMessageFor(model => model.CUERPOCONTENIDO)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.FECHACREACIONCONTENIDO, new { @Value = DateTime.Now })
+
+        @Html.HiddenFor(model => model.ESTADOCONTENIDO, new { @Value = "Activo" })
+
+        <div class="form-group">
+            Prioridad
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PRIORIDADCONTENIDO)
+                @Html.ValidationMessageFor(model => model.PRIORIDADCONTENIDO)
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.operacion, new { @Value = "Registrar" })
+        @Html.HiddenFor(model => model.autorContenido, new { @Value = @Context.User.Identity.Name+"@unicauca.edu.co" })
+    </div>    
+       foreach (var item in ViewBag.ListaAtributos)
+        {
+            <tr>
+                <td>
+                    @item.NOMBREATRIBUTO
+                </td>
+                <td>
+                    @item.TIPOATRIBUTO
+                </td>
+                <td>
+                    @item.IDENTIFICADORCATEGORIA
+                </td>
+                <td>                                  
+                </td>
+            </tr>                 
+            
+        }        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
