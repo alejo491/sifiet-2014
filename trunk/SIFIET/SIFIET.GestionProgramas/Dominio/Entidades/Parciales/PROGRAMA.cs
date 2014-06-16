@@ -21,7 +21,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Codigo SNIES:")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [DisplayFormat(DataFormatString = "{0:#}", ApplyFormatInEditMode = true)]
-        //[CodigoSNIESExiste(ErrorMessage = "Ya existe un Programa con el codigo que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
+        [CodigoSNIESYaExiste(ErrorMessage = "Ya existe un Programa con el codigo que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public Nullable<decimal> CODIGOSNIESPROGRAMA { get; set; }
 
 
@@ -90,6 +90,42 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
                 else
                 {
                     var nombrePrograma = (from e in db.PROGRAMAs where nombre.ToUpper() == e.NOMBREPROGRAMA.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombrePrograma))
+                    {
+                        valid = true;
+                    }
+                }
+
+            }
+            return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
+        }
+    }
+
+    public sealed class CodigoSNIESYaExiste : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            bool valid = false;
+            var programaValidacion = validationContext.ObjectInstance as PROGRAMA;
+            Debug.WriteLine("VAlue: " + value);
+            if (value != null)
+            {
+                var codigo = (decimal)value;
+                var db = new GestionProgramasEntities();
+                if (programaValidacion.operacion == "editar" || programaValidacion.operacion == "eliminar")
+                {
+                    var programaNombre = (from e in db.PROGRAMAs where programaValidacion.IDENTIFICADORPROGRAMA == e.IDENTIFICADORPROGRAMA select e.NOMBREPROGRAMA).FirstOrDefault();
+                    var nombrePrograma = (from e in db.PROGRAMAs where codigo == e.CODIGOSNIESPROGRAMA && e.NOMBREPROGRAMA.ToUpper() != programaNombre.ToUpper() select e.NOMBREPROGRAMA).FirstOrDefault();
+                    if (String.IsNullOrEmpty(nombrePrograma))
+                    {
+                        valid = true;
+                    }
+                }
+                else
+                {
+
+              
+                    var nombrePrograma = (from e in db.PROGRAMAs where codigo == e.CODIGOSNIESPROGRAMA select e.NOMBREPROGRAMA).FirstOrDefault();
                     if (String.IsNullOrEmpty(nombrePrograma))
                     {
                         valid = true;

@@ -1,80 +1,84 @@
-﻿
-<html lang="es">
+﻿<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>SIFIET</title>
-	
-	<!-- Estilos -->
-	<link rel="stylesheet" href="@Url.Content("~/Content/normalize.css")">
-	<link rel="stylesheet" href="@Url.Content("~/Content/estilos.css")">
-
-	<!-- Scripts -->
-	<script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
-	<script src="/Scripts/funciones.js"></script>
-
+    <meta charset="UTF-8">
+    <title>SIFIET</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+    <!-- Estilos Propios -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/estilos.css")">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<header id="mainHeader">
-		<div class="contenedor">
-			<div class="top">
-				<div class="logo">
-					<a href="#"></a>
-				</div>
-				<div class="borde-redondo"></div>
-				<a href="#" class="titulo">SIFIET</a>
-				<div class="clear"></div>
-			</div>
-			<div class="bottom">
-				
-			</div>
-		    <nav id="mainNav">
-		        <h3 style="color:white">Version Beta</h3>
-		        <!----<ul>
-		                  <li><span class="punta"></span>@Html.ActionLink("Inicio", "Index", "Home")</li>
-		                  <li><span class="punta"></span><a href="#">Item</a></li>
-		              </ul>-->
-		    </nav>
-		</div>
-	</header>
-
-	<section id="contenido">
-		<div class="contenedor">
-			<ul id="mainMenu">
-				<li class="first"><a href="/Home">Inicio</a></li>
-			    <li><a href="/Usuarios">Usuarios</a></li>
-                <li><a href="/GruposInvestigacion">GInvestigacion</a></li>
-			    <li><a href="/Roles">Roles</a></li>
-                <li><a href="/Cursos">Cursos</a></li>
-			    <li><a href="/Asignaturas">Asignaturas</a></li>
-                <li><a href="/Salones">Salones</a></li>
-                <li><a href="/Programas">Programas</a></li>
-			    <li><a href="/PlanesEstudio">Planes de Estudio</a></li>
-                
-			</ul>
-            @Html.Partial("_LogOnPartial")
-			<p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
-            <div class="wrapper">
-                @RenderBody()
+    <div class="container">
+        <header>
+            <div class="info-usuario">
+                @*Bienvenid@: Pepito Perez Perez  |  <a href="" title="cerrar sesión">cerrar sesión</a>*@
             </div>
-            
-            <div class="clear">
-               
+            <div class="top">
+
+                <div class="logo">
+                    <a href="http://www.unicauca.edu.co/" target="_blank"></a>
+                </div>
+                <div class="borde-redondo"></div>
+                <div class="titulo">
+                    <a href="Index">SIFIET</a><br>
+                    Sistema de Información de la Facultad de Ingeniería Electrónica y Telecomunicaciones.
+                </div>
+                <div class="clear"></div>
             </div>
-		</div>
-	</section>
+            <div class="bottom"></div>
+        </header>
+        <section class="contenido">
+            <div class="row">
+                <nav class="col-md-3">
 
-	<footer id="mainFooter">
-		<div class="contenedor">
-			<div class="separador"></div>
-			<div class="pie">
-				<div class="decoracion izq"></div>
-				<div class="decoracion der"></div>
-				<div class="clear">
+                    <ul>
+                        <li class="titulo-menu">MENÚ</li>
+                        <li><a href="/Home" class="active">Inicio</a></li>
+                        <li><a href="/Usuarios">Usuarios</a></li>
+                        <li><a href="/GruposInvestigacion">Grupos de Investigacion</a></li>
+                        <li><a href="/Roles">Roles</a></li>
+                        <li><a href="/Cursos">Cursos</a></li>
+                        <li><a href="/Asignaturas">Asignaturas</a></li>
+                        <li><a href="/Salones">Salones</a></li>
+                        <li><a href="/Programas">Programas</a></li>
+                        <li><a href="/PlanesEstudio">Planes de Estudio</a></li>
+                    </ul>
+                </nav>
+                <div class="col-md-9">
+                    <p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
+                    Bienvenido a SIFIET
+                    @Html.Partial("_LogOnPartial")
+                    @RenderBody()
 
-                    
-				</div>
-			</div>
-		</div>
-	</footer>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="contenedor">
+                <div class="separador"></div>
+                <div class="pie">
+                    <div class="decoracion izq"></div>
+                    <div class="decoracion der"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <!-- funciones para la validacion-->
+    <script src="/Scripts/funciones.js"></script>
+
 </body>
 </html>
