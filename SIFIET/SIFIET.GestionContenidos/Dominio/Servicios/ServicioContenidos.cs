@@ -81,7 +81,7 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                 db.CONTENIDOes.Add(cont);
                 db.SaveChanges();
                 cont = (from c in db.CONTENIDOes where nuevContenido.TITULOCONTENIDO.Equals(c.TITULOCONTENIDO) select c).FirstOrDefault();
-                for (int i = 0; i < atributos.Count; i++)
+                /*for (int i = 0; i < atributos.Count; i++)
                 {
                     var atributo = new ATRIBUTO();
                     atributo = atributos.ElementAt(i);
@@ -89,13 +89,13 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                     atributo.operacion = "registrar";
                     //atributo.dato = "blanco";
                     atributos.Add(atributo);                    
-                }
+                }*/
                 foreach(var atri in atributos)
                 {
-                    //db.Database.ExecuteSqlCommand("Insert into CONTENIDO_ATRIBUTO(IDENTIFICADORCONTENIDO,IDENTIFICADORATRIBUTO,DATO) values (5,1,'hola');");
-                    cont.ATRIBUTOes.Add(atri);                    
+                    db.Database.ExecuteSqlCommand("Insert into CONTENIDO_ATRIBUTO(IDENTIFICADORCONTENIDO,IDENTIFICADORATRIBUTO) values ('"+cont.IDENTIFICADORCONTENIDO+"','"+atri.IDENTIFICADORATRIBUTO+"')");
+                    //cont.ATRIBUTOes.Add(atri);     
                 }
-
+                   
                 db.SaveChanges();                    
                 
                 return true;
