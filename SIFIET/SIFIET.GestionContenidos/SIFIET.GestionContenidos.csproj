@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aplicacion\FachadaBloques.cs" />
     <Compile Include="Aplicacion\FachadaCategorias.cs" />
     <Compile Include="Aplicacion\FachadaContenidos.cs" />
     <Compile Include="Aplicacion\FachadaEtiquetas.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Dominio\Entidades\Parciales\CATEGORIA.cs" />
     <Compile Include="Dominio\Entidades\Parciales\CONTENIDO.cs" />
     <Compile Include="Dominio\Entidades\Parciales\ETIQUETA.cs" />
+    <Compile Include="Dominio\Servicios\ServicioBloques.cs" />
     <Compile Include="Dominio\Servicios\ServicioCategorias.cs" />
     <Compile Include="Dominio\Servicios\ServicioContenidos.cs" />
     <Compile Include="Dominio\Servicios\ServicioEtiquetas.cs" />

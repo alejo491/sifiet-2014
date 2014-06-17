@@ -97,5 +97,12 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.EliminarContenido(idContenido);
         }
         #endregion
+
+        #region Metodos Gestion Bloques
+        public static List<BLOQUE> ConsultarBloques(string idBloque)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaBloques.ConsultarBloques(idBloque);
+        }
+        #endregion
     }
 }
