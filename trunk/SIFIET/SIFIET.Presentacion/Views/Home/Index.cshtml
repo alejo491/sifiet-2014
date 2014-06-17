@@ -1,5 +1,41 @@
-﻿
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.BLOQUE>
 @{
     ViewBag.Title = "Home Page";
 }
 <h2>@ViewBag.Message</h2>
+<div class="row" id="contenidosHome">
+    @foreach (var item in Model)
+    {
+        int col = Decimal.ToInt32((decimal)item.ANCHOBLOQUE);
+        int contenidosAcargar = Decimal.ToInt32((decimal)item.OFFSETBLOQUE);
+        int contadorContenidos = 0;
+        int posicionx = Decimal.ToInt32((decimal)item.POSICIONXBLOQUE);
+        int posiciony = Decimal.ToInt32((decimal)item.POSICIONYBLOQUE);
+        <div class="col-md-@col" @*style="position: absolute; right: @(posicionx)px; top: @(posiciony)px; "*@>
+            <div class="nombre-categoria">
+                @Html.DisplayFor(modelItem => item.CATEGORIA.NOMBRECATEGORIA)
+            </div>
+            <div>
+                <ul>
+                    @foreach (var contenido in item.CATEGORIA.CONTENIDOes)
+                    {
+                        DateTime fecha = DateTime.ParseExact(contenido.FECHACREACIONCONTENIDO, "dd-MM-yyyy", null);
+                        <li>
+                            <div class="fecha-contenido">
+                                @fecha.ToString("D")
+                            </div>
+                            <div class="descripcion-contenido divider">
+                                @* Html.ActionLink(title, "Metodo", "Nombre-Controlador", new { /*argumentos*/ }, null) *@
+                                @Html.ActionLink(contenido.DESCRIPCIONCONTENIDO, "Index", "Bloques", new { /*argumentos*/ }, null)
+                            </div>
+                        </li>
+                        contadorContenidos++;
+                        if (contadorContenidos == contenidosAcargar) { break; }
+                    }
+                </ul>
+            </div>
+        </div>
+        
+    }
+
+</div>

@@ -197,3 +197,37 @@ nav ul li a:hover {
 }
 
 
+/* ======= Estilo Contenidos Home ======= */
+
+.nombre-categoria 
+{
+    color: #0C2876;
+    font: bold 20px 'Arial Narrow','Helvetica Narrow',Tahoma,sans-serif;
+}
+
+.fecha-contenido{
+	display: block;
+	font-size: 13px;
+	color: #CC0000;	
+	clear: both;
+}
+
+.fecha-contenido:first-letter{
+	text-transform: uppercase;
+}
+
+#contenidosHome li a:link, #contenidosHome li a:visited {
+	color: #0C2876;
+	font-size: 14px;
+	background-color: inherit;
+}
+
+#contenidosHome li {
+	border-bottom: 1px solid #9BA5BF;
+	list-style: none outside none;
+	padding: 12px 0 12px 0;
+}
+
+#contenidosHome ul {
+	border-top: 1px solid #9BA5BF;
+}
