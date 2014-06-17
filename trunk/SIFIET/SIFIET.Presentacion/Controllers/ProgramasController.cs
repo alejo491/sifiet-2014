@@ -461,7 +461,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[3].ToString().Equals(""))
                     {
-                        if (row[3].ToString().Equals("Diurna") || row[3].ToString().Equals("Nocturna"))
+                        if (row[3].ToString().Equals("Diurna") || row[3].ToString().Equals("Nocturna") || row[3].ToString().Equals("diurna") || row[3].ToString().Equals("nocturna"))
                         {
                             validadorC.Add(1);
                         }
@@ -511,7 +511,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[5].ToString().Equals(""))
                     {
-                        if (row[5].ToString().Equals("Anual") || row[5].ToString().Equals("Semestral"))
+                        if (row[5].ToString().Equals("Anual") || row[5].ToString().Equals("Semestral") || row[5].ToString().Equals("anual") || row[5].ToString().Equals("semestral"))
                         {
                             validadorC.Add(1);
                         }
@@ -582,7 +582,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[8].ToString().Equals(""))
                     {
-                        if (row[8].ToString().Equals("Activo") || row[8].ToString().Equals("Inactivo"))
+                        if (row[8].ToString().Equals("Activo") || row[8].ToString().Equals("Inactivo") || row[8].ToString().Equals("activo") || row[8].ToString().Equals("inactivo"))
                         {
                             validadorC.Add(1);
                         }
@@ -611,7 +611,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[9].ToString().Equals(""))
                     {
-                        if (row[9].ToString().Equals("Presencial") || row[9].ToString().Equals("Semi-presencial"))
+                        if (row[9].ToString().Equals("Presencial") || row[9].ToString().Equals("Semi-presencial") || row[9].ToString().Equals("Semipresencial") || row[9].ToString().Equals("presencial") || row[9].ToString().Equals("semi-presencial") || row[9].ToString().Equals("semipresencial"))
                         {
                             validadorC.Add(1);
                         }

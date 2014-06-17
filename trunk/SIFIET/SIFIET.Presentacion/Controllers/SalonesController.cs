@@ -348,7 +348,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[2].ToString().Equals(""))
                     {
-                        if (row[2].ToString().Equals("Activo") || row[2].ToString().Equals("Inactivo"))
+                        if (row[2].ToString().Equals("Activo") || row[2].ToString().Equals("Inactivo") || row[2].ToString().Equals("activo") || row[2].ToString().Equals("inactivo"))
                         {
                             validadorC.Add(1);
                         }

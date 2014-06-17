@@ -408,7 +408,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[4].ToString().Equals(""))
                     {
-                        if (row[4].ToString().Equals("Presencial") || row[4].ToString().Equals("Semi-presencial"))
+                        if (row[4].ToString().Equals("Presencial") || row[4].ToString().Equals("Semi-presencial") || row[4].ToString().Equals("Semipresencial") || row[4].ToString().Equals("presencial") || row[4].ToString().Equals("semi-presencial") || row[4].ToString().Equals("semipresencial"))
                         {
                             validadorC.Add(1);
                         }
@@ -457,7 +457,7 @@ namespace SIFIET.Presentacion.Controllers
                 {
                     if (!row[6].ToString().Equals(""))
                     {
-                        if (row[6].ToString().Equals("Activo") || row[6].ToString().Equals("Inactivo"))
+                        if (row[6].ToString().Equals("Activo") || row[6].ToString().Equals("Inactivo") || row[6].ToString().Equals("activo") || row[6].ToString().Equals("inactivo"))
                         {
                             validadorC.Add(1);
                         }
