@@ -33,7 +33,6 @@
             grid.Column("DESCRIPCIONETIQUETA",header:"Descripción"),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "EditarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }) |
                 @Html.ActionLink("Eliminar", "EliminarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }, new { onclick = "return confirmarEliminarEtiqueta()" }) |
                 @Html.ActionLink("Visualizar", "VisualizarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA })
                 </text>
