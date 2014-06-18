@@ -171,13 +171,14 @@ namespace SIFIET.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModificarUsuario(FormCollection datos)
          {
+            bool valido=true;
              List<ROL> rolesActuales = new List<ROL>();
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
             if (datos["roles"] == null)
             {
 
                 ViewBag.ErrorRol = "No se han seleccionado Roles";
-               
+               valido=false;
             }
             else
             {
@@ -191,12 +192,12 @@ namespace SIFIET.Presentacion.Controllers
 
 
             ViewBag.rolesasignados = rolesActuales;
-
+            
             bool existe = FachadaSIFIET.IdentificacionUsuarioExiste(datos["identificacion"].Trim());
             var usuario = new USUARIO()
             {
                 IDENTIFICADORUSUARIO = decimal.Parse(datos["IDENTIFICADORUSUARIO"]),
-                EMAILINSTITUCIONALUSUARIO = datos["EMAILINSTITUCIONALUSUARIO"].Trim()+"@unicauca.edu.co",
+                EMAILINSTITUCIONALUSUARIO = datos["EMAILINSTITUCIONALUSUARIO"].Trim(),
                 IDENTIFICACIONUSUARIO = datos["identificacion"].Trim(),
                 NOMBRESUSUARIO = datos["NOMBRESUSUARIO"].Trim(),
                 APELLIDOSUSUARIO = datos["APELLIDOSUSUARIO"].Trim(),
@@ -205,19 +206,17 @@ namespace SIFIET.Presentacion.Controllers
                 
                 
             };
-
-
-            if (!ModelState.IsValid || (!datos["identificacion"].Trim().Equals(datos["IDENTIFICACIONUSUARIO"].Trim()) && existe))
+            if ((!datos["identificacion"].Trim().Equals(datos["IDENTIFICACIONUSUARIO"].Trim()) && existe))
             {
+                ViewBag.ErrorIdUsuario = "Ya Existe Un Usuario Con Esta Identificacion ";
+                valido=false;
+            }
 
-                ViewBag.rolesasignados = rolesActuales;
-                if (existe)
-                {
-                    ViewBag.ErrorIdUsuario = "Ya Existe Un Usuario Con Esta Identificacion ";
-                }
-                return View(usuario);
-            }else{ 
 
+
+
+
+            if (!ModelState.IsValid || !valido) return View(usuario); 
             
             
                 try
@@ -225,6 +224,7 @@ namespace SIFIET.Presentacion.Controllers
 
 
                     var roles = datos["roles"].Split(',');
+                    usuario.EMAILINSTITUCIONALUSUARIO = usuario.EMAILINSTITUCIONALUSUARIO.Trim() + "@unicauca.edu.co";
                     FachadaSIFIET.ModificarUsuario(usuario, roles);
                     TempData["Mensaje"] = "Usuario Editado con Éxito";
                     return RedirectToAction("Index");
@@ -235,15 +235,24 @@ namespace SIFIET.Presentacion.Controllers
                     ViewBag.Mensaje = "Error" + e.Message;
                     return View();
                 }
-            }
+
+            
 
 
-        }
+                
+
+
+
+
+
+         }
 
         //
         // GET: /Usuarios/Delete/5
         public ActionResult EliminarUsuario(int idUsuario)
         {
+            
+            
             try
             {
                 FachadaSIFIET.EliminarUsuario(idUsuario);
@@ -252,7 +261,8 @@ namespace SIFIET.Presentacion.Controllers
             }
             catch
             {
-                return View();
+                TempData["Mensaje"]= "Fallo al Eliminar el Usuario";
+                return RedirectToAction("Index");
             }
         }
 

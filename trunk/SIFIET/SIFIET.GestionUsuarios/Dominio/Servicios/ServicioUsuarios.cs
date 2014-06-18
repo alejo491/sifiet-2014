@@ -95,9 +95,15 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         public static void EliminarUsuario(int idUsuario)
         {
             var db = new GestionUsuariosEntities();
-            var usuario = db.USUARIOs.Find(idUsuario);
-            usuario.ESTADOUSUARIO = "Inactivo";
+            string sql = "Update USUARIO SET ESTADOUSUARIO= 'Inactivo'" +
+                                                           
+                                                            " WHERE IDENTIFICADORUSUARIO= " + idUsuario;
+            db.Database.ExecuteSqlCommand(sql);
+
+
             db.SaveChanges();
+            
+            
         }
 
         internal static List<USUARIO> BuscarUsuarioPorIdentificacion(string id,string estado)
@@ -113,7 +119,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         {
             var db = new GestionUsuariosEntities();
             List<USUARIO> lista = (from e in db.USUARIOs
-                                   where (e.NOMBRESUSUARIO.Contains(nombre.Trim()) || e.NOMBRESUSUARIO.StartsWith(nombre.Trim()) || e.NOMBRESUSUARIO.EndsWith(nombre.Trim())) && e.ESTADOUSUARIO.Trim().Equals(estado.Trim())
+                                   where (e.NOMBRESUSUARIO.ToLower().Contains(nombre.ToLower().Trim()) || e.NOMBRESUSUARIO.ToLower().StartsWith(nombre.ToLower().Trim()) || e.NOMBRESUSUARIO.ToLower().EndsWith(nombre.ToLower().Trim())) && e.ESTADOUSUARIO.Trim().Equals(estado.Trim())
                                    select e).ToList();
             return lista;
         }
@@ -122,7 +128,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         {
             var db = new GestionUsuariosEntities();
             List<USUARIO> lista = (from e in db.USUARIOs
-                                   where (e.APELLIDOSUSUARIO.Contains(apellido.Trim()) || e.APELLIDOSUSUARIO.StartsWith(apellido.Trim()) || e.APELLIDOSUSUARIO.EndsWith(apellido.Trim())) && e.ESTADOUSUARIO.Trim().Equals(estado.Trim())
+                                   where (e.APELLIDOSUSUARIO.ToLower().Contains(apellido.ToLower().Trim()) || e.APELLIDOSUSUARIO.ToLower().StartsWith(apellido.ToLower().Trim()) || e.APELLIDOSUSUARIO.ToLower().EndsWith(apellido.ToLower().Trim())) && e.ESTADOUSUARIO.Trim().Equals(estado.Trim())
                                    select e).ToList();
             return lista;
         }
