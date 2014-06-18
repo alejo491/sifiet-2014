@@ -11,30 +11,30 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div>
         <h4>CONTENIDO</h4>
         <hr />
         @Html.ValidationSummary(true)
                
 
-        <div class="form-group">
+        <div>
             Titulo
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.TITULOCONTENIDO)
                 @Html.ValidationMessageFor(model => model.TITULOCONTENIDO)
             </div>
         </div>
 
-        <div class="form-group">
+        <div>
             Descripcion
-            <div class="col-md-10">
+            <div>
                 @Html.TextAreaFor(model => model.DESCRIPCIONCONTENIDO)
                 @Html.ValidationMessageFor(model => model.DESCRIPCIONCONTENIDO)
             </div>
         </div>        
-        <div class="form-group">
+        <div>
             Cuerpo
-            <div class="col-md-10">
+            <div>
                 @Html.TextAreaFor(model => model.CUERPOCONTENIDO)
                 @Html.ValidationMessageFor(model => model.CUERPOCONTENIDO)
             </div>
@@ -46,9 +46,9 @@
 
         @Html.HiddenFor(model => model.IDENTIFICADORCATEGORIA, new { @Value = (decimal) @ViewBag.idCategoria })
 
-        <div class="form-group">
+        <div>
             Prioridad
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.PRIORIDADCONTENIDO)
                 @Html.ValidationMessageFor(model => model.PRIORIDADCONTENIDO)
             </div>
@@ -99,7 +99,8 @@
             </div>
     
         <div>            
-            <input type="submit" value="Guardar" class="btn btn-default" />           
+            <input type="submit" value="Guardar" onclick="return confirmacionAgregarContenido();" />
+            <input type="submit" value="Cancelar" onclick="return confirmSalirContenido();" /> 
         </div>
     
 }
