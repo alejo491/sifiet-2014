@@ -18,6 +18,8 @@ namespace SIFIET.Presentacion.Controllers
         // GET: /Bloques/
         public ActionResult Index(string idBloque)
         {
+
+            ViewBag.ResultadoOperacion = TempData["ResultadoOperacion"] as string;
             List<BLOQUE> bloques = FachadaSIFIET.ConsultarBloques();
             List<CATEGORIA> categorias = FachadaSIFIET.ConsultarCategorias("");
             ViewBag.bloque1 = new SelectList(categorias, "IDENTIFICADORCATEGORIA", "NOMBRECATEGORIA");
@@ -35,6 +37,7 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarBloques(string bloque1, string bloque2, string bloque3, string bloque4)
         {
             FachadaSIFIET.AsignarCategoriasBloques(bloque1, bloque2, bloque3, bloque4);
+            TempData["ResultadoOperacion"] = "Categorias asignadas con Exito.";
             return RedirectToAction("Index");
         }
 	}
