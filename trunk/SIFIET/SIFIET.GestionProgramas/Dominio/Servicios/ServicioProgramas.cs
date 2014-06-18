@@ -98,7 +98,6 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             {
            
                 PROGRAMA objPrograma = db.PROGRAMAs.Find(idPrograma);
-                Debug.WriteLine(objPrograma.CODIGOSNIESPROGRAMA);
                 objPrograma.ESTADOPROGRAMA = "Eliminado";
                 objPrograma.operacion = "eliminar";
                 db.Entry(objPrograma).State = EntityState.Modified;

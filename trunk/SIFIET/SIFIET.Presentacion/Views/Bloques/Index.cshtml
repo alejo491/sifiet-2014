@@ -1,7 +1,46 @@
-﻿
-@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.BLOQUE>
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.BLOQUE>
 @{
-    ViewBag.Title = "Index";    
+    ViewBag.Title = "Gestionar Bloques";
 }
 
-<h2>Index</h2>
+<h2>Gestionar Bloques</h2>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+
+@using (Html.BeginForm("RegistrarBloques", "Bloques"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Gestionar Bloques</legend>
+
+            <table>
+                <tr>
+                    <td>
+                        Bloque 1:@Html.DropDownList("bloque1", "Escoja una Categoria")
+                    </td>
+                    <td>
+                        Bloque 2:@Html.DropDownList("bloque2", "Escoja una Categoria")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bloque 3:@Html.DropDownList("bloque3", "Escoja una Categoria")
+                    </td>
+                    <td>
+                        Bloque 4:@Html.DropDownList("bloque4", "Escoja una Categoria")
+                    </td>
+                </tr>
+
+            </table>
+        <div>
+            <p>
+                <a href="Index" onclick="return confirm('Confirma que desea cancelar la accion')">Cancelar</a>
+                <input type="submit" value="Guardar" onclick="return comfirmacionAsignarCategoriasBloques()" />
+            </p>
+        </div>
+    </fieldset>
+}

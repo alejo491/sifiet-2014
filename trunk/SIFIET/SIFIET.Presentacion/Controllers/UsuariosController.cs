@@ -150,7 +150,7 @@ namespace SIFIET.Presentacion.Controllers
                return View(usuario);
             }
 
-            return View(usuario);
+            
 
         }
 
