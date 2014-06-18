@@ -16,7 +16,7 @@
     <div class="container">
         <header>
             <div class="info-usuario">
-                @*Bienvenid@: Pepito Perez Perez  |  <a href="" title="cerrar sesión">cerrar sesión</a>*@
+               @Html.Partial("_LogOnPartial")
             </div>
             <div class="top">
 
@@ -51,8 +51,8 @@
                 </nav>
                 <div class="col-md-9">
                     <p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
-                    Bienvenido a SIFIET
-                    @Html.Partial("_LogOnPartial")
+                    
+                    
                     @RenderBody()
 
                 </div>
