@@ -18,19 +18,27 @@ namespace SIFIET.GestionContenidos.Aplicacion
             return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.VisualizarContenido(idContenido);
         }
         
-        public static bool RegistrarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos)
+        public static bool RegistrarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos, List<ETIQUETA> etiquetas)
         {
-            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.RegistrarContenido(objContenido, atributos);
+            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.RegistrarContenido(objContenido, atributos, etiquetas);
         }
 
-        public static bool ModificarContenido(CONTENIDO objContenido)
+        public static bool ModificarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos, List<ETIQUETA> etiquetas)
         {
-            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.ModificarContenido(objContenido);
+            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.ModificarContenido(objContenido, atributos, etiquetas);
         }
 
         public static bool EliminarContenido(decimal idContenido)
         {
             return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.EliminarContenido(idContenido);
+        }
+        public static List<ATRIBUTO> ConsultarAtributosDelContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.ConsultarAtributosDelContenido(idContenido);
+        }
+        public static List<ETIQUETA> ConsultarEtiquetasDelContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Dominio.Servicios.ServicioContenidos.ConsultarEtiquetasDelContenido(idContenido);
         }
     }
 }

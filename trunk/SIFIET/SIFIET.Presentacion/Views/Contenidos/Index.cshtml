@@ -29,22 +29,20 @@
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |
-                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |
+                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |    
                 @Html.ActionLink("Eliminar", "EliminarContenido", "Contenidos", new { idContenido = item.IDENTIFICADORCONTENIDO }, new { onclick = "return confirmarEliminarContenido()" })
                 </text>
                 )
         })    
-    <p>
-        @using (Html.BeginForm("RegistrarContenido", "Contenidos",FormMethod.Get))
-        {            
-        <p>
-            @Html.DropDownList("nomCategoria", ViewBag.ListaCategorias as SelectList)         
-            <input type="submit" value="Agregar" />
-        </p>
+    <div>
+        @using (Html.BeginForm("RegistrarContenido", "Contenidos", FormMethod.Get))
+        {
+            <p>
+                @Html.DropDownList("nomCategoria", ViewBag.ListaCategorias as SelectList)
+                <input type="submit" value="Agregar" />
+            </p>
         }
-        
-        @Html.ActionLink("Agregar", "RegistrarContenido")      
         <h3> @TempData["UpSession"] </h3>
         <h3> @ViewBag.Resultado </h3>
-    </p>
+    </div>
 </div>

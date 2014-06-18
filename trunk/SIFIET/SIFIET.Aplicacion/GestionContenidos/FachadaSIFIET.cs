@@ -82,19 +82,28 @@ namespace SIFIET.Aplicacion
         {
             return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.VisualizarContenido(idContenido);
         }
-        public static bool RegistrarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos)
+        public static bool RegistrarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos,List<ETIQUETA> etiquetas)
         {
-            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.RegistrarContenido(objContenido, atributos);
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.RegistrarContenido(objContenido, atributos, etiquetas);
         }
 
-        public static bool ModificarContenido(CONTENIDO objContenido)
+        public static bool ModificarContenido(CONTENIDO objContenido, List<ATRIBUTO> atributos, List<ETIQUETA> etiquetas)
         {
-            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ModificarContenido(objContenido);
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ModificarContenido(objContenido, atributos, etiquetas);
         }
 
         public static bool EliminarContenido(decimal idContenido)
         {
             return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.EliminarContenido(idContenido);
+        }
+
+        public static List<ATRIBUTO> ConsultarAtributosDelContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ConsultarAtributosDelContenido(idContenido);
+        }
+        public static List<ETIQUETA> ConsultarEtiquetasDelContenido(decimal idContenido)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaContenidos.ConsultarEtiquetasDelContenido(idContenido);
         }
         #endregion
 

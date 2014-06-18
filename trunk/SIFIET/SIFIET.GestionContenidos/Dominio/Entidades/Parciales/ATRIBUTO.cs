@@ -11,6 +11,7 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
     public partial class ATRIBUTO
     {
         public string operacion { get; set; }
+        public string dato { get; set; }
     }
 
     public class ATRIBUTOMETADATA

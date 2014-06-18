@@ -276,6 +276,8 @@
     <Content Include="Views\Contenidos\RegistrarContenido.cshtml" />
     <Content Include="Views\Contenidos\EliminarContenido.cshtml" />
     <Content Include="Views\Bloques\Index.cshtml" />
+    <Content Include="Views\Contenidos\VisualizarContenido.cshtml" />
+    <Content Include="Views\Contenidos\ModificarContenido.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

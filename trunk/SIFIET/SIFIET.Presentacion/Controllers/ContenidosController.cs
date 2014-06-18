@@ -38,6 +38,11 @@ namespace SIFIET.Presentacion.Controllers
         [Authorize]
         public ActionResult VisualizarContenido(decimal idContenido)
         {
+            var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(idContenido);
+            var etiquetasContenido = FachadaSIFIET.ConsultarEtiquetasDelContenido(idContenido);            
+            ViewBag.ListaAtributos = atributos;
+            ViewBag.ListaEtiquetas = etiquetasContenido;
+            //ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA",etiquetasContenido);
             return View(FachadaSIFIET.VisualizarContenido(idContenido));
         }
 
@@ -46,12 +51,17 @@ namespace SIFIET.Presentacion.Controllers
         //[Authorize(Roles="Contenidos")]
         public ActionResult RegistrarContenido(decimal? nomCategoria)
         {
-            var listaCategorias = FachadaSIFIET.ConsultarCategorias("");
-            var categoria = FachadaSIFIET.ConsultarCategoria((decimal)nomCategoria);
-            var atributos = categoria.ATRIBUTOes.ToList();            
-            ViewBag.ListaAtributos = atributos;            
-            ViewBag.ListaCategorias = new SelectList(listaCategorias, "IDENTIFICADORCATEGORIA", "NOMBRECATEGORIA");
-            return View();
+            if (nomCategoria != null)
+            {
+                var categoria = FachadaSIFIET.ConsultarCategoria((decimal)nomCategoria);
+                var atributos = categoria.ATRIBUTOes.ToList();
+                var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
+                ViewBag.ListaAtributos = atributos;
+                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA");
+                ViewBag.idCategoria = categoria.IDENTIFICADORCATEGORIA;
+                return View();
+            }
+            return RedirectToAction("Index");            
         }
 
         //
@@ -59,23 +69,26 @@ namespace SIFIET.Presentacion.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Roles = "Contenidos")]
-        public ActionResult RegistrarContenido(CONTENIDO oContenido)
+        public ActionResult RegistrarContenido(CONTENIDO oContenido, FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                // TODO: Add insert logic here                
                 var categoria = FachadaSIFIET.ConsultarCategoria(oContenido.IDENTIFICADORCATEGORIA);
                 var atributos = categoria.ATRIBUTOes.ToList();
-                ViewBag.ListaAtributos = atributos; 
-                var listaCategorias = FachadaSIFIET.ConsultarCategorias("");
-                ViewBag.ListaCategorias = new SelectList(listaCategorias, "IDENTIFICADORCATEGORIA", "NOMBRECATEGORIA");
+                var datosAtributos = CrearAtributos(collection,atributos);
+                var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
+                ViewBag.ListaAtributos = datosAtributos;
+                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA");
+                var etiquetasContenido = CrearEtiquetas(collection,etiquetas);
+
                 if (!ModelState.IsValid) return View(oContenido);
-                bool resultado = FachadaSIFIET.RegistrarContenido(oContenido, atributos);
+                bool resultado = FachadaSIFIET.RegistrarContenido(oContenido, datosAtributos, etiquetasContenido);
 
                 if (resultado)
-                    TempData["ResultadoOperacion"] = "Contenido Agregada con Exito";
+                    TempData["ResultadoOperacion"] = "Contenido Agregado con Exito";
                 else
-                    TempData["ResultadoOperacion"] = "Fallo al Agregoar la Contenido";
+                    TempData["ResultadoOperacion"] = "Fallo al Agregar el Contenido";
 
                 ViewBag.Mensaje = "false";
 
@@ -89,27 +102,37 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Edit/5
-        [Authorize(Roles = "Contenidos")]
+        //[Authorize(Roles = "Contenidos")]
         public ActionResult ModificarContenido(decimal idContenido)
         {
             var oContenido = FachadaSIFIET.VisualizarContenido(idContenido) as CONTENIDO;
-            var listaCategorias = FachadaSIFIET.ConsultarCategorias("");
-            ViewBag.ListaCategorias = new SelectList(listaCategorias, "IDENTIFICADORCATEGORIA", "NOMBRECATEGORIA");
+            var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(idContenido);
+            var etiquetasContenido = FachadaSIFIET.ConsultarEtiquetasDelContenido(idContenido);
+            var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
+            ViewBag.ListaAtributos = atributos;            
+            ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA",oContenido.ETIQUETAs);
             return View(oContenido);
         }
 
         //
         // POST: /Contenidos/Edit/5
         [HttpPost]
-        [Authorize(Roles = "Contenidos")]
-        public ActionResult ModificarContenido(CONTENIDO oContenido)
+        //[Authorize(Roles = "Contenidos")]
+        public ActionResult ModificarContenido(CONTENIDO oContenido, FormCollection collection)
         {
             try
             {
-                var listaCategorias = FachadaSIFIET.ConsultarCategorias("");
-                ViewBag.ListaCategorias = new SelectList(listaCategorias, "IDENTIFICADORCATEGORIA", "NOMBRECATEGORIA");
+                var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(oContenido.IDENTIFICADORCONTENIDO);
+                var etiquetasContenidoSeleccionadas = FachadaSIFIET.ConsultarEtiquetasDelContenido(oContenido.IDENTIFICADORCONTENIDO);
+                var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
+                var datosAtributos = CrearAtributos(collection, atributos);
+                ViewBag.ListaAtributos = datosAtributos;
+                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", oContenido.ETIQUETAs);
+                                
+                var etiquetasContenido = CrearEtiquetas(collection, etiquetas);
+
                 if (!ModelState.IsValid) return View(oContenido);
-                var resultado = FachadaSIFIET.ModificarContenido(oContenido);
+                var resultado = FachadaSIFIET.ModificarContenido(oContenido, datosAtributos, etiquetasContenido);
 
                 if (resultado)
                     TempData["ResultadoOperacion"] = "Contenido Modificada con Exito";
@@ -123,22 +146,81 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oContenido);
             }
         }        
-        [Authorize(Roles = "Contenidos")]
+        //[Authorize(Roles = "Contenidos")]
         public ActionResult EliminarContenido(decimal idContenido)
         {
             try
             {
                 var resultado = FachadaSIFIET.EliminarContenido(idContenido);
                 if (resultado)
-                    TempData["ResultadoOperacion"] = "Contenido Eliminada con Exito";
+                    TempData["ResultadoOperacion"] = "Contenido Eliminado con Exito";
                 else
-                    TempData["ResultadoOperacion"] = "Fallo al Eliminar la Contenido";
+                    TempData["ResultadoOperacion"] = "Fallo al Eliminar el Contenido";
                 return RedirectToAction("Index");
             }
             catch
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        private static List<ATRIBUTO> CrearAtributos(FormCollection datos, List<ATRIBUTO> atributosActuales)
+        {
+            var atributos = new List<ATRIBUTO>();
+            var nombresAtributos = new List<string>();
+            var datosAtributo = new List<string>();
+           nombresAtributos.AddRange(atributosActuales.Select(atributo => atributo.NOMBREATRIBUTO.Trim()));
+           
+            foreach (var item in nombresAtributos)
+            {
+                if (!String.IsNullOrEmpty(datos[item]))
+                {
+                    var dato = datos[item];
+                    datosAtributo.Add(dato);
+                }
+                else
+                    datosAtributo.Add("");
+            }
+            int cont = 0;
+            foreach (var item in atributosActuales)
+            {
+                var auxAtributo = new ATRIBUTO();
+                auxAtributo = item;
+                auxAtributo.dato = datosAtributo.ElementAt(cont);
+                atributos.Add(auxAtributo);
+                cont++;
+            }
+            return atributos;
+        }
+
+        private static List<ETIQUETA> CrearEtiquetas(FormCollection datos, List<ETIQUETA> etiquetasActuales)
+        {
+            var etiquetas = new List<ETIQUETA>();
+            var idEtiquetas = new List<decimal>();
+            
+            if (!String.IsNullOrEmpty(datos["ListaEtiquetas"]))
+            {
+                var dato = datos["ListaEtiquetas"];
+                var IDsEtiquetas = dato.Split(',');
+                foreach (var id in IDsEtiquetas)
+                {
+                    idEtiquetas.Add(decimal.Parse(id));
+                }
+            }            
+           
+           foreach (var item in etiquetasActuales)
+           {
+               foreach (var id in idEtiquetas)
+               {
+                   if(id == item.IDENTIFICADORETIQUETA)
+                   {
+                       var auxEtiquetas = new ETIQUETA();
+                       auxEtiquetas = item;
+                       etiquetas.Add(auxEtiquetas);
+                   }                   
+               }    
+           }
+            return etiquetas;
         }
     }
 }
