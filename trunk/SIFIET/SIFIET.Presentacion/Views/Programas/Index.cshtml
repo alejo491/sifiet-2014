@@ -42,7 +42,10 @@
     </fieldset>
 }
 <br />
-
+@if (!string.IsNullOrEmpty(ViewBag.ResultadoBusqueda) && ViewBag.ResultadoBusqueda.Equals("No se encontraron registros"))
+{
+    <script> mensajeNoProgramas(); </script>
+}
 <h3>@ViewBag.ResultadoBusqueda</h3>
 
 
