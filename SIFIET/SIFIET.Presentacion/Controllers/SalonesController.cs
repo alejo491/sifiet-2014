@@ -13,6 +13,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class SalonesController : Controller
     {
+        [Authorize]
         public ActionResult Index(decimal? idSalon, string nombreSalon, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -32,12 +33,12 @@ namespace SIFIET.Presentacion.Controllers
                     return View(resultado);
                 }
         }
-
+         [Authorize]
         public ActionResult VisualizarSalon(decimal idSalon)
         {
             return View(FachadaSIFIET.VisualizarSalon(idSalon));
         }
-
+         [Authorize(Roles = "Salon")]
         public ActionResult RegistrarSalon()
         {
             var listaFacultades = FachadaSIFIET.ConsultarFacultades(0,"");
@@ -71,7 +72,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oSalon);
             }
         }
-
+         [Authorize(Roles = "Salon")]
         public ActionResult ModificarSalon(decimal idSalon)
         {
             var oSalon = FachadaSIFIET.VisualizarSalon(idSalon) as SALON;
@@ -112,6 +113,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost, ActionName("EliminarSalon")]
         [ValidateAntiForgeryToken]*/
+        [Authorize(Roles = "Salon")]
         public ActionResult EliminarSalon(decimal idSalon)
         {
             try
@@ -131,7 +133,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Lectura del archivo Excel
-
+         [Authorize(Roles = "Salon")]
         public ActionResult CargarArchivo()
         {
             return View();
@@ -253,7 +255,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Mostrar la infomacion antes de almacenar en la Base de Datos
-
+        [Authorize(Roles = "Salon")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();
@@ -409,7 +411,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             return FachadaSIFIET.ObtenerIdFacultad(nombreFacultad);
         }
-
+        [Authorize(Roles = "Salon")]
         public ActionResult EnviarDatos()
         {
             /*try

@@ -273,7 +273,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Mostrar la infomacion antes de almacenar en la Base de Datos
-
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();
@@ -558,7 +558,7 @@ namespace SIFIET.Presentacion.Controllers
             verificarC = FachadaSIFIET.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);
             return verificarC;
         }
-
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult EnviarDatos()
         {
             try

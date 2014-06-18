@@ -11,7 +11,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class CategoriasController : Controller
     {
-
+        [Authorize]
         public ViewResult Index(string busqueda = "")
         {
 
@@ -36,6 +36,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Create
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarCategoria()
         {
             return View();
@@ -69,7 +70,7 @@ namespace SIFIET.Presentacion.Controllers
 
             return View(categoriaIn);            
         }
-        
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarAtributo(CATEGORIA categoriaIn)
         {
             categoriaIn = FachadaSIFIET.ConsultarCategoria(categoriaIn.IDENTIFICADORCATEGORIA);
@@ -132,7 +133,7 @@ namespace SIFIET.Presentacion.Controllers
             }, "value", "text");
             return View();
         }
-
+        [Authorize(Roles = "Contenido")]
         public ActionResult EliminarAtributo(int idCategoria, int idAtributo)
         {
             ViewData["idCategoria"] = idCategoria;
