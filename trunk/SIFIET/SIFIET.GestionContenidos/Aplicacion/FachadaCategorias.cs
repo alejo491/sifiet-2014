@@ -38,5 +38,20 @@ namespace SIFIET.GestionContenidos.Aplicacion
         {
             return Dominio.Servicios.ServicioCategorias.EliminarAtributoContenido(idCatecoria, idAtributo);
         }
+
+        public static bool EliminarCategoria(int idCategoria)
+        {
+            return Dominio.Servicios.ServicioCategorias.EliminarCategoria(idCategoria);
+        }
+
+        public static bool ModificarCategoria(CATEGORIA categoriaIn)
+        {
+            return Dominio.Servicios.ServicioCategorias.ModificarCategoria(categoriaIn);
+        }
+
+        public static bool NombreCategoriaExiste(string p)
+        {
+            return Dominio.Servicios.ServicioCategorias.NombreCategoriaExiste(p);
+        }
     }
 }

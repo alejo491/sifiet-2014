@@ -71,6 +71,22 @@ namespace SIFIET.Aplicacion
         {
             return GestionContenidos.Aplicacion.FachadaCategorias.EliminarAtributoContenido(idCategoria, idAtributo);
         }
+
+
+        public static bool EliminarCategoria(int idCategoria)
+        {
+            return GestionContenidos.Aplicacion.FachadaCategorias.EliminarCategoria(idCategoria);
+        }
+
+        public static bool NombreCategoriaExiste(string p)
+        {
+            return GestionContenidos.Aplicacion.FachadaCategorias.NombreCategoriaExiste(p);
+        }
+
+        public static bool ModificarCategoria(CATEGORIA categoriaIn)
+        {
+           return GestionContenidos.Aplicacion.FachadaCategorias.ModificarCategoria(categoriaIn);
+        }
         #endregion
 
         #region Metodos Gestion Contenido
@@ -119,6 +135,7 @@ namespace SIFIET.Aplicacion
             return SIFIET.GestionContenidos.Aplicacion.FachadaBloques.AsignarCategoriasBloques(bloque1, bloque2, bloque3, bloque4);
         }
         #endregion
+
 
     }
 }

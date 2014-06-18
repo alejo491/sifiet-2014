@@ -96,7 +96,7 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         {
             var db = new GestionUsuariosEntities();
             var usuario = db.USUARIOs.Find(idUsuario);
-            usuario.ESTADOUSUARIO = "Eliminado";
+            usuario.ESTADOUSUARIO = "Inactivo";
             db.SaveChanges();
         }
 
