@@ -33,8 +33,7 @@ namespace SIFIET.Presentacion.Controllers
             {
                 if (datos["valorbusqueda"].Equals(""))
                 {
-                    ViewBag.Mensaje =
-                        "valor vacio";
+                    ViewBag.Mensaje = "valor vacio";
                 }
                 else
                 {
@@ -51,7 +50,6 @@ namespace SIFIET.Presentacion.Controllers
             }
             if (datos["criterio"].Equals("apellido"))
             {
-
                 if (datos["valorbusqueda"].Equals(""))
                 {
                     ViewBag.Mensaje =
@@ -68,7 +66,6 @@ namespace SIFIET.Presentacion.Controllers
                     }
                     return View(lista);
                 }
-
             }
             if (datos["criterio"].Equals("identificacion"))
             {

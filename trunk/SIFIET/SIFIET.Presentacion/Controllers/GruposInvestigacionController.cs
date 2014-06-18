@@ -13,6 +13,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: //GruposInvestigacion
+        [Authorize]
         public ActionResult Index()
         {
             var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };

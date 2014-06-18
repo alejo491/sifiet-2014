@@ -11,7 +11,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class EtiquetasController :  Controller
     {
-
+        [Authorize]
         public ViewResult Index(string busqueda = "")
         {
 
@@ -36,6 +36,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Details/idEtiqueta
+        [Authorize]
         public ViewResult VisualizarEtiquetas(decimal idEtiqueta)
         {
             ETIQUETA etiqueta = FachadaSIFIET.ConsultarEtiqueta(idEtiqueta);
@@ -44,6 +45,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Create
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarEtiquetas()
         {
            return View();
@@ -78,6 +80,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Edit/idEtiqueta
+         [Authorize(Roles = "Contenido")]
         public ActionResult EditarEtiquetas(decimal idEtiqueta)
         {
             ETIQUETA objEtiqueta = FachadaSIFIET.ConsultarEtiqueta(idEtiqueta);
@@ -110,6 +113,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Delete/idEtiqueta
+         [Authorize(Roles = "Contenido")]
         public ActionResult EliminarEtiquetas(decimal idEtiqueta)
         {
             if (FachadaSIFIET.EliminarEtiqueta(idEtiqueta))

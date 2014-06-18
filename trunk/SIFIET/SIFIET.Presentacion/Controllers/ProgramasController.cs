@@ -16,7 +16,7 @@ namespace SIFIET.Presentacion.Controllers
 
 
         // GET: /Programa/
-
+        [Authorize]
         public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
             ViewBag.ResultadoOperacion = TempData["ResultadoOperacion"] as string;
@@ -43,7 +43,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Programa/Details/5
-
+        [Authorize]
         public ViewResult VisualizarProgramaAcademico(decimal idPrograma)
         {
             PROGRAMA programa = FachadaSIFIET.ConsultarProgramaAcademico(idPrograma);
@@ -52,7 +52,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Programa/Create
-
+        [Authorize(Roles = "Programas")]
         public ActionResult RegistrarProgramaAcademico()
         {
             ViewBag.IDENTIFICADORFACULTAD = new SelectList(FachadaSIFIET.ConsultarFacultades(), "IDENTIFICADORFACULTAD", "NOMBREFACULTAD");
@@ -90,7 +90,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Programa/Edit/5
-
+         [Authorize(Roles = "Programas")]
         public ActionResult EditarProgramaAcademico(decimal idPrograma)
         {
             PROGRAMA objPrograma = FachadaSIFIET.ConsultarProgramaAcademico(idPrograma);
@@ -126,7 +126,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Programa/Delete/5
-
+        [Authorize(Roles = "Programas")]
         public ActionResult EliminarProgramaAcademico(decimal idPrograma)
         {
             if (FachadaSIFIET.EliminarProgramaAcademico(idPrograma))
@@ -227,7 +227,7 @@ namespace SIFIET.Presentacion.Controllers
         */
 
         // Lectura del archivo Excel
-
+         [Authorize(Roles = "Programas")]
         public ActionResult CargarArchivo()
         {
             return View();
@@ -349,7 +349,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Mostrar la infomacion antes de almacenar en la Base de Datos
-
+        [Authorize(Roles = "Programas")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();
@@ -671,7 +671,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             return FachadaSIFIET.ObtenerIdFacultadProg(nombrePrograma);
         }
-
+         [Authorize(Roles = "Programas")]
         public ActionResult EnviarDatos()
         {
             try

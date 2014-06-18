@@ -15,7 +15,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/
-
+        [Authorize]
         public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
 
@@ -42,7 +42,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/Details/5
-
+         [Authorize]
         public ViewResult VisualizarPlanEstudio(decimal idPlanEstudio)
         {
             PLANESTUDIO planEstudio = FachadaSIFIET.ConsultarPlanEstudio(idPlanEstudio);
@@ -51,7 +51,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/Create
-
+         [Authorize(Roles = "Plan de Estudio")]
         public ActionResult RegistrarPlanEstudio()
         {
             ViewBag.IDENTIFICADORPROGRAMA = new SelectList(FachadaSIFIET.ConsultarProgramasAcademicos(), "IDENTIFICADORPROGRAMA", "NOMBREPROGRAMA");
@@ -90,7 +90,7 @@ namespace SIFIET.Presentacion.Controllers
         
         //
         // GET: /PlanEstudio/Edit/5
- 
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult EditarPlanEstudio(decimal idPlanEstudio)
         {
             PLANESTUDIO objPlanEstudio = FachadaSIFIET.ConsultarPlanEstudio(idPlanEstudio);
@@ -126,7 +126,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/Delete/5
- 
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult EliminarPlanEstudio(decimal idPlanEstudio)
         {
             if (FachadaSIFIET.EliminarPlanEstudio(idPlanEstudio))
@@ -144,7 +144,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // Gestion de Asinaturas por plan de estudio
-
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult GestionAsignaturasPlanEstudio(decimal idPlanEstudio = 0)
         {
             ViewBag.ResultadoOperacion = TempData["ResultadoOperacion"] as string;
@@ -175,7 +175,7 @@ namespace SIFIET.Presentacion.Controllers
             return View(listaAsignaturasPlanesEstudio);
         }
 
-        
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult RegistrarAsignaturaPlanEstudio(ASIGNATURA_PERTENECE_PLAN_ESTU objAsignaturaPlanEstudio)
         {
 
@@ -199,7 +199,7 @@ namespace SIFIET.Presentacion.Controllers
                 
             return RedirectToAction("GestionAsignaturasPlanEstudio", new { idPlanEstudio = objAsignaturaPlanEstudio.IDENTIFICADORPLANESTUDIOS });
         }
-
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult EliminarAsignaturaPlanEstudio(decimal idPlanEstudio, decimal idAsignatura)
         {
             if (FachadaSIFIET.EliminarAsignaturaPlanEstudio(idPlanEstudio, idAsignatura))

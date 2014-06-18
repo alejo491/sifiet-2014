@@ -12,6 +12,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Roles/
+        [Authorize]
         public ActionResult Index(string criterio, string valorbusqueda, string estado="Activo")
         {
             var oRoles = new List<ROL>();
