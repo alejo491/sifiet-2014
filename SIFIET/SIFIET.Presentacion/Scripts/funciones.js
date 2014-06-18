@@ -89,6 +89,10 @@ function mensajeNoUsuarios() {
     $(document).ready(function () { alert("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"); });
 }
 
+function mensajeNoProgramas() {
+    $(document).ready(function () { alert("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"); });
+}
+
 function getSelectValues(select) {
     var result = [];
     var opciones = select.options;
