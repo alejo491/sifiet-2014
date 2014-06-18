@@ -98,11 +98,18 @@ namespace SIFIET.Aplicacion
         }
         #endregion
 
+
         #region Metodos Gestion Bloques
-        public static List<BLOQUE> ConsultarBloques(string idBloque)
+        public static List<BLOQUE> ConsultarBloques()
         {
-            return SIFIET.GestionContenidos.Aplicacion.FachadaBloques.ConsultarBloques(idBloque);
+            return SIFIET.GestionContenidos.Aplicacion.FachadaBloques.ConsultarBloques();
+        }
+
+        public static bool AsignarCategoriasBloques(string bloque1, string bloque2, string bloque3, string bloque4)
+        {
+            return SIFIET.GestionContenidos.Aplicacion.FachadaBloques.AsignarCategoriasBloques(bloque1, bloque2, bloque3, bloque4);
         }
         #endregion
+
     }
 }

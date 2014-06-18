@@ -408,3 +408,24 @@ function confirmSalirCategoria() {
 }
 
 /* Fin validacion Categorias */
+
+
+/* Validacion modulo Asignar Categorias a bloques */
+
+function comfirmacionAsignarCategoriasBloques() {
+    var bloque1 = document.getElementById("bloque1").value;
+    var bloque2 = document.getElementById("bloque2").value;
+    var bloque3 = document.getElementById("bloque3").value;
+    var bloque4 = document.getElementById("bloque4").value;
+
+    if (bloque1 == "" || bloque2 == "" || bloque3 == "" || bloque4 == "" ) {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return false;
+    } else {
+        mensaje = "¿Confirma que los datos ingresados son correctos y que desea guardarlos en la base de datos?";
+        return confirm(mensaje);
+    }
+}
+
+/* Fin validacion Categorias */
