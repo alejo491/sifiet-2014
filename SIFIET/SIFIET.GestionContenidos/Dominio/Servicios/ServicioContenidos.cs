@@ -32,11 +32,30 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                                  select e).ToList();
                         return lista;
                     }
+                    if (idContenido == 2)
+                    {
+                        lista = (from s in db.CONTENIDOes
+                                 join f in db.CATEGORIAs on s.IDENTIFICADORCATEGORIA equals f.IDENTIFICADORCATEGORIA
+                                 where
+                                     (f.NOMBRECATEGORIA.ToLower().Contains(nombreContenido.ToLower()))
+                                 select s).ToList();
+                        return lista;
+                    }
                     else
                     {
-                        lista = (from e in db.CONTENIDOes
-                                 where (e.TITULOCONTENIDO.ToLower().Contains(nombreContenido.ToLower())) & (e.ESTADOCONTENIDO.Equals(estado))
-                                 select e).ToList();
+                        foreach (var cont in db.CONTENIDOes)
+                        {
+                            var etiquetas = ConsultarEtiquetasDelContenido(cont.IDENTIFICADORCONTENIDO);
+                            var tiene = false;
+                            foreach (var etiq in etiquetas)
+                            {
+                                if (etiq.NOMBREETIQUETA.ToLower().Contains(nombreContenido.ToLower()) & (cont.ESTADOCONTENIDO.Equals(estado)))
+                                    tiene = true;
+                                                               
+                            }
+                            if (tiene)
+                                lista.Add(cont);
+                        }
                         return lista;
                     }
 
@@ -58,7 +77,6 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                                   where e.IDENTIFICADORCONTENIDO == idContenido
                                   select e).First();
                 return contenido;
-
             }
             catch (Exception)
             {
@@ -67,12 +85,11 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         }
 
-        internal static bool RegistrarContenido(CONTENIDO nuevContenido, List<ATRIBUTO> atributos)
+        internal static bool RegistrarContenido(CONTENIDO nuevContenido, List<ATRIBUTO> atributos, List<ETIQUETA> etiquetas)
         {
             try
             {
                 var db = new GestionContenidosEntities();
-
                 var cont = new CONTENIDO();
                 {
                     cont.operacion = "registrar";
@@ -81,25 +98,26 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                 db.CONTENIDOes.Add(cont);
                 db.SaveChanges();
                 cont = (from c in db.CONTENIDOes where nuevContenido.TITULOCONTENIDO.Equals(c.TITULOCONTENIDO) select c).FirstOrDefault();
-                /*for (int i = 0; i < atributos.Count; i++)
-                {
-                    var atributo = new ATRIBUTO();
-                    atributo = atributos.ElementAt(i);
-                    atributos.RemoveAt(i);
-                    atributo.operacion = "registrar";
-                    //atributo.dato = "blanco";
-                    atributos.Add(atributo);                    
-                }*/
-                foreach(var atri in atributos)
-                {
-                    db.Database.ExecuteSqlCommand("Insert into CONTENIDO_ATRIBUTO(IDENTIFICADORCONTENIDO,IDENTIFICADORATRIBUTO) values ('"+cont.IDENTIFICADORCONTENIDO+"','"+atri.IDENTIFICADORATRIBUTO+"')");
-                    //cont.ATRIBUTOes.Add(atri);     
-                }
-                   
-                db.SaveChanges();                    
-                
-                return true;
 
+                if(AsociarAtributos(cont.IDENTIFICADORCONTENIDO,atributos))
+                {
+                    if (AsociarEtiquetas(cont.IDENTIFICADORCONTENIDO, etiquetas))
+                    {
+                        return true;
+                    }
+                    else
+                    {                        
+                        db.CONTENIDOes.Remove(cont);
+                        db.SaveChanges();
+                        return false;
+                    }
+                }
+                else
+                {
+                    db.CONTENIDOes.Remove(cont);
+                    db.SaveChanges();
+                    return false;
+                }
             }
             catch (Exception)
             {
@@ -109,19 +127,38 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
         }
 
-        internal static bool ModificarContenido(CONTENIDO contenidoModificada)
+        internal static bool ModificarContenido(CONTENIDO contenidoModificado, List<ATRIBUTO> atributos, List<ETIQUETA> etiquetas)
         {
             try
             {
                 var db = new GestionContenidosEntities();
 
-                var contenido = (from asig in db.CONTENIDOes where asig.IDENTIFICADORCONTENIDO == contenidoModificada.IDENTIFICADORCONTENIDO select asig).First();
+                var contenido = (from cont in db.CONTENIDOes where cont.IDENTIFICADORCONTENIDO == contenidoModificado.IDENTIFICADORCONTENIDO select cont).First();
                 {
-                    contenido.operacion = "modificacion";                   
+                    contenido.operacion = "Modificacion";
+                    contenido.PRIORIDADCONTENIDO = contenidoModificado.PRIORIDADCONTENIDO;
+                    contenido.TITULOCONTENIDO = contenidoModificado.TITULOCONTENIDO;
+                    contenido.ESTADOCONTENIDO = contenidoModificado.ESTADOCONTENIDO;
+                    contenido.CUERPOCONTENIDO = contenidoModificado.CUERPOCONTENIDO;
+                    contenido.DESCRIPCIONCONTENIDO = contenidoModificado.DESCRIPCIONCONTENIDO;
+
                 }
                 db.SaveChanges();
-                return true;
-
+                if (ActualizarAtributos(contenido.IDENTIFICADORCONTENIDO, atributos))
+                {
+                    if (ActualizarEtiquetas(contenido.IDENTIFICADORCONTENIDO, etiquetas))
+                    {
+                        return true;
+                    }
+                    else
+                    {                        
+                        return false;
+                    }
+                }
+                else
+                {                    
+                    return false;
+                }
             }
             catch (Exception)
             {
@@ -138,7 +175,7 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
 
                 var cont = (from asig in db.CONTENIDOes where asig.IDENTIFICADORCONTENIDO == idContenido select asig).First();
                 {
-                    cont.operacion = "modificacion";
+                    cont.operacion = "Modificacion";
                     cont.ESTADOCONTENIDO = "Eliminado";
                 }
                 //db.CONTENIDOes.Remove(cont);
@@ -152,7 +189,138 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
             }
 
         }
+        internal static List<ATRIBUTO> ConsultarAtributosDelContenido(decimal idContenido)
+        {
+            try
+            {
+                var db = new GestionContenidosEntities();
+                var atributos = new List<ATRIBUTO>();
+                var cont = (from asig in db.CONTENIDOes where asig.IDENTIFICADORCONTENIDO == idContenido select asig).FirstOrDefault();                
+                if(cont != null)
+                {                    
+                    foreach (var atri in cont.ATRIBUTOes)
+                    {
+                        var auxAtributo = new ATRIBUTO();
+                        var datoAtributo = db.Database.SqlQuery<string>("SELECT DATO FROM CONTENIDO_ATRIBUTO WHERE IDENTIFICADORCONTENIDO = '" + idContenido + 
+                            "' AND IDENTIFICADORATRIBUTO = '" + atri.IDENTIFICADORATRIBUTO +"'").FirstOrDefault();
+                        auxAtributo = atri;
+                        auxAtributo.dato = datoAtributo;
+                        atributos.Add(auxAtributo);
+                    }                    
+                    return atributos;
 
+                }                                
+                return new List<ATRIBUTO>();
+
+            }
+            catch (Exception)
+            {
+                return new List<ATRIBUTO>();
+            }
+        }
+        internal static List<ETIQUETA> ConsultarEtiquetasDelContenido(decimal idContenido)
+        {
+            try
+            {
+                var db = new GestionContenidosEntities();
+                var etiquetas = new List<ETIQUETA>();
+                var cont = (from asig in db.CONTENIDOes where asig.IDENTIFICADORCONTENIDO == idContenido select asig).FirstOrDefault();
+                if (cont != null)
+                {
+                    foreach (var etiq in cont.ETIQUETAs)
+                    {
+                        var auxEtiqueta = new ETIQUETA();                       
+                        auxEtiqueta = etiq;                        
+                        etiquetas.Add(auxEtiqueta);
+                    }
+                    return etiquetas;
+
+                }
+                return new List<ETIQUETA>();
+
+            }
+            catch (Exception)
+            {
+                return new List<ETIQUETA>();
+            }
+        }
+        internal static bool AsociarAtributos(decimal idContenido, List<ATRIBUTO> atributos)
+        {            
+            try
+            {
+                var db = new GestionContenidosEntities();
+                foreach (var atri in atributos)
+                {
+                    db.Database.ExecuteSqlCommand("Insert into CONTENIDO_ATRIBUTO(IDENTIFICADORCONTENIDO,IDENTIFICADORATRIBUTO,DATO) values ('" + idContenido + "','" + atri.IDENTIFICADORATRIBUTO + "','" + atri.dato+ "')");
+                    //cont.ATRIBUTOes.Add(atri);     
+                }                
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }            
+            
+        }
+        internal static bool ActualizarAtributos(decimal idContenido, List<ATRIBUTO> atributos)
+        {            
+            try
+            {
+                var db = new GestionContenidosEntities();
+                foreach (var atri in atributos)
+                {
+                    //db.Database.ExecuteSqlCommand("Insert into CONTENIDO_ATRIBUTO(IDENTIFICADORCONTENIDO,IDENTIFICADORATRIBUTO,DATO) values ('" + idContenido + "','" + atri.IDENTIFICADORATRIBUTO + "','" + atri.dato + "')");
+                    db.Database.ExecuteSqlCommand("Update CONTENIDO_ATRIBUTO SET DATO = '" + atri.dato + "'" +
+                                              " WHERE IDENTIFICADORCONTENIDO = '" + idContenido +"' AND IDENTIFICADORATRIBUTO = '" + atri.IDENTIFICADORATRIBUTO +"'");                                       
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        internal static bool AsociarEtiquetas(decimal idContenido, List<ETIQUETA> etiquetas)
+        {
+            try
+            {
+                var db = new GestionContenidosEntities();
+                foreach (var eti in etiquetas)
+                {
+                    db.Database.ExecuteSqlCommand("Insert into CONTENIDO_TIPO_CONTENIDO(IDENTIFICADORCONTENIDO,IDENTIFICADORETIQUETA) values ('" + idContenido + "','" + eti.IDENTIFICADORETIQUETA + "')");                    
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+        internal static bool ActualizarEtiquetas(decimal idContenido, List<ETIQUETA> etiquetas)
+        {
+            try
+            {
+                var db = new GestionContenidosEntities();
+                db.Database.ExecuteSqlCommand("Delete from CONTENIDO_TIPO_CONTENIDO WHERE IDENTIFICADORCONTENIDO = '" + idContenido + "'");
+                db.SaveChanges();
+                foreach (var eti in etiquetas)
+                {
+                    db.Database.ExecuteSqlCommand("Insert into CONTENIDO_TIPO_CONTENIDO(IDENTIFICADORCONTENIDO,IDENTIFICADORETIQUETA) values ('" + idContenido + "','" + eti.IDENTIFICADORETIQUETA + "')");                      
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
         
     }
 }

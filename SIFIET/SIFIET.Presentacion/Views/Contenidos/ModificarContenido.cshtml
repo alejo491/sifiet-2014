@@ -1,13 +1,14 @@
-﻿@model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
+﻿
+@model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
 
 @{
-    ViewBag.Title = "RegistrarContenido";
+    ViewBag.Title = "ModificarContenido";
 }
+
+<h2>Modificar Contenido</h2>
 <link href="~/Content/themes/base/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
 
-<h2>RegistrarContenido</h2>
-
-@using (Html.BeginForm("RegistrarContenido","Contenidos")) 
+@using (Html.BeginForm("ModificarContenido", "Contenidos"))
 {
     @Html.AntiForgeryToken()
 
@@ -15,7 +16,7 @@
         <h4>CONTENIDO</h4>
         <hr />
         @Html.ValidationSummary(true)
-               
+
 
         <div class="form-group">
             Titulo
@@ -31,20 +32,14 @@
                 @Html.TextAreaFor(model => model.DESCRIPCIONCONTENIDO)
                 @Html.ValidationMessageFor(model => model.DESCRIPCIONCONTENIDO)
             </div>
-        </div>        
+        </div>
         <div class="form-group">
             Cuerpo
             <div class="col-md-10">
                 @Html.TextAreaFor(model => model.CUERPOCONTENIDO)
                 @Html.ValidationMessageFor(model => model.CUERPOCONTENIDO)
             </div>
-        </div>
-
-        @Html.HiddenFor(model => model.FECHACREACIONCONTENIDO, new { @Value = DateTime.Now.Date })
-
-        @Html.HiddenFor(model => model.ESTADOCONTENIDO, new { @Value = "Activo" })
-
-        @Html.HiddenFor(model => model.IDENTIFICADORCATEGORIA, new { @Value = (decimal) @ViewBag.idCategoria })
+        </div>             
 
         <div class="form-group">
             Prioridad
@@ -53,8 +48,21 @@
                 @Html.ValidationMessageFor(model => model.PRIORIDADCONTENIDO)
             </div>
         </div>
-        @Html.HiddenFor(model => model.operacion, new { @Value = "Registrar" })
-        @Html.HiddenFor(model => model.autorContenido, new { @Value = @Context.User.Identity.Name+"@unicauca.edu.co" })
+        <div>
+            Estado :
+            <div>
+                Activo @Html.RadioButtonFor(model => model.ESTADOCONTENIDO, "Activo")
+                Inactivo @Html.RadioButtonFor(model => model.ESTADOCONTENIDO, "Inactivo")
+                @Html.ValidationMessageFor(model => model.ESTADOCONTENIDO)
+            </div>
+        </div>
+        <div>
+            @Html.HiddenFor(model => model.operacion, new { @Value = "Modificacion" })   
+            @Html.HiddenFor(model => model.IDENTIFICADORCONTENIDO)         
+            @Html.HiddenFor(model => model.IDENTIFICADORCATEGORIA)
+            @Html.HiddenFor(model => model.IDENTIFICADORUSUARIO)
+            @Html.HiddenFor(model => model.FECHACREACIONCONTENIDO)
+        </div>
     </div>
     foreach (var item in ViewBag.ListaAtributos)
     {
@@ -62,15 +70,15 @@
             <tr>
                 <td>
                     <label>@item.NOMBREATRIBUTO</label>
-                </td>                      
+                </td>
             </tr>
             @if (((string)@item.TIPOATRIBUTO).Equals("texto"))
-            { 
-                <tr>                
+            {
+                <tr>
                     <td>
                         <input type="text" name="@item.NOMBREATRIBUTO" value="@item.dato" />
                     </td>
-                </tr>            
+                </tr>
             }
             @if (((string)@item.TIPOATRIBUTO).Equals("imagen"))
             {
@@ -90,18 +98,18 @@
             }
         </table>
 
-    }    
-            <div>
-                Etiquetas :
-                <div>
-                    @Html.ListBox("ListaEtiquetas", ViewBag.ListaEtiquetas as MultiSelectList, new { multiple = "multiple" })                    
-                </div>
-            </div>
-    
-        <div>            
-            <input type="submit" value="Guardar" class="btn btn-default" />           
+    }
+    <div>
+        Etiquetas :
+        <div>
+            @Html.ListBox("ListaEtiquetas", ViewBag.ListaEtiquetas as MultiSelectList, new { multiple = "multiple" })
         </div>
-    
+    </div>
+
+    <div>
+        <input type="submit" value="Guardar" class="btn btn-default" />
+    </div>
+
 }
 
 <div>
@@ -115,3 +123,5 @@
 <script type="text/javascript" src="~/Scripts/jquery.multi-select.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.quicksearch.js"></script>
 <script>cargarMultiselectDocumentEtiquetas();</script>
+
+

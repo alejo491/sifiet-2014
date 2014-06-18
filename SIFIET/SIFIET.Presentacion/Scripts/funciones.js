@@ -3,6 +3,11 @@
         cargarMultiselect();
     });
 }
+function cargarMultiselectDocumentEtiquetas() {
+    $(document).ready(function () {
+        cargarMultiselectEtiquetas();
+    });
+}
 
 
 function comfirmarAgregarRol() {
@@ -254,6 +259,43 @@ function cargarMultiselect() {
         }
     });
 }
+function cargarMultiselectEtiquetas() {
+    $('#ListaEtiquetas').multiSelect({
+        selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='buscar \"...\"'>",
+        afterInit: function (ms) {
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function (e) {
+                if (e.which === 40) {
+                    that.$selectableUl.focus();
+                    return false;
+                }
+            });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function (e) {
+                if (e.which == 40) {
+                    that.$selectionUl.focus();
+                    return false;
+                }
+            });
+        },
+        afterSelect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect: function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });    
+}
 
 
 /* Validacion modulo Programas*/
@@ -429,3 +471,36 @@ function comfirmacionAsignarCategoriasBloques() {
 }
 
 /* Fin validacion Categorias */
+
+/* VALIDACION CONTENIDOS*/
+function confirmacionAgregarContenido() {
+    var nombre = document.getElementById("NOMBREASIGNATURA").value;
+    var codigo = document.getElementById("CODIGOASIGNATURA").value;
+    var clasificacion = document.getElementById("CLASIFICACIONASIGNATURA").value;
+    var mensaje;
+    if (nombre.trim() == "" || descripcion.trim() == "" || clasificacion.trim() == "") {
+        mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
+        alert(mensaje);
+        return true;
+    }
+    else {
+        mensaje = "¿Desea guardar el Contenido con la siguiente información?";
+        return confirm(mensaje);
+    }
+}
+function confirmSalirContenido() {
+    var r = confirm('¿Confirma que desea cancelar la accion?');
+    var url = window.location.pathname;
+    var pathArray = url.split('/');        // <-- no need in "string()"
+    var host = pathArray[0];
+    var newHost = '/Contenidos/Index';
+    if (r == true) {
+        window.location = host + newHost;
+    }
+    return false;
+}
+function confirmarEliminarContenido() {
+    var mensaje = "Este contenido tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el Contenido?";
+    return confirm(mensaje);
+}
+/*FIN VALIDACION CONTENIDOS*/

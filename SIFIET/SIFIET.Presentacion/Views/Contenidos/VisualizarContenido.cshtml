@@ -1,0 +1,110 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
+
+@{
+    ViewBag.Title = "VisualizarContenido";
+}
+
+<h2>VisualizarContenido</h2>
+
+<div>
+    <h4>CONTENIDO</h4>
+	<hr />
+    
+    <dl>
+
+        <dt>
+            Titulo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TITULOCONTENIDO)
+        </dd>
+
+        <dt>
+            Autor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autorContenido)
+        </dd>
+
+        <dt>
+            Categoria
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCategoria)
+        </dd>
+
+        <dt>
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCIONCONTENIDO)
+        </dd>
+
+        <dt>
+            Contenido
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CUERPOCONTENIDO)
+        </dd>
+
+        <dt>
+            Fecha Creacion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHACREACIONCONTENIDO)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADOCONTENIDO)
+        </dd>
+
+        <dt>
+            Prioridad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRIORIDADCONTENIDO)
+        </dd>
+    </dl>
+    <label>Atributos</label>    
+    <dl>
+        @foreach (var atributo in ViewBag.ListaAtributos)
+        {
+            <dt>
+                @atributo.NOMBREATRIBUTO
+            </dt>
+
+            <dd>
+                @atributo.dato
+            </dd>
+        }
+    </dl>           
+    <label>Etiquetas</label>
+    <dl>
+        @foreach (var etiqueta in ViewBag.ListaEtiquetas)
+        {
+            <dt>
+                @etiqueta.NOMBREETIQUETA
+            </dt>
+
+            <dd>
+                
+            </dd>
+        }
+    </dl>     
+    
+</div>
+<p>
+    @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = Model.IDENTIFICADORCONTENIDO }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

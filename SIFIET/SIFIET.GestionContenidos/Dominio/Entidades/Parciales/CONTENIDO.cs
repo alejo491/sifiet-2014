@@ -33,6 +33,14 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
                         IDENTIFICADORUSUARIO = 0;
                 }
             }
-        }               
+        }
+        public string NombreCategoria
+        {
+            get
+            {
+                var db = new GestionContenidosEntities();
+                return (from e in db.CATEGORIAs where e.IDENTIFICADORCATEGORIA == IDENTIFICADORCATEGORIA select e.NOMBRECATEGORIA).FirstOrDefault();
+            }
+        }
     }
 }
