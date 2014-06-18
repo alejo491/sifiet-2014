@@ -74,6 +74,7 @@ namespace SIFIET.Presentacion.Controllers
             try
             {
                 // TODO: Add insert logic here                
+                ViewBag.idCategoria = oContenido.IDENTIFICADORCATEGORIA;
                 var categoria = FachadaSIFIET.ConsultarCategoria(oContenido.IDENTIFICADORCATEGORIA);
                 var atributos = categoria.ATRIBUTOes.ToList();
                 var datosAtributos = CrearAtributos(collection,atributos);

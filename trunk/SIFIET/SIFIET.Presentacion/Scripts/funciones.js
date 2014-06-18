@@ -474,11 +474,10 @@ function comfirmacionAsignarCategoriasBloques() {
 
 /* VALIDACION CONTENIDOS*/
 function confirmacionAgregarContenido() {
-    var nombre = document.getElementById("NOMBREASIGNATURA").value;
-    var codigo = document.getElementById("CODIGOASIGNATURA").value;
-    var clasificacion = document.getElementById("CLASIFICACIONASIGNATURA").value;
+    var nombre = document.getElementById("TITULOCONTENIDO").value;
+    var prioridad = document.getElementById("PRIORIDADCONTENIDO").value;
     var mensaje;
-    if (nombre.trim() == "" || descripcion.trim() == "" || clasificacion.trim() == "") {
+    if (nombre.trim() == "" || prioridad.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
         return true;
