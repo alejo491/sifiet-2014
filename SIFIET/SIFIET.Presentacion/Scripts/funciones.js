@@ -449,6 +449,11 @@ function confirmSalirCategoria() {
     return false;
 }
 
+function confirmarEliminarCategoria() {
+    var mensaje = "Esta Categoria tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminarlo?";
+    return confirm(mensaje);
+}
+
 /* Fin validacion Categorias */
 
 

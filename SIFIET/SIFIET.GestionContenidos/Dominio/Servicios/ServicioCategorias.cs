@@ -107,5 +107,58 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
                 return false;
             }
         }
+
+        internal static bool EliminarCategoria(int idCategoria)
+        {
+            var db = new GestionContenidosEntities();
+            try
+            {
+                var categoria = db.CATEGORIAs.Find(idCategoria);
+                categoria.ESTADOCATEGORIA = "Eliminado";
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        internal static bool ModificarCategoria(CATEGORIA categoriaIn)
+        {
+            var db = new GestionContenidosEntities();
+            try
+            {
+                string sql = "Update CATEGORIA SET NOMBRECATEGORIA= '" + categoriaIn.NOMBRECATEGORIA + "' ," +
+                                                             " DESCRIPCIONCATEGORIA= '" + categoriaIn.DESCRIPCIONCATEGORIA + "' ," +
+                                                             " ESTADOCATEGORIA= '" + categoriaIn.ESTADOCATEGORIA + "' ," +
+                                                             " VISIBLEPRINCIPALCATEGORIA= " + categoriaIn.VISIBLEPRINCIPALCATEGORIA + " " +
+
+                                                             " WHERE IDENTIFICADORCATEGORIA= " + categoriaIn.IDENTIFICADORCATEGORIA;
+                db.Database.ExecuteSqlCommand(sql);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        internal static bool NombreCategoriaExiste(string p)
+        {
+            try
+            {
+                var db = new GestionContenidosEntities();
+                var lista = (from e in db.CATEGORIAs
+                             where e.NOMBRECATEGORIA.Trim() ==p.Trim()
+                             select e).ToList();
+                return lista.Count > 0;
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
     }
 }

@@ -31,13 +31,13 @@
 
             grid.Column("NOMBRECATEGORIA",header:"Nombre"),
             grid.Column("DESCRIPCIONCATEGORIA",header:"Descripción"),
-            @*grid.Column("",header:"Opciones",
+            @grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "EditarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }) |
-                @Html.ActionLink("Eliminar", "EliminarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }, new { onclick = "return confirmarEliminarEtiqueta()" }) |
-                @Html.ActionLink("Visualizar", "VisualizarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA })
+                @Html.ActionLink("Editar", "ModificarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }) |
+                @Html.ActionLink("Eliminar", "EliminarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }, new { onclick = "return confirmarEliminarCategoria()" }) |
+                @Html.ActionLink("Visualizar", "VisualizarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA })
                 </text>
-                )*@
+                )
         })
 
 <p>

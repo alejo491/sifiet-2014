@@ -149,5 +149,78 @@ namespace SIFIET.Presentacion.Controllers
             return RedirectToAction("RegistrarAtributo",categoriaIn);
         }
 
+        public ActionResult EliminarCategoria(int idCategoria)
+        {
+            var resultado = FachadaSIFIET.EliminarCategoria(idCategoria);
+            if (resultado)
+                TempData["ResultadoOperacion"] = "Categoria Eliminada con Exito";
+            else
+                TempData["ResultadoOperacion"] = "Fallo al Eliminar la Categoria";
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ModificarCategoria(int idCategoria)
+        {
+            var oCategoria = FachadaSIFIET.ConsultarCategoria(idCategoria);
+
+            return View(oCategoria);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarCategoria(FormCollection datos)
+        {
+
+            bool existe = FachadaSIFIET.NombreCategoriaExiste(datos["nombre"].Trim());
+
+            CATEGORIA categoriaIn = new CATEGORIA()
+            {
+                IDENTIFICADORCATEGORIA = Decimal.Parse(datos["IDENTIFICADORCATEGORIA"].Trim()),
+                DESCRIPCIONCATEGORIA = datos["DESCRIPCIONCATEGORIA"].Trim(),
+                NOMBRECATEGORIA = datos["nombre"].Trim(),
+                ESTADOCATEGORIA = datos["ESTADOCATEGORIA"].Trim(),
+                VISIBLEPRINCIPALCATEGORIA = decimal.Parse(datos["VISIBLEPRINCIPALCATEGORIA"].Trim())
+
+            };
+            if (!ModelState.IsValid || (!datos["nombre"].Trim().Equals(datos["NOMBRECATEGORIA"].Trim()) && existe))
+            {
+                ViewBag.ErrorNombre = "Ingrese otro nombre, ya existe una Etiqueta usando ese nombre";
+
+                ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar esta Categoria. (Model)";
+            }
+            else
+            {
+                var idCategoria = FachadaSIFIET.ModificarCategoria(categoriaIn);
+                if (idCategoria)
+                {
+                    TempData["ResultadoOperacion"] = "Categoría Modificada con Éxito.";
+                    categoriaIn = FachadaSIFIET.ConsultarCategoria(categoriaIn.IDENTIFICADORCATEGORIA);
+                    ViewBag.categoria = categoriaIn;
+                    ViewBag.listaAtributos = categoriaIn.ATRIBUTOes;
+                    ViewBag.tipoAtributo = new SelectList(new List<SelectListItem>
+                    {
+                        new SelectListItem(){Value="string",Text = "Cadena de Caracteres"},
+                        new SelectListItem(){Value="date",Text = "Fecha"},
+                        new SelectListItem(){Value="image",Text = "Imagen"},
+                    }, "value", "text");
+                    return RedirectToAction("RegistrarAtributo", categoriaIn);
+                }
+                else
+                {
+                    ViewBag.ResultadoOperacion = "Ocurrio un error, No se pudo registrar esta Categoria.";
+                }
+                
+            }
+
+            return View(categoriaIn);    
+        }
+
+        public ActionResult VisualizarCategoria(int idCategoria)
+        {
+            CATEGORIA categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoria);
+            ViewBag.categoria = categoriaIn;
+            ViewBag.listaAtributos = categoriaIn.ATRIBUTOes;
+            return View();
+        }
+
     }
 }

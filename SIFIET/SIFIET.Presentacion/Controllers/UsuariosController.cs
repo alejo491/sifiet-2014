@@ -171,13 +171,23 @@ namespace SIFIET.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModificarUsuario(FormCollection datos)
          {
+             List<ROL> rolesActuales = new List<ROL>();
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
-            
-            List<ROL> rolesActuales =new List<ROL>();
-            foreach (var rol in datos["roles"].Split(','))
+            if (datos["roles"] == null)
             {
-                rolesActuales.Add(FachadaSIFIET.ConsultarRol(rol));
+
+                ViewBag.ErrorRol = "No se han seleccionado Roles";
+               
             }
+            else
+            {
+               
+                foreach (var rol in datos["roles"].Split(','))
+                {
+                    rolesActuales.Add(FachadaSIFIET.ConsultarRol(rol));
+                }
+            }
+            
 
 
             ViewBag.rolesasignados = rolesActuales;
@@ -206,24 +216,25 @@ namespace SIFIET.Presentacion.Controllers
                     ViewBag.ErrorIdUsuario = "Ya Existe Un Usuario Con Esta Identificacion ";
                 }
                 return View(usuario);
-            }
+            }else{ 
 
             
             
-            try
-            {
+                try
+                {
 
 
-                var roles = datos["roles"].Split(',');
-                FachadaSIFIET.ModificarUsuario(usuario, roles);
-                TempData["Mensaje"] = "Usuario Editado con Éxito";
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
+                    var roles = datos["roles"].Split(',');
+                    FachadaSIFIET.ModificarUsuario(usuario, roles);
+                    TempData["Mensaje"] = "Usuario Editado con Éxito";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
 
-                ViewBag.Mensaje = "Error" + e.Message;
-                return View();
+                    ViewBag.Mensaje = "Error" + e.Message;
+                    return View();
+                }
             }
 
 
