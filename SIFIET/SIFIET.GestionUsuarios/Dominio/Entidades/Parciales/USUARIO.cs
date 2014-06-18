@@ -18,8 +18,8 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
         public decimal IDENTIFICADORUSUARIO { get; set; }
 
         [Required]
-        [StringLength(15, ErrorMessage = "El Email no pueder ser mayor de 15 caracteres")]
-        [RegularExpression("^([a-zA-Z0-9 .&'-]+)$", ErrorMessage = "El Email no puede contener el @")]
+        [StringLength(80, ErrorMessage = "El Email no pueder ser mayor de 80 caracteres")]
+        [RegularExpression("^([a-zA-Z0-9'-]+)$", ErrorMessage = "El Email no puede contener caracteres especiales")]
         public string EMAILINSTITUCIONALUSUARIO { get; set; }
 
         [Required]

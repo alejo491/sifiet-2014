@@ -32,6 +32,11 @@ function valorNumericoUuarios() {
     alert("Esta busqueda solo acepta valores numericos");
 }
 
+function confirmarEliminarUsuario() {
+    var mensaje = "Esta usuario tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar la Usuario?";
+    return confirm(mensaje);
+}
+
 function confirmacionAgregarUsuario() {
     var mensaje = "¿Desea guardar el Usuario con la informacion proporcionada?";
     return confirm(mensaje);
