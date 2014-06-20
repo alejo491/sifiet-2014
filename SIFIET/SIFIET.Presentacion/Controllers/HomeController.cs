@@ -16,5 +16,18 @@ namespace SIFIET.Presentacion.Controllers
             List<BLOQUE> bloques = FachadaSIFIET.ConsultarBloques();
             return View(bloques);
         }
+
+        public ActionResult DetallarCategoria(int idCategoriaIn)
+        {            
+            CATEGORIA categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoriaIn);
+            ViewBag.nombreCategoria = categoriaIn.NOMBRECATEGORIA;
+            List<CONTENIDO> lstContenidos = categoriaIn.CONTENIDOes.ToList();            
+            return View(lstContenidos);
+        }
+        public ActionResult VisualizarContenido(int idContenidoIn)
+        {
+            CONTENIDO contenido = FachadaSIFIET.VisualizarContenido(idContenidoIn);
+            return View(contenido);
+        }
     }
 }

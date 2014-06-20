@@ -1,0 +1,31 @@
+﻿@model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
+
+@{
+    ViewBag.Title = "VisualizarContenido";
+}
+
+<div>
+    <br/>
+    @{
+        DateTime fecha = DateTime.ParseExact(Model.FECHACREACIONCONTENIDO, "dd-MM-yyyy", null);
+    }
+    <strong> @fecha.ToString("D") </strong>
+    <div class="fecha-contenido">
+        <h4>@Html.DisplayFor(model => model.TITULOCONTENIDO)</h4>
+    </div>    
+    <strong> Autor: </strong> @Html.DisplayFor(model => model.autorContenido)
+    <hr />
+    <strong> Descripción </strong>
+    <br/>
+    @Html.DisplayFor(model => model.DESCRIPCIONCONTENIDO)
+    <br />
+    <br />
+    <strong> Contenido </strong>
+
+    @Html.DisplayFor(model => model.CUERPOCONTENIDO)
+    <hr />
+    <strong>Publicado en categoría: </strong> @Html.DisplayFor(model => model.NombreCategoria)
+</div>
+
+
+
