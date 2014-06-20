@@ -469,12 +469,11 @@ function confirmarEliminarCategoria() {
 /* Validacion modulo Asignar Categorias a bloques */
 
 function comfirmacionAsignarCategoriasBloques() {
-    var bloque1 = document.getElementById("bloque1").value;
-    var bloque2 = document.getElementById("bloque2").value;
-    var bloque3 = document.getElementById("bloque3").value;
-    var bloque4 = document.getElementById("bloque4").value;
-
-    if (bloque1 == "" || bloque2 == "" || bloque3 == "" || bloque4 == "" ) {
+    var bloque1 = $("#bloque1 option:selected").text();
+    var bloque2 = $("#bloque2 option:selected").text();
+    var bloque3 = $("#bloque3 option:selected").text();
+    var bloque4 = $("#bloque4 option:selected").text();
+    if (bloque1 == "Escoja una Categoria" || bloque2 == "Escoja una Categoria" || bloque3 == "Escoja una Categoria" || bloque4 == "Escoja una Categoria") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
         return false;
