@@ -275,6 +275,8 @@
     <Content Include="Views\Bloques\Index.cshtml" />
     <Content Include="Views\Contenidos\VisualizarContenido.cshtml" />
     <Content Include="Views\Contenidos\ModificarContenido.cshtml" />
+    <Content Include="Views\Home\DetallarCategoria.cshtml" />
+    <Content Include="Views\Home\VisualizarContenido.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

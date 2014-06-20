@@ -13,7 +13,7 @@
         int posiciony = Decimal.ToInt32((decimal)item.POSICIONYBLOQUE);
         <div class="col-md-@col" @*style="position: absolute; right: @(posicionx)px; top: @(posiciony)px; "*@>
             <div class="nombre-categoria">
-                @Html.DisplayFor(modelItem => item.CATEGORIA.NOMBRECATEGORIA)
+                @Html.ActionLink(item.CATEGORIA.NOMBRECATEGORIA, "DetallarCategoria", new { idCategoriaIn = item.IDENTIFICADORCATEGORIA })
             </div>
             <div>
                 <ul>
