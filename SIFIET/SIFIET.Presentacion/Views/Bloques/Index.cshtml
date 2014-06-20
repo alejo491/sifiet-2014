@@ -9,8 +9,6 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@Model.ElementAt(0).CATEGORIA.NOMBRECATEGORIA;
-
 @using (Html.BeginForm("RegistrarBloques", "Bloques"))
 {
     @Html.ValidationSummary(true)
@@ -20,18 +18,49 @@
             <table>
                 <tr>
                     <td>
-                        Bloque 1:@Html.DropDownList("bloque1", "Escoja una Categoria")
+                        Bloque 1:
+                        @if (Model.ElementAt(0).CATEGORIA.NOMBRECATEGORIA == "") { 
+                            @Html.DropDownList("bloque1", "Escoja una Categoria")
+                        }
+                        else { 
+                            @Html.DropDownList("bloque1", @Model.ElementAt(0).CATEGORIA.NOMBRECATEGORIA)
+                        }
+                        
                     </td>
                     <td>
-                        Bloque 2:@Html.DropDownList("bloque2", "Escoja una Categoria")
+                        Bloque 2:
+                        @if (Model.ElementAt(0).CATEGORIA.NOMBRECATEGORIA == "")
+                        {
+                            @Html.DropDownList("bloque2", "Escoja una Categoria")
+                        }
+                        else
+                        {
+                            @Html.DropDownList("bloque2", @Model.ElementAt(1).CATEGORIA.NOMBRECATEGORIA)
+                        }
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Bloque 3:@Html.DropDownList("bloque3", "Escoja una Categoria")
+                        Bloque 3:
+                        @if (Model.ElementAt(2).CATEGORIA.NOMBRECATEGORIA == "")
+                        {
+                            @Html.DropDownList("bloque3", "Escoja una Categoria")
+                        }
+                        else
+                        {
+                            @Html.DropDownList("bloque3", @Model.ElementAt(2).CATEGORIA.NOMBRECATEGORIA)
+                        }
                     </td>
                     <td>
-                        Bloque 4:@Html.DropDownList("bloque4", "Escoja una Categoria")
+                        Bloque 4:
+                        @if (Model.ElementAt(3).CATEGORIA.NOMBRECATEGORIA == "")
+                        {
+                            @Html.DropDownList("bloque4", "Escoja una Categoria")
+                        }
+                        else
+                        {
+                            @Html.DropDownList("bloque4", @Model.ElementAt(3).CATEGORIA.NOMBRECATEGORIA)
+                        }
                     </td>
                 </tr>
 
