@@ -18,7 +18,7 @@
             <input type="submit" value="Buscar" />
         </p>
     }
-
+        
     @grid.GetHtml(
         fillEmptyRows: true,
         mode: WebGridPagerModes.All,
@@ -28,9 +28,16 @@
             grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) |
-                @Html.ActionLink("Visualizar", "VisualizarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) |
+                @if (Context.User.IsInRole("Asignaturas"))
+                { 
+                @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) <text>|</text>
+                }                                                                                                                       
+                @Html.ActionLink("Visualizar", "VisualizarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) 
+                @if (Context.User.IsInRole("Administrador"))
+                { 
+                <text>|</text>
                 @Html.ActionLink("Eliminar", "EliminarAsignatura", "Asignaturas", new { idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarAsignatura()" })
+                }
                 </text>
                 )
         })

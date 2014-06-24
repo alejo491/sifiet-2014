@@ -28,9 +28,16 @@
             grid.Column("DESCRIPCIONCONTENIDO",header:"Descripcion"),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |
-                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) |    
+                @if (Context.User.IsInRole("Contenido"))
+                {                
+                @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) <text>|</text>
+                }
+                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) 
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
                 @Html.ActionLink("Eliminar", "EliminarContenido", "Contenidos", new { idContenido = item.IDENTIFICADORCONTENIDO }, new { onclick = "return confirmarEliminarContenido()" })
+                }
                 </text>
                 )
         })    

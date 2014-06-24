@@ -28,9 +28,16 @@
             grid.Column("ESTADOCURSO",header:"Estado"),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) |
-                @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso= item.IDENTIFICADORCURSO }) |
-                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO }, new { onclick = "return confirmarEliminarCurso();" }) | 
+                @if (Context.User.IsInRole("Cursos"))
+                {
+                @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) <text>|</text>
+                }                                                                                                       
+                @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso= item.IDENTIFICADORCURSO }) 
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
+                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO }, new { onclick = "return confirmarEliminarCurso();" })
+                }
                 </text>
                 )
         })

@@ -14,7 +14,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class AsignaturasController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult Index(decimal? idAsignatura, string nombreAsignatura, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -36,7 +36,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Asignaturas/Details/5
-        [Authorize]
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult VisualizarAsignatura(decimal idAsignatura)
         {
             return View(FachadaSIFIET.VisualizarAsignatura(idAsignatura));
@@ -133,7 +133,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Asignaturas/Delete/5
         [HttpPost, ActionName("EliminarAsignatura")]
         [ValidateAntiForgeryToken]*/
-        [Authorize(Roles = "Asignaturas")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarAsignatura(decimal idAsignatura)
         {
             try
@@ -151,13 +151,15 @@ namespace SIFIET.Presentacion.Controllers
             }
         }
 
-        // Lectura del archivo Excel        
+        // Lectura del archivo Excel  
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult CargarArchivo()
         {
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]       
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Authorize(Roles = "Asignaturas")]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo)
         {
             Boolean fileOK = false;

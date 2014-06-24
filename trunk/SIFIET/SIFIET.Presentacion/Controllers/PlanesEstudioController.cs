@@ -14,8 +14,8 @@ namespace SIFIET.Presentacion.Controllers
     {
 
         //
-        // GET: /PlanEstudio/
-        [Authorize]
+        // GET: /PlanEstudio/        
+        [Authorize(Roles = "Plan de Estudio")]
         public ViewResult Index(string estado = "Activo", string campo = "", string busqueda = "")
         {
 
@@ -42,7 +42,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/Details/5
-         [Authorize]
+         [Authorize(Roles = "Plan de Estudio")]
         public ViewResult VisualizarPlanEstudio(decimal idPlanEstudio)
         {
             PLANESTUDIO planEstudio = FachadaSIFIET.ConsultarPlanEstudio(idPlanEstudio);
@@ -63,6 +63,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /PlanEstudio/Create
 
         [HttpPost]
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult RegistrarPlanEstudio(PLANESTUDIO objPlanEstudio)
         {
                         
@@ -102,6 +103,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /PlanEstudio/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "Plan de Estudio")]
         public ActionResult EditarPlanEstudio(PLANESTUDIO objPlanEstudio)
         {
             if (ModelState.IsValid)
@@ -126,7 +128,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /PlanEstudio/Delete/5
-        [Authorize(Roles = "Plan de Estudio")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarPlanEstudio(decimal idPlanEstudio)
         {
             if (FachadaSIFIET.EliminarPlanEstudio(idPlanEstudio))

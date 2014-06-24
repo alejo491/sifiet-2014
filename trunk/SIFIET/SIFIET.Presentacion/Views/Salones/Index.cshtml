@@ -30,9 +30,16 @@
             grid.Column("NombreFacultad",header:"Facultad"),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
-                @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON }) |
+                @if (Context.User.IsInRole("Salon"))
+                {            
+                @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON })<text>|</text>
+                }
+                @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON })
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
                 @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON }, new { onclick = "return confirmarEliminarSalon()" })
+                }
                 </text>
                 )
         })

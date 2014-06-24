@@ -13,8 +13,8 @@ using SIFIET.Aplicacion;
 namespace SIFIET.Presentacion.Controllers
 {
     public class CursosController : Controller
-    {
-        [Authorize]
+    {        
+        [Authorize(Roles = "Cursos")]
         public ActionResult Index(decimal? idCurso, string nombreCurso)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -43,8 +43,8 @@ namespace SIFIET.Presentacion.Controllers
                 return View(FachadaSIFIET.ConsultarCursos(0, ""));
             }
 
-        }
-        [Authorize]
+        }       
+        [Authorize(Roles = "Cursos")]
         public ActionResult VisualizarCurso(decimal idCurso)
         {
             return View(FachadaSIFIET.VisualizarCurso(idCurso));
@@ -62,6 +62,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Cursos")]
         public ActionResult RegistrarCurso(CURSO oCurso)
         {
             try
@@ -99,6 +100,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Cursos")]
         public ActionResult ModificarCurso(CURSO oCurso)
         {
             try
@@ -129,7 +131,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oCurso);
             }
         }
-
+        [Authorize(Roles = "Cursos")]
         public ActionResult ModificarHorario(CURSO oCurso)
         {
             ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
@@ -150,6 +152,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost, ActionName("EliminarCurso")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Cursos")]
         public ActionResult EliminarCursoConfirmacion(decimal idCurso)
         {
             try
@@ -215,6 +218,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Cursos")]
         public ActionResult RegistrarHorario(FormCollection datos)
         {
 
@@ -296,6 +300,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Authorize(Roles = "Cursos")]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo)
         {
             Boolean fileOK = false;

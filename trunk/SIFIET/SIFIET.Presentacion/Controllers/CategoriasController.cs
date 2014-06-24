@@ -10,8 +10,8 @@ using SIFIET.GestionProgramas.Datos.Modelo;
 namespace SIFIET.Presentacion.Controllers
 {
     public class CategoriasController : Controller
-    {
-        [Authorize]
+    {        
+        [Authorize(Roles = "Contenido")]
         public ViewResult Index(string busqueda = "")
         {
 
@@ -45,6 +45,7 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Contenidos/Create
         [HttpPost]
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarCategoria(CATEGORIA categoriaIn)
         {
 
@@ -86,6 +87,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarAtributo(ATRIBUTO inAtributo)
         {
             var categoriaIn = FachadaSIFIET.ConsultarCategoria(inAtributo.IDENTIFICADORCATEGORIA);
@@ -133,7 +135,7 @@ namespace SIFIET.Presentacion.Controllers
             }, "value", "text");
             return View();
         }
-        [Authorize(Roles = "Contenido")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarAtributo(int idCategoria, int idAtributo)
         {
             ViewData["idCategoria"] = idCategoria;
@@ -148,7 +150,7 @@ namespace SIFIET.Presentacion.Controllers
             var categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoria);
             return RedirectToAction("RegistrarAtributo",categoriaIn);
         }
-
+        [Authorize(Roles = "Contenido")]
         public ActionResult EliminarCategoria(int idCategoria)
         {
             var resultado = FachadaSIFIET.EliminarCategoria(idCategoria);
@@ -158,7 +160,7 @@ namespace SIFIET.Presentacion.Controllers
                 TempData["ResultadoOperacion"] = "Fallo al Eliminar la Categoria";
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Contenido")]
         public ActionResult ModificarCategoria(int idCategoria)
         {
             var oCategoria = FachadaSIFIET.ConsultarCategoria(idCategoria);
@@ -167,6 +169,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Contenido")]
         public ActionResult ModificarCategoria(FormCollection datos)
         {
 
@@ -213,7 +216,7 @@ namespace SIFIET.Presentacion.Controllers
 
             return View(categoriaIn);    
         }
-
+        [Authorize(Roles = "Contenido")]
         public ActionResult VisualizarCategoria(int idCategoria)
         {
             CATEGORIA categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoria);

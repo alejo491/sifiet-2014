@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO>
+
+@{
+    ViewBag.Title = "EliminarContenido";
+}
+
+<h2>EliminarContenido</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDENTIFICADORCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDENTIFICADORUSUARIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDENTIFICADORCATEGORIA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TITULOCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCIONCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CUERPOCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHACREACIONCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESTADOCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRIORIDADCONTENIDO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.operacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.autorContenido)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDENTIFICADORCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDENTIFICADORUSUARIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDENTIFICADORCATEGORIA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TITULOCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCIONCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CUERPOCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHACREACIONCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESTADOCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRIORIDADCONTENIDO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.operacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.autorContenido)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

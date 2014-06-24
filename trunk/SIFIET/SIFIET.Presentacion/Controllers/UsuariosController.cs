@@ -14,7 +14,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Usuarios/
-        [Authorize]
+        [Authorize(Roles = "Usuarios")]
         public ActionResult Index()
         {
             List<USUARIO> lista = FachadaSIFIET.ConsultarUsuarios();
@@ -26,6 +26,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Usuarios")]
         public ActionResult Index(FormCollection datos)
         {
             
@@ -101,6 +102,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Usuarios/Details/5
+        [Authorize(Roles = "Usuarios")]
         public ActionResult VisualizarUsuario(int idUsuario)
         
         {
@@ -110,6 +112,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Usuarios/Create
+        [Authorize(Roles = "Usuarios")]
         public ActionResult RegistrarUsuario()
         {
             ViewBag.roles = FachadaSIFIET.ConsultarRoles();
@@ -120,6 +123,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Usuarios")]
         public ActionResult RegistrarUsuario([Bind(
                 Include =
                     "EMAILINSTITUCIONALUSUARIO,PASSWORDUSUARIO,IDENTIFICACIONUSUARIO,NOMBRESUSUARIO,APELLIDOSUSUARIO"
@@ -156,6 +160,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Usuarios/Edit/5
+        [Authorize(Roles = "Usuarios")]
         public ActionResult ModificarUsuario(int idUsuario)
         {
             USUARIO oUsuario = FachadaSIFIET.ConsultarUsuario(idUsuario);
@@ -169,6 +174,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Usuarios")]
         public ActionResult ModificarUsuario(FormCollection datos)
          {
             bool valido=true;
@@ -249,6 +255,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Usuarios/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarUsuario(int idUsuario)
         {
             

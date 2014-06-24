@@ -33,9 +33,16 @@
             
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
-                @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) |
+                @if (Context.User.IsInRole("Grupos de Investigacion"))
+                {    
+                @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) <text>|</text>
+                }
+                @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES })
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
                 @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }, new { onclick = "return confirm('Comfirma que desea eliminar el grupo de investigación?')" })
+                }
                 </text>
             )
         })

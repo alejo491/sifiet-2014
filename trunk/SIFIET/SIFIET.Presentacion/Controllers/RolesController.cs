@@ -152,6 +152,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Roles/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarRol(int idRol)
         {
             return View(FachadaSIFIET.ConsultarRol(idRol.ToString()));
@@ -159,6 +160,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // POST: /Roles/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult ConfirmarEliminarRol(int idRol)
         {
             if (FachadaSIFIET.EliminarRol(idRol.ToString()))
