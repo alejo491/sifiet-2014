@@ -13,7 +13,7 @@ namespace SIFIET.Presentacion.Controllers
 {
     public class SalonesController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "Salon")]
         public ActionResult Index(decimal? idSalon, string nombreSalon, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -33,7 +33,7 @@ namespace SIFIET.Presentacion.Controllers
                     return View(resultado);
                 }
         }
-         [Authorize]
+         [Authorize(Roles = "Salon")]
         public ActionResult VisualizarSalon(decimal idSalon)
         {
             return View(FachadaSIFIET.VisualizarSalon(idSalon));
@@ -48,6 +48,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Salon")]
         public ActionResult RegistrarSalon(SALON oSalon)
         {
             try
@@ -82,6 +83,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Salon")]
         public ActionResult ModificarSalon(SALON oSalon)
         {
             try
@@ -113,7 +115,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost, ActionName("EliminarSalon")]
         [ValidateAntiForgeryToken]*/
-        [Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarSalon(decimal idSalon)
         {
             try
@@ -140,6 +142,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Authorize(Roles = "Salon")]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo)
         {
             Boolean fileOK = false;

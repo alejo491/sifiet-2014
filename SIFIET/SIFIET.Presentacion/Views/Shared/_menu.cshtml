@@ -1,0 +1,43 @@
+﻿<ul>
+    <li class="titulo-menu">MENÚ</li>
+    <li><a href="/Home" class="active">Inicio</a></li>
+    @if (Request.IsAuthenticated)
+    { 
+        if (Context.User.IsInRole("Usuarios"))
+        { 
+        <li><a href="/Usuarios">Usuarios</a></li>
+        }
+        if (Context.User.IsInRole("Grupos de Investigacion"))
+        { 
+        <li><a href="/GruposInvestigacion">Grupos de Investigacion</a></li>
+        }
+        if (Context.User.IsInRole("Usuarios"))
+        { 
+        <li><a href="/Roles">Roles</a></li>
+        }
+        if (Context.User.IsInRole("Cursos"))
+        {
+        <li><a href="/Cursos">Cursos</a></li>
+        }
+        if (Context.User.IsInRole("Asignaturas"))
+        { 
+        <li><a href="/Asignaturas">Asignaturas</a></li>
+        }
+        if (Context.User.IsInRole("Salon"))
+        {
+        <li><a href="/Salones">Salones</a></li>
+        }
+        if (Context.User.IsInRole("Programas"))
+        {
+        <li><a href="/Programas">Programas</a></li>
+        }
+        if (Context.User.IsInRole("Plan de Estudio"))
+        {
+        <li><a href="/PlanesEstudio">Planes de Estudio</a></li>
+        }   
+        if (Context.User.IsInRole("Contenido"))
+        { 
+        <li><a href="/Contenidos">Contenidos</a></li>
+        }
+    }
+</ul>

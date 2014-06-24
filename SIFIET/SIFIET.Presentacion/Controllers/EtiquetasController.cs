@@ -10,8 +10,8 @@ using SIFIET.GestionProgramas.Datos.Modelo;
 namespace SIFIET.Presentacion.Controllers
 {
     public class EtiquetasController :  Controller
-    {
-        [Authorize]
+    {        
+        [Authorize(Roles = "Contenido")]
         public ViewResult Index(string busqueda = "")
         {
 
@@ -35,8 +35,8 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         //
-        // GET: /Contenidos/Details/idEtiqueta
-        [Authorize]
+        // GET: /Contenidos/Details/idEtiqueta        
+        [Authorize(Roles = "Contenido")]
         public ViewResult VisualizarEtiquetas(decimal idEtiqueta)
         {
             ETIQUETA etiqueta = FachadaSIFIET.ConsultarEtiqueta(idEtiqueta);
@@ -54,6 +54,7 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Contenidos/Create
         [HttpPost]
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarEtiquetas(ETIQUETA objEtiqueta)
         {
 
@@ -90,6 +91,7 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Contenidos/Edit/idEtiqueta
         [HttpPost]
+        [Authorize(Roles = "Contenido")]
         public ActionResult EditarEtiquetas(ETIQUETA objEtiqueta)
         {
             if (ModelState.IsValid)
@@ -113,7 +115,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Delete/idEtiqueta
-         [Authorize(Roles = "Contenido")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarEtiquetas(decimal idEtiqueta)
         {
             if (FachadaSIFIET.EliminarEtiqueta(idEtiqueta))

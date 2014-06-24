@@ -46,8 +46,12 @@
             grid.Column("",header:"Opciones",
                 format: @<text>
                 @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
-                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirmarEliminarUsuario()" })  | 
-               @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
+                @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
+                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirmarEliminarUsuario()" })
+                }
                 </text>
             )
         })

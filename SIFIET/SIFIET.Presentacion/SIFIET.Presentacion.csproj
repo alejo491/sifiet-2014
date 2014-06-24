@@ -277,6 +277,7 @@
     <Content Include="Views\Contenidos\ModificarContenido.cshtml" />
     <Content Include="Views\Home\DetallarCategoria.cshtml" />
     <Content Include="Views\Home\VisualizarContenido.cshtml" />
+    <Content Include="Views\Shared\_menu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -57,9 +57,16 @@
             ),
             grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) |
-@Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" }) |
-                @Html.ActionLink("Visualizar", "VisualizarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS })
+                @if (Context.User.IsInRole("Plan de Estudio"))
+                {                
+                @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }) <text>|</text>
+                }
+                @if (Context.User.IsInRole("Administrador"))
+                {
+                <text>|</text>
+                @Html.ActionLink("Eliminar", "EliminarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS }, new { onclick = "return confirmarEliminarPlanEstudio()" })
+                }                
+                | @Html.ActionLink("Visualizar", "VisualizarPlanEstudio", new { idPlanEstudio = item.IDENTIFICADORPLANESTUDIOS })
                 </text>
                 )
         })

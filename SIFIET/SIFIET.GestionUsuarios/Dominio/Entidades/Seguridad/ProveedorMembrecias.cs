@@ -149,10 +149,20 @@ namespace SIFIET.GestionUsuarios.Dominio.Entidades.Seguridad
 
         public override bool ValidateUser(string username, string password)
         {
-            var db = new GestionUsuariosEntities();
-            username += "@unicauca.edu.co";
-            var usuario = (from e in db.USUARIOs where e.EMAILINSTITUCIONALUSUARIO.Equals(username)&e.PASSWORDUSUARIO.Equals(password) select e).FirstOrDefault();
-            return usuario != null;
+            try
+            {
+                var db = new GestionUsuariosEntities();
+                username += "@unicauca.edu.co";
+                var usuario = (from e in db.USUARIOs where e.EMAILINSTITUCIONALUSUARIO.Equals(username) & e.PASSWORDUSUARIO.Equals(password) select e).FirstOrDefault();
+                return usuario != null;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
         }
     }
 }

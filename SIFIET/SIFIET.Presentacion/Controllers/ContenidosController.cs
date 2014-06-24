@@ -9,8 +9,8 @@ using System.Web.Mvc;
 namespace SIFIET.Presentacion.Controllers
 {
     public class ContenidosController : Controller
-    {    
-        [Authorize]
+    {
+        [Authorize(Roles = "Contenido")]
         public ActionResult Index(decimal? idContenido, string nombreContenido, string estado)
         {
             ViewData["Mensaje"] = Session["varsession"];
@@ -35,7 +35,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Details/5
-        [Authorize]
+        [Authorize(Roles = "Contenido")]
         public ActionResult VisualizarContenido(decimal idContenido)
         {
             var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(idContenido);
@@ -48,7 +48,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Create
-        //[Authorize(Roles="Contenidos")]
+        [Authorize(Roles="Contenido")]
         public ActionResult RegistrarContenido(decimal? nomCategoria)
         {
             if (nomCategoria != null)
@@ -68,7 +68,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Contenidos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Contenidos")]
+        [Authorize(Roles = "Contenido")]
         public ActionResult RegistrarContenido(CONTENIDO oContenido, FormCollection collection)
         {
             try
@@ -103,7 +103,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Edit/5
-        //[Authorize(Roles = "Contenidos")]
+        [Authorize(Roles = "Contenido")]
         public ActionResult ModificarContenido(decimal idContenido)
         {
             var oContenido = FachadaSIFIET.VisualizarContenido(idContenido) as CONTENIDO;
@@ -118,7 +118,7 @@ namespace SIFIET.Presentacion.Controllers
         //
         // POST: /Contenidos/Edit/5
         [HttpPost]
-        //[Authorize(Roles = "Contenidos")]
+        [Authorize(Roles = "Contenido")]
         public ActionResult ModificarContenido(CONTENIDO oContenido, FormCollection collection)
         {
             try
@@ -146,8 +146,8 @@ namespace SIFIET.Presentacion.Controllers
             {
                 return View(oContenido);
             }
-        }        
-        //[Authorize(Roles = "Contenidos")]
+        }
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarContenido(decimal idContenido)
         {
             try
@@ -164,7 +164,7 @@ namespace SIFIET.Presentacion.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+        
         private static List<ATRIBUTO> CrearAtributos(FormCollection datos, List<ATRIBUTO> atributosActuales)
         {
             var atributos = new List<ATRIBUTO>();

@@ -13,7 +13,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: //GruposInvestigacion
-        [Authorize]
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult Index()
         {
             var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };
@@ -30,6 +30,7 @@ namespace SIFIET.Presentacion.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult Index(FormCollection datos)
         {
             var identificacion = new SelectListItem() { Value = "1", Text = "Codigo" };
@@ -56,6 +57,7 @@ namespace SIFIET.Presentacion.Controllers
         
         //
         // GET: /Usuarios/Details/5
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult VisualizarGrupoInvestigacion(int idGinvestigacion)
         {
             return View(FachadaSIFIET.ConsultarGrupoInvestigacion(idGinvestigacion));
@@ -63,6 +65,7 @@ namespace SIFIET.Presentacion.Controllers
         
         //
         // GET: /Usuarios/Create
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult RegistrarGrupoInvestigacion()
         {
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
@@ -76,6 +79,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult RegistrarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
@@ -99,6 +103,7 @@ namespace SIFIET.Presentacion.Controllers
         
         //
         // GET: /Usuarios/Edit/5
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult ModificarGrupoInvestigacion(int idGinvestigacion)
         {
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
@@ -120,6 +125,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Grupos de Investigacion")]
         public ActionResult ModificarGrupoInvestigacion(GRUPO_INVESTIGACION grupo)
         {
             var listaDepartamentos = FachadaSIFIET.ConsultarDepartamentos();
@@ -145,6 +151,7 @@ namespace SIFIET.Presentacion.Controllers
         
         //
         // GET: /Usuarios/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult EliminarGrupoInvestigacion(int idGinvestigacion)
         {
             try

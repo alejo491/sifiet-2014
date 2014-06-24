@@ -33,7 +33,7 @@
             grid.Column("DESCRIPCIONCATEGORIA",header:"Descripción"),
             @grid.Column("",header:"Opciones",
                 format: @<text>
-                @Html.ActionLink("Editar", "ModificarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }) |
+                @Html.ActionLink("Editar", "ModificarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }) |                
                 @Html.ActionLink("Eliminar", "EliminarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }, new { onclick = "return confirmarEliminarCategoria()" }) |
                 @Html.ActionLink("Visualizar", "VisualizarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA })
                 </text>
