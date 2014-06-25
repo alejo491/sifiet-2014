@@ -19,30 +19,39 @@
 
         </p>
     }
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
 
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
+                        grid.Column("NOMBRESALON",header:"Nombre"),
+                        grid.Column("NombreFacultad",header:"Facultad"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @if (Context.User.IsInRole("Salon"))
+                            {
+                                @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON })<text>|</text>
+                            }
+                            @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON }, new { onclick = "return confirmarEliminarSalon()" })
+                            }
+                            </text>
+                            )
+                    })
+            </div>
+        </div>
+    </div>
 
-            grid.Column("NOMBRESALON",header:"Nombre"),
-            grid.Column("NombreFacultad",header:"Facultad"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Salon"))
-                {            
-                @Html.ActionLink("Editar", "ModificarSalon", new { idSalon = item.IDENTIFICADORSALON })<text>|</text>
-                }
-                @Html.ActionLink("Visualizar", "VisualizarSalon", new { idSalon = item.IDENTIFICADORSALON })
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarSalon", new { idSalon = item.IDENTIFICADORSALON }, new { onclick = "return confirmarEliminarSalon()" })
-                }
-                </text>
-                )
-        })
     <p>
         @Html.ActionLink("Agregar", "RegistrarSalon")
         @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")

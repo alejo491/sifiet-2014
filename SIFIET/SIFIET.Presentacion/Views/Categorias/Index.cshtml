@@ -1,7 +1,7 @@
 ﻿<div>
     <ul>
-        <li style="display: inline; list-style-type: none;"  class="first"><a href="#">Contenidos</a></li>
-        <li style="display: inline; list-style-type: none;" ><a href="/Categorias">Categorias</a></li>
+        <li style="display: inline; list-style-type: none;" class="first"><a href="#">Contenidos</a></li>
+        <li style="display: inline; list-style-type: none;"><a href="/Categorias">Categorias</a></li>
         <li style="display: inline; list-style-type: none;"><a href="/Etiquetas">Etiquetas</a></li>
     </ul>
 </div>
@@ -23,22 +23,31 @@
     </fieldset>
 }
 <br />
-@grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
+<div class="row">
+    <div class="col-md-11">
+        <div class="table-responsive">
+            @grid.GetHtml(
+                tableStyle: "table table-striped  table-bordered table-hover",
+                fillEmptyRows: false,
+                footerStyle: "paginacion",
+                headerStyle: "theader",
+                mode: WebGridPagerModes.All,
+                columns: new[]
+                {
 
-            grid.Column("NOMBRECATEGORIA",header:"Nombre"),
-            grid.Column("DESCRIPCIONCATEGORIA",header:"Descripción"),
-            @grid.Column("",header:"Opciones",
-                format: @<text>
-                @Html.ActionLink("Editar", "ModificarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }) |                
-                @Html.ActionLink("Eliminar", "EliminarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }, new { onclick = "return confirmarEliminarCategoria()" }) |
-                @Html.ActionLink("Visualizar", "VisualizarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA })
-                </text>
-                )
-        })
+                    grid.Column("NOMBRECATEGORIA",header:"Nombre"),
+                    grid.Column("DESCRIPCIONCATEGORIA",header:"Descripción"),
+                    @grid.Column("",header:"Opciones",
+                        format: @<text>
+                        @Html.ActionLink("Editar", "ModificarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }) |
+                        @Html.ActionLink("Eliminar", "EliminarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA }, new { onclick = "return confirmarEliminarCategoria()" }) |
+                        @Html.ActionLink("Visualizar", "VisualizarCategoria", new { idCategoria = item.IDENTIFICADORCATEGORIA })
+                        </text>
+                        )
+                })
+        </div>
+    </div>
+</div>
 
 <p>
     @Html.ActionLink("Agregar", "RegistrarCategoria")

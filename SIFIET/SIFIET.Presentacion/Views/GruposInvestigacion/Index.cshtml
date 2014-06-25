@@ -12,7 +12,7 @@
     {
         <script> mensajeNoUsuarios(); </script>
     }
-    
+
     @using (Html.BeginForm("Index", "GruposInvestigacion"))
     {
         <p>
@@ -21,31 +21,39 @@
 
         </p>
     }
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
+                        grid.Column("CODIGOGRUPOINVESTIGACION",header:"Codigo"),
+                        grid.Column("NOMBREGRUPOINVESTIGACION",header:"Nombre"),
+                        grid.Column("DESCRIPCIONGRUPOINVESTIGACION",header:"Descripcion"),
 
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
-            grid.Column("CODIGOGRUPOINVESTIGACION",header:"Codigo"),
-            grid.Column("NOMBREGRUPOINVESTIGACION",header:"Nombre"),
-            grid.Column("DESCRIPCIONGRUPOINVESTIGACION",header:"Descripcion"),
-            
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Grupos de Investigacion"))
-                {    
-                @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) <text>|</text>
-                }
-                @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES })
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }, new { onclick = "return confirm('Comfirma que desea eliminar el grupo de investigación?')" })
-                }
-                </text>
-            )
-        })
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @if (Context.User.IsInRole("Grupos de Investigacion"))
+                            {
+                                @Html.ActionLink("Editar", "ModificarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }) <text>|</text>
+                            }
+                            @Html.ActionLink("Detalles", "VisualizarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarGrupoInvestigacion", new { idGinvestigacion = item.IDENTIFICADORGRUPOINVES }, new { onclick = "return confirm('Comfirma que desea eliminar el grupo de investigación?')" })
+                            }
+                            </text>
+                        )
+                    })
+            </div>
+        </div>
+    </div>
 
     <div>@TempData["Mensaje"]</div>
 

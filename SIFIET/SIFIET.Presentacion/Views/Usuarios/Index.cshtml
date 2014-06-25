@@ -8,66 +8,78 @@
 <div>
     <h2>Usuarios</h2>
 
-    
-    
+
+
 
     @using (Html.BeginForm("Index", "Usuarios"))
     {
-        <fieldset><legend>Busqueda Usuarios</legend>
+        <fieldset>
+            <legend>Busqueda Usuarios</legend>
             <div>
                 Activos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Activo", true)
                 Inactivos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Inactivo")
                 <label>Campo a buscar:</label><select name="criterio">
-                                              <option value="cb">Escoja Campo</option>
-                                              <option value="nombre">Nombre</option>
-                                              <option value="apellido">Apellido</option>
-                                              <option value="identificacion">Identificación</option>
-                                          </select><label>Dato a buscar:</label>
+                    <option value="cb">Escoja Campo</option>
+                    <option value="nombre">Nombre</option>
+                    <option value="apellido">Apellido</option>
+                    <option value="identificacion">Identificación</option>
+                </select><label>Dato a buscar:</label>
                 <input name="valorbusqueda" type="text" value="" />
-        
+
                 <input type="submit" value="Buscar" />
 
             </div>
-    </fieldset>
+        </fieldset>
     }
 
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
 
-            grid.Column("IDENTIFICADORUSUARIO",header:"Código"),
-            grid.Column("NOMBRESUSUARIO",header:"Nombres"),
-            grid.Column("APELLIDOSUSUARIO",header:"Apellidos"),
-            grid.Column("IDENTIFICACIONUSUARIO",header:"Identificación"),
-            grid.Column("EMAILINSTITUCIONALUSUARIO",header:"Email"),
-            grid.Column("ESTADOUSUARIO",header:"Estado"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
-                @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirmarEliminarUsuario()" })
-                }
-                </text>
-            )
-        })
+                        grid.Column("IDENTIFICADORUSUARIO",header:"Código"),
+                        grid.Column("NOMBRESUSUARIO",header:"Nombres"),
+                        grid.Column("APELLIDOSUSUARIO",header:"Apellidos"),
+                        grid.Column("IDENTIFICACIONUSUARIO",header:"Identificación"),
+                        grid.Column("EMAILINSTITUCIONALUSUARIO",header:"Email"),
+                        grid.Column("ESTADOUSUARIO",header:"Estado"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @Html.ActionLink("Editar", "ModificarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }) |
+                            @Html.ActionLink("Detalles", "VisualizarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarUsuario", new { idUsuario = item.IDENTIFICADORUSUARIO }, new { onclick = "return confirmarEliminarUsuario()" })
+                            }
+                            </text>
+                        )
+                    })
+            </div>
+        </div>
+    </div>
+
+
     <div>@TempData["Mensaje"]</div>
 
-    
+
 
     <p>
         @Html.ActionLink("Agregar", "RegistrarUsuario")
     </p>
 </div>
-@if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
-{
-    <script> mensajeNoUsuarios(); </script>
-}
-@if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("valor numerico"))
-{
-    <script>  valorNumericoUuarios(); </script>
-}
+            @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("No se han encontrado registros con el dato indicado, por favor intentelo de nuevo"))
+            {
+                <script> mensajeNoUsuarios(); </script>
+            }
+            @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("valor numerico"))
+            {
+                <script>  valorNumericoUuarios(); </script>
+            }

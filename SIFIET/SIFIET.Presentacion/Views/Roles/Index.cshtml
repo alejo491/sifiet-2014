@@ -8,7 +8,7 @@
 }
 <h2>Roles</h2>
 <div>
-    @using (Html.BeginForm(null,null,FormMethod.Get))
+    @using (Html.BeginForm(null, null, FormMethod.Get))
     {
         <fieldset>
             <legend>Buscar</legend>
@@ -19,8 +19,8 @@
                 </div>
                 <div style="float: right; margin-right: 5%;">
                     <label>  Campo a Buscar:  </label><select name="criterio">
-                                                          <option value="nombre">Nombre</option>
-                                                      </select>
+                        <option value="nombre">Nombre</option>
+                    </select>
                     <label> Dato a Buscar:</label>
                     <input name="valorbusqueda" type="text" value="" />
                     <input type="submit" value="Buscar" />
@@ -28,27 +28,37 @@
 
             </div>
         </fieldset>
-        @grid.GetHtml(
-            fillEmptyRows: true,
-            mode: WebGridPagerModes.All,
-            columns: new[]
-            {
 
-                grid.Column("NOMBREROL", header: "Nombre"),
-                grid.Column("DESCRIPCIONROL", header: "Descipcion"),
-                //grid.Column("ESTADOROL", header: "Estado"),
-                grid.Column("", header: "Opciones",
-                    format: @<text>
-                                 @Html.ActionLink("Editar", "ModificarRol", new {idRol = item.IDENTIFICADORROL}) |
-                                 @Html.ActionLink("Visualizar", "VisualizarRol", new {idRol = item.IDENTIFICADORROL}) 
-                                @if (Context.User.IsInRole("Administrador"))
-                                {
+        <div class="row">
+            <div class="col-md-11">
+                <div class="table-responsive">
+                    @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
+
+                        grid.Column("NOMBREROL", header: "Nombre"),
+                        grid.Column("DESCRIPCIONROL", header: "Descipcion"),
+                        //grid.Column("ESTADOROL", header: "Estado"),
+                        grid.Column("", header: "Opciones",
+                            format: @<text>
+                            @Html.ActionLink("Editar", "ModificarRol", new { idRol = item.IDENTIFICADORROL }) |
+                            @Html.ActionLink("Visualizar", "VisualizarRol", new { idRol = item.IDENTIFICADORROL })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
                                 <text>|</text>
-                                @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new {idRol = item.IDENTIFICADORROL}, new {onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')"})
-                                }
-                             </text>
-                    )
-            })
+                                @Html.ActionLink("Eliminar", "ConfirmarEliminarRol", new { idRol = item.IDENTIFICADORROL }, new { onclick = "return confirm('¿El Rol Cambiara de Estado, confirma que desea eliminar el rol?')" })
+                            }
+                            </text>
+                            )
+                    })
+                </div>
+            </div>
+        </div>
     }
     @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("Ningun Rol Encontrado"))
     {

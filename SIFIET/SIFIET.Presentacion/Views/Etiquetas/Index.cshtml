@@ -23,22 +23,30 @@
     </fieldset>
 }
 <br />
-@grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
+<div class="row">
+    <div class="col-md-11">
+        <div class="table-responsive">
+            @grid.GetHtml(
+                tableStyle: "table table-striped  table-bordered table-hover",
+                fillEmptyRows: false,
+                footerStyle: "paginacion",
+                headerStyle: "theader",
+                mode: WebGridPagerModes.All,
+                columns: new[]
+                {
 
-            grid.Column("NOMBREETIQUETA",header:"Nombre"),
-            grid.Column("DESCRIPCIONETIQUETA",header:"Descripción"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @Html.ActionLink("Eliminar", "EliminarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }, new { onclick = "return confirmarEliminarEtiqueta()" }) |
-                @Html.ActionLink("Visualizar", "VisualizarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA })
-                </text>
-                )
-        })
-
+                    grid.Column("NOMBREETIQUETA",header:"Nombre"),
+                    grid.Column("DESCRIPCIONETIQUETA",header:"Descripción"),
+                    grid.Column("",header:"Opciones",
+                        format: @<text>
+                        @Html.ActionLink("Eliminar", "EliminarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA }, new { onclick = "return confirmarEliminarEtiqueta()" }) |
+                        @Html.ActionLink("Visualizar", "VisualizarEtiquetas", new { idEtiqueta = item.IDENTIFICADORETIQUETA })
+                        </text>
+                        )
+                })
+        </div>
+    </div>
+</div>
 <p>
     @Html.ActionLink("Agregar", "RegistrarEtiquetas")
 </p>

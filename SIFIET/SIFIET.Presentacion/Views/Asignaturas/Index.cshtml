@@ -14,33 +14,41 @@
     @using (Html.BeginForm(null, null, FormMethod.Get))
     {
         <p>
-            Activo @Html.RadioButton("estado","Activo",true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("idAsignatura", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreAsignatura")
+            Activo @Html.RadioButton("estado", "Activo", true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("idAsignatura", ViewBag.campoBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("nombreAsignatura")
             <input type="submit" value="Buscar" />
         </p>
     }
-        
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {grid.Column("CODIGOASIGNATURA",header:"Codigo"),
-            grid.Column("NOMBREASIGNATURA",header:"Nombre"),
-            grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Asignaturas"))
-                { 
-                @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) <text>|</text>
-                }                                                                                                                       
-                @Html.ActionLink("Visualizar", "VisualizarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) 
-                @if (Context.User.IsInRole("Administrador"))
-                { 
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarAsignatura", "Asignaturas", new { idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarAsignatura()" })
-                }
-                </text>
-                )
-        })
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {grid.Column("CODIGOASIGNATURA",header:"Codigo"),
+                        grid.Column("NOMBREASIGNATURA",header:"Nombre"),
+                        grid.Column("CREDITOSASIGNATURA",header:"Creditos"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @if (Context.User.IsInRole("Asignaturas"))
+                            {
+                                @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA }) <text>|</text>
+                            }
+                            @Html.ActionLink("Visualizar", "VisualizarAsignatura", new { idAsignatura = item.IDENTIFICADORASIGNATURA })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarAsignatura", "Asignaturas", new { idAsignatura = item.IDENTIFICADORASIGNATURA }, new { onclick = "return confirmarEliminarAsignatura()" })
+                            }
+                            </text>
+                            )
+                    })
+            </div>
+        </div>
+    </div>
     <p>
         @Html.ActionLink("Agregar", "RegistrarAsignatura")
         @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
