@@ -12,38 +12,38 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div>
         <h4>CONTENIDO</h4>
         <hr />
         @Html.ValidationSummary(true)
 
 
-        <div class="form-group">
+        <div>
             Titulo
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.TITULOCONTENIDO)
                 @Html.ValidationMessageFor(model => model.TITULOCONTENIDO)
             </div>
         </div>
 
-        <div class="form-group">
+        <div>
             Descripcion
-            <div class="col-md-10">
+            <div>
                 @Html.TextAreaFor(model => model.DESCRIPCIONCONTENIDO)
                 @Html.ValidationMessageFor(model => model.DESCRIPCIONCONTENIDO)
             </div>
         </div>
-        <div class="form-group">
+        <div>
             Cuerpo
-            <div class="col-md-10">
+            <div>
                 @Html.TextAreaFor(model => model.CUERPOCONTENIDO)
                 @Html.ValidationMessageFor(model => model.CUERPOCONTENIDO)
             </div>
         </div>             
 
-        <div class="form-group">
+        <div>
             Prioridad
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.PRIORIDADCONTENIDO)
                 @Html.ValidationMessageFor(model => model.PRIORIDADCONTENIDO)
             </div>
@@ -55,14 +55,12 @@
                 Inactivo @Html.RadioButtonFor(model => model.ESTADOCONTENIDO, "Inactivo")
                 @Html.ValidationMessageFor(model => model.ESTADOCONTENIDO)
             </div>
-        </div>
-        <div>
+        </div>        
             @Html.HiddenFor(model => model.operacion, new { @Value = "Modificacion" })   
             @Html.HiddenFor(model => model.IDENTIFICADORCONTENIDO)         
             @Html.HiddenFor(model => model.IDENTIFICADORCATEGORIA)
             @Html.HiddenFor(model => model.IDENTIFICADORUSUARIO)
-            @Html.HiddenFor(model => model.FECHACREACIONCONTENIDO)
-        </div>
+            @Html.HiddenFor(model => model.FECHACREACIONCONTENIDO)        
     </div>
     foreach (var item in ViewBag.ListaAtributos)
     {

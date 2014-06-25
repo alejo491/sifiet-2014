@@ -12,7 +12,7 @@ namespace SIFIET.Presentacion.Controllers
     {
         //
         // GET: /Roles/
-        [Authorize]
+        [Authorize(Roles="Roles")]
         public ActionResult Index(string criterio, string valorbusqueda, string estado="Activo")
         {
             var oRoles = new List<ROL>();
@@ -55,6 +55,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Roles/Details/5
+        [Authorize(Roles = "Roles")]
         public ActionResult VisualizarRol(int idRol)
         {
             return View(FachadaSIFIET.ConsultarRol(idRol.ToString()));
@@ -62,6 +63,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Roles/Create
+        [Authorize(Roles = "Roles")]
         public ActionResult RegistrarRol()
         {
             ViewBag.lstNombresPermisos = FachadaSIFIET.ConsultarNombresPermisos();
@@ -72,6 +74,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Roles")]
         public ActionResult RegistrarRol(FormCollection collection)
         {
                 var permisos = CrearPermisos(collection);
@@ -102,6 +105,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Roles/Edit/5
+        [Authorize(Roles = "Roles")]
         public ActionResult ModificarRol(int idRol)
         {
             var oRol = FachadaSIFIET.ConsultarRol(idRol.ToString().Trim());
@@ -114,6 +118,7 @@ namespace SIFIET.Presentacion.Controllers
         // POST: /Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Roles")]
         public ActionResult ModificarRol(FormCollection collection)
         {
             //var permisos = CrearPermisos(collection,(IEnumerable<PERMISO>) TempData["PermisosActuales"]);
