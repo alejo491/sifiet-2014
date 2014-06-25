@@ -110,8 +110,9 @@ namespace SIFIET.Presentacion.Controllers
             var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(idContenido);
             var etiquetasContenido = FachadaSIFIET.ConsultarEtiquetasDelContenido(idContenido);
             var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
-            ViewBag.ListaAtributos = atributos;            
-            ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA",oContenido.ETIQUETAs);
+            ViewBag.ListaAtributos = atributos;
+            MultiSelectList hola = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", etiquetasContenido);
+            ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA",etiquetasContenido);
             return View(oContenido);
         }
 
@@ -128,7 +129,7 @@ namespace SIFIET.Presentacion.Controllers
                 var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
                 var datosAtributos = CrearAtributos(collection, atributos);
                 ViewBag.ListaAtributos = datosAtributos;
-                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", oContenido.ETIQUETAs);
+                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", etiquetasContenidoSeleccionadas);
                                 
                 var etiquetasContenido = CrearEtiquetas(collection, etiquetas);
 

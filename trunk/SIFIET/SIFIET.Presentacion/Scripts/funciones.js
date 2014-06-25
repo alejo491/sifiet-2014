@@ -115,10 +115,9 @@ function confirmSalirCargarArchivo() {
 
 function confirmacionAgregarAsignatura() {
     var nombre = document.getElementById("NOMBREASIGNATURA").value;
-    var codigo = document.getElementById("CODIGOASIGNATURA").value;
-    var clasificacion = document.getElementById("CLASIFICACIONASIGNATURA").value;
+    var codigo = document.getElementById("CODIGOASIGNATURA").value;    
     var mensaje;
-    if (nombre.trim() == "" || descripcion.trim() == "" || clasificacion.trim() == "") {
+    if (nombre.trim() == "" || descripcion.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
         alert(mensaje);
         return true;
