@@ -8,7 +8,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
     <!-- Estilos Propios -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/estilos.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/estilos.css")">    
     <!-- Estilos para los calendarios en los formularios -->
     <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.theme.css")">
     <!-- Estilos para los calendarios en los formularios -->
@@ -24,6 +24,8 @@
     <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
     <!-- funciones para la validacion-->
     <script src="/Scripts/funciones.js"></script>
+
+    
 
 </head>
 <body>
@@ -45,7 +47,7 @@
                 <div class="clear"></div>
             </div>
             <div class="bottom"></div>
-        </header>
+        </header>        
         <section class="contenido">
             <div class="row">
                 <nav class="col-md-3">
@@ -54,13 +56,11 @@
                 </nav>
                 <div class="col-md-9">
                     <p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
-                    
-                    
                     @RenderBody()
 
                 </div>
             </div>
-        </section>
+        </section>        
         <footer>
             <div class="contenedor">
                 <div class="separador"></div>

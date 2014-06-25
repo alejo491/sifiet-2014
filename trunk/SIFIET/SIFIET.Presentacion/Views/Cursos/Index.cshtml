@@ -15,32 +15,40 @@
             <input type="submit" value="Buscar" />
         </p>
     }
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
 
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
-
-            grid.Column("NOMBRECURSO",header:"Nombre"),
-            grid.Column("NombreAsignatura",header:"Asignatura"),
-            grid.Column("NombreDocente",header:"Docente"),
-            grid.Column("ESTADOCURSO",header:"Estado"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Cursos"))
-                {
-                @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) <text>|</text>
-                }                                                                                                       
-                @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso= item.IDENTIFICADORCURSO }) 
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO }, new { onclick = "return confirmarEliminarCurso();" })
-                }
-                </text>
-                )
-        })
+                        grid.Column("NOMBRECURSO",header:"Nombre"),
+                        grid.Column("NombreAsignatura",header:"Asignatura"),
+                        grid.Column("NombreDocente",header:"Docente"),
+                        grid.Column("ESTADOCURSO",header:"Estado"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @if (Context.User.IsInRole("Cursos"))
+                            {
+                                @Html.ActionLink("Editar", "ModificarCurso", new { idCurso = item.IDENTIFICADORCURSO }) <text>|</text>
+                            }
+                            @Html.ActionLink("Visualizar", "VisualizarCurso", new { idCurso = item.IDENTIFICADORCURSO })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarCurso", new { idCurso = item.IDENTIFICADORCURSO }, new { onclick = "return confirmarEliminarCurso();" })
+                            }
+                            </text>
+                            )
+                    })
+            </div>
+        </div>
+    </div>
     <p>
         @Html.ActionLink("Agregar", "RegistrarCurso")
         @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")

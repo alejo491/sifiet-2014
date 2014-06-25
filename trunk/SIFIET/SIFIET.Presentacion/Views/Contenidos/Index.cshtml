@@ -18,29 +18,37 @@
             <input type="submit" value="Buscar" />
         </p>
     }
-
-    @grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {grid.Column("FECHACREACIONCONTENIDO",header:"Fecha Creacion"),
-            grid.Column("TITULOCONTENIDO",header:"Titulo"),
-            grid.Column("DESCRIPCIONCONTENIDO",header:"Descripcion"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Contenido"))
-                {                
-                @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) <text>|</text>
-                }
-                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) 
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarContenido", "Contenidos", new { idContenido = item.IDENTIFICADORCONTENIDO }, new { onclick = "return confirmarEliminarContenido()" })
-                }
-                </text>
-                )
-        })    
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: false,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {grid.Column("FECHACREACIONCONTENIDO",header:"Fecha Creacion"),
+                        grid.Column("TITULOCONTENIDO",header:"Titulo"),
+                        grid.Column("DESCRIPCIONCONTENIDO",header:"Descripcion"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @if (Context.User.IsInRole("Contenido"))
+                            {
+                                @Html.ActionLink("Editar", "ModificarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO }) <text>|</text>
+                            }
+                            @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenido = item.IDENTIFICADORCONTENIDO })
+                            @if (Context.User.IsInRole("Administrador"))
+                            {
+                                <text>|</text>
+                                @Html.ActionLink("Eliminar", "EliminarContenido", "Contenidos", new { idContenido = item.IDENTIFICADORCONTENIDO }, new { onclick = "return confirmarEliminarContenido()" })
+                            }
+                            </text>
+                            )
+                    })
+            </div>
+        </div>
+    </div>
     <div>
         @using (Html.BeginForm("RegistrarContenido", "Contenidos", FormMethod.Get))
         {
@@ -53,3 +61,4 @@
         <h3> @ViewBag.Resultado </h3>
     </div>
 </div>
+

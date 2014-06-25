@@ -49,38 +49,32 @@
 <h3>@ViewBag.ResultadoBusqueda</h3>
 
 
-@grid.GetHtml(
-        fillEmptyRows: true,
-        mode: WebGridPagerModes.All,
-        columns: new[]
-        {
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",                                    
+                    fillEmptyRows: false,
+                    footerStyle : "paginacion",
+                    headerStyle : "theader",
+                    mode: WebGridPagerModes.All,             
+                    columns: new[] {  
+                        grid.Column("NOMBREPROGRAMA",header:"Nombre"), grid.Column("DURACIONPROGRAMA",header:"Duración"), grid.Column("FACULTAD.NOMBREFACULTAD",header:"Facultad"), grid.Column("MODALIDADPROGRAMA",header:"Modalidad"), grid.Column("CODIGOSNIESPROGRAMA",header:"Codigo SNIES"), grid.Column("",header:"Opciones", format: @<text>
+                        @if (Context.User.IsInRole("Programas"))
+                        { @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })  }
+                        @if (Context.User.IsInRole("Administrador"))
+                        { <text> | </text>  @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirmarEliminarPrograma()" })  }
+                        | @Html.ActionLink("Visualizar", "VisualizarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })
+                    </text>  ) })           
+            </div>
+        </div>
+    </div>
 
-            grid.Column("NOMBREPROGRAMA",header:"Nombre"),
-            grid.Column("DURACIONPROGRAMA",header:"Duración"),
-            grid.Column("FACULTAD.NOMBREFACULTAD",header:"Facultad"),
-            grid.Column("MODALIDADPROGRAMA",header:"Modalidad"),
-            grid.Column("CODIGOSNIESPROGRAMA",header:"Codigo SNIES"),
-            grid.Column("",header:"Opciones",
-                format: @<text>
-                @if (Context.User.IsInRole("Programas"))
-                {                
-                @Html.ActionLink("Editar", "EditarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })
-                }
-                @if (Context.User.IsInRole("Administrador"))
-                {
-                <text>|</text>
-                @Html.ActionLink("Eliminar", "EliminarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA }, new { onclick = "return confirmarEliminarPrograma()" })    
-                }
-                | @Html.ActionLink("Visualizar", "VisualizarProgramaAcademico", new { idPrograma = item.IDENTIFICADORPROGRAMA })               
-                </text>
-                )
-        })
+    <p>
+        @Html.ActionLink("Agregar", "RegistrarProgramaAcademico")
+        @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
+        <h3> @TempData["UpSession"] </h3>
+    </p>
 
-<p>
-    @Html.ActionLink("Agregar", "RegistrarProgramaAcademico")
-    @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
-    <h3> @TempData["UpSession"] </h3>
-</p>
-
-<h3> @ViewBag.ResultadoOperacion </h3>
+    <h3> @ViewBag.ResultadoOperacion </h3>
 
