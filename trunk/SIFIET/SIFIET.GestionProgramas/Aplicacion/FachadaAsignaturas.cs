@@ -59,5 +59,10 @@ namespace SIFIET.GestionProgramas.Aplicacion
         {
             return ServicioAsignaturas.VerificarExistenciaAsignatura(nombreAsignatura, codigoAsignatura);
         }
+
+        public static byte[] AsignaturaPDF(decimal idAsignatura)
+        {
+            return ServicioAsignaturas.AsignaturaPDF(idAsignatura);
+        }
     }
 }

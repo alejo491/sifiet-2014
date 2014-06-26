@@ -5,10 +5,17 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using SIFIET.Aplicacion;
 using SIFIET.GestionProgramas.Datos.Modelo;
+using iTextSharp;
 
 namespace SIFIET.Presentacion.Controllers
 {
@@ -595,5 +602,21 @@ namespace SIFIET.Presentacion.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [Authorize(Roles = "Asignaturas")]
+        public ActionResult DescargarPdf(decimal idAsignatura)
+        {
+
+
+
+            byte[] buf = FachadaSIFIET.AsignaturaPDF(idAsignatura);
+            
+            return File(buf, "application/pdf", "asignatura"+idAsignatura+".pdf");
+           
+        }
+
+        
+        
+        
     }
 }

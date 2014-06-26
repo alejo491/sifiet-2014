@@ -54,5 +54,10 @@ namespace SIFIET.GestionProgramas.Aplicacion
             return ServicioPlanesEstudio.ConsultarPlanestudios(palabraBusqueda);
         }
 
+
+        public static byte[] PlanEstudiosPDF(decimal idPlan)
+        {
+            return ServicioPlanesEstudio.PlanEstudiosPDF(idPlan);
+        }
     }
 }

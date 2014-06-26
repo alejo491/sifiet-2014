@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using SIFIET.GestionProgramas.Datos.Modelo;
 using System.Diagnostics;
 
@@ -173,6 +177,119 @@ namespace SIFIET.GestionProgramas.Dominio.Servicios
             {
                 return new List<PLANESTUDIO>();
             }
+        }
+
+        public static byte[] PlanEstudiosPDF(decimal idPlan)
+        {
+
+            var plan = ConsultarPlanEstudio(idPlan);
+
+            BaseFont font = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false);
+            
+
+            byte[] buf = null;
+            MemoryStream pdfTemp = new MemoryStream();
+
+
+            Document doc = new iTextSharp.text.Document();
+            PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, pdfTemp);
+
+            writer.CloseStream = false;
+            doc.Open();
+            var texto = new Paragraph();
+            texto.Font = new Font(font);
+            texto.IndentationLeft = 100;
+            var titulo = new Paragraph("UNIVERSIDAD DEL CAUCA", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false)));
+            titulo.Alignment = Element.ALIGN_CENTER;
+            doc.Add(titulo);
+            titulo.Clear();
+            titulo.Add(plan.NOMBREPLANESTUDIOS);
+            doc.Add(titulo);
+            doc.Add(new Paragraph(" "));
+            doc.Add(new LineSeparator());
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph("CODIGO:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            texto.Clear();
+            texto.Add(plan.CODIGOPLANESTUDIOS.ToUpper());
+            doc.Add(texto);
+            doc.Add(new Paragraph("NOMBRE:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            texto.Clear();
+            texto.Add(plan.NOMBREPLANESTUDIOS.ToUpper());
+            doc.Add(texto);
+            doc.Add(new Paragraph("FECHA INICIACION:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            texto.Clear();
+            texto.Add(plan.FECHAINICIOPLANESTUDIOS.ToUpper());
+            doc.Add(texto);
+            doc.Add(new Paragraph("FECHA FINALIZACION:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            texto.Clear();
+            texto.Add(plan.FECHAFINPLANESTUDIOS.ToUpper());
+            doc.Add(texto);
+            doc.Add(new Paragraph("DESCRIPCION:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            texto.Clear();
+            texto.Add(plan.DESCRIPCIONPLANESTUDIOS.ToUpper());
+            doc.Add(texto);
+            doc.Add(new Paragraph("ASIGNATURAS:", new Font(BaseFont.CreateFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1252, false))));
+            doc.Add(new Paragraph(" "));
+            if (plan.ASIGNATURA_PERTENECE_PLAN_ESTU.Count==0)
+            {
+                
+                texto.Clear();
+            texto.Add("NINGUNA");
+            doc.Add(texto);
+            }
+            else
+            {
+                List<ASIGNATURA_PERTENECE_PLAN_ESTU> lista=(from f in plan.ASIGNATURA_PERTENECE_PLAN_ESTU
+                                                                orderby f.SEMESTRE
+                                                            select f).ToList();
+                PdfPTable tabla = new PdfPTable(3);
+                PdfPCell cel1 = new PdfPCell(new Phrase("Semestre"));
+                
+                PdfPCell cel2 = new PdfPCell(new Phrase("Codigo"));
+                PdfPCell cel3 = new PdfPCell(new Phrase("Nombre"));
+                cel1.BackgroundColor = new BaseColor(138,138,138);
+                
+                
+                cel2.BackgroundColor = new BaseColor(138,138,138);
+                cel3.BackgroundColor = new BaseColor(138,138,138);
+
+                tabla.AddCell(cel1);
+                
+                tabla.AddCell(cel2);
+                tabla.AddCell(cel3);
+                
+                
+                foreach (var x in lista)
+                {
+                    
+                        PdfPCell semestre =new PdfPCell();
+                        semestre.HorizontalAlignment = 1;
+                        semestre.VerticalAlignment = 1;
+                        
+                        semestre.AddElement(new Phrase(x.SEMESTRE.ToString()));
+                        tabla.AddCell(semestre);
+                        tabla.AddCell(x.ASIGNATURA.CODIGOASIGNATURA);
+                        tabla.AddCell(x.ASIGNATURA.NOMBREASIGNATURA);
+                        
+                       
+                        
+                    
+                }
+
+                doc.Add(tabla);
+            }
+
+            doc.Close();
+
+
+
+            buf = new byte[pdfTemp.Position];
+            pdfTemp.Position = 0;
+            pdfTemp.Read(buf, 0, buf.Length);
+
+            return buf;
+
         }
     }
 }
