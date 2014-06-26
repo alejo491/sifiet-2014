@@ -113,6 +113,8 @@ function confirmSalirCargarArchivo() {
     return seleccion;
 }
 
+
+
 function confirmacionAgregarAsignatura() {
     var nombre = document.getElementById("NOMBREASIGNATURA").value;
     var codigo = document.getElementById("CODIGOASIGNATURA").value;    
@@ -147,6 +149,14 @@ function confirmacionAgregarCurso() {
     //return confirm(mensaje);
     return true;
 }
+
+function confirmarDescargarAsignatura() {
+    var mensaje = "¿Esta seguro que desea descargar la información de la asignatura?";
+    return confirm(mensaje);
+}
+
+
+
 function confirmSalirCurso() {
     var r = confirm('¿Confirma que desea cancelar la accion?');
     var url = window.location.pathname;
@@ -389,6 +399,11 @@ function confirmarEliminarAsignaturaPlanEstudio() {
     return confirm(mensaje);
 }
 
+
+function confirmarDescargarPlan() {
+    var mensaje = "¿Esta seguro que desea descargar la información del plan de estudios?";
+    return confirm(mensaje);
+}
 
 /* Fin validacion plan de  estudio */
 

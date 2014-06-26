@@ -214,5 +214,17 @@ namespace SIFIET.Presentacion.Controllers
             }
             return RedirectToAction("GestionAsignaturasPlanEstudio", new { idPlanEstudio = idPlanEstudio });
         }
+
+        [Authorize(Roles = "Plan de Estudio")]
+        public ActionResult DescargarPdf(decimal idPlan)
+        {
+
+
+
+            byte[] buf = FachadaSIFIET.PlanEstudiosPDF(idPlan);
+
+            return File(buf, "application/pdf", "plan" + idPlan + ".pdf");
+
+        }
     }
 }

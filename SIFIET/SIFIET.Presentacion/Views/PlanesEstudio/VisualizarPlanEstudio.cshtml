@@ -47,5 +47,6 @@
 </fieldset>
 <p>
     @Html.ActionLink("Editar", "EditarPlanEstudio", new { idPlanEstudio=Model.IDENTIFICADORPLANESTUDIOS }) |
-    @Html.ActionLink("Volver", "Index")
+    @Html.ActionLink("Volver", "Index") |
+    @Html.ActionLink("Descargar PDF", "DescargarPdf", new { idPlan = Model.IDENTIFICADORPLANESTUDIOS }, new { target = "_blank", onclick = "return confirmarDescargarPlan()" })
 </p>

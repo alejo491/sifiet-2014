@@ -165,6 +165,12 @@ namespace SIFIET.Aplicacion
             return FachadaPlanesEstudio.EliminarAsignaturaPlanEstudio(idPlanEstudio, idAsignatura);
         }
 
+        public static byte[] PlanEstudiosPDF(decimal idPlan )
+        {
+            return FachadaPlanesEstudio.PlanEstudiosPDF(idPlan);
+        }
+
+
         // metodo hecho para el modulo de asignatura
         public static List<PLANESTUDIO> ConsultarPlanestudios(string palabraBusqueda)
         {
@@ -292,6 +298,11 @@ namespace SIFIET.Aplicacion
         {
             return FachadaSalones.CargarInformacion(archivo);
         }*/
+
+        public static byte[] AsignaturaPDF(decimal idAsignatura)
+        {
+            return GestionProgramas.Aplicacion.FachadaAsignaturas.AsignaturaPDF(idAsignatura);
+        }
 
     }
 }

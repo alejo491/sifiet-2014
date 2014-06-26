@@ -79,5 +79,6 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "ModificarAsignatura", new { idAsignatura = Model.IDENTIFICADORASIGNATURA }) |
-    @Html.ActionLink("Volver a la Lista", "Index")
+    @Html.ActionLink("Volver a la Lista", "Index") |
+    @Html.ActionLink("Descargar PDF", "DescargarPdf", new { idAsignatura = Model.IDENTIFICADORASIGNATURA }, new { target = "_blank", onclick = "return confirmarDescargarAsignatura()" })
 </p>
