@@ -21,7 +21,7 @@ namespace SIFIET.Presentacion.Controllers
         {            
             CATEGORIA categoriaIn = FachadaSIFIET.ConsultarCategoria(idCategoriaIn);
             ViewBag.nombreCategoria = categoriaIn.NOMBRECATEGORIA;
-            List<CONTENIDO> lstContenidos = categoriaIn.CONTENIDOes.ToList();            
+            List<CONTENIDO> lstContenidos = categoriaIn.CONTENIDOes.ToList();
             return View(lstContenidos);
         }
         public ActionResult VisualizarContenido(int idContenidoIn)
