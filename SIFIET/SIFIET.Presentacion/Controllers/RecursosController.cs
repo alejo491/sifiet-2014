@@ -34,7 +34,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             return View(FachadaSIFIET.VisualizaRecurso(idRecurso));
         }
-        //[Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Salon")]
         public ActionResult RegistrarRecurso()
         {
             var listaFacultades = FachadaSIFIET.ConsultarFacultades(0, "");
@@ -71,7 +71,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oRecurso);
             }
         }
-        //[Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Salon")]
         public ActionResult ModificarRecurso(decimal idRecurso)
         {
             var oRecurso = FachadaSIFIET.VisualizaRecurso(idRecurso) as RECURSO;
@@ -116,7 +116,7 @@ namespace SIFIET.Presentacion.Controllers
 
         [HttpPost, ActionName("EliminarSalon")]
         [ValidateAntiForgeryToken]*/
-        // [Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Salon")]
         public ActionResult EliminarRecurso(decimal idRecurso)
         {
             try
@@ -136,7 +136,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Lectura del archivo Excel
-        //[Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Salon")]
         public ActionResult CargarArchivo()
         {
             return View();
@@ -258,7 +258,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Mostrar la infomacion antes de almacenar en la Base de Datos
-        // [Authorize(Roles = "Salon")]
+        [Authorize(Roles = "Salon")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();

@@ -81,16 +81,16 @@
                              item.ToLower().Trim()) select permiso).ToList().Count >0)
                      {
                          <select name="@item" id="@item">
-                             <option value=0>Visualizar</option>
-                             <option value=1 selected>Gestionar</option>
+                             <option value=0>No</option>
+                             <option value=1 selected>Si</option>
                          </select>
                      }
                     else
                     {
                         {
                             <select name="@item" id="@item">
-                             <option value=0 selected>Visualizar</option>
-                             <option value=1>Gestionar</option>
+                             <option value=0 selected>No</option>
+                             <option value=1>Si</option>
                             </select>
                         }
                     }
