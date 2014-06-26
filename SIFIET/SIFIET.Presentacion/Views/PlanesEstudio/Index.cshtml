@@ -4,10 +4,11 @@
     ViewBag.Title = "Planes de Estudio";
     WebGrid grid = new WebGrid(Model);
 }
+<h2>Planes de Estudio</h2>
 @using (Html.BeginForm(null, null, FormMethod.Get))
 {
     <fieldset>
-        <legend>Buscar Plan de Estudio</legend>
+        <legend>Busqueda</legend>
         @if (ViewBag.estado == "Activo")
         {
             <input type="radio" name="estado" value="Activo" checked="checked" /> <label>Activos</label>
@@ -18,8 +19,7 @@
             <input type="radio" name="estado" value="Activo"> <label>Activos</label>
             <input type="radio" name="estado" value="Inactivo" checked="checked" /> <label>Inactivos</label>
         }
-        Campo a buscar:
-
+        <label>Filtro:</label>
         <select id="campo" name="campo">
             @if (ViewBag.campo == "Programa")
             {
@@ -34,6 +34,7 @@
             }
 
         </select>
+        <label>Buscar:</label>
         <input type="text" name="busqueda" value="@ViewBag.busqueda" />
         <input type="submit" value="Buscar" />
     </fieldset>

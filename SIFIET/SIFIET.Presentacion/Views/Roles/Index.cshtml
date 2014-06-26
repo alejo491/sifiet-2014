@@ -10,25 +10,25 @@
 <div>
     @using (Html.BeginForm(null, null, FormMethod.Get))
     {
-        <fieldset>
-            <legend>Buscar</legend>
-            <div style="display: block; font-size: 16px;">
-                <div style="float: left; margin-left: 5%">
-                    @Html.RadioButton("estado", "Activo", true)<label>  Activos   </label>
-                    @Html.RadioButton("estado", "Inactivo")<label>  Inactivos  </label>
+        <fieldset style="margin-bottom: 3%;">
+            <legend style="font-size: 16px;">Busqueda</legend>
+            <div style="display: block; font-size: 14px;" class="row">
+                <div style="float: left; margin-left: 5%;">
+                    <label>  Activos</label>@Html.RadioButton("estado", "Activo", true)
+                    <label>  Inactivos</label>@Html.RadioButton("estado", "Inactivo")
                 </div>
-                <div style="float: right; margin-right: 5%;">
-                    <label>  Campo a Buscar:  </label><select name="criterio">
+                <div style="float: right; margin-right: 10%;" >
+                    <label> Filtro:  </label>
+                    <select name="criterio">
                         <option value="nombre">Nombre</option>
                     </select>
-                    <label> Dato a Buscar:</label>
+                    <label> Buscar:</label>
                     <input name="valorbusqueda" type="text" value="" />
                     <input type="submit" value="Buscar" />
                 </div>
-
             </div>
         </fieldset>
-
+    }
         <div class="row">
             <div class="col-md-11">
                 <div class="table-responsive">
@@ -59,7 +59,6 @@
                 </div>
             </div>
         </div>
-    }
     @if (!string.IsNullOrEmpty(ViewBag.Mensaje) && ViewBag.Mensaje.Equals("Ningun Rol Encontrado"))
     {
         <script> mensajeNoRoles(); </script>

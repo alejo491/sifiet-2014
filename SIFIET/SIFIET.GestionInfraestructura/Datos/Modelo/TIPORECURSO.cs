@@ -12,19 +12,17 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
     using System;
     using System.Collections.Generic;
     
-    public partial class SALON
+    public partial class TIPORECURSO
     {
-        public SALON()
+        public TIPORECURSO()
         {
-            this.FRANJA_HORARIA = new HashSet<FRANJA_HORARIA>();
+            this.RECURSOes = new HashSet<RECURSO>();
         }
     
-        public decimal IDENTIFICADORSALON { get; set; }
-        public decimal IDENTIFICADORFACULTAD { get; set; }
-        public string NOMBRESALON { get; set; }
-        public string ESTADOSALON { get; set; }
+        public decimal IDTIPORECURSO { get; set; }
+        public string NOMBRETIPORECURSO { get; set; }
+        public Nullable<decimal> ESTADOTIPORECURSO { get; set; }
     
-        public virtual FACULTAD FACULTAD { get; set; }
-        public virtual ICollection<FRANJA_HORARIA> FRANJA_HORARIA { get; set; }
+        public virtual ICollection<RECURSO> RECURSOes { get; set; }
     }
 }

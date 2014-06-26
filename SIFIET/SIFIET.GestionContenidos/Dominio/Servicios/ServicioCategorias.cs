@@ -16,13 +16,14 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
         public static List<CATEGORIA> ConsultarCategorias(string busqueda)
         {
             var db = new GestionContenidosEntities();
-            var categorias = from c in db.CATEGORIAs
+            var categorias = from c in db.CATEGORIAs where !c.ESTADOCATEGORIA.Trim().Equals("Eliminado")
                             select c;
 
             if (!String.IsNullOrEmpty(busqueda))
             {
                 categorias = (from c in db.CATEGORIAs
-                             where (c.NOMBRECATEGORIA.ToUpper().Contains(busqueda.ToUpper()))
+                             where (c.NOMBRECATEGORIA.ToUpper().Contains(busqueda.ToUpper())) &&
+                             !c.ESTADOCATEGORIA.Trim().Equals("Eliminado")
                              select c);
             }
             return categorias.ToList();

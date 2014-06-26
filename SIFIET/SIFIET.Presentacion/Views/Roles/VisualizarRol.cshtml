@@ -32,19 +32,11 @@
         <dd>
             @Html.DisplayFor(model => model.ESTADOROL)
         </dd>
-        <h3>Permisos</h3>
+        <h3>Tiene Permiso Sobre: </h3>
         @foreach (var item in Model.PERMISOS)
         {
             <dd>
-                <h4>@Html.DisplayFor(modelItem => item.NOMBREPERMISO):</h4>
-                @if (item.GESTIONARPERMISO == 1)
-                {
-                    <p>Gestionar</p>
-                }
-                else
-                {
-                    <p>Visualizar</p>
-                }
+                <h4>@Html.DisplayFor(modelItem => item.NOMBREPERMISO)</h4>
             </dd>
         }
 

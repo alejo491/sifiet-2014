@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
+/*
 namespace SIFIET.GestionInfraestructura.Datos.Modelo
 {
     [MetadataType(typeof(SALONMETADATA))]
@@ -59,4 +59,4 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
             return valid ? ValidationResult.Success : new ValidationResult(ErrorMessage);
         }
     }
-}
+}*/

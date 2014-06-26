@@ -26,8 +26,14 @@ namespace SIFIET.Presentacion.Controllers
         }
         public ActionResult VisualizarContenido(int idContenidoIn)
         {
+            var atributos = FachadaSIFIET.ConsultarAtributosDelContenido(idContenidoIn);
+            ViewBag.ListaAtributos = atributos;
             CONTENIDO contenido = FachadaSIFIET.VisualizarContenido(idContenidoIn);
             return View(contenido);
+        }
+        public ActionResult BuscarContenido(string nombreContenido)
+        {
+            return View(FachadaSIFIET.ConsultarContenidos(1, nombreContenido, "Activo"));
         }
     }
 }

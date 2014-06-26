@@ -10,6 +10,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 {
     static class ServicioSalones
     {
+        /*
         public static List<SALON> ConsultarSalones(decimal idSalon, string nomSalon, string estado)
         {
             try
@@ -283,5 +284,6 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 return false;
             }
         }
+         * */
     }
 }

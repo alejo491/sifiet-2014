@@ -10,6 +10,7 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
 {
     public static class FachadaSalones
     {
+        /*
         public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon, string estado)
         {
             return ServicioSalones.ConsultarSalones(idSalon,nombreSalon,estado);
@@ -58,7 +59,7 @@ namespace SIFIET.GestionInfraestructura.Aplicacion
         public static bool CargarInformacion(string archivo)
         {
             return ServicioSalones.CargarInformacion(archivo);
-        }
+        }*/
     }
 }
 

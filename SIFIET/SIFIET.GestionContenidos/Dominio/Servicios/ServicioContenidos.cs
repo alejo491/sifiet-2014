@@ -321,6 +321,10 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
             }
 
         }
-        
+
+        public static void ObtenerIdTipoRecurso(object tipoRecurso)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

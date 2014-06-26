@@ -34,41 +34,30 @@ namespace SIFIET.GestionContenidos.Dominio.Servicios
             var db = new GestionContenidosEntities();
             decimal number;
 
-            if (bloque1 != "") {
-                var a = (from bloque in db.BLOQUEs where bloque.IDENTIFICADORBLOQUE == 1 select bloque).First();
-                {
-                    Decimal.TryParse(bloque1, out number);
-                    a.IDENTIFICADORCATEGORIA = number;
-
-                }
+            if (bloque1 != "")
+            {
+                string sql = "Update BLOQUE SET IDENTIFICADORCATEGORIA = '" +bloque1 +"' WHERE IDENTIFICADORBLOQUE = " + 1;
+                db.Database.ExecuteSqlCommand(sql);
+                db.SaveChanges();
             }
 
             if (bloque2 != "") {
-                var b = (from bloque in db.BLOQUEs where bloque.IDENTIFICADORBLOQUE == 2 select bloque).First();
-                {
-                    Decimal.TryParse(bloque2, out number);
-                    b.IDENTIFICADORCATEGORIA = number;
-
-                }
+                string sql = "Update BLOQUE SET IDENTIFICADORCATEGORIA = '" + bloque2 + "' WHERE IDENTIFICADORBLOQUE = " + 2;
+                db.Database.ExecuteSqlCommand(sql);
+                db.SaveChanges();
             }
 
             if (bloque3 != "") {
-                var c = (from bloque in db.BLOQUEs where bloque.IDENTIFICADORBLOQUE == 3 select bloque).First();
-                {
-                    Decimal.TryParse(bloque3, out number);
-                    c.IDENTIFICADORCATEGORIA = number;
-
-                }
+                string sql = "Update BLOQUE SET IDENTIFICADORCATEGORIA = '" + bloque3 + "' WHERE IDENTIFICADORBLOQUE = " +3;
+                db.Database.ExecuteSqlCommand(sql);
+                db.SaveChanges();
             
             }
 
             if (bloque4 != "") {
-                var d = (from bloque in db.BLOQUEs where bloque.IDENTIFICADORBLOQUE == 4 select bloque).First();
-                {
-                    Decimal.TryParse(bloque4, out number);
-                    d.IDENTIFICADORCATEGORIA = number;
-
-                }
+                string sql = "Update BLOQUE SET IDENTIFICADORCATEGORIA = '" + bloque4 + "' WHERE IDENTIFICADORBLOQUE = " + 4;
+                db.Database.ExecuteSqlCommand(sql);
+                db.SaveChanges();
             }
 
            

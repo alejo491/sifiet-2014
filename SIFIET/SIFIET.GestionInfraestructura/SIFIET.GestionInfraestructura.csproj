@@ -48,7 +48,11 @@
   <ItemGroup>
     <Compile Include="Aplicacion\FachadaFacultades.cs" />
     <Compile Include="Aplicacion\FachadaFranjasHorarias.cs" />
+    <Compile Include="Aplicacion\FachadaRecursos.cs" />
     <Compile Include="Aplicacion\FachadaSalones.cs" />
+    <Compile Include="Datos\Modelo\ASIGNATURA.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\Modelo\CURSO.cs">
       <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
     </Compile>
@@ -73,24 +77,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Datos\Modelo\SALON.cs">
+    <Compile Include="Datos\Modelo\RECURSO.cs">
       <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Datos\Modelo\TIPORECURSO.cs">
+      <DependentUpon>GestionInfraestructuraEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Entidades\Parciales\RECURSO.cs" />
     <Compile Include="Dominio\Entidades\Parciales\SALON.cs" />
     <Compile Include="Dominio\Servicios\ServicioFacultades.cs" />
     <Compile Include="Dominio\Servicios\ServicioFranjasHorarias.cs" />
+    <Compile Include="Dominio\Servicios\ServicioRecursos.cs" />
     <Compile Include="Dominio\Servicios\ServicioSalones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Datos\Modelo\GestionInfraestructuraEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GestionInfraestructuraEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Datos\Modelo\GestionInfraestructuraEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GestionInfraestructuraEntities.edmx</DependentUpon>

@@ -19,7 +19,7 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
 
         [Required]
         [StringLength(80, ErrorMessage = "El Email no pueder ser mayor de 80 caracteres")]
-        [RegularExpression("^([a-zA-Z0-9'-]+)$", ErrorMessage = "El Email no puede contener caracteres especiales")]
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "El Email no puede contener caracteres especiales")]
         public string EMAILINSTITUCIONALUSUARIO { get; set; }
 
         [Required]
@@ -34,12 +34,12 @@ namespace SIFIET.GestionUsuarios.Datos.Modelo
 
         [Required]
         [StringLength(180, ErrorMessage = "La Nombre no pueder ser mayor de 180 caracteres")]
-        [RegularExpression("^[a-zA-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "El Nombre no puede contener caracteres especiales")]
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "El Nombre no puede contener caracteres especiales")]
         public string NOMBRESUSUARIO { get; set; }
 
         [Required]
         [StringLength(180, ErrorMessage = "El Apellido no pueder ser mayor de 180 caracteres")]
-        [RegularExpression("^([a-zA-Z]+)$", ErrorMessage = "El Apellido no puede contener caracteres especiales")]
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "El Apellido no puede contener caracteres especiales")]
         public string APELLIDOSUSUARIO { get; set; }
 
 

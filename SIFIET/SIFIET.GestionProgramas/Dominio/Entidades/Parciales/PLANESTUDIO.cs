@@ -15,34 +15,34 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
     public class PLANESTUDIOMETADATA
     {
-        [Display(Name = "Nombre del Plan :")]
+        [Display(Name = "Nombre del Plan")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         [PlanEstudiosNombreExiste(ErrorMessage = "Ya existe un plan de estudios con el nombre que desea registrar, por favor cambie el campo si desea crear otro plan de estudio, o realice una búsqueda para editar los campos del plan existente.")]
         public string NOMBREPLANESTUDIOS { get; set; }
 
-        [Display(Name = "Descripción :")]
+        [Display(Name = "Descripción")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONPLANESTUDIOS { get; set; }
 
-        [Display(Name = "Fecha Inicio :")]
+        [Display(Name = "Fecha Inicio")]
         [Required(ErrorMessage = "Este campos es requerido")]
         public string FECHAINICIOPLANESTUDIOS { get; set; }
 
-        [Display(Name = "Fecha Fin :")]
+        [Display(Name = "Fecha Fin")]
         [Required(ErrorMessage = "Este campos es requerido")]
         public string FECHAFINPLANESTUDIOS { get; set; }
 
-        [Display(Name = "Codigo del Plan :")]
+        [Display(Name = "Codigo del Plan")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string CODIGOPLANESTUDIOS { get; set; }
 
-        [Display(Name = "Estado :")]
+        [Display(Name = "Estado")]
         public string ESTADOPLANESTUDIOS { get; set; }
 
 

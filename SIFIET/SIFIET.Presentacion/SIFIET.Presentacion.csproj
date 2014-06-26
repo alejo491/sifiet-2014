@@ -38,7 +38,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -189,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlanesEstudioController.cs" />
     <Compile Include="Controllers\ProgramasController.cs" />
+    <Compile Include="Controllers\RecursosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SalonesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -275,9 +280,20 @@
     <Content Include="Views\Bloques\Index.cshtml" />
     <Content Include="Views\Contenidos\VisualizarContenido.cshtml" />
     <Content Include="Views\Contenidos\ModificarContenido.cshtml" />
+    <Content Include="Views\Shared\nav_bar_contenidos.cshtml" />
     <Content Include="Views\Home\DetallarCategoria.cshtml" />
     <Content Include="Views\Home\VisualizarContenido.cshtml" />
+    <Content Include="Views\Categorias\ModificarCategoria.cshtml" />
+    <Content Include="Views\Categorias\VisualizarCategoria.cshtml" />
+    <Content Include="Views\Recursos\CargarArchivo.cshtml" />
+    <Content Include="Views\Recursos\CargarInformacion.cshtml" />
+    <Content Include="Views\Recursos\EliminarRecurso.cshtml" />
+    <Content Include="Views\Recursos\Index.cshtml" />
+    <Content Include="Views\Recursos\ModificarRecurso.cshtml" />
+    <Content Include="Views\Recursos\RegistrarRecurso.cshtml" />
+    <Content Include="Views\Recursos\VisualizarRecurso.cshtml" />
     <Content Include="Views\Shared\_menu.cshtml" />
+    <Content Include="Views\Home\BuscarContenido.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

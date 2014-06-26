@@ -73,23 +73,23 @@ namespace SIFIET.Aplicacion
         //Metodos dirigidos a Fachada Asignaturas en el dominio de Gestion de Programas
         #region Metodos Gestion de Asignaturas
 
-        public static List<ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura, string estado)
+        public static List<GestionProgramas.Datos.Modelo.ASIGNATURA> ConsultarAsignaturas(decimal idAsignatura, string nombreAsignatura, string estado)
         {
             return FachadaAsignaturas.ConsultarAsignaturas(idAsignatura, nombreAsignatura, estado);
         }
 
-        public static ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
+        public static GestionProgramas.Datos.Modelo.ASIGNATURA VisualizarAsignatura(decimal idAsignatura)
         {
             return FachadaAsignaturas.VisualizarAsignatura(idAsignatura);
         }
 
-        public static bool RegistrarAsignatura(ASIGNATURA oAsignatura)
+        public static bool RegistrarAsignatura(GestionProgramas.Datos.Modelo.ASIGNATURA oAsignatura)
         {
             return FachadaAsignaturas.RegistrarAsignatura(oAsignatura);
 
         }
 
-        public static bool ModificarAsignatura(ASIGNATURA oAsignatura)
+        public static bool ModificarAsignatura(GestionProgramas.Datos.Modelo.ASIGNATURA oAsignatura)
         {
             return FachadaAsignaturas.ModificarAsignatura(oAsignatura);
         }

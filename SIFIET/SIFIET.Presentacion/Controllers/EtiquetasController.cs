@@ -45,7 +45,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Create
-        [Authorize(Roles = "Contenido")]
+        [Authorize]
         public ActionResult RegistrarEtiquetas()
         {
            return View();
@@ -81,7 +81,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Edit/idEtiqueta
-         [Authorize(Roles = "Contenido")]
+         [Authorize]
         public ActionResult EditarEtiquetas(decimal idEtiqueta)
         {
             ETIQUETA objEtiqueta = FachadaSIFIET.ConsultarEtiqueta(idEtiqueta);
@@ -112,9 +112,6 @@ namespace SIFIET.Presentacion.Controllers
             }
             return View(objEtiqueta);
         }
-
-        //
-        // GET: /Contenidos/Delete/idEtiqueta
         [Authorize(Roles = "Administrador")]
         public ActionResult EliminarEtiquetas(decimal idEtiqueta)
         {

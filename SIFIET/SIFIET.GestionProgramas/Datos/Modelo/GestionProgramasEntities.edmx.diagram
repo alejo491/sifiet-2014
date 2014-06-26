@@ -7,7 +7,7 @@
       <Diagram DiagramId="c006fd35cb9d49f2b0d9ff635061bd7b" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="Model.ASIGNATURA" Width="1.5" PointX="5.25" PointY="13.875" />
         <EntityTypeShape EntityType="Model.ASIGNATURA_PERTENECE_PLAN_ESTU" Width="1.5" PointX="7.5" PointY="1.5" />
-        <EntityTypeShape EntityType="Model.CURSO" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="Model.CURSO" Width="2.125" PointX="5.25" PointY="9.75" />
         <EntityTypeShape EntityType="Model.DEPARTAMENTO" Width="1.5" PointX="0.75" PointY="5.375" />
         <EntityTypeShape EntityType="Model.DOCENTE" Width="1.5" PointX="3" PointY="9.25" />
         <EntityTypeShape EntityType="Model.FACULTAD" Width="1.5" PointX="0.75" PointY="2.5" />
@@ -24,7 +24,7 @@
         <AssociationConnector Association="Model.FK_PROGRAMA_FACULTAD__FACULTAD" />
         <AssociationConnector Association="Model.FK_PLANESTU_PROGRAMA__PROGRAMA" />
         <AssociationConnector Association="Model.DEPARTAMENTO_SOPORTA_PROGRAMA" />
-        <EntityTypeShape EntityType="Model.FRANJA_HORARIA" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="Model.FRANJA_HORARIA" Width="2" PointX="8.75" PointY="9.75" />
         <AssociationConnector Association="Model.FK_FRANJA_H_CURSO_TIE_CURSO" />
       </Diagram>
     </edmx:Diagrams>

@@ -18,27 +18,27 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
 
 
-        [Display(Name = "Codigo SNIES:")]
+        [Display(Name = "Codigo SNIES")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [DisplayFormat(DataFormatString = "{0:#}", ApplyFormatInEditMode = true)]
         [CodigoSNIESYaExiste(ErrorMessage = "Ya existe un Programa con el codigo que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public Nullable<decimal> CODIGOSNIESPROGRAMA { get; set; }
 
 
-        [Display(Name = "Nombre del programa:")]
+        [Display(Name = "Nombre del programa")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         [ProgramaNombreExiste(ErrorMessage = "Ya existe un Programa con el nombre que desea registrar, por favor cambie el campo si desea crear otro Programa, o realice una búsqueda para editar los campos del Programa existente.")]
         public string NOMBREPROGRAMA { get; set; }
 
-        [Display(Name = "Descripción :")]
+        [Display(Name = "Descripción")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         //[RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONPROGRAMA { get; set; }
 
-        [Display(Name = "Facultad:")]
+        [Display(Name = "Facultad")]
         //[Required(ErrorMessage = "Este campos es requerido")]
         public virtual FACULTAD FACULTAD { get; set; }
 
@@ -46,16 +46,16 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required(ErrorMessage = "Este campos es requerido")]
         public string PERIODODURACIONPROGRAMA { get; set; }
 
-        [Display(Name = "Duración :")]
+        [Display(Name = "Duración")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> DURACIONPROGRAMA { get; set; }
 
-        [Display(Name = "Modalidad :")]
+        [Display(Name = "Modalidad")]
         [Required(ErrorMessage = "Este campos es requerido")]
         public string MODALIDADPROGRAMA { get; set; }
 
-        [Display(Name = "Jornada :")]
+        [Display(Name = "Jornada")]
         [Required(ErrorMessage = "Este campos es requerido")]
         public string JORNADAPROGRAMA { get; set; }
 
@@ -63,7 +63,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Required(ErrorMessage = "Este campos es requerido")]
         public string ADMISIONPROGRAMA { get; set; }
 
-        [Display(Name = "Estado :")]
+        [Display(Name = "Estado")]
         public string ESTADOPROGRAMA { get; set; }
 
     }

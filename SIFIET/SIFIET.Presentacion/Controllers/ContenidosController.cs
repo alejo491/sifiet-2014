@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using SIFIET.Aplicacion;
 using SIFIET.GestionContenidos.Datos.Modelo;
@@ -73,7 +76,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             try
             {
-                // TODO: Add insert logic here                
+                // TODO: Add insert logic here    
                 ViewBag.idCategoria = oContenido.IDENTIFICADORCATEGORIA;
                 var categoria = FachadaSIFIET.ConsultarCategoria(oContenido.IDENTIFICADORCATEGORIA);
                 var atributos = categoria.ATRIBUTOes.ToList();
@@ -82,7 +85,12 @@ namespace SIFIET.Presentacion.Controllers
                 ViewBag.ListaAtributos = datosAtributos;
                 ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA");
                 var etiquetasContenido = CrearEtiquetas(collection,etiquetas);
-
+                var listaErrores = ValidarAtributos(collection, atributos);
+                if (listaErrores.Any())
+                {
+                    ViewBag.ListaErrores = listaErrores;
+                    return View(oContenido);
+                }
                 if (!ModelState.IsValid) return View(oContenido);
                 bool resultado = FachadaSIFIET.RegistrarContenido(oContenido, datosAtributos, etiquetasContenido);
 
@@ -129,10 +137,14 @@ namespace SIFIET.Presentacion.Controllers
                 var etiquetas = FachadaSIFIET.ConsultarEtiquetas("");
                 var datosAtributos = CrearAtributos(collection, atributos);
                 ViewBag.ListaAtributos = datosAtributos;
-                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", etiquetasContenidoSeleccionadas);
-                                
+                ViewBag.ListaEtiquetas = new MultiSelectList(etiquetas, "IDENTIFICADORETIQUETA", "NOMBREETIQUETA", etiquetasContenidoSeleccionadas);            
                 var etiquetasContenido = CrearEtiquetas(collection, etiquetas);
-
+                var listaErrores = ValidarAtributos(collection, atributos);
+                if (listaErrores.Any())
+                {
+                    ViewBag.ListaErrores = listaErrores;
+                    return View(oContenido);
+                }
                 if (!ModelState.IsValid) return View(oContenido);
                 var resultado = FachadaSIFIET.ModificarContenido(oContenido, datosAtributos, etiquetasContenido);
 
@@ -171,8 +183,7 @@ namespace SIFIET.Presentacion.Controllers
             var atributos = new List<ATRIBUTO>();
             var nombresAtributos = new List<string>();
             var datosAtributo = new List<string>();
-           nombresAtributos.AddRange(atributosActuales.Select(atributo => atributo.NOMBREATRIBUTO.Trim()));
-           
+            nombresAtributos.AddRange(atributosActuales.Select(atributo => atributo.NOMBREATRIBUTO.Trim()));
             foreach (var item in nombresAtributos)
             {
                 if (!String.IsNullOrEmpty(datos[item]))
@@ -193,6 +204,48 @@ namespace SIFIET.Presentacion.Controllers
                 cont++;
             }
             return atributos;
+        }
+        private static List<string> ValidarAtributos(FormCollection datos, List<ATRIBUTO> atributosActuales)
+        {
+            var nombresAtributos = new List<string>();
+            var erroresValidacion = new List<string>();
+            nombresAtributos.AddRange(atributosActuales.Select(atributo => atributo.NOMBREATRIBUTO.Trim()));
+            foreach (var item in atributosActuales)
+            {
+                if (item.OBLIGATORIOATRIBUTO == 1)
+                {
+                    if (datos[item.NOMBREATRIBUTO].Trim().Equals(""))
+                    {
+                        var mensaje = "El Campo " + item.NOMBREATRIBUTO + " Es Obligatorio";
+                        erroresValidacion.Add(mensaje);
+                    }
+                    if (!item.TIPOATRIBUTO.Equals("image"))
+                    {
+                        if (datos[item.NOMBREATRIBUTO].Length > item.TAMANIOATRIBUTO)
+                        {
+                            var mensaje = "El Campo " + item.NOMBREATRIBUTO + " Supera el Tamaño Maximo";
+                            erroresValidacion.Add(mensaje); 
+                        }
+                    }
+                }
+                if (item.TIPOATRIBUTO.Equals("image"))
+                {
+                    if (!ValidateUrl(datos[item.NOMBREATRIBUTO]))
+                    {
+                        var mensaje = "La URL de " + item.NOMBREATRIBUTO + " Tiene un Formato Incorrecto";
+                        erroresValidacion.Add(mensaje);
+                    }
+                    else
+                    {
+                        if(!ExisteUrl(datos[item.NOMBREATRIBUTO]))
+                        {
+                            var mensaje = "La URL de " + item.NOMBREATRIBUTO + " No existe";
+                            erroresValidacion.Add(mensaje);
+                        }
+                    }
+                }
+            }
+            return erroresValidacion;
         }
 
         private static List<ETIQUETA> CrearEtiquetas(FormCollection datos, List<ETIQUETA> etiquetasActuales)
@@ -223,6 +276,31 @@ namespace SIFIET.Presentacion.Controllers
                }    
            }
             return etiquetas;
+        }
+        public static bool ValidateUrl(string url)
+        {
+            if (url == null || url == "") return false;
+            var oRegExp = new Regex(@"(http|ftp|https)://([\w-]+\.)+(/[\w- ./?%&=]*)?", RegexOptions.IgnoreCase);
+            return oRegExp.Match(url).Success;
+        }
+        public static bool ExisteUrl(string url)
+        {
+            try
+            {
+                //Creating the HttpWebRequest
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                //Setting the Request method HEAD, you can also use GET too.
+                request.Method = "HEAD";
+                //Getting the Web Response.
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //Returns TRUE if the Status code == 200
+                return (response.StatusCode == HttpStatusCode.OK);
+            }
+            catch
+            {
+                //Any exception will returns false.
+                return false;
+            }
         }
     }
 }

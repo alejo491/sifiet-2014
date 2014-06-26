@@ -33,28 +33,6 @@ namespace SIFIET.Presentacion.Controllers
             return View(oRoles);
         }
 
-        /*[HttpPost]
-        public ActionResult Index(FormCollection datos)
-        {
-            var oRoles = new List<ROL>();
-            if (datos["criterio"].Equals("nombre"))
-            {
-                oRoles = FachadaSIFIET.ConsultarRolPorNombre((datos["valorbusqueda"].Trim()),datos["estado"].Trim());
-            }
-            else
-            {
-                oRoles = FachadaSIFIET.ConsultarRolPorEstado(datos["estado"].Trim());
-            }
-            if (!oRoles.Any())
-            {
-                ViewBag.Mensaje = "Ningun Rol Encontrado";
-                oRoles = FachadaSIFIET.ConsultarRoles();
-            }
-            return View(oRoles);
-        }*/
-
-        //
-        // GET: /Roles/Details/5
         [Authorize(Roles = "Roles")]
         public ActionResult VisualizarRol(int idRol)
         {

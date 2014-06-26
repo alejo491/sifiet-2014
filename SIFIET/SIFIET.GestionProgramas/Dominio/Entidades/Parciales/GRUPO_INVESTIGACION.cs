@@ -25,7 +25,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
         [Display(Name = "Nombre")]
         [Required]
         [StringLength(250, ErrorMessage = "El Nombre no pueder ser mayor de 250 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         [GrupoNombreYaExiste(ErrorMessage = "Este Nombre ya está en uso, ingrese otro")]
         public string NOMBREGRUPOINVESTIGACION { get; set; }
 
@@ -39,7 +39,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
         [Display(Name = "Código")]
         [Required]
-        [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]
         [StringLength(15, ErrorMessage = "El Código no pueder ser mayor de 15 caracteres")]
         [CodigoGInvestigacionYaExiste(ErrorMessage = "Este Código ya está en uso, ingrese otro")]
         public string CODIGOGRUPOINVESTIGACION { get; set; }

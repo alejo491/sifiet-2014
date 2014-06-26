@@ -36,7 +36,7 @@ namespace SIFIET.Presentacion.Controllers
 
         //
         // GET: /Contenidos/Create
-        [Authorize(Roles = "Contenido")]
+        [Authorize]
         public ActionResult RegistrarCategoria()
         {
             return View();
@@ -71,7 +71,7 @@ namespace SIFIET.Presentacion.Controllers
 
             return View(categoriaIn);            
         }
-        [Authorize(Roles = "Contenido")]
+        [Authorize]
         public ActionResult RegistrarAtributo(CATEGORIA categoriaIn)
         {
             categoriaIn = FachadaSIFIET.ConsultarCategoria(categoriaIn.IDENTIFICADORCATEGORIA);

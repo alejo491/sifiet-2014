@@ -16,7 +16,7 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
     {
         public FACULTAD()
         {
-            this.SALONs = new HashSet<SALON>();
+            this.RECURSOes = new HashSet<RECURSO>();
         }
     
         public decimal IDENTIFICADORFACULTAD { get; set; }
@@ -24,6 +24,6 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
         public string ESTADOFACULTAD { get; set; }
         public string CODIGOFACULTAD { get; set; }
     
-        public virtual ICollection<SALON> SALONs { get; set; }
+        public virtual ICollection<RECURSO> RECURSOes { get; set; }
     }
 }

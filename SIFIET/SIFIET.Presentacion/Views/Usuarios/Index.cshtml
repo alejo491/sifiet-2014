@@ -7,27 +7,28 @@
 }
 <div>
     <h2>Usuarios</h2>
-
-
-
-
     @using (Html.BeginForm("Index", "Usuarios"))
     {
-        <fieldset>
-            <legend>Busqueda Usuarios</legend>
-            <div>
-                Activos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Activo", true)
-                Inactivos @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Inactivo")
-                <label>Campo a buscar:</label><select name="criterio">
-                    <option value="cb">Escoja Campo</option>
-                    <option value="nombre">Nombre</option>
-                    <option value="apellido">Apellido</option>
-                    <option value="identificacion">Identificación</option>
-                </select><label>Dato a buscar:</label>
-                <input name="valorbusqueda" type="text" value="" />
+        <fieldset style=" margin-bottom: 3%;">
+            <legend style="font-size: 16px;">Busqueda</legend>
+            <div style="display: block; font-size: 14px;" class="row">
+                <div style="float: left; margin-left: 5%;">
+                    <label>Activos </label>@Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Activo", true)
+                    <label>Inactivos</label> @Html.RadioButtonFor(model => model.FirstOrDefault().ESTADOUSUARIO, "Inactivo")
+</div>
+                <div style="float: right; margin-right: 10%;">
+                    <label> Filtro:  </label>
+                    <select name="criterio">
+                        <option value="cb">Escoja Campo</option>
+                        <option value="nombre">Nombre</option>
+                        <option value="apellido">Apellido</option>
+                        <option value="identificacion">Identificación</option>
+                    </select>
+                    <label>Buscar:</label>
+                    <input name="valorbusqueda" type="text" value="" />
 
-                <input type="submit" value="Buscar" />
-
+                    <input type="submit" value="Buscar" />
+                </div>
             </div>
         </fieldset>
     }

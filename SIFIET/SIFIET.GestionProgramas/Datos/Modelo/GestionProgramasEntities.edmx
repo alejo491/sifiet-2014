@@ -85,7 +85,7 @@
           </Key>
           <Property Name="IDENTIFICADORFRANJA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORCURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORRECURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="HORAINICIOFRANJA" Type="varchar2" MaxLength="10" />
           <Property Name="HORAFINFRANJA" Type="varchar2" MaxLength="10" />
           <Property Name="DIAFRANJA" Type="varchar2" MaxLength="124" />
@@ -643,7 +643,7 @@
           </Key>
           <Property Name="IDENTIFICADORFRANJA" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="IDENTIFICADORCURSO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORSALON" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORRECURSO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="HORAINICIOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="HORAFINFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DIAFRANJA" Type="String" MaxLength="124" FixedLength="false" Unicode="false" />
@@ -798,7 +798,7 @@
                 <ScalarProperty Name="DIAFRANJA" ColumnName="DIAFRANJA" />
                 <ScalarProperty Name="HORAFINFRANJA" ColumnName="HORAFINFRANJA" />
                 <ScalarProperty Name="HORAINICIOFRANJA" ColumnName="HORAINICIOFRANJA" />
-                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="IDENTIFICADORRECURSO" ColumnName="IDENTIFICADORRECURSO" />
                 <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
                 <ScalarProperty Name="IDENTIFICADORFRANJA" ColumnName="IDENTIFICADORFRANJA" />
               </MappingFragment>

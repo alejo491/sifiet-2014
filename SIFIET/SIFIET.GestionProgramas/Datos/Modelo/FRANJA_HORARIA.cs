@@ -16,7 +16,7 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     {
         public decimal IDENTIFICADORFRANJA { get; set; }
         public decimal IDENTIFICADORCURSO { get; set; }
-        public decimal IDENTIFICADORSALON { get; set; }
+        public decimal IDENTIFICADORRECURSO { get; set; }
         public string HORAINICIOFRANJA { get; set; }
         public string HORAFINFRANJA { get; set; }
         public string DIAFRANJA { get; set; }

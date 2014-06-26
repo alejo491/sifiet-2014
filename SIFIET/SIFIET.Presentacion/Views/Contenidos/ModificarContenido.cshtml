@@ -1,4 +1,4 @@
-﻿
+﻿@Html.Partial("nav_bar_contenidos")
 @model SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO
 
 @{
@@ -68,25 +68,9 @@
             <tr>
                 <td>
                     <label>@item.NOMBREATRIBUTO</label>
-                </td>
+                </td>                      
             </tr>
-            @if (((string)@item.TIPOATRIBUTO).Equals("texto"))
-            {
-                <tr>
-                    <td>
-                        <input type="text" name="@item.NOMBREATRIBUTO" value="@item.dato" />
-                    </td>
-                </tr>
-            }
-            @if (((string)@item.TIPOATRIBUTO).Equals("imagen"))
-            {
-                <tr>
-                    <td>
-                        <input type="file" name="@item.NOMBREATRIBUTO" value="@item.dato" />
-                    </td>
-                </tr>
-            }
-            @if (((string)@item.TIPOATRIBUTO).Equals("fecha"))
+            @if (((string)@item.TIPOATRIBUTO).Equals("date"))
             {
                 <tr>
                     <td>
@@ -94,6 +78,21 @@
                     </td>
                 </tr>
             }
+            else{
+                <tr>                
+                    <td>
+                        <input type="text" name="@item.NOMBREATRIBUTO" value="@item.dato" />
+                    </td>
+                </tr>
+            }
+            @*if (((string) @item.TIPOATRIBUTO).Equals("image"))
+            {
+                <tr>
+                    <td>
+                        <input type="file" name="@item.NOMBREATRIBUTO" value="@item.dato" />
+                    </td>
+                </tr>
+            }*@
         </table>
 
     }

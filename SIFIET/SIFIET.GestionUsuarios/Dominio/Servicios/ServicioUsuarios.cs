@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using SIFIET.GestionUsuarios.Datos.Modelo;
@@ -63,6 +64,9 @@ namespace SIFIET.GestionUsuarios.Dominio.Servicios
         internal static void ModificarUsuario(USUARIO usuario, string[] roles)
         {
             var db = new GestionUsuariosEntities();
+            System.Security.Cryptography.SHA1CryptoServiceProvider sh1 =
+                new System.Security.Cryptography.SHA1CryptoServiceProvider();
+
             string sql="Update USUARIO SET NOMBRESUSUARIO= '" + usuario.NOMBRESUSUARIO + "' ," +
                                                             " APELLIDOSUSUARIO= '" + usuario.APELLIDOSUSUARIO + "' ," +
                                                             " EMAILINSTITUCIONALUSUARIO= '" + usuario.EMAILINSTITUCIONALUSUARIO + "' ," +

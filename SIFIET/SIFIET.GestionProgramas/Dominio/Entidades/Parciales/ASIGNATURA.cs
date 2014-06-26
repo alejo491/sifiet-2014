@@ -69,39 +69,48 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     }
     public class ASIGNATURAMETADATA
     {
-        /*
-        [Required]
-        [IDYaExiste(ErrorMessage = "Este id ya esta en uso, ingrese otro")]
-        [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]         
-        public string IDENTIFICADORASIGNATURA { get; set; }*/
+        [Display(Name = "Codigo")]
         [Required]
         [IDYaExiste(ErrorMessage = "Este Codigo ya esta en uso, ingrese otro")]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
-        [RegularExpression(@"^[A-Z0-9 a-z -]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
+        [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ -]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string CODIGOASIGNATURA { get; set; }
+
+        [Display(Name = "Nombre")]
         [Required]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Asignatura usando ese nombre")]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBREASIGNATURA { get; set; }
 
+        [Display(Name = "Correquisitos")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         public string CORREQUISITOSASIGNATURA { get; set; }
 
+        [Display(Name = "Prerrequisitos")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         public string PREREQUISITOSASIGNATURA { get; set; }
+
+        [Display(Name = "Creditos")]
         [Required]
         public Nullable<decimal> CREDITOSASIGNATURA { get; set; }
+
+        [Display(Name = "Modalidad")]
         [Required]
         [StringLength(15, ErrorMessage = "El {0} no pueder ser mayor de 15 caracteres")]
         public string MODALIDADASIGNATURA { get; set; }
+
+        [Display(Name = "Clasificación")]
         [Required]
         [StringLength(50, ErrorMessage = "El {0} no pueder ser mayor de 50 caracteres")]
         public string CLASIFICACIONASIGNATURA { get; set; }
+
+        [Display(Name = "Estado")]
         [Required]
         [StringLength(50, ErrorMessage = "El {0} no pueder ser mayor de 50 caracteres")]
         public string ESTADOASIGNATURA { get; set; }
 
+        [Display(Name = "Descripción")]
         [StringLength(250, ErrorMessage = "El {0} no pueder ser mayor de 250 caracteres")]
         public string DESCRIPCIONASIGNATURA { get; set; }
 

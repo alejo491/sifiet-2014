@@ -1,25 +1,23 @@
-﻿<div>
-    <ul>
-        <li style="display: inline; list-style-type: none;" class="first"><a href="#">Contenidos</a></li>
-        <li style="display: inline; list-style-type: none;"><a href="/Categorias">Categorias</a></li>
-        <li style="display: inline; list-style-type: none;"><a href="/Etiquetas">Etiquetas</a></li>
-    </ul>
-</div>
+﻿@Html.Partial("nav_bar_contenidos")
 @model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.ETIQUETA>
 
 @{
     ViewBag.Title = "Etiquetas";
     WebGrid grid = new WebGrid(Model);
 }
-
+<h2>Etiquetas</h2>
 @using (Html.BeginForm(null, null, FormMethod.Get))
-{
-    <fieldset>
-        <legend>Buscar Etiqueta</legend>
-        Busqueda por nombre:
-
-        <input type="text" name="busqueda" value="@ViewBag.busqueda" />
-        <input type="submit" value="Buscar" />
+{<fieldset style="margin-bottom: 3%;">
+        <legend style="font-size: 16px;">Busqueda</legend>
+        <div style="display: block; font-size: 14px;" class="row">
+            <div style="float: left; margin-left: 5%;">
+            </div>
+            <div style="float: right; margin-right: 10%;">
+                <label>Buscar:</label>
+                <input type="text" name="busqueda" value="@ViewBag.busqueda" />
+                <input type="submit" value="Buscar" />
+            </div>
+        </div>
     </fieldset>
 }
 <br />
