@@ -1,42 +1,30 @@
 ﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO>
 
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Detalle Categoria";
     WebGrid grid = new WebGrid(Model);
 }
 
-<div class="nombre-categoria">
-    <h2>@ViewBag.nombreCategoria</h2>
-</div>      
-<div class="row" id="contenidosHome">
-    @*@grid.GetHtml(
-        fillEmptyRows: true,
+<h2>@ViewBag.nombreCategoria</h2>
+
+<div class="row">
+    <div class="col-md-11">
+        <div class="table-responsive">
+            @grid.GetHtml(
+        tableStyle: "table table-striped  table-bordered table-hover",
+        fillEmptyRows: false,
+        footerStyle: "paginacion",
+        headerStyle: "theader",
         mode: WebGridPagerModes.All,
         columns: new[]
         {
-            grid.Column("FECHACREACIONCONTENIDO",header:"Fecha de creación"),
-            grid.Column("TITULOCONTENIDO",header:"Título"),
-            grid.Column("DESCRIPCIONCONTENIDO",header:"Descripción"),
-            @grid.Column("",header:"Opciones",
-                format: @<text>
-                @Html.ActionLink("Visualizar", "VisualizarContenido", new { idContenidoIn = item.IDENTIFICADORCONTENIDO })
-                </text>
-                )
-        })*@
-    <div class="col-md-10" @*style="position: absolute; right: @(posicionx)px; top: @(posiciony)px; "*@>
-        <div>
-            <ul>
-                @foreach (var contenido in Model)
-                {
-                    DateTime fecha = DateTime.ParseExact(contenido.FECHACREACIONCONTENIDO, "dd-MM-yyyy", null);
-                    <li>
-                        <strong> @fecha.ToString("D") </strong>
-                        <div class="descripcion-contenido divider">
-                            @Html.ActionLink(contenido.DESCRIPCIONCONTENIDO, "VisualizarContenido", new { idContenidoIn = contenido.IDENTIFICADORCONTENIDO })
-                        </div>
-                    </li>
-                }
-            </ul>
+            grid.Column("Titulo", format: @<text>@Html.ActionLink((string)item.TITULOCONTENIDO,
+"VisualizarContenido", "Home", new { idContenidoIn = item.IDENTIFICADORCONTENIDO }, null)</text>),
+            grid.Column("FECHACREACIONCONTENIDO",header: "Fecha")
+            
+            
+        })
         </div>
     </div>
 </div>
+
