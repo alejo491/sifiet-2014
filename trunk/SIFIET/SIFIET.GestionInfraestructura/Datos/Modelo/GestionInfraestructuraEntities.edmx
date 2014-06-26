@@ -4,7 +4,22 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GestionInfraestructuraEntitiesModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ASIGNATURA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+          </Key>
+          <Property Name="IDENTIFICADORASIGNATURA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREASIGNATURA" Type="varchar2" MaxLength="120" />
+          <Property Name="CORREQUISITOSASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="PREREQUISITOSASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="CREDITOSASIGNATURA" Type="number" Precision="38" Scale="0" />
+          <Property Name="MODALIDADASIGNATURA" Type="varchar2" MaxLength="50" />
+          <Property Name="CLASIFICACIONASIGNATURA" Type="varchar2" MaxLength="50" />
+          <Property Name="ESTADOASIGNATURA" Type="varchar2" MaxLength="30" />
+          <Property Name="DESCRIPCIONASIGNATURA" Type="varchar2" MaxLength="250" />
+          <Property Name="CODIGOASIGNATURA" Type="varchar2" MaxLength="15" />
+        </EntityType>
         <EntityType Name="CURSO">
           <Key>
             <PropertyRef Name="IDENTIFICADORCURSO" />
@@ -30,21 +45,42 @@
           </Key>
           <Property Name="IDENTIFICADORFRANJA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORCURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORRECURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="HORAINICIOFRANJA" Type="varchar2" MaxLength="10" />
           <Property Name="HORAFINFRANJA" Type="varchar2" MaxLength="10" />
           <Property Name="DIAFRANJA" Type="varchar2" MaxLength="124" />
           <Property Name="ESTADOFRANJA" Type="varchar2" MaxLength="10" />
         </EntityType>
-        <EntityType Name="SALON">
+        <EntityType Name="RECURSO">
           <Key>
-            <PropertyRef Name="IDENTIFICADORSALON" />
+            <PropertyRef Name="IDENTIFICADORRECURSO" />
           </Key>
-          <Property Name="IDENTIFICADORSALON" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORRECURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDTIPORECURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="IDENTIFICADORFACULTAD" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="NOMBRESALON" Type="varchar2" MaxLength="120" />
-          <Property Name="ESTADOSALON" Type="varchar2" MaxLength="20" />
+          <Property Name="NOMBRERECURSO" Type="varchar2" MaxLength="120" />
+          <Property Name="ESTADORECURSO" Type="varchar2" MaxLength="20" />
         </EntityType>
+        <EntityType Name="TIPORECURSO">
+          <Key>
+            <PropertyRef Name="IDTIPORECURSO" />
+          </Key>
+          <Property Name="IDTIPORECURSO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRETIPORECURSO" Type="varchar2" MaxLength="255" />
+          <Property Name="ESTADOTIPORECURSO" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <Association Name="FK_CURSO_CURSO_TIE_ASIGNATU">
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FRANJA_H_CURSO_TIE_CURSO">
           <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
           <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
@@ -57,119 +93,164 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRANJA_H_SALON_TIE_SALON">
-          <End Role="SALON" Type="Self.SALON" Multiplicity="1" />
+        <Association Name="FK_FRANJA_RECURSO">
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="1" />
           <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SALON">
-              <PropertyRef Name="IDENTIFICADORSALON" />
+            <Principal Role="RECURSO">
+              <PropertyRef Name="IDENTIFICADORRECURSO" />
             </Principal>
             <Dependent Role="FRANJA_HORARIA">
-              <PropertyRef Name="IDENTIFICADORSALON" />
+              <PropertyRef Name="IDENTIFICADORRECURSO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SALON_FACULTAD__FACULTAD">
+        <Association Name="FK_RECURSO_FACULTAD__FACULTAD">
           <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
-          <End Role="SALON" Type="Self.SALON" Multiplicity="*" />
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FACULTAD">
               <PropertyRef Name="IDENTIFICADORFACULTAD" />
             </Principal>
-            <Dependent Role="SALON">
+            <Dependent Role="RECURSO">
               <PropertyRef Name="IDENTIFICADORFACULTAD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GestionInfraestructuraEntitiesModelStoreContainer">
+        <Association Name="FK_RECURSO_RECURSO_T_TIPORECU">
+          <End Role="TIPORECURSO" Type="Self.TIPORECURSO" Multiplicity="1" />
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPORECURSO">
+              <PropertyRef Name="IDTIPORECURSO" />
+            </Principal>
+            <Dependent Role="RECURSO">
+              <PropertyRef Name="IDTIPORECURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ASIGNATURA" EntityType="Self.ASIGNATURA" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="CURSO" EntityType="Self.CURSO" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="FACULTAD" EntityType="Self.FACULTAD" Schema="GPA" store:Type="Tables" />
           <EntitySet Name="FRANJA_HORARIA" EntityType="Self.FRANJA_HORARIA" Schema="GPA" store:Type="Tables" />
-          <EntitySet Name="SALON" EntityType="Self.SALON" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="RECURSO" EntityType="Self.RECURSO" Schema="GPA" store:Type="Tables" />
+          <EntitySet Name="TIPORECURSO" EntityType="Self.TIPORECURSO" Schema="GPA" store:Type="Tables" />
+          <AssociationSet Name="FK_CURSO_CURSO_TIE_ASIGNATU" Association="Self.FK_CURSO_CURSO_TIE_ASIGNATU">
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURA" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
           <AssociationSet Name="FK_FRANJA_H_CURSO_TIE_CURSO" Association="Self.FK_FRANJA_H_CURSO_TIE_CURSO">
             <End Role="CURSO" EntitySet="CURSO" />
             <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
           </AssociationSet>
-          <AssociationSet Name="FK_FRANJA_H_SALON_TIE_SALON" Association="Self.FK_FRANJA_H_SALON_TIE_SALON">
-            <End Role="SALON" EntitySet="SALON" />
+          <AssociationSet Name="FK_FRANJA_RECURSO" Association="Self.FK_FRANJA_RECURSO">
+            <End Role="RECURSO" EntitySet="RECURSO" />
             <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
           </AssociationSet>
-          <AssociationSet Name="FK_SALON_FACULTAD__FACULTAD" Association="Self.FK_SALON_FACULTAD__FACULTAD">
+          <AssociationSet Name="FK_RECURSO_FACULTAD__FACULTAD" Association="Self.FK_RECURSO_FACULTAD__FACULTAD">
             <End Role="FACULTAD" EntitySet="FACULTAD" />
-            <End Role="SALON" EntitySet="SALON" />
+            <End Role="RECURSO" EntitySet="RECURSO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECURSO_RECURSO_T_TIPORECU" Association="Self.FK_RECURSO_RECURSO_T_TIPORECU">
+            <End Role="TIPORECURSO" EntitySet="TIPORECURSO" />
+            <End Role="RECURSO" EntitySet="RECURSO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GestionInfraestructuraEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="GestionInfraestructuraEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CURSOes" EntityType="GestionInfraestructuraEntitiesModel.CURSO" />
-          <EntitySet Name="FACULTADs" EntityType="GestionInfraestructuraEntitiesModel.FACULTAD" />
-          <EntitySet Name="FRANJA_HORARIA" EntityType="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" />
-          <EntitySet Name="SALONs" EntityType="GestionInfraestructuraEntitiesModel.SALON" />
-          <AssociationSet Name="FK_FRANJA_H_CURSO_TIE_CURSO" Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_CURSO_TIE_CURSO">
-            <End Role="CURSO" EntitySet="CURSOes" />
-            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SALON_FACULTAD__FACULTAD" Association="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD">
-            <End Role="FACULTAD" EntitySet="FACULTADs" />
-            <End Role="SALON" EntitySet="SALONs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FRANJA_H_SALON_TIE_SALON" Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON">
-            <End Role="SALON" EntitySet="SALONs" />
-            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ASIGNATURA">
+          <Key>
+            <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+          </Key>
+          <Property Name="IDENTIFICADORASIGNATURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBREASIGNATURA" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="CORREQUISITOSASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PREREQUISITOSASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CREDITOSASIGNATURA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MODALIDADASIGNATURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CLASIFICACIONASIGNATURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOASIGNATURA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCIONASIGNATURA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOASIGNATURA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CURSOes" Relationship="Self.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="ASIGNATURA" ToRole="CURSO" />
+        </EntityType>
         <EntityType Name="CURSO">
           <Key>
             <PropertyRef Name="IDENTIFICADORCURSO" />
           </Key>
-          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORASIGNATURA" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORASIGNATURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBRECURSO" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOCURSO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FRANJA_HORARIA" Relationship="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="CURSO" ToRole="FRANJA_HORARIA" />
+          <NavigationProperty Name="ASIGNATURA" Relationship="Self.FK_CURSO_CURSO_TIE_ASIGNATU" FromRole="CURSO" ToRole="ASIGNATURA" />
+          <NavigationProperty Name="FRANJA_HORARIA" Relationship="Self.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="CURSO" ToRole="FRANJA_HORARIA" />
         </EntityType>
         <EntityType Name="FACULTAD">
           <Key>
             <PropertyRef Name="IDENTIFICADORFACULTAD" />
           </Key>
-          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBREFACULTAD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOFACULTAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CODIGOFACULTAD" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SALONs" Relationship="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD" FromRole="FACULTAD" ToRole="SALON" />
+          <NavigationProperty Name="RECURSOes" Relationship="Self.FK_RECURSO_FACULTAD__FACULTAD" FromRole="FACULTAD" ToRole="RECURSO" />
         </EntityType>
         <EntityType Name="FRANJA_HORARIA">
           <Key>
             <PropertyRef Name="IDENTIFICADORFRANJA" />
           </Key>
-          <Property Name="IDENTIFICADORFRANJA" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORSALON" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADORFRANJA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORCURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORRECURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="HORAINICIOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="HORAFINFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DIAFRANJA" Type="String" MaxLength="124" FixedLength="false" Unicode="false" />
           <Property Name="ESTADOFRANJA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CURSO" Relationship="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="FRANJA_HORARIA" ToRole="CURSO" />
-          <NavigationProperty Name="SALON" Relationship="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON" FromRole="FRANJA_HORARIA" ToRole="SALON" />
+          <NavigationProperty Name="CURSO" Relationship="Self.FK_FRANJA_H_CURSO_TIE_CURSO" FromRole="FRANJA_HORARIA" ToRole="CURSO" />
+          <NavigationProperty Name="RECURSO" Relationship="Self.FK_FRANJA_RECURSO" FromRole="FRANJA_HORARIA" ToRole="RECURSO" />
         </EntityType>
-        <EntityType Name="SALON">
+        <EntityType Name="RECURSO">
           <Key>
-            <PropertyRef Name="IDENTIFICADORSALON" />
+            <PropertyRef Name="IDENTIFICADORRECURSO" />
           </Key>
-          <Property Name="IDENTIFICADORSALON" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="NOMBRESALON" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADOSALON" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FACULTAD" Relationship="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD" FromRole="SALON" ToRole="FACULTAD" />
-          <NavigationProperty Name="FRANJA_HORARIA" Relationship="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON" FromRole="SALON" ToRole="FRANJA_HORARIA" />
+          <Property Name="IDENTIFICADORRECURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDTIPORECURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFICADORFACULTAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRERECURSO" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADORECURSO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACULTAD" Relationship="Self.FK_RECURSO_FACULTAD__FACULTAD" FromRole="RECURSO" ToRole="FACULTAD" />
+          <NavigationProperty Name="FRANJA_HORARIA" Relationship="Self.FK_FRANJA_RECURSO" FromRole="RECURSO" ToRole="FRANJA_HORARIA" />
+          <NavigationProperty Name="TIPORECURSO" Relationship="Self.FK_RECURSO_RECURSO_T_TIPORECU" FromRole="RECURSO" ToRole="TIPORECURSO" />
         </EntityType>
+        <EntityType Name="TIPORECURSO">
+          <Key>
+            <PropertyRef Name="IDTIPORECURSO" />
+          </Key>
+          <Property Name="IDTIPORECURSO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRETIPORECURSO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADOTIPORECURSO" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="RECURSOes" Relationship="Self.FK_RECURSO_RECURSO_T_TIPORECU" FromRole="TIPORECURSO" ToRole="RECURSO" />
+        </EntityType>
+        <Association Name="FK_CURSO_CURSO_TIE_ASIGNATU">
+          <End Role="ASIGNATURA" Type="Self.ASIGNATURA" Multiplicity="1" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASIGNATURA">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Principal>
+            <Dependent Role="CURSO">
+              <PropertyRef Name="IDENTIFICADORASIGNATURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FRANJA_H_CURSO_TIE_CURSO">
-          <End Type="GestionInfraestructuraEntitiesModel.CURSO" Role="CURSO" Multiplicity="1" />
-          <End Type="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" Role="FRANJA_HORARIA" Multiplicity="*" />
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
+          <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CURSO">
               <PropertyRef Name="IDENTIFICADORCURSO" />
@@ -179,77 +260,143 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SALON_FACULTAD__FACULTAD">
-          <End Type="GestionInfraestructuraEntitiesModel.FACULTAD" Role="FACULTAD" Multiplicity="1" />
-          <End Type="GestionInfraestructuraEntitiesModel.SALON" Role="SALON" Multiplicity="*" />
+        <Association Name="FK_RECURSO_FACULTAD__FACULTAD">
+          <End Role="FACULTAD" Type="Self.FACULTAD" Multiplicity="1" />
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FACULTAD">
               <PropertyRef Name="IDENTIFICADORFACULTAD" />
             </Principal>
-            <Dependent Role="SALON">
+            <Dependent Role="RECURSO">
               <PropertyRef Name="IDENTIFICADORFACULTAD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FRANJA_H_SALON_TIE_SALON">
-          <End Type="GestionInfraestructuraEntitiesModel.SALON" Role="SALON" Multiplicity="1" />
-          <End Type="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" Role="FRANJA_HORARIA" Multiplicity="*" />
+        <Association Name="FK_FRANJA_RECURSO">
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="1" />
+          <End Role="FRANJA_HORARIA" Type="Self.FRANJA_HORARIA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SALON">
-              <PropertyRef Name="IDENTIFICADORSALON" />
+            <Principal Role="RECURSO">
+              <PropertyRef Name="IDENTIFICADORRECURSO" />
             </Principal>
             <Dependent Role="FRANJA_HORARIA">
-              <PropertyRef Name="IDENTIFICADORSALON" />
+              <PropertyRef Name="IDENTIFICADORRECURSO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RECURSO_RECURSO_T_TIPORECU">
+          <End Role="TIPORECURSO" Type="Self.TIPORECURSO" Multiplicity="1" />
+          <End Role="RECURSO" Type="Self.RECURSO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPORECURSO">
+              <PropertyRef Name="IDTIPORECURSO" />
+            </Principal>
+            <Dependent Role="RECURSO">
+              <PropertyRef Name="IDTIPORECURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionInfraestructuraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ASIGNATURAs" EntityType="Self.ASIGNATURA" />
+          <EntitySet Name="CURSOes" EntityType="Self.CURSO" />
+          <EntitySet Name="FACULTADs" EntityType="Self.FACULTAD" />
+          <EntitySet Name="FRANJA_HORARIA" EntityType="Self.FRANJA_HORARIA" />
+          <EntitySet Name="RECURSOes" EntityType="Self.RECURSO" />
+          <EntitySet Name="TIPORECURSOes" EntityType="Self.TIPORECURSO" />
+          <AssociationSet Name="FK_CURSO_CURSO_TIE_ASIGNATU" Association="Self.FK_CURSO_CURSO_TIE_ASIGNATU">
+            <End Role="ASIGNATURA" EntitySet="ASIGNATURAs" />
+            <End Role="CURSO" EntitySet="CURSOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRANJA_H_CURSO_TIE_CURSO" Association="Self.FK_FRANJA_H_CURSO_TIE_CURSO">
+            <End Role="CURSO" EntitySet="CURSOes" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECURSO_FACULTAD__FACULTAD" Association="Self.FK_RECURSO_FACULTAD__FACULTAD">
+            <End Role="FACULTAD" EntitySet="FACULTADs" />
+            <End Role="RECURSO" EntitySet="RECURSOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FRANJA_RECURSO" Association="Self.FK_FRANJA_RECURSO">
+            <End Role="RECURSO" EntitySet="RECURSOes" />
+            <End Role="FRANJA_HORARIA" EntitySet="FRANJA_HORARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECURSO_RECURSO_T_TIPORECU" Association="Self.FK_RECURSO_RECURSO_T_TIPORECU">
+            <End Role="TIPORECURSO" EntitySet="TIPORECURSOes" />
+            <End Role="RECURSO" EntitySet="RECURSOes" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GestionInfraestructuraEntitiesModelStoreContainer" CdmEntityContainer="GestionInfraestructuraEntities">
-          <EntitySetMapping Name="CURSOes">
-            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.CURSO">
-              <MappingFragment StoreEntitySet="CURSO">
-                <ScalarProperty Name="ESTADOCURSO" ColumnName="ESTADOCURSO" />
-                <ScalarProperty Name="NOMBRECURSO" ColumnName="NOMBRECURSO" />
-                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="GestionInfraestructuraEntities">
+          <EntitySetMapping Name="ASIGNATURAs">
+            <EntityTypeMapping TypeName="Model.ASIGNATURA">
+              <MappingFragment StoreEntitySet="ASIGNATURA">
                 <ScalarProperty Name="IDENTIFICADORASIGNATURA" ColumnName="IDENTIFICADORASIGNATURA" />
+                <ScalarProperty Name="NOMBREASIGNATURA" ColumnName="NOMBREASIGNATURA" />
+                <ScalarProperty Name="CORREQUISITOSASIGNATURA" ColumnName="CORREQUISITOSASIGNATURA" />
+                <ScalarProperty Name="PREREQUISITOSASIGNATURA" ColumnName="PREREQUISITOSASIGNATURA" />
+                <ScalarProperty Name="CREDITOSASIGNATURA" ColumnName="CREDITOSASIGNATURA" />
+                <ScalarProperty Name="MODALIDADASIGNATURA" ColumnName="MODALIDADASIGNATURA" />
+                <ScalarProperty Name="CLASIFICACIONASIGNATURA" ColumnName="CLASIFICACIONASIGNATURA" />
+                <ScalarProperty Name="ESTADOASIGNATURA" ColumnName="ESTADOASIGNATURA" />
+                <ScalarProperty Name="DESCRIPCIONASIGNATURA" ColumnName="DESCRIPCIONASIGNATURA" />
+                <ScalarProperty Name="CODIGOASIGNATURA" ColumnName="CODIGOASIGNATURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURSOes">
+            <EntityTypeMapping TypeName="Model.CURSO">
+              <MappingFragment StoreEntitySet="CURSO">
                 <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
+                <ScalarProperty Name="IDENTIFICADORASIGNATURA" ColumnName="IDENTIFICADORASIGNATURA" />
+                <ScalarProperty Name="IDENTIFICADORUSUARIO" ColumnName="IDENTIFICADORUSUARIO" />
+                <ScalarProperty Name="NOMBRECURSO" ColumnName="NOMBRECURSO" />
+                <ScalarProperty Name="ESTADOCURSO" ColumnName="ESTADOCURSO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FACULTADs">
-            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.FACULTAD">
+            <EntityTypeMapping TypeName="Model.FACULTAD">
               <MappingFragment StoreEntitySet="FACULTAD">
-                <ScalarProperty Name="CODIGOFACULTAD" ColumnName="CODIGOFACULTAD" />
-                <ScalarProperty Name="ESTADOFACULTAD" ColumnName="ESTADOFACULTAD" />
-                <ScalarProperty Name="NOMBREFACULTAD" ColumnName="NOMBREFACULTAD" />
                 <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
+                <ScalarProperty Name="NOMBREFACULTAD" ColumnName="NOMBREFACULTAD" />
+                <ScalarProperty Name="ESTADOFACULTAD" ColumnName="ESTADOFACULTAD" />
+                <ScalarProperty Name="CODIGOFACULTAD" ColumnName="CODIGOFACULTAD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FRANJA_HORARIA">
-            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA">
+            <EntityTypeMapping TypeName="Model.FRANJA_HORARIA">
               <MappingFragment StoreEntitySet="FRANJA_HORARIA">
-                <ScalarProperty Name="ESTADOFRANJA" ColumnName="ESTADOFRANJA" />
-                <ScalarProperty Name="DIAFRANJA" ColumnName="DIAFRANJA" />
-                <ScalarProperty Name="HORAFINFRANJA" ColumnName="HORAFINFRANJA" />
-                <ScalarProperty Name="HORAINICIOFRANJA" ColumnName="HORAINICIOFRANJA" />
-                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
-                <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
                 <ScalarProperty Name="IDENTIFICADORFRANJA" ColumnName="IDENTIFICADORFRANJA" />
+                <ScalarProperty Name="IDENTIFICADORCURSO" ColumnName="IDENTIFICADORCURSO" />
+                <ScalarProperty Name="IDENTIFICADORRECURSO" ColumnName="IDENTIFICADORRECURSO" />
+                <ScalarProperty Name="HORAINICIOFRANJA" ColumnName="HORAINICIOFRANJA" />
+                <ScalarProperty Name="HORAFINFRANJA" ColumnName="HORAFINFRANJA" />
+                <ScalarProperty Name="DIAFRANJA" ColumnName="DIAFRANJA" />
+                <ScalarProperty Name="ESTADOFRANJA" ColumnName="ESTADOFRANJA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SALONs">
-            <EntityTypeMapping TypeName="GestionInfraestructuraEntitiesModel.SALON">
-              <MappingFragment StoreEntitySet="SALON">
-                <ScalarProperty Name="ESTADOSALON" ColumnName="ESTADOSALON" />
-                <ScalarProperty Name="NOMBRESALON" ColumnName="NOMBRESALON" />
+          <EntitySetMapping Name="RECURSOes">
+            <EntityTypeMapping TypeName="Model.RECURSO">
+              <MappingFragment StoreEntitySet="RECURSO">
+                <ScalarProperty Name="IDENTIFICADORRECURSO" ColumnName="IDENTIFICADORRECURSO" />
+                <ScalarProperty Name="IDTIPORECURSO" ColumnName="IDTIPORECURSO" />
                 <ScalarProperty Name="IDENTIFICADORFACULTAD" ColumnName="IDENTIFICADORFACULTAD" />
-                <ScalarProperty Name="IDENTIFICADORSALON" ColumnName="IDENTIFICADORSALON" />
+                <ScalarProperty Name="NOMBRERECURSO" ColumnName="NOMBRERECURSO" />
+                <ScalarProperty Name="ESTADORECURSO" ColumnName="ESTADORECURSO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPORECURSOes">
+            <EntityTypeMapping TypeName="Model.TIPORECURSO">
+              <MappingFragment StoreEntitySet="TIPORECURSO">
+                <ScalarProperty Name="IDTIPORECURSO" ColumnName="IDTIPORECURSO" />
+                <ScalarProperty Name="NOMBRETIPORECURSO" ColumnName="NOMBRETIPORECURSO" />
+                <ScalarProperty Name="ESTADOTIPORECURSO" ColumnName="ESTADOTIPORECURSO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

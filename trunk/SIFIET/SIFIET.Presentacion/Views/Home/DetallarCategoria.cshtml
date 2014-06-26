@@ -4,9 +4,15 @@
     ViewBag.Title = "Detalle Categoria";
     WebGrid grid = new WebGrid(Model);
 }
-
-<h2>@ViewBag.nombreCategoria</h2>
-
+<div>
+    @using (Html.BeginForm("BuscarContenido", "Home", FormMethod.Get))
+    {
+        <p>
+            Buscar: @Html.TextBox("nombreContenido")
+            <input type="submit" value="Buscar" />
+        </p>
+    }
+</div>
 <div class="row">
     <div class="col-md-11">
         <div class="table-responsive">

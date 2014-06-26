@@ -173,7 +173,7 @@ function confirmarEliminarCurso() {
     return confirm(mensaje);
 }
 function confirmacionAgregarSalon() {
-    var nombre = document.getElementById("NOMBRESALON").value;    
+    var nombre = document.getElementById("NOMBRERECURSO").value;    
     var mensaje;
     if (nombre.trim() == "") {
         mensaje = "Hay datos que son requeridos para poder guardar el registro,\n por favor diligencie todos los campos";
@@ -181,7 +181,7 @@ function confirmacionAgregarSalon() {
         return true;
     }
     else {
-        mensaje = "¿Desea guardar el Salon con la informacion proporcionada?";
+        mensaje = "¿Desea guardar el Recurso con la informacion proporcionada?";
         return confirm(mensaje);
     }
 }
@@ -190,14 +190,14 @@ function confirmSalirSalon() {
     var url = window.location.pathname;
     var pathArray = url.split('/');        // <-- no need in "string()"
     var host = pathArray[0];
-    var newHost = '/Salones/Index';
+    var newHost = '/Recursos/Index';
     if (r == true) {
         window.location = host + newHost;
     }
     return false;
 }
 function confirmarEliminarSalon() {
-    var mensaje = "Este salon tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el salon?";
+    var mensaje = "Este Recurso tiene relacion con registros de la base de datos \n ¿Confirma que desea eliminar el Recurso?";
     return confirm(mensaje);
 }
 function confirmacionAgregarGrupo() {

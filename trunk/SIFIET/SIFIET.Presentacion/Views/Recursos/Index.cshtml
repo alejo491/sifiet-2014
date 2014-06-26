@@ -1,0 +1,70 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<SIFIET.GestionInfraestructura.Datos.Modelo.RECURSO>
+@{
+
+    ViewBag.Title = "Recursos";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    <h2>Recursos</h2>
+    @if (!String.IsNullOrEmpty(ViewBag.ResultadoBusqueda) && ViewBag.ResultadoBusqueda.Equals("ListaVacia"))
+    {
+        <script> mensajeNoUsuarios(); </script>
+    }
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+    {
+            <fieldset style="margin-bottom: 3%;">
+                <legend style="font-size: 16px;">Busqueda</legend>
+                <div style="display: block; font-size: 14px;" class="row">
+                    <div style="float: left; margin-left: 5%;">
+                        <label>  Activos</label>@Html.RadioButton("estado", "Activo", true)
+                        <label>  Inactivos</label>@Html.RadioButton("estado", "Inactivo")
+                    </div>
+                    <div style="float: right; margin-right: 10%;">
+                        <label> Filtro:  </label>
+                        @Html.DropDownList("idRecurso", ViewBag.campoBusqueda as SelectList) 
+                        <label>Buscar:</label>@Html.TextBox("nombreRecursoIn")
+                        <input type="submit" value="Buscar" />
+                    </div>
+                </div>
+        </fieldset>
+    }
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table-responsive">
+                @grid.GetHtml(
+                    tableStyle: "table table-striped  table-bordered table-hover",
+                    fillEmptyRows: true,
+                    footerStyle: "paginacion",
+                    headerStyle: "theader",
+                    mode: WebGridPagerModes.All,
+                    columns: new[]
+                    {
+
+                        grid.Column("NOMBRERECURSO",header:"Nombre"),
+                        grid.Column("NombreFacultad",header:"Facultad"),
+                        grid.Column("",header:"Opciones",
+                            format: @<text>
+                            @Html.ActionLink("Editar", "ModificarRecurso", new { idRecurso = item.IDENTIFICADORRECURSO }) |
+                            @Html.ActionLink("Visualizar", "VisualizarRecurso", new { idRecurso = item.IDENTIFICADORRECURSO }) |
+                            @Html.ActionLink("Eliminar", "EliminarRecurso", new { idRecurso = item.IDENTIFICADORRECURSO }, new { onclick = "return confirmarEliminarSalon()" })
+                            </text>
+                            )
+                    })
+            </div>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Agregar", "RegistrarRecurso")
+        @Html.ActionLink("Cargar desde Archivo", "CargarArchivo")
+        <h3> @TempData["UpSession"] </h3>
+        <h3> @ViewBag.Resultado </h3>
+    </p>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+﻿@model SIFIET.GestionInfraestructura.Datos.Modelo.RECURSO
+
+@{
+    ViewBag.Title = "Editar Salon";
+}
+
+
+
+
+<div>
+
+    @using (Html.BeginForm("ModificarRecurso", "Recursos"))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <fieldset>
+            <legend>Editar Curso</legend>
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.IDENTIFICADORRECURSO)
+            <div>
+                <div>
+                    Nombre :
+                    <div>
+                        @Html.EditorFor(model => model.NOMBRERECURSO)
+                        @Html.ValidationMessageFor(model => model.NOMBRERECURSO)
+                    </div>
+                </div>
+                <div>
+                    Tipo de Recurso :
+                    <div>
+                        @Html.DropDownListFor(model => model.IDTIPORECURSO, ViewBag.ListaTiposRecurso as SelectList)
+                        @Html.ValidationMessageFor(model => model.IDTIPORECURSO)
+
+                    </div>
+                </div>
+                <div>
+                    Facultad :
+                    <div>
+                        @Html.DropDownListFor(model => model.IDENTIFICADORFACULTAD, ViewBag.ListaFacultades as SelectList)
+                        @Html.ValidationMessageFor(model => model.IDENTIFICADORFACULTAD)
+
+                    </div>
+                </div>
+                <div>
+                    Estado :
+                    <div>
+                        Activo @Html.RadioButtonFor(model => model.ESTADORECURSO, "Activo")
+                        Inactivo @Html.RadioButtonFor(model => model.ESTADORECURSO, "Inactivo")
+                        @Html.ValidationMessageFor(model => model.ESTADORECURSO)
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Guardar" onclick="return confirmacionAgregarSalon();" />
+                    <input type="submit" value="Cancelar" onclick="return confirmSalirSalon();" />
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

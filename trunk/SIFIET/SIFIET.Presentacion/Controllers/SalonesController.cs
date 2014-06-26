@@ -11,6 +11,7 @@ using SIFIET.Aplicacion;
 
 namespace SIFIET.Presentacion.Controllers
 {
+    /*
     public class SalonesController : Controller
     {
         [Authorize(Roles = "Salon")]
@@ -73,7 +74,7 @@ namespace SIFIET.Presentacion.Controllers
                 return View(oSalon);
             }
         }
-         [Authorize(Roles = "Salon")]
+         //[Authorize(Roles = "Salon")]
         public ActionResult ModificarSalon(decimal idSalon)
         {
             var oSalon = FachadaSIFIET.VisualizarSalon(idSalon) as SALON;
@@ -114,7 +115,7 @@ namespace SIFIET.Presentacion.Controllers
 
 
         [HttpPost, ActionName("EliminarSalon")]
-        [ValidateAntiForgeryToken]*/
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public ActionResult EliminarSalon(decimal idSalon)
         {
@@ -135,7 +136,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Lectura del archivo Excel
-         [Authorize(Roles = "Salon")]
+         //[Authorize(Roles = "Salon")]
         public ActionResult CargarArchivo()
         {
             return View();
@@ -258,7 +259,7 @@ namespace SIFIET.Presentacion.Controllers
         }
 
         // Mostrar la infomacion antes de almacenar en la Base de Datos
-        [Authorize(Roles = "Salon")]
+       // [Authorize(Roles = "Salon")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();
@@ -414,11 +415,11 @@ namespace SIFIET.Presentacion.Controllers
         {
             return FachadaSIFIET.ObtenerIdFacultad(nombreFacultad);
         }
-        [Authorize(Roles = "Salon")]
+       // [Authorize(Roles = "Salon")]
         public ActionResult EnviarDatos()
         {
-            /*try
-            {*/
+            try
+            {
                 DataSet ds = new DataSet();
                 ds = (DataSet)Session["DatosSession"];
                 string filePath = Server.MapPath(@"~\Uploads") + "\\file.txt";
@@ -442,12 +443,12 @@ namespace SIFIET.Presentacion.Controllers
                 }
                 TempData["UpSession"] = "El archivo no fué cargado con exito";
                 return RedirectToAction("Index");
-            /*}
+            }
             catch (Exception)
             {
                 Dispose();
                 return RedirectToAction("Index");
-            }*/
+            }
         }
-    }
+    }*/
 }

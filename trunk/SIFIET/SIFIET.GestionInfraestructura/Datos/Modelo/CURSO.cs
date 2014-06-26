@@ -25,6 +25,7 @@ namespace SIFIET.GestionInfraestructura.Datos.Modelo
         public string NOMBRECURSO { get; set; }
         public string ESTADOCURSO { get; set; }
     
+        public virtual ASIGNATURA ASIGNATURA { get; set; }
         public virtual ICollection<FRANJA_HORARIA> FRANJA_HORARIA { get; set; }
     }
 }

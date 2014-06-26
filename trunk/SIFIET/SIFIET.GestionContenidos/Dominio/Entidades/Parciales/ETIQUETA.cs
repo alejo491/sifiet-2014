@@ -15,14 +15,14 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
 
     public class ETIQUETAMETADATA
     {
-        [Display(Name = "Nombre :")]
+        [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [NombreYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe una Etiqueta usando ese nombre")]
         [StringLength(255, ErrorMessage = "El {0} no pueder ser mayor de 255 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string NOMBREETIQUETA { get; set; }
 
-        [Display(Name = "Descripción :")]
+        [Display(Name = "Descripción")]
         [Required(ErrorMessage = "Este campos es requerido")]
         [StringLength(1000, ErrorMessage = "El {0} no pueder ser mayor de 1000 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-z]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.CONTENIDO>
+
+@{
+    ViewBag.Title = "Detalle Categoria";
+    WebGrid grid = new WebGrid(Model);
+}
+<div>
+    @using (Html.BeginForm("BuscarContenido", "Home", FormMethod.Get))
+    {
+        <p>
+            Buscar: @Html.TextBox("nombreContenido")
+            <input type="submit" value="Buscar" />
+        </p>
+    }
+</div>
+<div class="row">
+    <div class="col-md-11">
+        <div class="table-responsive">
+            @grid.GetHtml(
+        tableStyle: "table table-striped  table-bordered table-hover",
+        fillEmptyRows: false,
+        footerStyle: "paginacion",
+        headerStyle: "theader",
+        mode: WebGridPagerModes.All,
+        columns: new[]
+        {
+            grid.Column("Titulo", format: @<text>@Html.ActionLink((string)item.TITULOCONTENIDO,
+"VisualizarContenido", "Home", new { idContenidoIn = item.IDENTIFICADORCONTENIDO }, null)</text>),
+            grid.Column("FECHACREACIONCONTENIDO",header: "Fecha")
+
+
+        })
+        </div>
+    </div>
+</div>
+

@@ -49,7 +49,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             return View(FachadaSIFIET.VisualizarCurso(idCurso));
         }
-        [Authorize(Roles = "Cursos")]
+        //[Authorize(Roles = "Cursos")]
         public ActionResult RegistrarCurso()
         {
             var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
@@ -65,8 +65,8 @@ namespace SIFIET.Presentacion.Controllers
         [Authorize(Roles = "Cursos")]
         public ActionResult RegistrarCurso(CURSO oCurso)
         {
-            try
-            {
+            //try
+            //{
                 var listaAsignaturas = FachadaSIFIET.ConsultarAsignaturas(0,"","Activo");
                 var listaDocentes = FachadaSIFIET.ConsultarDocentes();
                 ViewBag.ListaAsignaturas = new SelectList(listaAsignaturas, "IDENTIFICADORASIGNATURA", "NOMBREASIGNATURA");
@@ -81,13 +81,13 @@ namespace SIFIET.Presentacion.Controllers
                 }
                 TempData["ResultadoOperacion"] = "Fallo al Agregar el Curso";
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(oCurso);
-            }
+           // }
+            //catch
+            //{
+                //return View(oCurso);
+            //}
         }
-        [Authorize(Roles = "Cursos")]
+       // [Authorize(Roles = "Cursos")]
         public ActionResult ModificarCurso(decimal idCurso)
         {
             var oCurso = FachadaSIFIET.VisualizarCurso(idCurso);
@@ -134,11 +134,11 @@ namespace SIFIET.Presentacion.Controllers
         [Authorize(Roles = "Cursos")]
         public ActionResult ModificarHorario(CURSO oCurso)
         {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarRecursos(0, "", "Activo");
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);            
             return View(oCurso);
         }
-        [Authorize(Roles = "Cursos")]
+       // [Authorize(Roles = "Cursos")]
         public ActionResult EliminarCurso(decimal idCurso)
         {
             var resultado = FachadaSIFIET.EliminarCurso(idCurso);
@@ -205,10 +205,10 @@ namespace SIFIET.Presentacion.Controllers
             });
             return Json(myData, JsonRequestBehavior.AllowGet);
         }
-        [Authorize(Roles = "Cursos")]
+       // [Authorize(Roles = "Cursos")]
         public ActionResult RegistrarHorario(CURSO oCurso)
         {
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "","Activo");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarRecursos(0, "","Activo");
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(oCurso.IDENTIFICADORCURSO);
            // ViewBag.ListaDias = ViewBag.ListaFrajaDia = FachadaSIFIET.ConsultarFranjaHoraria();
             //ViewBag.ListaHoraInicio = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
@@ -222,14 +222,14 @@ namespace SIFIET.Presentacion.Controllers
         public ActionResult RegistrarHorario(FormCollection datos)
         {
 
-            ViewBag.ListaSalones = FachadaSIFIET.ConsultarSalones(0, "", "Activo");
+            ViewBag.ListaSalones = FachadaSIFIET.ConsultarRecursos(0, "", "Activo");
 
             try
             {
                 FRANJA_HORARIA franja =new FRANJA_HORARIA()
                 {
                     IDENTIFICADORCURSO = decimal.Parse(datos["idCurso"]),
-                    IDENTIFICADORSALON = decimal.Parse(datos["IDENTIFICADORSALON"]),
+                    IDENTIFICADORRECURSO = decimal.Parse(datos["IDENTIFICADORRECURSO"]),
                     HORAFINFRANJA = datos["HORAFINFRANJA"],
                     HORAINICIOFRANJA = datos["HORAINICIOFRANJA"],
                     DIAFRANJA = datos["DIAFRANJA"],
@@ -263,7 +263,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             var ban = true;
 
-            if (oFranjaHoraria.IDENTIFICADORSALON == 0)
+            if (oFranjaHoraria.IDENTIFICADORRECURSO == 0)
             {
                 ban = false;
             }
@@ -281,7 +281,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             return ban;
         }
-        [Authorize(Roles = "Cursos")]
+       // [Authorize(Roles = "Cursos")]
         public ActionResult EliminarHorario(int idCurso,int idHorario)
         {
             ViewBag.Horario = FachadaSIFIET.ObtenerHorarioCurso(idCurso);
@@ -415,7 +415,7 @@ namespace SIFIET.Presentacion.Controllers
             }
             return RedirectToAction("CargarInformacion");
         }
-        [Authorize(Roles = "Cursos")]
+        //[Authorize(Roles = "Cursos")]
         public ActionResult CargarInformacion()
         {
             DataSet ds = new DataSet();
@@ -586,7 +586,7 @@ namespace SIFIET.Presentacion.Controllers
         {
             return FachadaSIFIET.ObtenerIdUsuario(nombreDocente, apellidoDocente);
         }
-        [Authorize(Roles = "Cursos")]
+        //[Authorize(Roles = "Cursos")]
         public ActionResult EnviarDatos()
         {
             try

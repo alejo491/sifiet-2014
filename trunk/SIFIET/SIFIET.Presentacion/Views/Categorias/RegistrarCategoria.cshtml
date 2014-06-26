@@ -1,10 +1,4 @@
-﻿<div>
-    <ul>
-        <li style="display: inline; list-style-type: none;" class="first"><a href="#">Contenidos</a></li>
-        <li style="display: inline; list-style-type: none;"><a href="/Categorias">Categorias</a></li>
-        <li style="display: inline; list-style-type: none;"><a href="/Etiquetas">Etiquetas</a></li>
-    </ul>
-</div>
+﻿@Html.Partial("nav_bar_contenidos")
 @model SIFIET.GestionContenidos.Datos.Modelo.CATEGORIA
 
 @{
@@ -45,6 +39,13 @@
             Si @Html.RadioButtonFor(model => model.VISIBLEPRINCIPALCATEGORIA, 1)
             No @Html.RadioButtonFor(model => model.VISIBLEPRINCIPALCATEGORIA, 0)
             @Html.ValidationMessageFor(model => model.VISIBLEPRINCIPALCATEGORIA)
+        </div>
+        <div class="editor-field">
+            Activo
+            @Html.RadioButtonFor(model => model.ESTADOCATEGORIA, "Activo", true)
+            Inactivado
+            @Html.RadioButtonFor(model => model.ESTADOCATEGORIA, "Inactivo")
+            @Html.ValidationMessageFor(model => model.ESTADOCATEGORIA)
         </div>
         <div>
             <p>

@@ -4,14 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="912c3af8e13246c2b80b99362d36c784" Name="Diagram1">
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.CURSO" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FACULTAD" Width="1.5" PointX="0.5" PointY="1.375" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.FRANJA_HORARIA" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="GestionInfraestructuraEntitiesModel.SALON" Width="1.5" PointX="3" PointY="1.25" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_CURSO_TIE_CURSO" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_SALON_FACULTAD__FACULTAD" />
-        <AssociationConnector Association="GestionInfraestructuraEntitiesModel.FK_FRANJA_H_SALON_TIE_SALON" />
+      <Diagram DiagramId="b0afad5aefbc44168c54c7ed0d8f5eb2" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ASIGNATURA" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CURSO" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FACULTAD" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FRANJA_HORARIA" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RECURSO" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TIPORECURSO" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_CURSO_CURSO_TIE_ASIGNATU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_FRANJA_H_CURSO_TIE_CURSO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_RECURSO_FACULTAD__FACULTAD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_FRANJA_RECURSO" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_RECURSO_RECURSO_T_TIPORECU" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

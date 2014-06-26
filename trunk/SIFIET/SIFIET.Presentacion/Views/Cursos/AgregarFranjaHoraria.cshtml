@@ -1,6 +1,6 @@
 ﻿<script type="text/javascript">
     $(document).ready(function() {
-        $('#IDENTIFICADORSALON').change(function() {
+        $('#IDENTIFICADORRECURSO').change(function() {
             var idSalon = $(this).val();
             $.getJSON("ObtenerListaDias", { id: idSalon },
                 function(myData) {
@@ -18,7 +18,7 @@
     $(document).ready(function () {
         $('#DIAFRANJA').change(function () {
             var idDia = $(this).val();
-            var idSalon = $('#IDENTIFICADORSALON').val();
+            var idSalon = $('#IDENTIFICADORRECURSO').val();
             $.getJSON("ObtenerListaHoraInicio", { dia: idDia, idSalon:idSalon },
                 function (myData) {
                     var select = $('#HORAINICIOFRANJA');
@@ -35,7 +35,7 @@
     $(document).ready(function () {
         $('#HORAINICIOFRANJA').change(function () {
             var idDia = $('#DIAFRANJA').val();
-            var idSalon = $('#IDENTIFICADORSALON').val();
+            var idSalon = $('#IDENTIFICADORRECURSO').val();
             var horaInicio = $('#HORAINICIOFRANJA').val();
             $.getJSON("ObtenerListaHoraFin", { dia: idDia, idSalon: idSalon, horaInicio:horaInicio },
                 function (myData) {
@@ -55,10 +55,10 @@
     @Html.ValidationSummary(true)
    @Html.Hidden("idCurso", ViewData["idCurso"])
     <div>
-        <label>Seleccionar Salon: </label>
+        <label>Seleccionar Recurso: </label>
     </div>
 <div>
-    @Html.DropDownList("IDENTIFICADORSALON", new SelectList(ViewBag.ListaSalones as System.Collections.IEnumerable, "IDENTIFICADORSALON", "NOMBRESALON"), "---seleccionar salon--", new { id = "IDENTIFICADORSALON" })
+    @Html.DropDownList("IDENTIFICADORRECURSO", new SelectList(ViewBag.ListaSalones as System.Collections.IEnumerable, "IDENTIFICADORRECURSO", "NOMBRERECURSO"), "---seleccionar salon--", new { id = "IDENTIFICADORRECURSO" })
 </div>
     <div>
         <label>Seleccionar Dia:</label>

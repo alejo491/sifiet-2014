@@ -1,7 +1,17 @@
-﻿@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.BLOQUE>
+﻿@using SIFIET.Presentacion.Controllers
+@model IEnumerable<SIFIET.GestionContenidos.Datos.Modelo.BLOQUE>
 @{
     ViewBag.Title = "Home Page";
 }
+<div>
+    @using (Html.BeginForm("BuscarContenido", "Home", FormMethod.Get))
+    {
+        <p>
+            Buscar: @Html.TextBox("nombreContenido")
+            <input type="submit" value="Buscar" />
+        </p>
+    }
+</div>
 <h2>@ViewBag.Message</h2>
 <div class="row" id="contenidosHome">
     @foreach (var item in Model)
@@ -17,20 +27,26 @@
             </div>
             <div>
                 <ul>
-                    @foreach (var contenido in item.CATEGORIA.CONTENIDOes)
+                    @if (item.CATEGORIA.CONTENIDOes != null && item.CATEGORIA.CONTENIDOes.Any())
                     {
-                        DateTime fecha = DateTime.ParseExact(contenido.FECHACREACIONCONTENIDO, "dd-MM-yyyy", null);
-                        <li>
-                            <div class="fecha-contenido">
-                                @fecha.ToString("D")
-                            </div>
-                            <div class="descripcion-contenido divider">
-                                @* Html.ActionLink(title, "Metodo", "Nombre-Controlador", new { /*argumentos*/ }, null) *@
-                                @Html.ActionLink(contenido.DESCRIPCIONCONTENIDO, "Index", "Bloques", new { /*argumentos*/ }, null)
-                            </div>
-                        </li>
-                        contadorContenidos++;
-                        if (contadorContenidos == contenidosAcargar) { break; }
+                        foreach (var contenido in item.CATEGORIA.CONTENIDOes)
+                        {
+                            DateTime fecha = DateTime.ParseExact(contenido.FECHACREACIONCONTENIDO, "dd-MM-yyyy", null);
+                            <li>
+                                <div class="fecha-contenido">
+                                    @fecha.ToString("D")
+                                </div>
+                                <div class="descripcion-contenido divider">
+                                    @Html.ActionLink((string)contenido.TITULOCONTENIDO,
+                                        "VisualizarContenido", "Home", new { idContenidoIn = contenido.IDENTIFICADORCONTENIDO }, null))
+                                </div>
+                            </li>
+                            contadorContenidos++;
+                            if (contadorContenidos == contenidosAcargar)
+                            {
+                                break;
+                            }
+                        }
                     }
                 </ul>
             </div>

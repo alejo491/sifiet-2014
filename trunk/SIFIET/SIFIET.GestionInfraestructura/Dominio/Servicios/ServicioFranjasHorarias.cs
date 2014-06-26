@@ -11,33 +11,33 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
 {
     class ServicioFranjasHorarias
     {
-        public static List<FRANJA_HORARIA> ConsultarFranjaHoraria(decimal idSalon=0, string dia = "",
+        public static List<FRANJA_HORARIA> ConsultarFranjaHoraria(decimal idRecurso=0, string dia = "",
             string horaInicio = "", string horaFin = "")
         {
             var db = new GestionInfraestructuraEntities();
             List<FRANJA_HORARIA> lstFranjaHoraria;
-            if (idSalon == 0)
+            if (idRecurso == 0)
             {
                 return  db.FRANJA_HORARIA.ToList();
             }
             else
             {
                 lstFranjaHoraria =
-                    (from franja in db.FRANJA_HORARIA where franja.IDENTIFICADORSALON == idSalon select franja).ToList();
+                    (from franja in db.FRANJA_HORARIA where franja.IDENTIFICADORRECURSO == idRecurso select franja).ToList();
                 return lstFranjaHoraria;
             }
         }
 
-        public static List<string> ConsultarFranjaHorariaDisponible(string identificadorSalon, string dia = "",
+        public static List<string> ConsultarFranjaHorariaDisponible(string idRecurso, string dia = "",
             string horaInicio = "", string horaFin = "")
         {
             var db = new GestionInfraestructuraEntities();
             var resultado = new List<string>();
             resultado.Add("Seleccionar");
-            decimal idSalon = 0;
-            if (!identificadorSalon.Trim().Equals(""))
+            decimal idRecurso_aux = 0;
+            if (!idRecurso.Trim().Equals(""))
             {
-                 idSalon = decimal.Parse(identificadorSalon.Trim());
+                 idRecurso_aux = decimal.Parse(idRecurso.Trim());
             }
             if (dia.Equals("") && horaInicio.Equals("") && horaFin.Equals(""))
             {
@@ -48,7 +48,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 {
                     var auxFranjas = (from auxFranja in db.FRANJA_HORARIA
                         where auxFranja.DIAFRANJA.ToLower().Trim().Equals(
-                            diaSemana.ToLower().Trim()) && auxFranja.IDENTIFICADORSALON == idSalon
+                            diaSemana.ToLower().Trim()) && auxFranja.IDENTIFICADORRECURSO == idRecurso_aux
                         select auxFranja
                         ).ToList();
                     if (auxFranjas.Any())
@@ -80,7 +80,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                 {
                     string horaDiaStr = horaDia.ToString();
                     var auxFranjasHora = (from franja in db.FRANJA_HORARIA
-                        where franja.IDENTIFICADORSALON == idSalon
+                        where franja.IDENTIFICADORRECURSO == idRecurso_aux
                               && franja.DIAFRANJA.Trim().ToLower().Equals(dia.Trim().ToLower())
                               && franja.HORAINICIOFRANJA.Trim().ToLower().Equals(horaDiaStr.Trim().ToLower())
                         select franja).FirstOrDefault();
@@ -102,7 +102,7 @@ namespace SIFIET.GestionInfraestructura.Dominio.Servicios
                     resultado.Add(i.ToString());
                     string horaDiaStr = i.ToString();
                     var auxFranjasHora = (from franja in db.FRANJA_HORARIA
-                                          where franja.IDENTIFICADORSALON == idSalon
+                                          where franja.IDENTIFICADORRECURSO == idRecurso_aux
                                                 && franja.DIAFRANJA.Trim().ToLower().Equals(dia.Trim().ToLower())
                                                 && franja.HORAINICIOFRANJA.Trim().Equals(horaDiaStr.Trim())
                                           select franja).FirstOrDefault();

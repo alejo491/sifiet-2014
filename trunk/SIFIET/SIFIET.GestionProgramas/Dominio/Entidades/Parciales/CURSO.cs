@@ -32,15 +32,22 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
     }
     public class CURSOMETADATA
     {
+        [Display(Name = "Asignatura")]
         [Required]
         public decimal IDENTIFICADORASIGNATURA { get; set; }
+
+        [Display(Name = "Docente")]
         [Required]
         public decimal IDENTIFICADORUSUARIO { get; set; }
+
+        [Display(Name = "Nombre")]
         [Required]
         [StringLength(120, ErrorMessage = "El {0} no pueder ser mayor de 120 caracteres")]
         [NombreCursoYaExiste(ErrorMessage = "Ingrese otro nombre, ya existe un Curso usando ese nombre")]
         [RegularExpression(@"^[A-Z0-9 a-záéíóúñÑ]*$", ErrorMessage = "Caracteres Inválidos")]//Solo Numero y letras
         public string NOMBRECURSO { get; set; }
+
+        [Display(Name = "Estado")]
         [Required]
         [StringLength(30, ErrorMessage = "El {0} no pueder ser mayor de 30 caracteres")]
         public string ESTADOCURSO { get; set; }

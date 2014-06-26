@@ -14,16 +14,16 @@ namespace SIFIET.GestionProgramas.Datos.Modelo
 
     public class FACULTADMETADATA
     {
-        [Display(Name = "ID Facultad :")]
+        [Display(Name = "ID Facultad")]
         public decimal IDENTIFICADORFACULTAD { get; set; }
 
-        [Display(Name = "Facultad :")]
+        [Display(Name = "Facultad")]
         public string NOMBREFACULTAD { get; set; }
 
-        [Display(Name = "Estado :")]
+        [Display(Name = "Estado")]
         public string ESTADOFACULTAD { get; set; }
 
-        [Display(Name = "Codigo :")]
+        [Display(Name = "Codigo")]
         public string CODIGOFACULTAD { get; set; }
 
     }

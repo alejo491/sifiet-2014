@@ -51,13 +51,24 @@
         <section class="contenido">
             <div class="row">
                 <nav class="col-md-3">
-
                     @Html.Partial("_menu")
                 </nav>
                 <div class="col-md-9">
-                    <p class="breadcrumb">Usted está en: <a href="index.html">Inicio</a> > ...</p>
+                    <p class="breadcrumb">
+                        Usted está en: <a href="index.html">Inicio</a>
+                        @{
+                            string path = HttpContext.Current.Request.Url.AbsolutePath;
+                            string[] split = path.Split(new Char[] { '/' });
+                            string urlBase = "";
+                            foreach (string s in split)
+                            {
+                                urlBase = urlBase + s;
+                                <a href="/@urlBase">@s</a>
+                                <span>></span>
+                            }
+                        }
+                    </p>
                     @RenderBody()
-
                 </div>
             </div>
         </section>        

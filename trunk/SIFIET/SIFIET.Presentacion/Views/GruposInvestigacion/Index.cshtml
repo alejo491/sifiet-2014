@@ -15,11 +15,22 @@
 
     @using (Html.BeginForm("Index", "GruposInvestigacion"))
     {
-        <p>
-            Activo @Html.RadioButton("estado", "Activo", true) Inactivo @Html.RadioButton("estado", "Inactivo") @Html.DropDownList("filtroBusquedaGInvestigacion", ViewBag.filtroBusqueda as SelectList) Palabra a Buscar: @Html.TextBox("valorbusqueda")
-            <input type="submit" value="Buscar" />
-
-        </p>
+        <fieldset style="margin-bottom: 3%;">
+            <legend style="font-size: 16px;">Busqueda</legend>
+            <div style="display: block; font-size: 14px;" class="row">
+                <div style="float: left; margin-left: 5%;">
+                    <label>  Activos</label>@Html.RadioButton("estado", "Activo", true)
+                    <label>  Inactivos</label> @Html.RadioButton("estado", "Inactivo")
+                </div>
+                <div style="float: right; margin-right: 10%;">
+                    <label> Filtro:  </label>
+                    @Html.DropDownList("filtroBusquedaGInvestigacion", ViewBag.filtroBusqueda as SelectList) 
+                    <label>Buscar: </label>
+                    @Html.TextBox("valorbusqueda")
+                    <input type="submit" value="Buscar" />
+                </div>
+            </div>
+        </fieldset>
     }
     <div class="row">
         <div class="col-md-11">
@@ -62,3 +73,4 @@
         @Html.ActionLink("Registrar Grupo de Investigacion", "RegistrarGrupoInvestigacion")
     </p>
 </div>
+

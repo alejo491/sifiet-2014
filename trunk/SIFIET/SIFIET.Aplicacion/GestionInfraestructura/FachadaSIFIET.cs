@@ -23,51 +23,68 @@ namespace SIFIET.Aplicacion
         }
         #endregion 
 
-        #region Metodos Gestion Infraestructura Fachada Salones
-        public static List<SALON> ConsultarSalones(decimal idSalon, string nombreSalon, string estado)
+        #region Metodos Gestion Infraestructura Fachada Recursos
+
+        public static List<RECURSO> ConsultarRecursos(decimal idRecurso, string nombreRecurso, string estado)
         {
-            return FachadaSalones.ConsultarSalones(idSalon, nombreSalon, estado);
+            return FachadaRecursos.ConsultarRecursos(idRecurso, nombreRecurso, estado);
         }
 
-        public static SALON VisualizarSalon(decimal idSalon)
+        public static RECURSO VisualizaRecurso(decimal idRecurso)
         {
-            return FachadaSalones.VisualizarSalon(idSalon);
+            return FachadaRecursos.VisualizarRecurso(idRecurso);
         }
 
-        public static bool RegistrarSalon(SALON oSalon)
+        public static bool RegistrarRecurso(RECURSO oRecurso)
         {
-            return FachadaSalones.RegistrarSalon(oSalon);
+            return FachadaRecursos.RegistrarRecurso(oRecurso);
         }
 
-        public static bool ModificarSalon(SALON oSalon)
+        public static bool ModificarRecurso(RECURSO oRecurso)
         {
-            return FachadaSalones.ModificarSalon(oSalon);
+            return FachadaRecursos.ModificarRecurso(oRecurso);
         }
 
-        public static bool EliminarSalon(decimal idSalon)
+        public static bool EliminarRecurso(decimal idRecurso)
         {
-            return FachadaSalones.EliminarSalon(idSalon);
+            return FachadaRecursos.EliminarRecurso(idRecurso);
         }
 
-        public static bool CargarInformacionSalon(string archivo)
+        public static bool CargarInformacionRecurso(string archivo)
         {
-            return FachadaSalones.CargarInformacion(archivo);
+            return FachadaRecursos.CargarInformacion(archivo);
         }
 
-        public static bool VerificarExistenciaSalon(string nombreSalon, string IdFacultad)
+        public static bool VerificarExistenciaRecurso(string nombreRecurso, string IdTipoRecurso)
         {
-            return FachadaSalones.VerificarExistenciaSalon(nombreSalon, IdFacultad);
+            return FachadaRecursos.VerificarExistenciaRecurso(nombreRecurso, IdTipoRecurso);
+        }
+
+        public static bool VerificarExistenciaTipoRecurso(string tipoRecurso)
+        {
+            return FachadaRecursos.VerificarExistenciaTipoRecurso(tipoRecurso);
         }
 
         public static bool VerificarCampoFacultad(string nombreFacultad)
         {
-            return FachadaSalones.VerificarCampoFacultad(nombreFacultad);
+            return FachadaRecursos.VerificarCampoFacultad(nombreFacultad);
         }
 
         public static string ObtenerIdFacultad(string nombreFacultad)
         {
-            return FachadaSalones.ObtenerIdFacultad(nombreFacultad);
+            return FachadaRecursos.ObtenerIdFacultad(nombreFacultad);
         }
+
+        public static string ObtenerIdTipoRecurso(string tipoRecurso)
+        {
+            return FachadaRecursos.ObtenerIdTipoRecurso(tipoRecurso);
+        }
+
+        public static List<TIPORECURSO> ConsultarTiposRecurso()
+        {
+            return FachadaRecursos.ConsultarTiposRecurso();
+        }
+
         #endregion
 
         #region Metodos Gestion de Infraestructura Fachada FranjaHorarias
@@ -78,7 +95,7 @@ namespace SIFIET.Aplicacion
         }
         public static List<FRANJA_HORARIA> ObtenerHorarioCurso(decimal idCurso)
         {
-            return FachadaSalones.ObtenerHorarioCurso(idCurso);
+            return FachadaRecursos.ObtenerHorarioCurso(idCurso);
         }
 
         public static List<string> ConsultarFranjaHorariaDisponible(string idSalon, string dia = "",

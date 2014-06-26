@@ -50,23 +50,29 @@ namespace SIFIET.GestionContenidos.Datos.Modelo
     public class CONTENIDOMETADATA
     {        
         [Required]
+        [Display(Name = "Título")]
         [TituloContenidoYaExiste(ErrorMessage = "Ingrese otro titulo, ya existe un Contenidod usando ese titulo")]
         [StringLength(255, ErrorMessage = "El {0} no pueder ser mayor de 255 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string TITULOCONTENIDO { get; set; }
 
+        [Display(Name = "Descripción")]
         [StringLength(1000, ErrorMessage = "El {0} no pueder ser mayor de 1000 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         public string DESCRIPCIONCONTENIDO { get; set; }
 
+        [Display(Name = "Cuerpo")]
+        [Required]
         [StringLength(4000, ErrorMessage = "El {0} no pueder ser mayor de 4000 caracteres")]
         [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
-        public string CUERPOCONTENIDO { get; set; }        
+        public string CUERPOCONTENIDO { get; set; }
 
+        [Display(Name = "Estado")]
         [Required]
         [StringLength(50, ErrorMessage = "El {0} no pueder ser mayor de 50 caracteres")]
         public string ESTADOCONTENIDO { get; set; }
 
+        [Display(Name = "Prioridad")]
         [RegularExpression(@"^[A-Z0-9 a-zÑñáéíóúÁÉÍÓÚ_]*$", ErrorMessage = "Caracteres Inválidos, Solo ingresa números y letras")]//Solo Numero y letras
         [StringLength(100, ErrorMessage = "El {0} no pueder ser mayor de 100 caracteres")]
         public string PRIORIDADCONTENIDO { get; set; }
